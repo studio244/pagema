@@ -162,7 +162,7 @@ function PreregistrationForm() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
-  const [category, setCategory] = useState(CATEGORIES[0]);
+  const [category, setCategory] = useState<string>(CATEGORIES[0]);
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
     "idle",
   );
