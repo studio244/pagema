@@ -14,7 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      preregistrations: {
+        Row: {
+          category: string
+          city: string
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          phone: string
+          profile: string
+        }
+        Insert: {
+          category: string
+          city: string
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          phone: string
+          profile?: string
+        }
+        Update: {
+          category?: string
+          city?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          phone?: string
+          profile?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
