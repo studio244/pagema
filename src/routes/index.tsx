@@ -134,6 +134,8 @@ function Index() {
         </div>
       </section>
 
+      <AiFeatures />
+
       <Coverage />
 
       <Footer />
@@ -260,6 +262,99 @@ function HowItWorks() {
             </p>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+const AI_FEATURES = [
+  {
+    n: "01",
+    title: "Demande en langage naturel",
+    body: "« 2 agents de sécurité de nuit à Casablanca, budget 12 000 DH, avant le 30 » — l'IA structure la demande à votre place.",
+  },
+  {
+    n: "02",
+    title: "Score de correspondance expliqué",
+    body: "Chaque pro proposé reçoit une note sur 100, avec les raisons affichées : métier, ville, taille d'équipe, disponibilité.",
+  },
+  {
+    n: "03",
+    title: "Validation humaine obligatoire",
+    body: "Aucune mise en relation n'est envoyée sans votre accord. L'IA prépare, vous décidez.",
+  },
+  {
+    n: "04",
+    title: "Indice de confiance transparent",
+    body: "Vérification des documents, historique des missions, avis vérifiés — jamais de boîte noire.",
+  },
+  {
+    n: "05",
+    title: "Veille de marché continue",
+    body: "Pour les prestataires : alertes automatiques dès qu'une demande correspond à votre métier et votre ville.",
+  },
+  {
+    n: "06",
+    title: "Bouton d'arrêt de l'IA",
+    body: "Un seul clic met en pause toute action automatique sur votre dossier.",
+  },
+];
+
+function AiFeatures() {
+  return (
+    <section id="section-ia" className="scroll-mt-20 max-w-6xl mx-auto px-5 py-16">
+      <div className="flex items-end justify-between flex-wrap gap-3 mb-8">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-3">
+            [ e ] — Bientôt : l'IA au service de la mise en relation
+          </p>
+          <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">
+            Ce qui arrive
+            <br />
+            après l'ouverture.
+          </h2>
+        </div>
+        <span className="font-mono text-[10px] uppercase tracking-[0.18em] border-2 border-ink px-2 py-1 rotate-[-2deg] bg-terra text-paper">
+          En préparation
+        </span>
+      </div>
+
+      <p className="max-w-[56ch] text-lg text-ink-soft text-pretty mb-8">
+        Le cœur reste humain : un appel pour qualifier, jusqu'à 3 devis
+        comparables. L'IA accélère la recherche, elle ne décide jamais à votre
+        place.
+      </p>
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {AI_FEATURES.map((f) => (
+          <div key={f.n} className="lift border-2 border-ink bg-paper-deep p-5">
+            <div className="flex items-baseline justify-between gap-2">
+              <span className="font-display text-4xl text-terra">{f.n}</span>
+              <span className="font-mono text-[9px] uppercase tracking-wide border border-ink px-1.5 py-0.5">
+                À venir
+              </span>
+            </div>
+            <h3 className="font-sans font-semibold text-lg mt-2 text-pretty">
+              {f.title}
+            </h3>
+            <p className="text-sm text-ink-soft mt-1 text-pretty">{f.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 flex flex-col sm:flex-row gap-3">
+        <a
+          href="#section-client"
+          className="w-full sm:w-auto text-center bg-terra text-paper border-2 border-ink font-display text-xl tracking-tight px-8 py-3 lift"
+        >
+          Accès anticipé — je cherche un pro
+        </a>
+        <a
+          href="#section-prestataire"
+          className="w-full sm:w-auto text-center bg-paper text-ink border-2 border-ink font-display text-xl tracking-tight px-8 py-3 lift hover:bg-paper-deep"
+        >
+          Accès anticipé — je suis pro
+        </a>
       </div>
     </section>
   );
