@@ -266,7 +266,7 @@ function PreregistrationForm() {
             >
               <button
                 type="button"
-                onClick={() => setProfile("client")}
+                onClick={() => switchProfile("client")}
                 aria-selected={profile === "client"}
                 className={`py-2 transition-colors ${profile === "client" ? "bg-ink text-paper" : "hover:bg-paper/60"}`}
               >
@@ -274,13 +274,20 @@ function PreregistrationForm() {
               </button>
               <button
                 type="button"
-                onClick={() => setProfile("prestataire")}
+                onClick={() => switchProfile("prestataire")}
                 aria-selected={profile === "prestataire"}
                 className={`py-2 transition-colors border-l-2 border-ink ${profile === "prestataire" ? "bg-ink text-paper" : "hover:bg-paper/60"}`}
               >
                 Je suis prestataire
               </button>
             </div>
+
+            <p className="font-mono text-[10px] leading-relaxed uppercase tracking-[0.12em] text-ink-soft mb-3">
+              {profile === "client"
+                ? "Formulaire client — décrivez votre besoin"
+                : "Formulaire prestataire — présentez votre société"}
+            </p>
+
 
             <form className="space-y-3" onSubmit={handleSubmit}>
               <input
