@@ -2,7 +2,21 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
-const CATEGORIES = ["Sécurité", "Nettoyage", "Intérim", "Assurance"];
+const CATEGORIES = [
+  "Sécurité",
+  "Nettoyage",
+  "Intérim",
+  "Assurance",
+  "Santé",
+];
+
+const HEALTH_ENTITIES = [
+  "Groupe de santé",
+  "Clinique",
+  "Centre de soins / diagnostic",
+];
+
+const TEAM_SIZES = ["1–5", "6–20", "21–50", "51–200", "200+"];
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -163,12 +177,27 @@ function PreregistrationForm() {
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [category, setCategory] = useState<string>(CATEGORIES[0]!);
+  const [companyName, setCompanyName] = useState("");
+  const [teamSize, setTeamSize] = useState<string>(TEAM_SIZES[0]!);
+  const [needDetails, setNeedDetails] = useState("");
+  const [healthEntity, setHealthEntity] = useState<string>(HEALTH_ENTITIES[0]!);
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
     "idle",
   );
 
   const inputClass =
     "w-full bg-transparent border-2 border-ink px-3 py-2.5 text-sm placeholder:text-ink-soft focus:outline-none focus:ring-2 focus:ring-terra/50";
+  const selectClass =
+    "w-full bg-transparent border-2 border-ink px-2 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-terra/50";
+  const labelClass =
+    "block font-mono text-[10px] uppercase tracking-[0.15em] text-ink-soft mb-1";
+
+  const isHealth = category === "Santé";
+
+  function switchProfile(next: Profile) {
+    setProfile(next);
+    setStatus("idle");
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -180,6 +209,10 @@ function PreregistrationForm() {
       city: city.trim(),
       category,
       profile,
+      company_name: companyName.trim() || null,
+      team_size: profile === "prestataire" ? teamSize : null,
+      need_details: needDetails.trim() || null,
+      health_entity_type: isHealth ? healthEntity : null,
     });
     setStatus(error ? "error" : "done");
   }
@@ -233,7 +266,7 @@ function PreregistrationForm() {
             >
               <button
                 type="button"
-                onClick={() => setProfile("client")}
+                onClick={() => switchProfile("client")}
                 aria-selected={profile === "client"}
                 className={`py-2 transition-colors ${profile === "client" ? "bg-ink text-paper" : "hover:bg-paper/60"}`}
               >
@@ -241,7 +274,7 @@ function PreregistrationForm() {
               </button>
               <button
                 type="button"
-                onClick={() => setProfile("prestataire")}
+                onClick={() => switchProfile("prestataire")}
                 aria-selected={profile === "prestataire"}
                 className={`py-2 transition-colors border-l-2 border-ink ${profile === "prestataire" ? "bg-ink text-paper" : "hover:bg-paper/60"}`}
               >
@@ -249,55 +282,176 @@ function PreregistrationForm() {
               </button>
             </div>
 
-            <form className="space-y-3" onSubmit={handleSubmit}>
-              <input
-                className={inputClass}
-                placeholder="Prénom & nom"
-                required
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-              />
-              <input
-                className={inputClass}
-                placeholder="Téléphone (06…)"
-                type="tel"
-                required
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-              <input
-                className={inputClass}
-                placeholder="Email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <div className="grid grid-cols-2 gap-3">
+            <p className="font-mono text-[10px] leading-relaxed uppercase tracking-[0.12em] text-ink-soft mb-3">
+              {profile === "client"
+                ? "Formulaire client — décrivez votre besoin"
+                : "Formulaire prestataire — présentez votre société"}
+            </p>
+
+
+            <form
+              key={profile}
+              className="space-y-3"
+              onSubmit={handleSubmit}
+            >
+              {profile === "prestataire" && (
+                <div>
+                  <label className={labelClass} htmlFor="company">
+                    Raison sociale
+                  </label>
+                  <input
+                    id="company"
+                    className={inputClass}
+                    placeholder="Nom de la société"
+                    required
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                  />
+                </div>
+              )}
+
+              <div>
+                <label className={labelClass} htmlFor="name">
+                  {profile === "client" ? "Votre nom" : "Personne de contact"}
+                </label>
                 <input
+                  id="name"
                   className={inputClass}
-                  placeholder="Ville"
+                  placeholder="Prénom & nom"
                   required
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                 />
-                <select
-                  className="w-full bg-transparent border-2 border-ink px-2 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-terra/50"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  aria-label="Catégorie de service"
-                >
-                  {CATEGORIES.map((c) => (
-                    <option key={c}>{c}</option>
-                  ))}
-                </select>
               </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className={labelClass} htmlFor="phone">
+                    Téléphone
+                  </label>
+                  <input
+                    id="phone"
+                    className={inputClass}
+                    placeholder="06…"
+                    type="tel"
+                    required
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass} htmlFor="email">
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    className={inputClass}
+                    placeholder={
+                      profile === "client" ? "vous@email.ma" : "contact@societe.ma"
+                    }
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className={labelClass} htmlFor="city">
+                    Ville
+                  </label>
+                  <input
+                    id="city"
+                    className={inputClass}
+                    placeholder="Casablanca"
+                    required
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass} htmlFor="category">
+                    {profile === "client" ? "Service cherché" : "Votre métier"}
+                  </label>
+                  <select
+                    id="category"
+                    className={selectClass}
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    {CATEGORIES.map((c) => (
+                      <option key={c}>{c}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {isHealth && (
+                <div>
+                  <label className={labelClass} htmlFor="health">
+                    Type d'établissement de santé
+                  </label>
+                  <select
+                    id="health"
+                    className={selectClass}
+                    value={healthEntity}
+                    onChange={(e) => setHealthEntity(e.target.value)}
+                  >
+                    {HEALTH_ENTITIES.map((h) => (
+                      <option key={h}>{h}</option>
+                    ))}
+                  </select>
+                  <p className="mt-1 font-mono text-[10px] leading-relaxed text-ink-soft">
+                    Groupes, cliniques et centres uniquement — ni médecins
+                    indépendants, ni établissements publics.
+                  </p>
+                </div>
+              )}
+
+              {profile === "prestataire" ? (
+                <div>
+                  <label className={labelClass} htmlFor="team">
+                    Taille de l'équipe
+                  </label>
+                  <select
+                    id="team"
+                    className={selectClass}
+                    value={teamSize}
+                    onChange={(e) => setTeamSize(e.target.value)}
+                  >
+                    {TEAM_SIZES.map((t) => (
+                      <option key={t}>{t}</option>
+                    ))}
+                  </select>
+                </div>
+              ) : (
+                <div>
+                  <label className={labelClass} htmlFor="need">
+                    Votre besoin (optionnel)
+                  </label>
+                  <textarea
+                    id="need"
+                    rows={3}
+                    className={inputClass}
+                    placeholder="Ex : 2 agents de sécurité de nuit, site à Casablanca…"
+                    value={needDetails}
+                    onChange={(e) => setNeedDetails(e.target.value)}
+                  />
+                </div>
+              )}
+
               <button
                 type="submit"
                 disabled={status === "sending"}
                 className="w-full bg-terra text-paper border-2 border-ink font-display text-xl tracking-tight py-3 lift disabled:opacity-60"
               >
-                {status === "sending" ? "Envoi…" : "Je m'inscris"}
+                {status === "sending"
+                  ? "Envoi…"
+                  : profile === "client"
+                    ? "Je cherche un pro"
+                    : "Je m'inscris comme pro"}
               </button>
               {status === "error" && (
                 <p className="text-sm text-terra-deep text-center font-medium">
