@@ -2,7 +2,21 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
-const CATEGORIES = ["Sécurité", "Nettoyage", "Intérim", "Assurance"];
+const CATEGORIES = [
+  "Sécurité",
+  "Nettoyage",
+  "Intérim",
+  "Assurance",
+  "Santé",
+];
+
+const HEALTH_ENTITIES = [
+  "Groupe de santé",
+  "Clinique",
+  "Centre de soins / diagnostic",
+];
+
+const TEAM_SIZES = ["1–5", "6–20", "21–50", "51–200", "200+"];
 
 export const Route = createFileRoute("/")({
   head: () => ({
