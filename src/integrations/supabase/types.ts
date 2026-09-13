@@ -18,32 +18,44 @@ export type Database = {
         Row: {
           category: string
           city: string
+          company_name: string | null
           created_at: string
           email: string
           full_name: string
+          health_entity_type: string | null
           id: string
+          need_details: string | null
           phone: string
           profile: string
+          team_size: string | null
         }
         Insert: {
           category: string
           city: string
+          company_name?: string | null
           created_at?: string
           email: string
           full_name: string
+          health_entity_type?: string | null
           id?: string
+          need_details?: string | null
           phone: string
           profile?: string
+          team_size?: string | null
         }
         Update: {
           category?: string
           city?: string
+          company_name?: string | null
           created_at?: string
           email?: string
           full_name?: string
+          health_entity_type?: string | null
           id?: string
+          need_details?: string | null
           phone?: string
           profile?: string
+          team_size?: string | null
         }
         Relationships: []
       }
