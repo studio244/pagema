@@ -177,12 +177,27 @@ function PreregistrationForm() {
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [category, setCategory] = useState<string>(CATEGORIES[0]!);
+  const [companyName, setCompanyName] = useState("");
+  const [teamSize, setTeamSize] = useState<string>(TEAM_SIZES[0]!);
+  const [needDetails, setNeedDetails] = useState("");
+  const [healthEntity, setHealthEntity] = useState<string>(HEALTH_ENTITIES[0]!);
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
     "idle",
   );
 
   const inputClass =
     "w-full bg-transparent border-2 border-ink px-3 py-2.5 text-sm placeholder:text-ink-soft focus:outline-none focus:ring-2 focus:ring-terra/50";
+  const selectClass =
+    "w-full bg-transparent border-2 border-ink px-2 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-terra/50";
+  const labelClass =
+    "block font-mono text-[10px] uppercase tracking-[0.15em] text-ink-soft mb-1";
+
+  const isHealth = category === "Santé";
+
+  function switchProfile(next: Profile) {
+    setProfile(next);
+    setStatus("idle");
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -194,6 +209,10 @@ function PreregistrationForm() {
       city: city.trim(),
       category,
       profile,
+      company_name: companyName.trim() || null,
+      team_size: profile === "prestataire" ? teamSize : null,
+      need_details: needDetails.trim() || null,
+      health_entity_type: isHealth ? healthEntity : null,
     });
     setStatus(error ? "error" : "done");
   }
