@@ -8,6 +8,8 @@ const CATEGORIES = [
   "Intérim",
   "Assurance",
   "Santé",
+  "Impression",
+  "Publicité",
 ];
 
 const HEALTH_ENTITIES = [
