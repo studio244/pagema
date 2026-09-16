@@ -457,27 +457,16 @@ function AiFeatures() {
 
 const MAP_CITIES: { name: string; x: number; y: number }[] = [
   { name: "Tanger", x: 250, y: 10 },
-  { name: "Tétouan", x: 259, y: 15 },
-  { name: "Chefchaouen", x: 262, y: 24 },
-  { name: "Al Hoceïma", x: 290, y: 22 },
   { name: "Nador", x: 311, y: 24 },
   { name: "Oujda", x: 333, y: 36 },
   { name: "Fès", x: 267, y: 52 },
   { name: "Meknès", x: 256, y: 55 },
-  { name: "Ifrane", x: 265, y: 64 },
-  { name: "Kénitra", x: 234, y: 46 },
-  { name: "Salé", x: 229, y: 51 },
   { name: "Rabat", x: 228, y: 53 },
   { name: "Casablanca", x: 212, y: 63 },
-  { name: "Mohammédia", x: 217, y: 60 },
-  { name: "Settat", x: 211, y: 77 },
-  { name: "Khouribga", x: 227, y: 80 },
   { name: "El Jadida", x: 192, y: 71 },
   { name: "Béni Mellal", x: 239, y: 93 },
   { name: "Safi", x: 177, y: 94 },
   { name: "Marrakech", x: 203, y: 110 },
-  { name: "Essaouira", x: 166, y: 113 },
-  { name: "Ouarzazate", x: 227, y: 127 },
   { name: "Agadir", x: 169, y: 139 },
   { name: "Laâyoune", x: 92, y: 218 },
   { name: "Dakhla", x: 34, y: 302 },
@@ -608,29 +597,18 @@ function layoutMapLabels(): PlacedLabel[] {
 }
 
 const MAP_LINKS: [string, string][] = [
-  ["Tanger", "Tétouan"],
-  ["Tétouan", "Chefchaouen"],
-  ["Chefchaouen", "Al Hoceïma"],
-  ["Al Hoceïma", "Nador"],
+  ["Tanger", "Nador"],
   ["Nador", "Oujda"],
   ["Oujda", "Fès"],
   ["Fès", "Meknès"],
-  ["Meknès", "Ifrane"],
-  ["Meknès", "Kénitra"],
-  ["Tanger", "Kénitra"],
-  ["Kénitra", "Salé"],
-  ["Salé", "Rabat"],
-  ["Rabat", "Mohammédia"],
-  ["Mohammédia", "Casablanca"],
-  ["Casablanca", "Settat"],
-  ["Settat", "Khouribga"],
-  ["Khouribga", "Béni Mellal"],
+  ["Meknès", "Rabat"],
+  ["Tanger", "Rabat"],
+  ["Rabat", "Casablanca"],
   ["Casablanca", "El Jadida"],
-  ["El Jadida", "Safi"],
-  ["Safi", "Essaouira"],
+  ["Casablanca", "Béni Mellal"],
   ["Béni Mellal", "Marrakech"],
-  ["Marrakech", "Essaouira"],
-  ["Marrakech", "Ouarzazate"],
+  ["El Jadida", "Safi"],
+  ["Safi", "Marrakech"],
   ["Marrakech", "Agadir"],
   ["Agadir", "Laâyoune"],
   ["Laâyoune", "Dakhla"],
@@ -645,7 +623,7 @@ function MoroccoNetwork() {
       viewBox="0 0 372 390"
       className="absolute inset-0 h-full w-full p-4 transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
       role="img"
-      aria-label="Carte du Maroc et réseau des 25 villes couvertes, de Tanger à Dakhla"
+      aria-label="Carte du Maroc et réseau des principales villes couvertes, de Tanger à Dakhla"
     >
       <path
         d="M10.0 366.6 L11.9 345.2 L20.1 338.6 L27.0 326.1 L25.7 317.8 L33.1 300.8 L44.9 285.4 L52.2 281.4 L57.7 267.5 L58.3 254.6 L66.0 239.6 L80.2 230.8 L93.7 206.2 L104.8 196.6 L124.7 193.8 L141.5 177.4 L152.2 170.9 L169.8 150.9 L164.6 120.7 L175.6 87.2 L189.3 70.9 L226.5 49.9 L247.5 10.0 L263.2 10.1 L276.1 20.4 L296.3 18.7 L327.7 24.3 L335.7 39.8 L337.0 54.5 L344.4 79.9 L350.0 85.1 L346.1 94.5 L318.3 98.5 L308.5 107.5 L296.4 109.6 L295.3 127.5 L270.4 137.0 L262.2 149.1 L244.7 155.6 L223.4 159.3 L189.1 177.1 L188.7 248.7 L118.8 247.6 L119.3 309.2 L99.3 311.6 L94.2 323.9 L98.2 358.7 L14.8 358.5 L10.0 366.6 Z"
