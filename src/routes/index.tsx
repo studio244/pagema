@@ -498,36 +498,27 @@ type PlacedLabel = {
   leader: boolean;
 };
 
-const LABEL_CANDIDATES: { dx: number; dy: number; anchor: "start" | "end" | "middle" }[] = [
-  { dx: 6, dy: 3, anchor: "start" },
-  { dx: -6, dy: 3, anchor: "end" },
-  { dx: 6, dy: -5, anchor: "start" },
-  { dx: -6, dy: -5, anchor: "end" },
-  { dx: 6, dy: 11, anchor: "start" },
-  { dx: -6, dy: 11, anchor: "end" },
-  { dx: 0, dy: -8, anchor: "middle" },
-  { dx: 0, dy: 15, anchor: "middle" },
-  { dx: 14, dy: -12, anchor: "start" },
-  { dx: -14, dy: -12, anchor: "end" },
-  { dx: 14, dy: 18, anchor: "start" },
-  { dx: -14, dy: 18, anchor: "end" },
-  { dx: 24, dy: -20, anchor: "start" },
-  { dx: -24, dy: -20, anchor: "end" },
-  { dx: 24, dy: 26, anchor: "start" },
-  { dx: -24, dy: 26, anchor: "end" },
-];
+// Candidate slots: eight directions around the dot, at growing distances.
+const LABEL_CANDIDATES: { dx: number; dy: number; anchor: "start" | "end" | "middle" }[] = (() => {
+  const slots: { dx: number; dy: number; anchor: "start" | "end" | "middle" }[] = [];
+  for (const r of [6, 12, 20, 30, 42, 56]) {
+    slots.push({ dx: r, dy: 3, anchor: "start" });
+    slots.push({ dx: -r, dy: 3, anchor: "end" });
+    slots.push({ dx: r * 0.8, dy: -r * 0.7 - 3, anchor: "start" });
+    slots.push({ dx: -r * 0.8, dy: -r * 0.7 - 3, anchor: "end" });
+    slots.push({ dx: r * 0.8, dy: r * 0.7 + 6, anchor: "start" });
+    slots.push({ dx: -r * 0.8, dy: r * 0.7 + 6, anchor: "end" });
+    slots.push({ dx: 0, dy: -r - 4, anchor: "middle" });
+    slots.push({ dx: 0, dy: r + 9, anchor: "middle" });
+  }
+  return slots;
+})();
 
 function overlaps(a: LabelBox, b: LabelBox) {
   return a.x1 < b.x2 && a.x2 > b.x1 && a.y1 < b.y2 && a.y2 > b.y1;
 }
 
-function segmentHitsBox(
-  ax: number,
-  ay: number,
-  bx: number,
-  by: number,
-  box: LabelBox,
-) {
+function segmentHitsBox(ax: number, ay: number, bx: number, by: number, box: LabelBox) {
   const steps = 24;
   for (let i = 0; i <= steps; i++) {
     const t = i / steps;
@@ -538,8 +529,9 @@ function segmentHitsBox(
   return false;
 }
 
-// Deterministic label layout: each city name takes the first candidate slot that
-// collides with neither an already placed name, a city dot, nor a network link.
+// Deterministic label layout: every city name takes the closest free slot around
+// its dot. Names never overlap each other or a dot; link lines are avoided when
+// possible, and a thin leader line ties a pushed-away name back to its dot.
 function layoutMapLabels(): PlacedLabel[] {
   const dotBoxes: LabelBox[] = MAP_CITIES.map((c) => ({
     x1: c.x - 4,
@@ -559,9 +551,11 @@ function layoutMapLabels(): PlacedLabel[] {
 
   for (const city of order) {
     const width = city.name.length * LABEL_CHAR_WIDTH;
-    let chosen: PlacedLabel | null = null;
 
-    for (const candidate of LABEL_CANDIDATES) {
+    const evaluate = (
+      candidate: (typeof LABEL_CANDIDATES)[number],
+      avoidLinks: boolean,
+    ): PlacedLabel | null => {
       const x = city.x + candidate.dx;
       const y = city.y + candidate.dy;
       const x1 =
@@ -572,15 +566,20 @@ function layoutMapLabels(): PlacedLabel[] {
         x2: x1 + width + 1,
         y2: y + 2,
       };
-      const insideView =
-        box.x1 >= 2 && box.x2 <= MAP_VIEW.width - 2 && box.y1 >= 2 && box.y2 <= MAP_VIEW.height - 2;
-      if (!insideView) continue;
-      if (placedBoxes.some((b) => overlaps(box, b))) continue;
-      if (dotBoxes.some((b) => overlaps(box, b))) continue;
-      if (linkSegments.some(([ax, ay, bx, by]) => segmentHitsBox(ax, ay, bx, by, box))) continue;
+      if (
+        box.x1 < 2 ||
+        box.x2 > MAP_VIEW.width - 2 ||
+        box.y1 < 2 ||
+        box.y2 > MAP_VIEW.height - 2
+      )
+        return null;
+      if (placedBoxes.some((b) => overlaps(box, b))) return null;
+      if (dotBoxes.some((b) => overlaps(box, b))) return null;
+      if (avoidLinks && linkSegments.some(([ax, ay, bx, by]) => segmentHitsBox(ax, ay, bx, by, box)))
+        return null;
 
       placedBoxes.push(box);
-      chosen = {
+      return {
         name: city.name,
         x,
         y,
@@ -589,9 +588,19 @@ function layoutMapLabels(): PlacedLabel[] {
         cityY: city.y,
         leader: Math.abs(candidate.dx) > 10 || Math.abs(candidate.dy) > 12,
       };
-      break;
-    }
+    };
 
+    let chosen: PlacedLabel | null = null;
+    for (const candidate of LABEL_CANDIDATES) {
+      chosen = evaluate(candidate, true);
+      if (chosen) break;
+    }
+    if (!chosen) {
+      for (const candidate of LABEL_CANDIDATES) {
+        chosen = evaluate(candidate, false);
+        if (chosen) break;
+      }
+    }
     if (chosen) placed.push(chosen);
   }
 
