@@ -13,6 +13,44 @@ const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
 const STAMP_URL = stampAsset.url;
 
+/** Marque Page.ma (la lame terre cuite du logo), utilisée comme motif de marque. */
+function BrandMark({
+  className = "",
+  ...rest
+}: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 100 130"
+      aria-hidden="true"
+      focusable="false"
+      className={className}
+      fill="currentColor"
+      {...rest}
+    >
+      <path d="M2 3 L92 96 a9 9 0 0 1 -2 14 c-20 12 -24 40 -7 60 l4 5 H8 a6 6 0 0 1 -6 -6 Z" />
+    </svg>
+  );
+}
+
+function Eyebrow({
+  children,
+  className = "",
+  markClassName = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  markClassName?: string;
+}) {
+  return (
+    <p
+      className={`flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.2em] ${className}`}
+    >
+      <BrandMark className={`h-3.5 w-auto shrink-0 ${markClassName}`} />
+      <span>{children}</span>
+    </p>
+  );
+}
+
 const REAL_ESTATE = "Immobilier";
 const INVESTMENT = "Investissement";
 
@@ -129,9 +167,9 @@ function Index() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
             <div className="drop [animation-delay:80ms] text-paper">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-4">
+              <Eyebrow className="text-terra mb-4">
                 VOUS AVEZ UN BESOIN
-              </p>
+              </Eyebrow>
               <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
                 Décrivez votre
                 <br />
@@ -171,16 +209,17 @@ function Index() {
         </div>
       </section>
 
-      <section id="section-prestataire" className="scroll-mt-24 border-y-2 border-ink bg-paper-deep">
+      <section id="section-prestataire" className="relative isolate overflow-hidden scroll-mt-24 border-y-2 border-ink bg-paper-deep">
+        <BrandMark className="pointer-events-none absolute -right-10 -bottom-16 -z-10 h-[26rem] w-auto text-terra/10" />
         <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
             <PreregistrationForm profile="prestataire" />
 
             <div className="drop [animation-delay:80ms]">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra-deep mb-4">
+              <Eyebrow className="text-terra-deep mb-4">
                 VOUS PROPOSEZ DES SERVICES
-              </p>
+              </Eyebrow>
               <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
                 Rejoignez le
                 <br />
@@ -406,9 +445,7 @@ function HowItWorks() {
       className="scroll-mt-24 border-y-2 border-ink bg-ink text-paper"
     >
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-10">
-          COMMENT ÇA MARCHE
-        </p>
+        <Eyebrow className="text-terra mb-10">COMMENT ÇA MARCHE</Eyebrow>
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
           {[
             {
@@ -501,9 +538,9 @@ function AiFeatures() {
     <section id="section-ia" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28">
       <div className="flex items-end justify-between flex-wrap gap-4 mb-6">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-4">
+          <Eyebrow className="text-terra mb-4">
             BIENTÔT : L'IA AU SERVICE DE LA MISE EN RELATION
-          </p>
+          </Eyebrow>
           <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">
             Ce qui arrive
             <br />
@@ -810,9 +847,9 @@ function Coverage() {
       <div className="flex flex-col overflow-hidden border-[3px] border-ink bg-paper shadow-[10px_10px_0_var(--ink)] lg:flex-row">
         <div className="flex flex-col border-b-[3px] border-ink lg:w-[38%] lg:border-r-[3px] lg:border-b-0">
           <div className="border-b-[3px] border-ink bg-terra p-7 sm:p-9">
-            <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-paper">
+            <Eyebrow className="mb-4 !text-[10px] font-bold text-paper">
               COUVERTURE NATIONALE
-            </p>
+            </Eyebrow>
             <h2 id="coverage-title" className="font-display text-7xl leading-[0.82] text-paper sm:text-8xl">
               25
               <span className="block h-3 sm:h-5" />
@@ -914,7 +951,8 @@ const FOOTER_COLUMNS: { title: string; links: { label: string; href: string }[] 
 
 function Footer() {
   return (
-    <footer className="border-t-2 border-ink zellige">
+    <footer className="relative isolate overflow-hidden border-t-2 border-ink zellige">
+      <BrandMark className="pointer-events-none absolute -right-14 -bottom-20 -z-10 h-[24rem] w-auto text-ink/[0.07]" />
       <div className="max-w-6xl mx-auto px-5 py-16 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-4 lg:gap-16">
           <div className="lg:pr-8">
@@ -927,8 +965,9 @@ function Footer() {
 
           {FOOTER_COLUMNS.map((column) => (
             <nav key={column.title} aria-label={column.title}>
-              <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-terra">
-                {column.title}
+              <h2 className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-terra">
+                <BrandMark className="h-3 w-auto shrink-0" />
+                <span>{column.title}</span>
               </h2>
               <ul className="mt-6 space-y-3">
                 {column.links.map((link) => (
@@ -968,7 +1007,7 @@ function Benefit({
 }) {
   return (
     <li className={`flex items-start gap-3 ${tone === "paper" ? "text-paper" : "text-ink"}`}>
-      <span className="mt-1 shrink-0 font-mono text-sm leading-none text-terra">✓</span>
+      <BrandMark className="mt-1.5 h-3.5 w-auto shrink-0 text-terra" />
       <span className="leading-relaxed text-pretty">{children}</span>
     </li>
 
