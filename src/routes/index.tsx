@@ -839,12 +839,14 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
               disabled={status === "sending"}
               className="w-full inline-flex items-center justify-center bg-terra text-paper border-2 border-ink font-display text-xl leading-none tracking-tight py-4 mt-2 lift disabled:opacity-60"
             >
-
               {status === "sending"
                 ? "Envoi…"
                 : profile === "client"
-                  ? "Je cherche un pro"
+                  ? isRealEstate
+                    ? "Je veux être mis en relation"
+                    : "Je cherche un pro"
                   : "Je m'inscris comme pro"}
+
             </button>
             {status === "error" && (
               <p className="text-sm text-terra-deep text-center font-medium">
