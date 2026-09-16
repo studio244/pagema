@@ -236,9 +236,6 @@ function Nav() {
     <nav className="sticky top-0 z-20 border-b-2 border-ink bg-paper/95">
       <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
-          <span className="hidden sm:inline-flex items-center font-mono text-[10px] leading-none uppercase tracking-[0.18em] border border-ink px-2 py-1 rotate-[-2deg]">
-            Pré-lancement
-          </span>
           <a href="#top" className="shrink-0" aria-label="Page.ma — retour en haut">
             <img
               src={LOGO_URL}
@@ -246,6 +243,9 @@ function Nav() {
               className="h-9 sm:h-10 w-auto"
             />
           </a>
+          <span className="hidden sm:inline-flex items-center font-mono text-[10px] leading-none uppercase tracking-[0.18em] border border-ink px-2 py-1 rotate-[-2deg]">
+            Pré-lancement
+          </span>
         </div>
 
         <div className="hidden md:flex items-center gap-4">
