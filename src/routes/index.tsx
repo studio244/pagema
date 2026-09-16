@@ -4,10 +4,12 @@ import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
 import heroAsset from "@/assets/pagema-services-hero-2.png.asset.json";
 import stampAsset from "@/assets/pagema-app-icon.png.asset.json";
+import coverageAsset from "@/assets/pagema-morocco-coverage.jpg.asset.json";
 
 const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
 const STAMP_URL = stampAsset.url;
+const COVERAGE_URL = coverageAsset.url;
 
 const CATEGORIES = [
   "Sécurité",
@@ -26,6 +28,34 @@ const HEALTH_ENTITIES = [
 ];
 
 const TEAM_SIZES = ["1–5", "6–20", "21–50", "51–200", "200+"];
+
+const COVERAGE_CITIES = [
+  "Casablanca",
+  "Rabat",
+  "Marrakech",
+  "Fès",
+  "Tanger",
+  "Agadir",
+  "Meknès",
+  "Oujda",
+  "Kénitra",
+  "Tétouan",
+  "Salé",
+  "Essaouira",
+  "Safi",
+  "El Jadida",
+  "Nador",
+  "Béni Mellal",
+  "Mohammédia",
+  "Khouribga",
+  "Laâyoune",
+  "Dakhla",
+  "Settat",
+  "Chefchaouen",
+  "Ifrane",
+  "Ouarzazate",
+  "Al Hoceïma",
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -383,19 +413,80 @@ function AiFeatures() {
 
 function Coverage() {
   return (
-    <section className="max-w-6xl mx-auto px-5 py-12">
-      <div className="flex items-end justify-between flex-wrap gap-3 mb-5">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra">
-          [ d ] — Où on arrive
-        </p>
-        <span className="font-display text-3xl">25 villes</span>
+    <section className="max-w-6xl mx-auto px-5 py-14 lg:py-20" aria-labelledby="coverage-title">
+      <div className="flex flex-col overflow-hidden border-[3px] border-ink bg-paper shadow-[10px_10px_0_var(--ink)] lg:flex-row">
+        <div className="flex flex-col border-b-[3px] border-ink lg:w-[38%] lg:border-r-[3px] lg:border-b-0">
+          <div className="border-b-[3px] border-ink bg-terra p-7 sm:p-9">
+            <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-paper">
+              [ d ] — Couverture nationale
+            </p>
+            <h2 id="coverage-title" className="font-display text-7xl leading-[0.82] text-paper sm:text-8xl">
+              25
+              <br />
+              villes
+            </h2>
+            <p className="mt-6 font-mono text-xs font-bold uppercase tracking-[0.16em] text-paper">
+              Un réseau de proximité au Maroc
+            </p>
+          </div>
+
+          <div className="group relative min-h-80 flex-1 overflow-hidden bg-ink sm:min-h-96">
+            <img
+              src={COVERAGE_URL}
+              alt="Vue d'une médina marocaine"
+              className="absolute inset-0 h-full w-full object-cover grayscale contrast-125 transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-ink/20 mix-blend-multiply" aria-hidden="true" />
+            <div className="absolute right-5 bottom-5 left-5 rotate-[-1deg] border-2 border-ink bg-paper/90 p-4 shadow-[5px_5px_0_var(--terra)] backdrop-blur-sm transition-transform duration-300 group-hover:-translate-y-1 motion-reduce:transition-none">
+              <p className="font-sans text-base font-bold leading-tight uppercase">
+                Des professionnels vérifiés, au plus près de votre besoin.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-1 flex-col">
+          <div className="border-b-[3px] border-ink p-7 sm:p-9">
+            <div className="flex flex-wrap items-start justify-between gap-5">
+              <h3 className="font-display text-4xl leading-none sm:text-5xl">
+                Partout où
+                <br />
+                vous êtes.
+              </h3>
+              <span className="border border-terra px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-terra-deep">
+                Maroc · 25 points
+              </span>
+            </div>
+            <p className="mt-5 max-w-[48ch] text-base leading-relaxed text-ink-soft sm:text-lg">
+              De Tanger à Dakhla, Page.ma vous met en relation avec des prestataires qualifiés dans les principaux pôles du Royaume.
+            </p>
+          </div>
+
+          <div className="grid flex-1 grid-cols-2 gap-px bg-ink sm:grid-cols-3">
+            {COVERAGE_CITIES.map((city, index) => (
+              <div
+                key={city}
+                className="group min-h-20 bg-paper p-3 transition-colors duration-200 hover:bg-ink sm:min-h-24 sm:p-4 motion-reduce:transition-none"
+              >
+                <span className="block font-mono text-[9px] font-bold text-terra transition-colors group-hover:text-paper">
+                  {String(index + 1).padStart(2, "0")} //
+                </span>
+                <span className="mt-2 block font-sans text-sm font-bold leading-tight text-ink transition-colors group-hover:text-paper sm:text-base">
+                  {city}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-4 bg-ink px-5 py-4 text-paper">
+            <span className="h-3 w-3 shrink-0 rounded-full bg-terra" aria-hidden="true" />
+            <span className="font-mono text-[9px] font-bold uppercase tracking-[0.16em]">
+              Qualification téléphonique · Jusqu'à 3 professionnels vérifiés
+            </span>
+          </div>
+        </div>
       </div>
-      <p className="font-mono text-sm leading-relaxed max-w-[60ch]">
-        Casablanca · Rabat · Marrakech · Fès · Tanger · Agadir · Meknès ·
-        Oujda · Kénitra · Tétouan · Salé · Essaouira · Safi · El Jadida ·
-        Nador · Béni Mellal · Mohammédia · Khouribga · Laâyoune · Dakhla ·
-        Settat · Chefchaouen · Ifrane · Ouarzazate · Al Hoceïma.
-      </p>
     </section>
   );
 }
