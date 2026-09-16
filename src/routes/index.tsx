@@ -445,9 +445,7 @@ function HowItWorks() {
       className="scroll-mt-24 border-y-2 border-ink bg-ink text-paper"
     >
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-10">
-          COMMENT ÇA MARCHE
-        </p>
+        <Eyebrow className="text-terra mb-10">COMMENT ÇA MARCHE</Eyebrow>
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
           {[
             {
@@ -540,9 +538,9 @@ function AiFeatures() {
     <section id="section-ia" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28">
       <div className="flex items-end justify-between flex-wrap gap-4 mb-6">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-4">
+          <Eyebrow className="text-terra mb-4">
             BIENTÔT : L'IA AU SERVICE DE LA MISE EN RELATION
-          </p>
+          </Eyebrow>
           <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">
             Ce qui arrive
             <br />
@@ -849,9 +847,9 @@ function Coverage() {
       <div className="flex flex-col overflow-hidden border-[3px] border-ink bg-paper shadow-[10px_10px_0_var(--ink)] lg:flex-row">
         <div className="flex flex-col border-b-[3px] border-ink lg:w-[38%] lg:border-r-[3px] lg:border-b-0">
           <div className="border-b-[3px] border-ink bg-terra p-7 sm:p-9">
-            <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-paper">
+            <Eyebrow className="mb-4 !text-[10px] font-bold text-paper">
               COUVERTURE NATIONALE
-            </p>
+            </Eyebrow>
             <h2 id="coverage-title" className="font-display text-7xl leading-[0.82] text-paper sm:text-8xl">
               25
               <span className="block h-3 sm:h-5" />
