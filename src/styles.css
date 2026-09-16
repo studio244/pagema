@@ -197,3 +197,64 @@
     stroke-dashoffset: 0;
   }
 }
+
+/* Carte animée : réseau des villes */
+@keyframes netDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes netPulse {
+  0%,
+  100% {
+    r: 3.4;
+    opacity: 1;
+  }
+  50% {
+    r: 5.2;
+    opacity: 0.75;
+  }
+}
+@keyframes netHalo {
+  0% {
+    r: 4;
+    opacity: 0.5;
+  }
+  100% {
+    r: 14;
+    opacity: 0;
+  }
+}
+@keyframes netLabel {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.net-line {
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
+  animation: netDraw 2.4s ease-out both;
+}
+.net-dot {
+  animation: netPulse 2.8s ease-in-out infinite;
+}
+.net-halo {
+  animation: netHalo 2.8s ease-out infinite;
+}
+.net-label {
+  opacity: 0;
+  transform: translateX(-4px);
+  animation: netLabel 0.5s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .net-line,
+  .net-dot,
+  .net-halo,
+  .net-label {
+    animation: none;
+    stroke-dashoffset: 0;
+    opacity: 1;
+    transform: none;
+  }
+}
