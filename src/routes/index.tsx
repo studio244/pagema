@@ -112,12 +112,21 @@ function Index() {
 
       <HowItWorks />
 
-      <section id="section-client" className="scroll-mt-24">
+      <section id="section-client" className="relative isolate overflow-hidden scroll-mt-24 border-b-2 border-ink">
+        <img
+          src={prosAsset.url}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+        />
+        <div className="absolute inset-0 -z-10 bg-ink/85" aria-hidden="true" />
+
         <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-            <div className="drop [animation-delay:80ms]">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra-deep mb-4">
+            <div className="drop [animation-delay:80ms] text-paper">
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-4">
                 [ a ] — Vous avez un besoin
               </p>
               <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
@@ -125,7 +134,7 @@ function Index() {
                 <br />
                 objectif concret.
               </h2>
-              <p className="mt-6 max-w-prose text-lg leading-relaxed text-ink-soft text-pretty">
+              <p className="mt-6 max-w-prose text-lg leading-relaxed text-paper/85 text-pretty">
                 Un agent de sécurité de nuit, un nettoyage après chantier, une
                 intérimaire qualifiée… Dites ce qu'il vous faut, on trouve les
                 bons pros.
@@ -133,33 +142,25 @@ function Index() {
 
               <ul className="mt-8 space-y-4 max-w-prose">
 
-                <Benefit>
+                <Benefit tone="paper">
                   Jusqu'à 3 devis de professionnels vérifiés et comparables.
                 </Benefit>
-                <Benefit>
+                <Benefit tone="paper">
                   Validation humaine par téléphone avant chaque mise en
                   relation.
                 </Benefit>
-                <Benefit>
+                <Benefit tone="paper">
                   Pas de boîte noire : vous savez pourquoi chaque pro est
                   sélectionné.
                 </Benefit>
-                <Benefit>
+                <Benefit tone="paper">
                   Gratuit, sans compte, zéro spam.
                 </Benefit>
               </ul>
 
-              <figure className="mt-10 max-w-prose rotate-[-1deg] border-2 border-ink bg-paper-deep p-2 shadow-[6px_6px_0_0_var(--color-ink)]">
-                <img
-                  src={prosAsset.url}
-                  alt="Équipe de professionnels Page.ma : sécurité, nettoyage et services aux entreprises"
-                  loading="lazy"
-                  className="block aspect-[1280/912] w-full border border-ink object-cover"
-                />
-                <figcaption className="px-2 pt-2 pb-1 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-soft">
-                  Des pros vérifiés, dans votre ville
-                </figcaption>
-              </figure>
+              <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.18em] text-paper/70">
+                Des pros vérifiés, dans votre ville
+              </p>
             </div>
 
             <PreregistrationForm profile="client" />
@@ -863,9 +864,15 @@ function Footer() {
   );
 }
 
-function Benefit({ children }: { children: React.ReactNode }) {
+function Benefit({
+  children,
+  tone,
+}: {
+  children: React.ReactNode;
+  tone?: "paper";
+}) {
   return (
-    <li className="flex items-start gap-3 text-ink">
+    <li className={`flex items-start gap-3 ${tone === "paper" ? "text-paper" : "text-ink"}`}>
       <span className="mt-1 shrink-0 font-mono text-sm leading-none text-terra">✓</span>
       <span className="leading-relaxed text-pretty">{children}</span>
     </li>
