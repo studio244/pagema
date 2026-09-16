@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import logoAsset from "@/assets/pagema-logo.png.asset.json";
+
+const LOGO_URL = logoAsset.url;
 
 const CATEGORIES = [
   "Sécurité",
