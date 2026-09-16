@@ -3,9 +3,11 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
 import heroAsset from "@/assets/pagema-services-hero.png.asset.json";
+import stampAsset from "@/assets/pagema-stamp.png.asset.json";
 
 const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
+const STAMP_URL = stampAsset.url;
 
 const CATEGORIES = [
   "Sécurité",
@@ -467,12 +469,12 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
   return (
     <div className="drop [animation-delay:120ms]">
       <div className="relative border-2 border-ink bg-paper-deep p-5 shadow-cut">
-        <span className="absolute -top-3 -right-3 w-14 h-14 bg-terra border-2 border-ink grid place-items-center stamp">
-          <span className="font-mono text-[9px] leading-tight text-paper text-center uppercase tracking-wide">
-            Page
-            <br />
-            .ma
-          </span>
+        <span className="absolute -top-3 -right-3 w-14 h-14 stamp" aria-hidden="true">
+          <img
+            src={STAMP_URL}
+            alt=""
+            className="w-full h-full object-cover rounded-lg border-2 border-ink shadow-cut"
+          />
         </span>
         <div className="flex items-center gap-2 mb-4">
           <svg
