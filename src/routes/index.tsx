@@ -167,9 +167,9 @@ function Index() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
             <div className="drop [animation-delay:80ms] text-paper">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-4">
+              <Eyebrow className="text-terra mb-4">
                 VOUS AVEZ UN BESOIN
-              </p>
+              </Eyebrow>
               <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
                 Décrivez votre
                 <br />
@@ -209,16 +209,17 @@ function Index() {
         </div>
       </section>
 
-      <section id="section-prestataire" className="scroll-mt-24 border-y-2 border-ink bg-paper-deep">
+      <section id="section-prestataire" className="relative isolate overflow-hidden scroll-mt-24 border-y-2 border-ink bg-paper-deep">
+        <BrandMark className="pointer-events-none absolute -right-10 -bottom-16 -z-10 h-[26rem] w-auto text-terra/10" />
         <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
             <PreregistrationForm profile="prestataire" />
 
             <div className="drop [animation-delay:80ms]">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra-deep mb-4">
+              <Eyebrow className="text-terra-deep mb-4">
                 VOUS PROPOSEZ DES SERVICES
-              </p>
+              </Eyebrow>
               <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
                 Rejoignez le
                 <br />
