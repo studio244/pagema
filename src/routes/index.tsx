@@ -789,22 +789,27 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-realestate`}>
                   {profile === "client"
-                    ? "Votre projet immobilier"
-                    : "Votre spécialité immobilière"}
+                    ? isInvestment
+                      ? "Votre projet d'investissement"
+                      : "Votre projet immobilier"
+                    : isInvestment
+                      ? "Votre spécialité en investissement"
+                      : "Votre spécialité immobilière"}
                 </label>
                 <select
                   id={`${idPrefix}-realestate`}
                   className={selectClass}
-                  value={realEstateIntent}
+                  value={intentValue}
                   onChange={(e) => setRealEstateIntent(e.target.value)}
                 >
-                  {REAL_ESTATE_INTENTS.map((r) => (
+                  {intentOptions.map((r) => (
                     <option key={r}>{r}</option>
                   ))}
                 </select>
                 <p className="mt-1 font-mono text-[10px] leading-relaxed text-ink-soft">
-                  Immobilier : pas de devis, mais une mise en relation directe
-                  avec un professionnel qualifié.
+                  {isInvestment
+                    ? "Investissement : pas de devis, mais une mise en relation directe avec un partenaire qualifié."
+                    : "Immobilier : pas de devis, mais une mise en relation directe avec un professionnel qualifié."}
                 </p>
               </div>
             )}
