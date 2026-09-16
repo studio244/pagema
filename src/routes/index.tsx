@@ -278,8 +278,8 @@ function Hero() {
             >
               {c}
             </span>
-
           ))}
+
         </div>
       </div>
     </header>
@@ -327,7 +327,6 @@ function HowItWorks() {
         </div>
       </div>
 
-      </div>
     </section>
   );
 }
