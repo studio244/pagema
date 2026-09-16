@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
-import heroAsset from "@/assets/pagema-services-hero.png.asset.json";
+import heroAsset from "@/assets/pagema-services-hero-2.png.asset.json";
 import stampAsset from "@/assets/pagema-app-icon.png.asset.json";
 
 const LOGO_URL = logoAsset.url;
@@ -191,7 +191,7 @@ function Hero() {
       <img
         src={HERO_URL}
         alt="Professionnels marocains de la sécurité, du nettoyage et des services"
-        className="absolute inset-0 -z-20 h-full w-full object-cover object-[calc(66%_-_40px)_center] sm:object-[calc(60%_-_40px)_center]"
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
         fetchPriority="high"
       />
       <div className="absolute inset-0 -z-10 bg-ink/75" aria-hidden="true" />
