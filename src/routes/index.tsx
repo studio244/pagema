@@ -576,7 +576,7 @@ function Footer() {
         <div className="grid gap-12 lg:grid-cols-4 lg:gap-16">
           <div className="lg:pr-8">
             <img src={LOGO_URL} alt="Page.ma" className="h-9 w-auto" />
-            <p className="mt-6 max-w-prose leading-relaxed text-ink-soft text-pretty">
+            <p className="mt-6 max-w-prose font-semibold leading-relaxed text-ink-soft text-pretty">
               Plateforme marocaine de mise en relation entre entreprises et
               prestataires vérifiés.
             </p>
@@ -592,7 +592,7 @@ function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="inline-flex items-center text-sm leading-none text-ink-soft transition-colors duration-200 hover:text-ink motion-reduce:transition-none"
+                      className="inline-flex items-center text-sm font-semibold leading-none text-ink-soft transition-colors duration-200 hover:text-ink motion-reduce:transition-none"
                     >
                       {link.label}
                     </a>
@@ -604,10 +604,10 @@ function Footer() {
         </div>
 
         <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t-2 border-ink pt-6">
-          <span className="font-mono text-[11px] uppercase tracking-wide text-ink-soft">
+          <span className="font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
             © 2026 Page.ma · Casablanca · Aucun compte requis
           </span>
-          <span className="font-mono text-[11px] uppercase tracking-wide text-ink-soft">
+          <span className="font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
             Mentions légales · Confidentialité
           </span>
         </div>
