@@ -148,6 +148,18 @@ function Index() {
                   Gratuit, sans compte, zéro spam.
                 </Benefit>
               </ul>
+
+              <figure className="mt-10 max-w-prose rotate-[-1deg] border-2 border-ink bg-paper-deep p-2 shadow-[6px_6px_0_0_var(--color-ink)]">
+                <img
+                  src={prosAsset.url}
+                  alt="Équipe de professionnels Page.ma : sécurité, nettoyage et services aux entreprises"
+                  loading="lazy"
+                  className="block aspect-[1280/912] w-full border border-ink object-cover"
+                />
+                <figcaption className="px-2 pt-2 pb-1 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-soft">
+                  Des pros vérifiés, dans votre ville
+                </figcaption>
+              </figure>
             </div>
 
             <PreregistrationForm profile="client" />
