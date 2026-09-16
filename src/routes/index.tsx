@@ -13,6 +13,44 @@ const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
 const STAMP_URL = stampAsset.url;
 
+/** Marque Page.ma (la lame terre cuite du logo), utilisée comme motif de marque. */
+function BrandMark({
+  className = "",
+  ...rest
+}: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 100 130"
+      aria-hidden="true"
+      focusable="false"
+      className={className}
+      fill="currentColor"
+      {...rest}
+    >
+      <path d="M2 3 L92 96 a9 9 0 0 1 -2 14 c-20 12 -24 40 -7 60 l4 5 H8 a6 6 0 0 1 -6 -6 Z" />
+    </svg>
+  );
+}
+
+function Eyebrow({
+  children,
+  className = "",
+  markClassName = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  markClassName?: string;
+}) {
+  return (
+    <p
+      className={`flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.2em] ${className}`}
+    >
+      <BrandMark className={`h-3.5 w-auto shrink-0 ${markClassName}`} />
+      <span>{children}</span>
+    </p>
+  );
+}
+
 const REAL_ESTATE = "Immobilier";
 const INVESTMENT = "Investissement";
 
