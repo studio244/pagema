@@ -11,6 +11,8 @@ const HERO_URL = heroAsset.url;
 const STAMP_URL = stampAsset.url;
 const COVERAGE_URL = coverageAsset.url;
 
+const REAL_ESTATE = "Immobilier / investissement";
+
 const CATEGORIES = [
   "Sécurité",
   "Nettoyage",
@@ -19,6 +21,8 @@ const CATEGORIES = [
   "Santé",
   "Impression",
   "Publicité",
+  "Conciergerie",
+  REAL_ESTATE,
 ];
 
 const HEALTH_ENTITIES = [
@@ -27,7 +31,16 @@ const HEALTH_ENTITIES = [
   "Centre de soins / diagnostic",
 ];
 
+const REAL_ESTATE_INTENTS = [
+  "Acheter un bien",
+  "Vendre un bien",
+  "Louer un bien",
+  "Investir (rendement locatif)",
+  "Gestion locative / conciergerie",
+];
+
 const TEAM_SIZES = ["1–5", "6–20", "21–50", "51–200", "200+"];
+
 
 const COVERAGE_CITIES = [
   "Casablanca",
