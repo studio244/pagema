@@ -455,38 +455,71 @@ function AiFeatures() {
   );
 }
 
-const MAP_CITIES: { name: string; x: number; y: number; anchor?: "end" }[] = [
-  { name: "Tanger", x: 250, y: 14, anchor: "end" },
-  { name: "Oujda", x: 333, y: 36, anchor: "end" },
-  { name: "Fès", x: 267, y: 52 },
-  { name: "Rabat", x: 228, y: 52, anchor: "end" },
-  { name: "Casablanca", x: 212, y: 63, anchor: "end" },
+const MAP_CITIES: { name: string; x: number; y: number; anchor?: "end"; dy?: number }[] = [
+  { name: "Tanger", x: 250, y: 10, anchor: "end", dy: -2 },
+  { name: "Tétouan", x: 259, y: 15, dy: -3 },
+  { name: "Chefchaouen", x: 262, y: 24, dy: 4 },
+  { name: "Al Hoceïma", x: 290, y: 22, dy: -4 },
+  { name: "Nador", x: 311, y: 24 },
+  { name: "Oujda", x: 333, y: 36, anchor: "end", dy: 4 },
+  { name: "Fès", x: 267, y: 52, dy: -4 },
+  { name: "Meknès", x: 256, y: 55, anchor: "end", dy: 3 },
+  { name: "Ifrane", x: 265, y: 64, dy: 4 },
+  { name: "Kénitra", x: 234, y: 46, anchor: "end", dy: -4 },
+  { name: "Salé", x: 229, y: 51, dy: -6 },
+  { name: "Rabat", x: 228, y: 53, anchor: "end", dy: 4 },
+  { name: "Casablanca", x: 212, y: 63, anchor: "end", dy: 4 },
+  { name: "Mohammédia", x: 217, y: 60, dy: -3 },
+  { name: "Settat", x: 211, y: 77, dy: 4 },
+  { name: "Khouribga", x: 227, y: 80, dy: -3 },
+  { name: "El Jadida", x: 192, y: 71, anchor: "end" },
+  { name: "Béni Mellal", x: 239, y: 93 },
+  { name: "Safi", x: 177, y: 94, anchor: "end" },
   { name: "Marrakech", x: 203, y: 110 },
+  { name: "Essaouira", x: 166, y: 113, anchor: "end" },
+  { name: "Ouarzazate", x: 227, y: 127 },
   { name: "Agadir", x: 169, y: 139, anchor: "end" },
   { name: "Laâyoune", x: 92, y: 218 },
   { name: "Dakhla", x: 34, y: 302 },
 ];
 
-const MAP_LINKS: [number, number][] = [
-  [0, 2],
-  [0, 3],
-  [2, 1],
-  [2, 3],
-  [3, 4],
-  [4, 5],
-  [5, 6],
-  [6, 7],
-  [7, 8],
-  [4, 2],
+const MAP_LINKS: [string, string][] = [
+  ["Tanger", "Tétouan"],
+  ["Tétouan", "Chefchaouen"],
+  ["Chefchaouen", "Al Hoceïma"],
+  ["Al Hoceïma", "Nador"],
+  ["Nador", "Oujda"],
+  ["Oujda", "Fès"],
+  ["Fès", "Meknès"],
+  ["Meknès", "Ifrane"],
+  ["Meknès", "Kénitra"],
+  ["Tanger", "Kénitra"],
+  ["Kénitra", "Salé"],
+  ["Salé", "Rabat"],
+  ["Rabat", "Mohammédia"],
+  ["Mohammédia", "Casablanca"],
+  ["Casablanca", "Settat"],
+  ["Settat", "Khouribga"],
+  ["Khouribga", "Béni Mellal"],
+  ["Casablanca", "El Jadida"],
+  ["El Jadida", "Safi"],
+  ["Safi", "Essaouira"],
+  ["Béni Mellal", "Marrakech"],
+  ["Marrakech", "Essaouira"],
+  ["Marrakech", "Ouarzazate"],
+  ["Marrakech", "Agadir"],
+  ["Agadir", "Laâyoune"],
+  ["Laâyoune", "Dakhla"],
 ];
 
 function MoroccoNetwork() {
+  const byName = new Map(MAP_CITIES.map((c) => [c.name, c]));
   return (
     <svg
       viewBox="0 0 372 390"
       className="absolute inset-0 h-full w-full p-4 transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
       role="img"
-      aria-label="Carte du Maroc et réseau des villes couvertes, de Tanger à Dakhla"
+      aria-label="Carte du Maroc et réseau des 25 villes couvertes, de Tanger à Dakhla"
     >
       <path
         d="M10.0 366.6 L11.9 345.2 L20.1 338.6 L27.0 326.1 L25.7 317.8 L33.1 300.8 L44.9 285.4 L52.2 281.4 L57.7 267.5 L58.3 254.6 L66.0 239.6 L80.2 230.8 L93.7 206.2 L104.8 196.6 L124.7 193.8 L141.5 177.4 L152.2 170.9 L169.8 150.9 L164.6 120.7 L175.6 87.2 L189.3 70.9 L226.5 49.9 L247.5 10.0 L263.2 10.1 L276.1 20.4 L296.3 18.7 L327.7 24.3 L335.7 39.8 L337.0 54.5 L344.4 79.9 L350.0 85.1 L346.1 94.5 L318.3 98.5 L308.5 107.5 L296.4 109.6 L295.3 127.5 L270.4 137.0 L262.2 149.1 L244.7 155.6 L223.4 159.3 L189.1 177.1 L188.7 248.7 L118.8 247.6 L119.3 309.2 L99.3 311.6 L94.2 323.9 L98.2 358.7 L14.8 358.5 L10.0 366.6 Z"
@@ -495,8 +528,9 @@ function MoroccoNetwork() {
         strokeLinejoin="round"
       />
       {MAP_LINKS.map(([a, b], i) => {
-        const from = MAP_CITIES[a]!;
-        const to = MAP_CITIES[b]!;
+        const from = byName.get(a);
+        const to = byName.get(b);
+        if (!from || !to) return null;
         return (
           <line
             key={`${a}-${b}`}
@@ -504,9 +538,9 @@ function MoroccoNetwork() {
             y1={from.y}
             x2={to.x}
             y2={to.y}
-            className="net-line stroke-terra/60"
-            strokeWidth={1.6}
-            style={{ animationDelay: `${0.3 + i * 0.12}s` }}
+            className="net-line stroke-terra/55"
+            strokeWidth={1.2}
+            style={{ animationDelay: `${0.25 + i * 0.07}s` }}
           />
         );
       })}
@@ -515,24 +549,24 @@ function MoroccoNetwork() {
           <circle
             cx={city.x}
             cy={city.y}
-            r={4}
+            r={3}
             className="net-halo fill-terra"
-            style={{ animationDelay: `${i * 0.25}s` }}
+            style={{ animationDelay: `${(i % 8) * 0.32}s` }}
           />
           <circle
             cx={city.x}
             cy={city.y}
-            r={3.4}
+            r={2.6}
             className="net-dot fill-terra stroke-ink"
-            strokeWidth={1.2}
-            style={{ animationDelay: `${i * 0.25}s` }}
+            strokeWidth={1}
+            style={{ animationDelay: `${(i % 8) * 0.32}s` }}
           />
           <text
-            x={city.anchor === "end" ? city.x - 9 : city.x + 9}
-            y={city.y + 4}
+            x={city.anchor === "end" ? city.x - 6 : city.x + 6}
+            y={city.y + 2.6 + (city.dy ?? 0)}
             textAnchor={city.anchor === "end" ? "end" : "start"}
-            className="net-label fill-ink font-mono text-[10px] font-bold uppercase"
-            style={{ animationDelay: `${0.6 + i * 0.12}s` }}
+            className="net-label fill-ink font-mono text-[8px] font-bold uppercase"
+            style={{ animationDelay: `${0.5 + i * 0.06}s` }}
           >
             {city.name}
           </text>
