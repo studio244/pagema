@@ -390,9 +390,7 @@ function Footer() {
   return (
     <footer className="border-t-2 border-ink zellige">
       <div className="max-w-6xl mx-auto px-5 py-8 flex items-center justify-between flex-wrap gap-3">
-        <span className="font-display text-xl tracking-tight">
-          PAGE<span className="text-terra">.MA</span>
-        </span>
+        <img src={LOGO_URL} alt="Page.ma" className="h-8 w-auto" />
         <span className="font-mono text-[11px] uppercase tracking-wide text-ink-soft">
           © 2026 · Casablanca · Aucun compte requis
         </span>
