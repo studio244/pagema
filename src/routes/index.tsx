@@ -585,7 +585,12 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
     "block font-mono text-[10px] uppercase tracking-[0.15em] text-ink-soft mb-1";
 
   const isHealth = profile === "prestataire" && category === "Santé";
-  const isRealEstate = category === REAL_ESTATE;
+  const isInvestment = category === INVESTMENT;
+  const isRealEstate = category === REAL_ESTATE || isInvestment;
+  const intentOptions = isInvestment ? INVESTMENT_INTENTS : REAL_ESTATE_INTENTS;
+  const intentValue = intentOptions.includes(realEstateIntent)
+    ? realEstateIntent
+    : intentOptions[0]!;
   const idPrefix = profile;
 
   async function handleSubmit(e: React.FormEvent) {
