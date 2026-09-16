@@ -456,15 +456,15 @@ function AiFeatures() {
 }
 
 const MAP_CITIES: { name: string; x: number; y: number; anchor?: "end" }[] = [
-  { name: "Tanger", x: 243, y: 40 },
-  { name: "Oujda", x: 334, y: 62 },
-  { name: "Fès", x: 258, y: 96 },
-  { name: "Rabat", x: 176, y: 110 },
-  { name: "Casablanca", x: 150, y: 134 },
-  { name: "Marrakech", x: 172, y: 192 },
-  { name: "Agadir", x: 126, y: 236 },
-  { name: "Laâyoune", x: 82, y: 372 },
-  { name: "Dakhla", x: 50, y: 462 },
+  { name: "Tanger", x: 250, y: 14, anchor: "end" },
+  { name: "Oujda", x: 333, y: 36, anchor: "end" },
+  { name: "Fès", x: 267, y: 52 },
+  { name: "Rabat", x: 228, y: 52, anchor: "end" },
+  { name: "Casablanca", x: 212, y: 63, anchor: "end" },
+  { name: "Marrakech", x: 203, y: 110 },
+  { name: "Agadir", x: 169, y: 139, anchor: "end" },
+  { name: "Laâyoune", x: 92, y: 218 },
+  { name: "Dakhla", x: 34, y: 302 },
 ];
 
 const MAP_LINKS: [number, number][] = [
@@ -483,13 +483,13 @@ const MAP_LINKS: [number, number][] = [
 function MoroccoNetwork() {
   return (
     <svg
-      viewBox="8 4 356 512"
+      viewBox="0 0 372 390"
       className="absolute inset-0 h-full w-full p-4 transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
       role="img"
       aria-label="Carte du Maroc et réseau des villes couvertes, de Tanger à Dakhla"
     >
       <path
-        d="M248 14 L292 26 L330 44 L352 62 L338 92 L328 122 L316 152 L298 180 L266 216 L230 254 L194 298 L158 342 L118 394 L84 442 L56 482 L34 508 L18 494 L42 452 L38 420 L60 398 L90 360 L110 318 L138 286 L148 256 L126 236 L102 214 L82 188 L94 166 L126 140 L150 112 L178 74 L206 40 Z"
+        d="M10.0 366.6 L11.9 345.2 L20.1 338.6 L27.0 326.1 L25.7 317.8 L33.1 300.8 L44.9 285.4 L52.2 281.4 L57.7 267.5 L58.3 254.6 L66.0 239.6 L80.2 230.8 L93.7 206.2 L104.8 196.6 L124.7 193.8 L141.5 177.4 L152.2 170.9 L169.8 150.9 L164.6 120.7 L175.6 87.2 L189.3 70.9 L226.5 49.9 L247.5 10.0 L263.2 10.1 L276.1 20.4 L296.3 18.7 L327.7 24.3 L335.7 39.8 L337.0 54.5 L344.4 79.9 L350.0 85.1 L346.1 94.5 L318.3 98.5 L308.5 107.5 L296.4 109.6 L295.3 127.5 L270.4 137.0 L262.2 149.1 L244.7 155.6 L223.4 159.3 L189.1 177.1 L188.7 248.7 L118.8 247.6 L119.3 309.2 L99.3 311.6 L94.2 323.9 L98.2 358.7 L14.8 358.5 L10.0 366.6 Z"
         className="fill-paper stroke-ink"
         strokeWidth={3}
         strokeLinejoin="round"
