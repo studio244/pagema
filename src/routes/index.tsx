@@ -194,8 +194,11 @@ function Index() {
               </ul>
             </div>
 
-            <PreregistrationForm profile="prestataire" />
           </div>
+
+            <PreregistrationForm profile="prestataire" />
+
+            <div className="drop [animation-delay:80ms]">
         </div>
       </section>
 
