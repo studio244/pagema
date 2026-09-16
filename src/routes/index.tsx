@@ -1007,7 +1007,7 @@ function Benefit({
 }) {
   return (
     <li className={`flex items-start gap-3 ${tone === "paper" ? "text-paper" : "text-ink"}`}>
-      <span className="mt-1 shrink-0 font-mono text-sm leading-none text-terra">✓</span>
+      <BrandMark className="mt-1.5 h-3.5 w-auto shrink-0 text-terra" />
       <span className="leading-relaxed text-pretty">{children}</span>
     </li>
 
