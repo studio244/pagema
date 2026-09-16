@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
 import heroAsset from "@/assets/pagema-services-hero-2.png.asset.json";
 import stampAsset from "@/assets/pagema-app-icon.png.asset.json";
-import coverageAsset from "@/assets/pagema-morocco-map.png.asset.json";
+import coverageAsset from "@/assets/pagema-morocco-network.png.asset.json";
 
 const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
@@ -479,9 +479,11 @@ function Coverage() {
           <div className="group relative min-h-80 flex-1 overflow-hidden bg-ink sm:min-h-96">
             <img
               src={COVERAGE_URL}
-              alt="Carte politique et routière du Maroc, de Tanger à Lagouira"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none"
+              alt="Carte du Maroc avec un réseau reliant les 25 villes couvertes, de Tanger à Lagouira"
+              className="absolute inset-0 h-full w-full object-contain p-4 transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none"
               loading="lazy"
+              width={1024}
+              height={1280}
             />
             <div className="absolute right-5 bottom-5 left-5 rotate-[-1deg] border-2 border-ink bg-paper/90 p-4 shadow-[5px_5px_0_var(--terra)] backdrop-blur-sm transition-transform duration-300 group-hover:-translate-y-1 motion-reduce:transition-none">
               <p className="font-sans text-base font-bold leading-tight uppercase">
