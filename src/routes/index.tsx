@@ -5,6 +5,9 @@ import logoAsset from "@/assets/pagema-logo.png.asset.json";
 import heroAsset from "@/assets/pagema-services-hero-2.png.asset.json";
 import stampAsset from "@/assets/pagema-app-icon.png.asset.json";
 import prosAsset from "@/assets/pagema-pros-equipe.jpg.asset.json";
+import requestIllustration from "@/assets/process-step-request.png";
+import qualifyIllustration from "@/assets/process-step-qualify.png";
+import quotesIllustration from "@/assets/process-step-quotes.png";
 
 const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
@@ -336,16 +339,22 @@ function HowItWorks() {
               n: "01",
               t: "Décrivez le besoin",
               b: "Quelques lignes suffisent. En 2 minutes.",
+              image: requestIllustration,
+              alt: "Une cliente décrit rapidement son besoin sur un formulaire",
             },
             {
               n: "02",
               t: "Page.ma qualifie",
               b: "Un appel humain pour vérifier le besoin et le bon pro.",
+              image: qualifyIllustration,
+              alt: "Une conseillère Page.ma vérifie la demande par téléphone",
             },
             {
               n: "03",
               t: "Recevez les devis",
               b: "Jusqu'à 3 devis comparables. Pas de boîte noire.",
+              image: quotesIllustration,
+              alt: "Trois fiches de professionnels vérifiés à comparer",
             },
           ].map((s) => (
             <div
@@ -355,6 +364,16 @@ function HowItWorks() {
               <span className="font-display text-5xl leading-none text-terra">
                 {s.n}
               </span>
+              <div className="my-5 flex aspect-[4/3] items-center justify-center overflow-hidden border-y-2 border-paper/20 bg-paper/5 px-3 py-2">
+                <img
+                  src={s.image}
+                  alt={s.alt}
+                  loading="lazy"
+                  width={768}
+                  height={768}
+                  className="h-full w-full object-contain"
+                />
+              </div>
               <h3 className="font-sans font-semibold text-xl mt-4">{s.t}</h3>
               <p className="text-sm leading-relaxed text-paper/70 mt-2">
                 {s.b}
