@@ -654,14 +654,29 @@ function MoroccoNetwork() {
             strokeWidth={1}
             style={{ animationDelay: `${(i % 8) * 0.32}s` }}
           />
+        </g>
+      ))}
+      {MAP_LABELS.map((label, i) => (
+        <g key={`label-${label.name}`}>
+          {label.leader && (
+            <line
+              x1={label.cityX}
+              y1={label.cityY}
+              x2={label.anchor === "end" ? label.x + 1 : label.anchor === "start" ? label.x - 1 : label.x}
+              y2={label.y - 2}
+              className="net-label stroke-ink/45"
+              strokeWidth={0.7}
+              style={{ animationDelay: `${0.5 + i * 0.06}s` }}
+            />
+          )}
           <text
-            x={city.anchor === "end" ? city.x - 6 : city.x + 6}
-            y={city.y + 2.6 + (city.dy ?? 0)}
-            textAnchor={city.anchor === "end" ? "end" : "start"}
+            x={label.x}
+            y={label.y}
+            textAnchor={label.anchor}
             className="net-label fill-ink font-mono text-[8px] font-bold uppercase"
             style={{ animationDelay: `${0.5 + i * 0.06}s` }}
           >
-            {city.name}
+            {label.name}
           </text>
         </g>
       ))}
