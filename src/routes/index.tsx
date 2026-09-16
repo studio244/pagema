@@ -189,7 +189,7 @@ function Hero() {
       <img
         src={HERO_URL}
         alt="Professionnels marocains de la sécurité, du nettoyage et des services"
-        className="absolute inset-0 -z-20 h-full w-full object-cover object-[58%_center] sm:object-center"
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-[66%_center] sm:object-[60%_center]"
         fetchPriority="high"
       />
       <div className="absolute inset-0 -z-10 bg-ink/75" aria-hidden="true" />
