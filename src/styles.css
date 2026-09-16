@@ -169,7 +169,8 @@
     box-shadow 0.2s cubic-bezier(0.32, 0.72, 0, 1);
 }
 .lift:hover {
-  transform: translate(-2px, -2px);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 0 oklch(0.275 0.032 168 / 18%);
 }
 
 /* Cards: gentle lift + ink shadow on hover, same palette */
@@ -179,7 +180,7 @@
     box-shadow 0.25s cubic-bezier(0.32, 0.72, 0, 1);
 }
 .lift-card:hover {
-  transform: translate(-3px, -3px);
+  transform: translateY(-4px);
   box-shadow: 6px 6px 0 var(--ink);
 }
 .lift-card-invert:hover {
@@ -195,5 +196,9 @@
   }
   .drawl {
     stroke-dashoffset: 0;
+  }
+  .lift,
+  .lift-card {
+    transition: none;
   }
 }

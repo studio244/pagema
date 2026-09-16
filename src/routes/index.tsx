@@ -262,15 +262,15 @@ function Nav() {
         <div className="flex items-center gap-2">
           <a
             href="#section-client"
-            className="inline-flex items-center font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift"
+            className="inline-flex items-center gap-2 font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift"
           >
-            Je cherche
+            <Search className="h-3.5 w-3.5" aria-hidden="true" /> Je cherche
           </a>
           <a
             href="#section-prestataire"
-            className="inline-flex items-center font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift bg-terra text-paper"
+            className="inline-flex items-center gap-2 font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift bg-terra text-paper"
           >
-            Je suis pro
+            <Building2 className="h-3.5 w-3.5" aria-hidden="true" /> Je suis pro
           </a>
 
         </div>
@@ -311,15 +311,15 @@ function Hero() {
         <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 drop [animation-delay:220ms]">
           <a
             href="#section-client"
-            className="inline-flex items-center justify-center w-full sm:w-auto bg-terra text-paper border-2 border-paper font-display text-xl leading-none tracking-tight px-8 py-4 lift"
+            className="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-terra text-paper border-2 border-paper font-display text-xl leading-none tracking-tight px-8 py-4 lift"
           >
-            Je cherche un prestataire
+            Je cherche un prestataire <ArrowRight className="h-5 w-5" aria-hidden="true" />
           </a>
           <a
             href="#section-prestataire"
-            className="inline-flex items-center justify-center w-full sm:w-auto bg-paper text-ink border-2 border-paper font-display text-xl leading-none tracking-tight px-8 py-4 lift hover:bg-paper-deep"
+            className="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-paper text-ink border-2 border-paper font-display text-xl leading-none tracking-tight px-8 py-4 lift hover:bg-paper-deep"
           >
-            Je propose mes services
+            Je propose mes services <ArrowRight className="h-5 w-5" aria-hidden="true" />
           </a>
         </div>
 
@@ -580,6 +580,23 @@ function Footer() {
         </span>
       </div>
     </footer>
+  );
+}
+
+function SectionLabel({
+  children,
+  icon: Icon,
+  inverted = false,
+}: {
+  children: React.ReactNode;
+  icon: React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
+  inverted?: boolean;
+}) {
+  return (
+    <p className={`mb-4 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] ${inverted ? "text-terra" : "text-terra-deep"}`}>
+      <Icon className="h-4 w-4 shrink-0" aria-hidden={true} />
+      <span>{children}</span>
+    </p>
   );
 }
 
@@ -882,7 +899,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="w-full inline-flex items-center justify-center bg-terra text-paper border-2 border-ink font-display text-xl leading-none tracking-tight py-4 mt-2 lift disabled:opacity-60"
+              className="w-full inline-flex items-center justify-center gap-3 bg-terra text-paper border-2 border-ink font-display text-xl leading-none tracking-tight py-4 mt-2 lift disabled:opacity-60"
             >
               {status === "sending"
                 ? "Envoi…"
@@ -891,6 +908,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                     ? "Je veux être mis en relation"
                     : "Je cherche un pro"
                   : "Je m'inscris comme pro"}
+              {status !== "sending" && <ArrowRight className="h-5 w-5" aria-hidden="true" />}
 
             </button>
             {status === "error" && (
