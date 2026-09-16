@@ -310,7 +310,10 @@ function Hero() {
 
 function HowItWorks() {
   return (
-    <section className="border-y-2 border-ink bg-ink text-paper">
+    <section
+      id="section-processus"
+      className="scroll-mt-24 border-y-2 border-ink bg-ink text-paper"
+    >
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-10">
           [ c ] — Comment ça marche
@@ -534,14 +537,80 @@ function Coverage() {
   );
 }
 
+const FOOTER_COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
+  {
+    title: "Services",
+    links: [
+      { label: "Sécurité", href: "#section-client" },
+      { label: "Nettoyage", href: "#section-client" },
+      { label: "Intérim", href: "#section-client" },
+      { label: "Assurance", href: "#section-client" },
+      { label: "Immobilier", href: "#section-client" },
+    ],
+  },
+  {
+    title: "Villes",
+    links: [
+      { label: "Casablanca", href: "#coverage-title" },
+      { label: "Rabat", href: "#coverage-title" },
+      { label: "Marrakech", href: "#coverage-title" },
+      { label: "Tanger", href: "#coverage-title" },
+      { label: "Agadir", href: "#coverage-title" },
+    ],
+  },
+  {
+    title: "Plateforme",
+    links: [
+      { label: "Comment ça marche", href: "#section-processus" },
+      { label: "Devenir partenaire", href: "#section-prestataire" },
+      { label: "Préinscription", href: "#section-client" },
+      { label: "Bientôt : l'IA", href: "#section-ia" },
+    ],
+  },
+];
+
 function Footer() {
   return (
     <footer className="border-t-2 border-ink zellige">
-      <div className="max-w-6xl mx-auto px-5 py-12 flex items-center justify-between flex-wrap gap-4">
-        <img src={LOGO_URL} alt="Page.ma" className="h-8 w-auto" />
-        <span className="font-mono text-[11px] uppercase tracking-wide text-ink-soft">
-          © 2026 · Casablanca · Aucun compte requis
-        </span>
+      <div className="max-w-6xl mx-auto px-5 py-16 lg:py-20">
+        <div className="grid gap-12 lg:grid-cols-4 lg:gap-16">
+          <div className="lg:pr-8">
+            <img src={LOGO_URL} alt="Page.ma" className="h-9 w-auto" />
+            <p className="mt-6 max-w-prose leading-relaxed text-ink-soft text-pretty">
+              Plateforme marocaine de mise en relation entre entreprises et
+              prestataires vérifiés.
+            </p>
+          </div>
+
+          {FOOTER_COLUMNS.map((column) => (
+            <nav key={column.title} aria-label={column.title}>
+              <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-terra">
+                {column.title}
+              </h2>
+              <ul className="mt-6 space-y-3">
+                {column.links.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className="inline-flex items-center text-sm leading-none text-ink-soft transition-colors duration-200 hover:text-ink motion-reduce:transition-none"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+        </div>
+
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t-2 border-ink pt-6">
+          <span className="font-mono text-[11px] uppercase tracking-wide text-ink-soft">
+            © 2026 Page.ma · Casablanca · Aucun compte requis
+          </span>
+          <span className="font-mono text-[11px] uppercase tracking-wide text-ink-soft">
+            Mentions légales · Confidentialité
+          </span>
+        </div>
       </div>
     </footer>
   );
