@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
 import heroAsset from "@/assets/pagema-services-hero-2.png.asset.json";
 import stampAsset from "@/assets/pagema-app-icon.png.asset.json";
-import coverageAsset from "@/assets/pagema-morocco-coverage.jpg.asset.json";
+import coverageAsset from "@/assets/pagema-morocco-map.png.asset.json";
 
 const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
