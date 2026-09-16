@@ -455,33 +455,126 @@ function AiFeatures() {
   );
 }
 
-const MAP_CITIES: { name: string; x: number; y: number; anchor?: "end"; dy?: number }[] = [
-  { name: "Tanger", x: 250, y: 10, anchor: "end", dy: -2 },
-  { name: "Tétouan", x: 259, y: 15, dy: -3 },
-  { name: "Chefchaouen", x: 262, y: 24, dy: 11 },
-  { name: "Al Hoceïma", x: 290, y: 22, dy: -8 },
-  { name: "Nador", x: 311, y: 24, dy: 3 },
-  { name: "Oujda", x: 333, y: 36, anchor: "end", dy: 9 },
-  { name: "Fès", x: 267, y: 52, dy: -4 },
-  { name: "Meknès", x: 256, y: 55, anchor: "end", dy: 3 },
-  { name: "Ifrane", x: 265, y: 64, dy: 4 },
-  { name: "Kénitra", x: 234, y: 46, anchor: "end", dy: -4 },
-  { name: "Salé", x: 229, y: 51, dy: -9 },
-  { name: "Rabat", x: 228, y: 53, anchor: "end", dy: 9 },
-  { name: "Casablanca", x: 212, y: 63, anchor: "end", dy: 4 },
-  { name: "Mohammédia", x: 217, y: 60, dy: 4 },
-  { name: "Settat", x: 211, y: 77, dy: 9 },
-  { name: "Khouribga", x: 227, y: 80, dy: -6 },
-  { name: "El Jadida", x: 192, y: 71, anchor: "end", dy: 9 },
+const MAP_CITIES: { name: string; x: number; y: number }[] = [
+  { name: "Tanger", x: 250, y: 10 },
+  { name: "Tétouan", x: 259, y: 15 },
+  { name: "Chefchaouen", x: 262, y: 24 },
+  { name: "Al Hoceïma", x: 290, y: 22 },
+  { name: "Nador", x: 311, y: 24 },
+  { name: "Oujda", x: 333, y: 36 },
+  { name: "Fès", x: 267, y: 52 },
+  { name: "Meknès", x: 256, y: 55 },
+  { name: "Ifrane", x: 265, y: 64 },
+  { name: "Kénitra", x: 234, y: 46 },
+  { name: "Salé", x: 229, y: 51 },
+  { name: "Rabat", x: 228, y: 53 },
+  { name: "Casablanca", x: 212, y: 63 },
+  { name: "Mohammédia", x: 217, y: 60 },
+  { name: "Settat", x: 211, y: 77 },
+  { name: "Khouribga", x: 227, y: 80 },
+  { name: "El Jadida", x: 192, y: 71 },
   { name: "Béni Mellal", x: 239, y: 93 },
-  { name: "Safi", x: 177, y: 94, anchor: "end" },
+  { name: "Safi", x: 177, y: 94 },
   { name: "Marrakech", x: 203, y: 110 },
-  { name: "Essaouira", x: 166, y: 113, anchor: "end" },
+  { name: "Essaouira", x: 166, y: 113 },
   { name: "Ouarzazate", x: 227, y: 127 },
-  { name: "Agadir", x: 169, y: 139, anchor: "end" },
+  { name: "Agadir", x: 169, y: 139 },
   { name: "Laâyoune", x: 92, y: 218 },
   { name: "Dakhla", x: 34, y: 302 },
 ];
+
+const MAP_VIEW = { width: 372, height: 390 };
+const LABEL_FONT_SIZE = 8;
+const LABEL_CHAR_WIDTH = 4.8;
+const LABEL_HEIGHT = 8.5;
+
+type LabelBox = { x1: number; y1: number; x2: number; y2: number };
+type PlacedLabel = {
+  name: string;
+  x: number;
+  y: number;
+  anchor: "start" | "end" | "middle";
+  cityX: number;
+  cityY: number;
+  leader: boolean;
+};
+
+const LABEL_CANDIDATES: { dx: number; dy: number; anchor: "start" | "end" | "middle" }[] = [
+  { dx: 6, dy: 3, anchor: "start" },
+  { dx: -6, dy: 3, anchor: "end" },
+  { dx: 6, dy: -5, anchor: "start" },
+  { dx: -6, dy: -5, anchor: "end" },
+  { dx: 6, dy: 11, anchor: "start" },
+  { dx: -6, dy: 11, anchor: "end" },
+  { dx: 0, dy: -8, anchor: "middle" },
+  { dx: 0, dy: 15, anchor: "middle" },
+  { dx: 14, dy: -12, anchor: "start" },
+  { dx: -14, dy: -12, anchor: "end" },
+  { dx: 14, dy: 18, anchor: "start" },
+  { dx: -14, dy: 18, anchor: "end" },
+  { dx: 24, dy: -20, anchor: "start" },
+  { dx: -24, dy: -20, anchor: "end" },
+  { dx: 24, dy: 26, anchor: "start" },
+  { dx: -24, dy: 26, anchor: "end" },
+];
+
+function overlaps(a: LabelBox, b: LabelBox) {
+  return a.x1 < b.x2 && a.x2 > b.x1 && a.y1 < b.y2 && a.y2 > b.y1;
+}
+
+// Deterministic label layout: each city name takes the first candidate slot that
+// collides with neither an already placed name nor any city dot.
+function layoutMapLabels(): PlacedLabel[] {
+  const dotBoxes: LabelBox[] = MAP_CITIES.map((c) => ({
+    x1: c.x - 4,
+    y1: c.y - 4,
+    x2: c.x + 4,
+    y2: c.y + 4,
+  }));
+  const placedBoxes: LabelBox[] = [];
+  const placed: PlacedLabel[] = [];
+
+  for (const city of MAP_CITIES) {
+    const width = city.name.length * LABEL_CHAR_WIDTH;
+    let chosen: PlacedLabel | null = null;
+
+    for (const candidate of LABEL_CANDIDATES) {
+      const x = city.x + candidate.dx;
+      const y = city.y + candidate.dy;
+      const x1 =
+        candidate.anchor === "start" ? x : candidate.anchor === "end" ? x - width : x - width / 2;
+      const box: LabelBox = {
+        x1: x1 - 1,
+        y1: y - LABEL_HEIGHT,
+        x2: x1 + width + 1,
+        y2: y + 2,
+      };
+      const insideView =
+        box.x1 >= 2 && box.x2 <= MAP_VIEW.width - 2 && box.y1 >= 2 && box.y2 <= MAP_VIEW.height - 2;
+      if (!insideView) continue;
+      if (placedBoxes.some((b) => overlaps(box, b))) continue;
+      if (dotBoxes.some((b) => overlaps(box, b))) continue;
+
+      placedBoxes.push(box);
+      chosen = {
+        name: city.name,
+        x,
+        y,
+        anchor: candidate.anchor,
+        cityX: city.x,
+        cityY: city.y,
+        leader: Math.abs(candidate.dx) > 10 || Math.abs(candidate.dy) > 12,
+      };
+      break;
+    }
+
+    if (chosen) placed.push(chosen);
+  }
+
+  return placed;
+}
+
+const MAP_LABELS = layoutMapLabels();
 
 const MAP_LINKS: [string, string][] = [
   ["Tanger", "Tétouan"],
