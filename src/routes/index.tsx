@@ -637,14 +637,19 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             </span>
             <p className="mt-2 font-display text-2xl tracking-tight">
               {profile === "client"
-                ? "On s'occupe de trouver vos pros."
+                ? isRealEstate
+                  ? "On vous met en relation."
+                  : "On s'occupe de trouver vos pros."
                 : "Bienvenue dans le réseau."}
             </p>
             <p className="mt-2 text-sm text-ink-soft">
               {profile === "client"
-                ? "On vous appelle dès l'ouverture dans votre ville pour valider votre besoin."
+                ? isRealEstate
+                  ? "Un appel pour comprendre votre projet, puis une mise en relation avec un professionnel de l'immobilier vérifié."
+                  : "On vous appelle dès l'ouverture dans votre ville pour valider votre besoin."
                 : "On vous contacte pour vérifier votre société avant l'ouverture."}
             </p>
+
           </div>
         ) : (
           <form className="space-y-4" onSubmit={handleSubmit}>
@@ -766,6 +771,30 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
               </div>
             )}
 
+            {isRealEstate && (
+              <div>
+                <label className={labelClass} htmlFor={`${idPrefix}-realestate`}>
+                  {profile === "client"
+                    ? "Votre projet immobilier"
+                    : "Votre spécialité immobilière"}
+                </label>
+                <select
+                  id={`${idPrefix}-realestate`}
+                  className={selectClass}
+                  value={realEstateIntent}
+                  onChange={(e) => setRealEstateIntent(e.target.value)}
+                >
+                  {REAL_ESTATE_INTENTS.map((r) => (
+                    <option key={r}>{r}</option>
+                  ))}
+                </select>
+                <p className="mt-1 font-mono text-[10px] leading-relaxed text-ink-soft">
+                  Immobilier : pas de devis, mais une mise en relation directe
+                  avec un professionnel qualifié.
+                </p>
+              </div>
+            )}
+
             {profile === "prestataire" ? (
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-team`}>
@@ -785,18 +814,25 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             ) : (
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-need`}>
-                  Votre besoin (optionnel)
+                  {isRealEstate
+                    ? "Votre projet en quelques lignes (optionnel)"
+                    : "Votre besoin (optionnel)"}
                 </label>
                 <textarea
                   id={`${idPrefix}-need`}
                   rows={3}
                   className={inputClass}
-                  placeholder="Ex : 2 agents de sécurité de nuit, site à Casablanca…"
+                  placeholder={
+                    isRealEstate
+                      ? "Ex : appartement 2 chambres à Casablanca, budget 1,2 M DH, achat pour location…"
+                      : "Ex : 2 agents de sécurité de nuit, site à Casablanca…"
+                  }
                   value={needDetails}
                   onChange={(e) => setNeedDetails(e.target.value)}
                 />
               </div>
             )}
+
 
             <button
               type="submit"
