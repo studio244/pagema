@@ -153,9 +153,11 @@ function Nav() {
     <nav className="sticky top-0 z-20 border-b-2 border-ink bg-paper/95">
       <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
         <div className="flex items-baseline gap-3">
-          <span className="font-display text-2xl leading-none tracking-tight">
-            PAGE<span className="text-terra">.MA</span>
-          </span>
+          <img
+            src={LOGO_URL}
+            alt="Page.ma"
+            className="h-9 sm:h-10 w-auto"
+          />
           <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[0.18em] border border-ink px-2 py-0.5 rotate-[-2deg]">
             Pré-lancement
           </span>
