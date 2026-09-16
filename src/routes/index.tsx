@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
 import heroAsset from "@/assets/pagema-services-hero-2.png.asset.json";
 import stampAsset from "@/assets/pagema-app-icon.png.asset.json";
+import clientServicesCollage from "@/assets/client-services-collage.jpg";
 
 const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
@@ -63,23 +64,47 @@ function Index() {
 
       <section id="section-client" className="scroll-mt-20">
         <div className="max-w-6xl mx-auto px-5 py-16 lg:py-20">
-          <div className="grid lg:grid-cols-2 gap-10 items-start">
-            <div className="drop [animation-delay:80ms]">
+          <div className="mb-9 lg:mb-12 drop [animation-delay:80ms]">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra-deep mb-4">
+              [ a ] — Vous avez un besoin
+            </p>
+            <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-5 lg:gap-12 items-end">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra-deep mb-4">
-                [ a ] — Vous avez un besoin
+                Décrivez. Comparez. Décidez.
               </p>
               <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
                 Décrivez votre
                 <br />
                 objectif concret.
               </h2>
-              <p className="mt-4 max-w-[42ch] text-lg text-ink-soft text-pretty">
+              <p className="max-w-[42ch] text-lg text-ink-soft text-pretty lg:pb-1">
                 Un agent de sécurité de nuit, un nettoyage après chantier, une
-                intérimaire qualifiée… Dites ce qu'il vous faut, on trouve les
-                bons pros.
+                équipe d'impression ou de publicité… Dites ce qu'il vous faut,
+                on trouve les bons pros.
               </p>
+            </div>
+          </div>
 
-              <ul className="mt-6 space-y-3">
+          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-10 items-start">
+            <div>
+              <figure className="relative border-2 border-ink overflow-hidden shadow-cut">
+                <img
+                  src={clientServicesCollage}
+                  alt="Professionnels marocains du nettoyage, de la sécurité et de l'impression"
+                  className="w-full aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/5] object-cover"
+                  loading="lazy"
+                  width={1536}
+                  height={1152}
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-ink/90 text-paper border-t-2 border-paper/30 px-4 py-3 flex items-center justify-between gap-3">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.15em]">
+                    Des pros vérifiés · près de vous
+                  </span>
+                  <span className="font-display text-2xl text-terra">01—07</span>
+                </figcaption>
+              </figure>
+
+              <ul className="mt-8 space-y-3">
                 <Benefit>
                   Jusqu'à 3 devis de professionnels vérifiés et comparables.
                 </Benefit>
