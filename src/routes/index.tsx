@@ -815,7 +815,7 @@ function Coverage() {
             </p>
             <h2 id="coverage-title" className="font-display text-7xl leading-[0.82] text-paper sm:text-8xl">
               25
-              <br />
+              <span className="block h-3 sm:h-5" />
               villes
             </h2>
             <p className="mt-6 font-mono text-xs font-bold uppercase tracking-[0.16em] text-paper">
