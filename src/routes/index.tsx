@@ -108,7 +108,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-paper text-ink font-sans paper-noise">
+    <div id="top" className="min-h-screen bg-paper text-ink font-sans paper-noise">
       <Nav />
 
       <Hero />
@@ -230,7 +230,7 @@ const NAV_LINKS = [
 ];
 
 function Nav() {
-  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <nav className="sticky top-0 z-20 border-b-2 border-ink bg-paper/95">
@@ -806,7 +806,7 @@ function MoroccoNetwork() {
 
 function Coverage() {
   return (
-    <section className="max-w-6xl mx-auto px-5 py-20 lg:py-28" aria-labelledby="coverage-title">
+    <section id="section-villes" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28" aria-labelledby="coverage-title">
       <div className="flex flex-col overflow-hidden border-[3px] border-ink bg-paper shadow-[10px_10px_0_var(--ink)] lg:flex-row">
         <div className="flex flex-col border-b-[3px] border-ink lg:w-[38%] lg:border-r-[3px] lg:border-b-0">
           <div className="border-b-[3px] border-ink bg-terra p-7 sm:p-9">
