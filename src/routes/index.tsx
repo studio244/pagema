@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import logoAsset from "@/assets/pagema-logo.png.asset.json";
+
+const LOGO_URL = logoAsset.url;
 
 const CATEGORIES = [
   "Sécurité",
@@ -150,9 +153,11 @@ function Nav() {
     <nav className="sticky top-0 z-20 border-b-2 border-ink bg-paper/95">
       <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
         <div className="flex items-baseline gap-3">
-          <span className="font-display text-2xl leading-none tracking-tight">
-            PAGE<span className="text-terra">.MA</span>
-          </span>
+          <img
+            src={LOGO_URL}
+            alt="Page.ma"
+            className="h-9 sm:h-10 w-auto"
+          />
           <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[0.18em] border border-ink px-2 py-0.5 rotate-[-2deg]">
             Pré-lancement
           </span>
@@ -385,9 +390,7 @@ function Footer() {
   return (
     <footer className="border-t-2 border-ink zellige">
       <div className="max-w-6xl mx-auto px-5 py-8 flex items-center justify-between flex-wrap gap-3">
-        <span className="font-display text-xl tracking-tight">
-          PAGE<span className="text-terra">.MA</span>
-        </span>
+        <img src={LOGO_URL} alt="Page.ma" className="h-8 w-auto" />
         <span className="font-mono text-[11px] uppercase tracking-wide text-ink-soft">
           © 2026 · Casablanca · Aucun compte requis
         </span>
