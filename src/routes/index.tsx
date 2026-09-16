@@ -2,8 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
+import heroAsset from "@/assets/pagema-services-hero.png.asset.json";
 
 const LOGO_URL = logoAsset.url;
+const HERO_URL = heroAsset.url;
 
 const CATEGORIES = [
   "Sécurité",
@@ -183,51 +185,61 @@ function Nav() {
 
 function Hero() {
   return (
-    <header className="max-w-5xl mx-auto px-5 pt-12 pb-14 text-center">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra-deep drop mb-4">
-        Le réseau de pros vérifiés — 25 villes du Maroc
-      </p>
-      <h1 className="font-display leading-[0.92] tracking-tight text-[clamp(3rem,9vw,6.5rem)] drop [animation-delay:80ms]">
-        Dites ce qu'il
-        <br />
-        vous faut. On
-        <br />
-        prévient <span className="text-terra">3 pros</span>.
-      </h1>
-      <p className="mt-5 max-w-[56ch] mx-auto text-lg text-ink-soft text-pretty drop [animation-delay:160ms]">
-        Vous décrivez votre besoin, Page.ma le qualifie par téléphone, et vous
-        recevez jusqu'à trois devis de professionnels sélectionnés. Gratuit,
-        sans compte, sans spam.
-      </p>
+    <header className="relative isolate overflow-hidden border-b-2 border-ink">
+      <img
+        src={HERO_URL}
+        alt="Professionnels marocains de la sécurité, du nettoyage et des services"
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-[58%_center] sm:object-center"
+        fetchPriority="high"
+      />
+      <div className="absolute inset-0 -z-10 bg-ink/75" aria-hidden="true" />
 
-      <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 drop [animation-delay:220ms]">
-        <a
-          href="#section-client"
-          className="w-full sm:w-auto bg-terra text-paper border-2 border-ink font-display text-xl tracking-tight px-8 py-3 lift"
-        >
-          Je cherche un prestataire
-        </a>
-        <a
-          href="#section-prestataire"
-          className="w-full sm:w-auto bg-paper text-ink border-2 border-ink font-display text-xl tracking-tight px-8 py-3 lift hover:bg-paper-deep"
-        >
-          Je propose mes services
-        </a>
-      </div>
+      <div className="max-w-5xl mx-auto px-5 py-12 lg:py-14 text-center text-paper">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-paper drop mb-4">
+          Le réseau de pros vérifiés — 25 villes du Maroc
+        </p>
+        <h1 className="font-display leading-[0.92] tracking-tight text-[clamp(3rem,9vw,6.5rem)] drop [animation-delay:80ms]">
+          Dites ce qu'il
+          <br />
+          vous faut. On
+          <br />
+          prévient <span className="text-terra">3 pros</span>.
+        </h1>
+        <p className="mt-5 max-w-[56ch] mx-auto text-lg text-paper text-pretty drop [animation-delay:160ms]">
+          Vous décrivez votre besoin, Page.ma le qualifie par téléphone, et vous
+          recevez jusqu'à trois devis de professionnels sélectionnés. Gratuit,
+          sans compte, sans spam.
+        </p>
 
-      <p className="mt-4 font-mono text-[10px] uppercase tracking-wide text-ink-soft drop [animation-delay:260ms]">
-        Sans engagement · Aucun compte requis · Zéro spam
-      </p>
-
-      <div className="mt-8 flex flex-wrap justify-center gap-2 drop [animation-delay:300ms]">
-        {CATEGORIES.map((c) => (
-          <span
-            key={c}
-            className="font-mono text-[11px] uppercase tracking-wide border-2 border-ink px-3 py-1"
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 drop [animation-delay:220ms]">
+          <a
+            href="#section-client"
+            className="w-full sm:w-auto bg-terra text-paper border-2 border-paper font-display text-xl tracking-tight px-8 py-3 lift"
           >
-            {c}
-          </span>
-        ))}
+            Je cherche un prestataire
+          </a>
+          <a
+            href="#section-prestataire"
+            className="w-full sm:w-auto bg-paper text-ink border-2 border-paper font-display text-xl tracking-tight px-8 py-3 lift hover:bg-paper-deep"
+          >
+            Je propose mes services
+          </a>
+        </div>
+
+        <p className="mt-4 font-mono text-[10px] uppercase tracking-wide text-paper drop [animation-delay:260ms]">
+          Sans engagement · Aucun compte requis · Zéro spam
+        </p>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-2 drop [animation-delay:300ms]">
+          {CATEGORIES.map((c) => (
+            <span
+              key={c}
+              className="font-mono text-[11px] uppercase tracking-wide border-2 border-paper bg-ink/45 px-3 py-1"
+            >
+              {c}
+            </span>
+          ))}
+        </div>
       </div>
     </header>
   );
