@@ -27,6 +27,7 @@ export type Database = {
           need_details: string | null
           phone: string
           profile: string
+          real_estate_intent: string | null
           team_size: string | null
         }
         Insert: {
@@ -41,6 +42,7 @@ export type Database = {
           need_details?: string | null
           phone: string
           profile?: string
+          real_estate_intent?: string | null
           team_size?: string | null
         }
         Update: {
@@ -55,6 +57,7 @@ export type Database = {
           need_details?: string | null
           phone?: string
           profile?: string
+          real_estate_intent?: string | null
           team_size?: string | null
         }
         Relationships: []

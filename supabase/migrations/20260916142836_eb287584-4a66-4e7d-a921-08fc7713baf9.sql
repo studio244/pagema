@@ -1,0 +1,1 @@
+ALTER TABLE public.preregistrations ADD COLUMN IF NOT EXISTS real_estate_intent TEXT;

@@ -11,6 +11,8 @@ const HERO_URL = heroAsset.url;
 const STAMP_URL = stampAsset.url;
 const COVERAGE_URL = coverageAsset.url;
 
+const REAL_ESTATE = "Immobilier / investissement";
+
 const CATEGORIES = [
   "Sécurité",
   "Nettoyage",
@@ -19,6 +21,8 @@ const CATEGORIES = [
   "Santé",
   "Impression",
   "Publicité",
+  "Conciergerie",
+  REAL_ESTATE,
 ];
 
 const HEALTH_ENTITIES = [
@@ -27,7 +31,16 @@ const HEALTH_ENTITIES = [
   "Centre de soins / diagnostic",
 ];
 
+const REAL_ESTATE_INTENTS = [
+  "Acheter un bien",
+  "Vendre un bien",
+  "Louer un bien",
+  "Investir (rendement locatif)",
+  "Gestion locative / conciergerie",
+];
+
 const TEAM_SIZES = ["1–5", "6–20", "21–50", "51–200", "200+"];
+
 
 const COVERAGE_CITIES = [
   "Casablanca",
@@ -547,6 +560,10 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
   const [teamSize, setTeamSize] = useState<string>(TEAM_SIZES[0]!);
   const [needDetails, setNeedDetails] = useState("");
   const [healthEntity, setHealthEntity] = useState<string>(HEALTH_ENTITIES[0]!);
+  const [realEstateIntent, setRealEstateIntent] = useState<string>(
+    REAL_ESTATE_INTENTS[0]!,
+  );
+
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
     "idle",
   );
@@ -559,6 +576,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
     "block font-mono text-[10px] uppercase tracking-[0.15em] text-ink-soft mb-1";
 
   const isHealth = profile === "prestataire" && category === "Santé";
+  const isRealEstate = category === REAL_ESTATE;
   const idPrefix = profile;
 
   async function handleSubmit(e: React.FormEvent) {
@@ -575,7 +593,9 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
       team_size: profile === "prestataire" ? teamSize : null,
       need_details: profile === "client" ? needDetails.trim() || null : null,
       health_entity_type: isHealth ? healthEntity : null,
+      real_estate_intent: isRealEstate ? realEstateIntent : null,
     });
+
     setStatus(error ? "error" : "done");
   }
 
@@ -617,14 +637,19 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             </span>
             <p className="mt-2 font-display text-2xl tracking-tight">
               {profile === "client"
-                ? "On s'occupe de trouver vos pros."
+                ? isRealEstate
+                  ? "On vous met en relation."
+                  : "On s'occupe de trouver vos pros."
                 : "Bienvenue dans le réseau."}
             </p>
             <p className="mt-2 text-sm text-ink-soft">
               {profile === "client"
-                ? "On vous appelle dès l'ouverture dans votre ville pour valider votre besoin."
+                ? isRealEstate
+                  ? "Un appel pour comprendre votre projet, puis une mise en relation avec un professionnel de l'immobilier vérifié."
+                  : "On vous appelle dès l'ouverture dans votre ville pour valider votre besoin."
                 : "On vous contacte pour vérifier votre société avant l'ouverture."}
             </p>
+
           </div>
         ) : (
           <form className="space-y-4" onSubmit={handleSubmit}>
@@ -746,6 +771,30 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
               </div>
             )}
 
+            {isRealEstate && (
+              <div>
+                <label className={labelClass} htmlFor={`${idPrefix}-realestate`}>
+                  {profile === "client"
+                    ? "Votre projet immobilier"
+                    : "Votre spécialité immobilière"}
+                </label>
+                <select
+                  id={`${idPrefix}-realestate`}
+                  className={selectClass}
+                  value={realEstateIntent}
+                  onChange={(e) => setRealEstateIntent(e.target.value)}
+                >
+                  {REAL_ESTATE_INTENTS.map((r) => (
+                    <option key={r}>{r}</option>
+                  ))}
+                </select>
+                <p className="mt-1 font-mono text-[10px] leading-relaxed text-ink-soft">
+                  Immobilier : pas de devis, mais une mise en relation directe
+                  avec un professionnel qualifié.
+                </p>
+              </div>
+            )}
+
             {profile === "prestataire" ? (
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-team`}>
@@ -765,30 +814,39 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             ) : (
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-need`}>
-                  Votre besoin (optionnel)
+                  {isRealEstate
+                    ? "Votre projet en quelques lignes (optionnel)"
+                    : "Votre besoin (optionnel)"}
                 </label>
                 <textarea
                   id={`${idPrefix}-need`}
                   rows={3}
                   className={inputClass}
-                  placeholder="Ex : 2 agents de sécurité de nuit, site à Casablanca…"
+                  placeholder={
+                    isRealEstate
+                      ? "Ex : appartement 2 chambres à Casablanca, budget 1,2 M DH, achat pour location…"
+                      : "Ex : 2 agents de sécurité de nuit, site à Casablanca…"
+                  }
                   value={needDetails}
                   onChange={(e) => setNeedDetails(e.target.value)}
                 />
               </div>
             )}
 
+
             <button
               type="submit"
               disabled={status === "sending"}
               className="w-full inline-flex items-center justify-center bg-terra text-paper border-2 border-ink font-display text-xl leading-none tracking-tight py-4 mt-2 lift disabled:opacity-60"
             >
-
               {status === "sending"
                 ? "Envoi…"
                 : profile === "client"
-                  ? "Je cherche un pro"
+                  ? isRealEstate
+                    ? "Je veux être mis en relation"
+                    : "Je cherche un pro"
                   : "Je m'inscris comme pro"}
+
             </button>
             {status === "error" && (
               <p className="text-sm text-terra-deep text-center font-medium">
