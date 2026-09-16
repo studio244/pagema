@@ -364,14 +364,14 @@ function HowItWorks() {
               <span className="font-display text-5xl leading-none text-terra">
                 {s.n}
               </span>
-              <div className="my-5 flex aspect-[4/3] items-center justify-center overflow-hidden border-y-2 border-paper/20 bg-paper/5 px-3 py-2">
+              <div className="my-5 flex aspect-[4/3] items-center justify-center overflow-hidden border-y-2 border-paper/20 bg-paper/5">
                 <img
                   src={s.image}
                   alt={s.alt}
                   loading="lazy"
                   width={768}
                   height={768}
-                  className="h-full w-full object-contain"
+                  className="h-full w-full object-cover"
                 />
               </div>
               <h3 className="font-sans font-semibold text-xl mt-4">{s.t}</h3>
