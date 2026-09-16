@@ -3,7 +3,7 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
 import heroAsset from "@/assets/pagema-services-hero.png.asset.json";
-import stampAsset from "@/assets/pagema-stamp.png.asset.json";
+import stampAsset from "@/assets/pagema-app-icon.png.asset.json";
 
 const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
