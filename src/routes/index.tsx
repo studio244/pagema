@@ -457,6 +457,92 @@ function AiFeatures() {
   );
 }
 
+const MAP_CITIES: { name: string; x: number; y: number; anchor?: "end" }[] = [
+  { name: "Tanger", x: 243, y: 40 },
+  { name: "Oujda", x: 334, y: 62 },
+  { name: "Fès", x: 258, y: 96 },
+  { name: "Rabat", x: 176, y: 110 },
+  { name: "Casablanca", x: 150, y: 134 },
+  { name: "Marrakech", x: 172, y: 192 },
+  { name: "Agadir", x: 126, y: 236 },
+  { name: "Laâyoune", x: 82, y: 372 },
+  { name: "Dakhla", x: 50, y: 462 },
+];
+
+const MAP_LINKS: [number, number][] = [
+  [0, 2],
+  [0, 3],
+  [2, 1],
+  [2, 3],
+  [3, 4],
+  [4, 5],
+  [5, 6],
+  [6, 7],
+  [7, 8],
+  [4, 2],
+];
+
+function MoroccoNetwork() {
+  return (
+    <svg
+      viewBox="0 0 400 520"
+      className="absolute inset-0 h-full w-full p-4 transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
+      role="img"
+      aria-label="Carte du Maroc et réseau des villes couvertes, de Tanger à Dakhla"
+    >
+      <path
+        d="M248 14 L292 26 L330 44 L352 62 L338 92 L328 122 L316 152 L298 180 L266 216 L230 254 L194 298 L158 342 L118 394 L84 442 L56 482 L34 508 L18 494 L42 452 L38 420 L60 398 L90 360 L110 318 L138 286 L148 256 L126 236 L102 214 L82 188 L94 166 L126 140 L150 112 L178 74 L206 40 Z"
+        className="fill-paper stroke-ink"
+        strokeWidth={3}
+        strokeLinejoin="round"
+      />
+      {MAP_LINKS.map(([a, b], i) => {
+        const from = MAP_CITIES[a]!;
+        const to = MAP_CITIES[b]!;
+        return (
+          <line
+            key={`${a}-${b}`}
+            x1={from.x}
+            y1={from.y}
+            x2={to.x}
+            y2={to.y}
+            className="net-line stroke-terra/60"
+            strokeWidth={1.6}
+            style={{ animationDelay: `${0.3 + i * 0.12}s` }}
+          />
+        );
+      })}
+      {MAP_CITIES.map((city, i) => (
+        <g key={city.name}>
+          <circle
+            cx={city.x}
+            cy={city.y}
+            r={4}
+            className="net-halo fill-terra"
+            style={{ animationDelay: `${i * 0.25}s` }}
+          />
+          <circle
+            cx={city.x}
+            cy={city.y}
+            r={3.4}
+            className="net-dot fill-terra stroke-ink"
+            strokeWidth={1.2}
+            style={{ animationDelay: `${i * 0.25}s` }}
+          />
+          <text
+            x={city.x + 9}
+            y={city.y + 4}
+            className="net-label fill-ink font-mono text-[11px] font-bold uppercase"
+            style={{ animationDelay: `${0.6 + i * 0.12}s` }}
+          >
+            {city.name}
+          </text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 function Coverage() {
   return (
     <section className="max-w-6xl mx-auto px-5 py-20 lg:py-28" aria-labelledby="coverage-title">
