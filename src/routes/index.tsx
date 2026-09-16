@@ -951,7 +951,8 @@ const FOOTER_COLUMNS: { title: string; links: { label: string; href: string }[] 
 
 function Footer() {
   return (
-    <footer className="border-t-2 border-ink zellige">
+    <footer className="relative isolate overflow-hidden border-t-2 border-ink zellige">
+      <BrandMark className="pointer-events-none absolute -right-14 -bottom-20 -z-10 h-[24rem] w-auto text-ink/[0.07]" />
       <div className="max-w-6xl mx-auto px-5 py-16 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-4 lg:gap-16">
           <div className="lg:pr-8">
@@ -964,8 +965,9 @@ function Footer() {
 
           {FOOTER_COLUMNS.map((column) => (
             <nav key={column.title} aria-label={column.title}>
-              <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-terra">
-                {column.title}
+              <h2 className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-terra">
+                <BrandMark className="h-3 w-auto shrink-0" />
+                <span>{column.title}</span>
               </h2>
               <ul className="mt-6 space-y-3">
                 {column.links.map((link) => (
