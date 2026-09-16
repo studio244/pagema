@@ -223,37 +223,113 @@ function Index() {
   );
 }
 
+const NAV_LINKS = [
+  { label: "Comment ça marche", href: "#section-processus" },
+  { label: "Villes", href: "#section-villes" },
+  { label: "L'IA", href: "#section-ia" },
+];
+
 function Nav() {
+  const [menuOpen, setMenuOpen] = React.useState(false);
+
   return (
     <nav className="sticky top-0 z-20 border-b-2 border-ink bg-paper/95">
       <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
-          <img
-            src={LOGO_URL}
-            alt="Page.ma"
-            className="h-9 sm:h-10 w-auto"
-          />
+          <a href="#top" className="shrink-0" aria-label="Page.ma — retour en haut">
+            <img
+              src={LOGO_URL}
+              alt="Page.ma"
+              className="h-9 sm:h-10 w-auto"
+            />
+          </a>
           <span className="hidden sm:inline-flex items-center font-mono text-[10px] leading-none uppercase tracking-[0.18em] border border-ink px-2 py-1 rotate-[-2deg]">
             Pré-lancement
           </span>
-
         </div>
+
+        <div className="hidden md:flex items-center gap-4">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="font-mono text-xs leading-none uppercase tracking-wide text-ink-soft hover:text-ink border-b-2 border-transparent hover:border-terra py-1 transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+
         <div className="flex items-center gap-2">
           <a
             href="#section-client"
-            className="inline-flex items-center font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift"
+            className="hidden sm:inline-flex items-center font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift"
           >
             Je cherche
           </a>
           <a
             href="#section-prestataire"
-            className="inline-flex items-center font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift bg-terra text-paper"
+            className="hidden sm:inline-flex items-center font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift bg-terra text-paper"
           >
             Je suis pro
           </a>
 
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-expanded={menuOpen}
+            aria-controls="nav-menu-panel"
+            aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            className="md:hidden inline-flex items-center justify-center w-10 h-10 border-2 border-ink lift bg-paper"
+          >
+            {menuOpen ? (
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                <path d="M5 5l14 14M19 5L5 19" strokeLinecap="square" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="square" />
+              </svg>
+            )}
+          </button>
         </div>
       </div>
+
+      {menuOpen && (
+        <div
+          id="nav-menu-panel"
+          className="md:hidden border-t-2 border-ink bg-paper paper-noise"
+        >
+          <div className="max-w-6xl mx-auto px-5 py-4 flex flex-col">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="font-mono text-sm uppercase tracking-wide py-3 border-b border-ink/20 last:border-b-0"
+              >
+                {link.label}
+              </a>
+            ))}
+            <div className="mt-3 grid grid-cols-2 gap-2 sm:hidden">
+              <a
+                href="#section-client"
+                onClick={() => setMenuOpen(false)}
+                className="inline-flex items-center justify-center font-mono text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 py-3 lift"
+              >
+                Je cherche
+              </a>
+              <a
+                href="#section-prestataire"
+                onClick={() => setMenuOpen(false)}
+                className="inline-flex items-center justify-center font-mono text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 py-3 lift bg-terra text-paper"
+              >
+                Je suis pro
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
