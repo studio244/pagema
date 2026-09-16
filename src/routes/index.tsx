@@ -659,7 +659,9 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             <p className="mt-2 text-sm text-ink-soft">
               {profile === "client"
                 ? isRealEstate
-                  ? "Un appel pour comprendre votre projet, puis une mise en relation avec un professionnel de l'immobilier vérifié."
+                  ? isInvestment
+                    ? "Un appel pour comprendre votre projet, puis une mise en relation avec un partenaire d'investissement vérifié."
+                    : "Un appel pour comprendre votre projet, puis une mise en relation avec un professionnel de l'immobilier vérifié."
                   : "On vous appelle dès l'ouverture dans votre ville pour valider votre besoin."
                 : "On vous contacte pour vérifier votre société avant l'ouverture."}
             </p>
