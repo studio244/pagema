@@ -5,9 +5,9 @@ import logoAsset from "@/assets/pagema-logo.png.asset.json";
 import heroAsset from "@/assets/pagema-services-hero-2.png.asset.json";
 import stampAsset from "@/assets/pagema-app-icon.png.asset.json";
 import prosAsset from "@/assets/pagema-pros-equipe.jpg.asset.json";
-import requestIllustration from "@/assets/process-step-request.png";
-import qualifyIllustration from "@/assets/process-step-qualify.png";
-import quotesIllustration from "@/assets/process-step-quotes.png";
+import requestIllustration from "@/assets/process-step-request-milano.png";
+import qualifyIllustration from "@/assets/process-step-qualify-milano.png";
+import quotesIllustration from "@/assets/process-step-quotes-milano.png";
 
 const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
@@ -416,14 +416,14 @@ function HowItWorks() {
               t: "Décrivez le besoin",
               b: "Quelques lignes suffisent. En 2 minutes.",
               image: requestIllustration,
-              alt: "Une cliente décrit rapidement son besoin sur un formulaire",
+              alt: "Un client en costume décrit rapidement son besoin sur un formulaire",
             },
             {
               n: "02",
               t: "Page.ma qualifie",
               b: "Un appel humain pour vérifier le besoin et le bon pro.",
               image: qualifyIllustration,
-              alt: "Une conseillère Page.ma vérifie la demande par téléphone",
+              alt: "Un conseiller Page.ma en costume vérifie la demande par téléphone",
             },
             {
               n: "03",
