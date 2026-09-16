@@ -130,7 +130,7 @@ function Index() {
 
             <div className="drop [animation-delay:80ms] text-paper">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-4">
-                [ a ] — Vous avez un besoin
+                VOUS AVEZ UN BESOIN
               </p>
               <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
                 Décrivez votre
@@ -179,7 +179,7 @@ function Index() {
 
             <div className="drop [animation-delay:80ms]">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra-deep mb-4">
-                [ b ] — Vous proposez des services
+                VOUS PROPOSEZ DES SERVICES
               </p>
               <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
                 Rejoignez le
@@ -407,7 +407,7 @@ function HowItWorks() {
     >
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-10">
-          [ c ] — Comment ça marche
+          COMMENT ÇA MARCHE
         </p>
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
           {[
@@ -502,7 +502,7 @@ function AiFeatures() {
       <div className="flex items-end justify-between flex-wrap gap-4 mb-6">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-4">
-            [ e ] — Bientôt : l'IA au service de la mise en relation
+            BIENTÔT : L'IA AU SERVICE DE LA MISE EN RELATION
           </p>
           <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">
             Ce qui arrive
@@ -811,7 +811,7 @@ function Coverage() {
         <div className="flex flex-col border-b-[3px] border-ink lg:w-[38%] lg:border-r-[3px] lg:border-b-0">
           <div className="border-b-[3px] border-ink bg-terra p-7 sm:p-9">
             <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-paper">
-              [ d ] — Couverture nationale
+              COUVERTURE NATIONALE
             </p>
             <h2 id="coverage-title" className="font-display text-7xl leading-[0.82] text-paper sm:text-8xl">
               25
