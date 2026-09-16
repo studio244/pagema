@@ -1,10 +1,31 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  BellRing,
+  Bot,
+  Building2,
+  CircleStop,
+  FileCheck2,
+  Gauge,
+  MapPinned,
+  PhoneCall,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  UserCheck,
+  Users,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
 import heroAsset from "@/assets/pagema-services-hero-2.png.asset.json";
 import stampAsset from "@/assets/pagema-app-icon.png.asset.json";
 import coverageAsset from "@/assets/pagema-morocco-map.png.asset.json";
+import clientImage from "@/assets/pagema-client-request.jpg";
+import providerImage from "@/assets/pagema-provider-network.jpg";
+import processImage from "@/assets/pagema-human-verification.jpg";
+import aiImage from "@/assets/pagema-ai-matching.jpg";
 
 const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
@@ -106,12 +127,10 @@ function Index() {
 
       <section id="section-client" className="scroll-mt-24">
         <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div className="grid lg:grid-cols-[1.04fr_0.96fr] gap-12 lg:gap-16 items-start">
 
             <div className="drop [animation-delay:80ms]">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra-deep mb-4">
-                [ a ] — Vous avez un besoin
-              </p>
+              <SectionLabel icon={Search}>[ a ] — Vous avez un besoin</SectionLabel>
               <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
                 Décrivez votre
                 <br />
@@ -140,6 +159,20 @@ function Index() {
                   Gratuit, sans compte, zéro spam.
                 </Benefit>
               </ul>
+              <figure className="group relative mt-10 aspect-[16/10] overflow-hidden border-2 border-ink bg-ink shadow-cut">
+                <img
+                  src={clientImage}
+                  alt="Une conseillère accompagne un client marocain dans sa demande de service"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none"
+                  loading="lazy"
+                  width={1280}
+                  height={912}
+                />
+                <figcaption className="absolute inset-x-4 bottom-4 flex items-center gap-2 border border-paper/40 bg-ink/85 px-4 py-3 text-paper backdrop-blur-sm">
+                  <PhoneCall className="h-4 w-4 shrink-0 text-terra" aria-hidden="true" />
+                  <span className="font-mono text-[10px] uppercase tracking-[0.12em]">Un humain valide votre demande avant toute mise en relation</span>
+                </figcaption>
+              </figure>
             </div>
 
             <PreregistrationForm profile="client" />
@@ -149,12 +182,10 @@ function Index() {
 
       <section id="section-prestataire" className="scroll-mt-24 border-y-2 border-ink bg-paper-deep">
         <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div className="grid lg:grid-cols-[0.96fr_1.04fr] gap-12 lg:gap-16 items-start">
 
-            <div className="drop [animation-delay:80ms]">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra-deep mb-4">
-                [ b ] — Vous proposez des services
-              </p>
+            <div className="drop [animation-delay:80ms] lg:order-2">
+              <SectionLabel icon={Building2}>[ b ] — Vous proposez des services</SectionLabel>
               <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
                 Rejoignez le
                 <br />
@@ -183,9 +214,23 @@ function Index() {
                   médecins indépendants, ni établissements publics.
                 </Benefit>
               </ul>
+              <figure className="group relative mt-10 aspect-[16/10] overflow-hidden border-2 border-ink bg-ink shadow-cut">
+                <img
+                  src={providerImage}
+                  alt="Équipe de professionnels marocains des services vérifiés"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none"
+                  loading="lazy"
+                  width={1280}
+                  height={912}
+                />
+                <figcaption className="absolute inset-x-4 bottom-4 flex items-center gap-2 border border-paper/40 bg-ink/85 px-4 py-3 text-paper backdrop-blur-sm">
+                  <BadgeCheck className="h-4 w-4 shrink-0 text-terra" aria-hidden="true" />
+                  <span className="font-mono text-[10px] uppercase tracking-[0.12em]">Des sociétés vérifiées, visibles au bon moment</span>
+                </figcaption>
+              </figure>
             </div>
 
-            <PreregistrationForm profile="prestataire" />
+            <div className="lg:order-1"><PreregistrationForm profile="prestataire" /></div>
           </div>
         </div>
       </section>
@@ -300,37 +345,31 @@ function Hero() {
 }
 
 function HowItWorks() {
+  const steps = [
+    { n: "01", icon: FileCheck2, t: "Décrivez le besoin", b: "Quelques lignes suffisent. En 2 minutes." },
+    { n: "02", icon: PhoneCall, t: "Page.ma qualifie", b: "Un appel humain pour vérifier le besoin et le bon pro." },
+    { n: "03", icon: Users, t: "Recevez les devis", b: "Jusqu'à 3 devis comparables. Pas de boîte noire." },
+  ];
   return (
     <section className="border-y-2 border-ink bg-ink text-paper">
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-10">
-          [ c ] — Comment ça marche
-        </p>
+        <div className="mb-10 grid items-end gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+          <div>
+            <SectionLabel icon={ShieldCheck} inverted>[ c ] — Comment ça marche</SectionLabel>
+            <h2 className="font-display text-[clamp(2.4rem,5vw,4rem)] leading-[0.92]">Simple pour vous.<br /><span className="text-terra">Exigeant pour nous.</span></h2>
+          </div>
+          <figure className="group relative aspect-[16/7] overflow-hidden border-2 border-paper/30">
+            <img src={processImage} alt="Une conseillère Page.ma vérifie une demande par téléphone" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none" loading="lazy" width={1280} height={768} />
+            <div className="absolute inset-0 bg-ink/15" aria-hidden="true" />
+          </figure>
+        </div>
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
-          {[
-            {
-              n: "01",
-              t: "Décrivez le besoin",
-              b: "Quelques lignes suffisent. En 2 minutes.",
-            },
-            {
-              n: "02",
-              t: "Page.ma qualifie",
-              b: "Un appel humain pour vérifier le besoin et le bon pro.",
-            },
-            {
-              n: "03",
-              t: "Recevez les devis",
-              b: "Jusqu'à 3 devis comparables. Pas de boîte noire.",
-            },
-          ].map((s) => (
+          {steps.map((s) => (
             <div
               key={s.n}
-              className="lift-card lift-card-invert flex h-full flex-col border-2 border-paper/25 p-6"
+              className="lift-card lift-card-invert flex h-full flex-col border border-paper/30 bg-paper/[0.04] p-6"
             >
-              <span className="font-display text-5xl leading-none text-terra">
-                {s.n}
-              </span>
+              <div className="flex items-center justify-between gap-4"><span className="font-display text-5xl leading-none text-terra">{s.n}</span><s.icon className="h-7 w-7 text-paper/80" strokeWidth={1.7} aria-hidden="true" /></div>
               <h3 className="font-sans font-semibold text-xl mt-4">{s.t}</h3>
               <p className="text-sm leading-relaxed text-paper/70 mt-2">
                 {s.b}
@@ -347,31 +386,37 @@ function HowItWorks() {
 const AI_FEATURES = [
   {
     n: "01",
+    icon: Sparkles,
     title: "Demande en langage naturel",
     body: "« 2 agents de sécurité de nuit à Casablanca, budget 12 000 DH, avant le 30 » — l'IA structure la demande à votre place.",
   },
   {
     n: "02",
+    icon: Gauge,
     title: "Score de correspondance expliqué",
     body: "Chaque pro proposé reçoit une note sur 100, avec les raisons affichées : métier, ville, taille d'équipe, disponibilité.",
   },
   {
     n: "03",
+    icon: UserCheck,
     title: "Validation humaine obligatoire",
     body: "Aucune mise en relation n'est envoyée sans votre accord. L'IA prépare, vous décidez.",
   },
   {
     n: "04",
+    icon: ShieldCheck,
     title: "Indice de confiance transparent",
     body: "Vérification des documents, historique des missions, avis vérifiés — jamais de boîte noire.",
   },
   {
     n: "05",
+    icon: BellRing,
     title: "Veille de marché continue",
     body: "Pour les prestataires : alertes automatiques dès qu'une demande correspond à votre métier et votre ville.",
   },
   {
     n: "06",
+    icon: CircleStop,
     title: "Bouton d'arrêt de l'IA",
     body: "Un seul clic met en pause toute action automatique sur votre dossier.",
   },
@@ -382,9 +427,7 @@ function AiFeatures() {
     <section id="section-ia" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28">
       <div className="flex items-end justify-between flex-wrap gap-4 mb-6">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-4">
-            [ e ] — Bientôt : l'IA au service de la mise en relation
-          </p>
+          <SectionLabel icon={Bot}>[ e ] — Bientôt : l'IA au service de la mise en relation</SectionLabel>
           <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">
             Ce qui arrive
             <br />
@@ -403,18 +446,22 @@ function AiFeatures() {
       </p>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+        <figure className="group relative min-h-72 overflow-hidden border-2 border-ink bg-ink sm:col-span-2 lg:col-span-2 lg:row-span-2">
+          <img src={aiImage} alt="Sélection assistée par IA avec validation humaine" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none" loading="lazy" width={1280} height={912} />
+          <figcaption className="absolute inset-x-5 bottom-5 max-w-md border border-paper/40 bg-ink/90 p-4 text-paper backdrop-blur-sm">
+            <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em]"><UserCheck className="h-4 w-4 text-terra" aria-hidden="true" /> L'IA propose. Vous gardez la décision.</span>
+          </figcaption>
+        </figure>
         {AI_FEATURES.map((f) => (
           <div
             key={f.n}
-            className="lift-card flex h-full flex-col border-2 border-ink bg-paper-deep p-6"
+            className="lift-card flex h-full flex-col border border-ink/25 bg-paper-deep p-6"
           >
             <div className="flex items-center justify-between gap-3">
               <span className="font-display text-4xl leading-none text-terra">
                 {f.n}
               </span>
-              <span className="inline-flex items-center font-mono text-[9px] leading-none uppercase tracking-wide border border-ink px-2 py-1">
-                À venir
-              </span>
+              <f.icon className="h-6 w-6 text-terra" strokeWidth={1.8} aria-hidden="true" />
             </div>
             <h3 className="font-sans font-semibold text-xl mt-4 text-pretty">
               {f.title}
@@ -451,9 +498,7 @@ function Coverage() {
       <div className="flex flex-col overflow-hidden border-[3px] border-ink bg-paper shadow-[10px_10px_0_var(--ink)] lg:flex-row">
         <div className="flex flex-col border-b-[3px] border-ink lg:w-[38%] lg:border-r-[3px] lg:border-b-0">
           <div className="border-b-[3px] border-ink bg-terra p-7 sm:p-9">
-            <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-paper">
-              [ d ] — Couverture nationale
-            </p>
+            <p className="mb-4 flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-paper"><MapPinned className="h-4 w-4 text-paper" aria-hidden="true" />[ d ] — Couverture nationale</p>
             <h2 id="coverage-title" className="font-display text-7xl leading-[0.82] text-paper sm:text-8xl">
               25
               <br />
