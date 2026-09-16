@@ -484,8 +484,7 @@ const MAP_CITIES: { name: string; x: number; y: number }[] = [
 ];
 
 const MAP_VIEW = { width: 372, height: 390 };
-const LABEL_FONT_SIZE = 8;
-const LABEL_CHAR_WIDTH = 4.8;
+const LABEL_CHAR_WIDTH = 5.4;
 const LABEL_HEIGHT = 8.5;
 
 type LabelBox = { x1: number; y1: number; x2: number; y2: number };
@@ -522,8 +521,25 @@ function overlaps(a: LabelBox, b: LabelBox) {
   return a.x1 < b.x2 && a.x2 > b.x1 && a.y1 < b.y2 && a.y2 > b.y1;
 }
 
+function segmentHitsBox(
+  ax: number,
+  ay: number,
+  bx: number,
+  by: number,
+  box: LabelBox,
+) {
+  const steps = 24;
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const x = ax + (bx - ax) * t;
+    const y = ay + (by - ay) * t;
+    if (x >= box.x1 && x <= box.x2 && y >= box.y1 && y <= box.y2) return true;
+  }
+  return false;
+}
+
 // Deterministic label layout: each city name takes the first candidate slot that
-// collides with neither an already placed name nor any city dot.
+// collides with neither an already placed name, a city dot, nor a network link.
 function layoutMapLabels(): PlacedLabel[] {
   const dotBoxes: LabelBox[] = MAP_CITIES.map((c) => ({
     x1: c.x - 4,
@@ -531,10 +547,17 @@ function layoutMapLabels(): PlacedLabel[] {
     x2: c.x + 4,
     y2: c.y + 4,
   }));
+  const cityByName = new Map(MAP_CITIES.map((c) => [c.name, c]));
+  const linkSegments = MAP_LINKS.flatMap(([a, b]) => {
+    const from = cityByName.get(a);
+    const to = cityByName.get(b);
+    return from && to ? [[from.x, from.y, to.x, to.y] as const] : [];
+  });
   const placedBoxes: LabelBox[] = [];
   const placed: PlacedLabel[] = [];
+  const order = [...MAP_CITIES].sort((a, b) => b.name.length - a.name.length);
 
-  for (const city of MAP_CITIES) {
+  for (const city of order) {
     const width = city.name.length * LABEL_CHAR_WIDTH;
     let chosen: PlacedLabel | null = null;
 
@@ -554,6 +577,7 @@ function layoutMapLabels(): PlacedLabel[] {
       if (!insideView) continue;
       if (placedBoxes.some((b) => overlaps(box, b))) continue;
       if (dotBoxes.some((b) => overlaps(box, b))) continue;
+      if (linkSegments.some(([ax, ay, bx, by]) => segmentHitsBox(ax, ay, bx, by, box))) continue;
 
       placedBoxes.push(box);
       chosen = {
@@ -573,8 +597,6 @@ function layoutMapLabels(): PlacedLabel[] {
 
   return placed;
 }
-
-const MAP_LABELS = layoutMapLabels();
 
 const MAP_LINKS: [string, string][] = [
   ["Tanger", "Tétouan"],
@@ -604,6 +626,8 @@ const MAP_LINKS: [string, string][] = [
   ["Agadir", "Laâyoune"],
   ["Laâyoune", "Dakhla"],
 ];
+
+const MAP_LABELS = layoutMapLabels();
 
 function MoroccoNetwork() {
   const byName = new Map(MAP_CITIES.map((c) => [c.name, c]));
