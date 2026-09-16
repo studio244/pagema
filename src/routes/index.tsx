@@ -69,9 +69,6 @@ function Index() {
               [ a ] — Vous avez un besoin
             </p>
             <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-5 lg:gap-12 items-end">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra-deep mb-4">
-                Décrivez. Comparez. Décidez.
-              </p>
               <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
                 Décrivez votre
                 <br />
