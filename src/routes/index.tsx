@@ -91,9 +91,10 @@ function Index() {
 
       <HowItWorks />
 
-      <section id="section-client" className="scroll-mt-20">
-        <div className="max-w-6xl mx-auto px-5 py-16 lg:py-20">
-          <div className="grid lg:grid-cols-2 gap-10 items-start">
+      <section id="section-client" className="scroll-mt-24">
+        <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+
             <div className="drop [animation-delay:80ms]">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra-deep mb-4">
                 [ a ] — Vous avez un besoin
@@ -103,13 +104,14 @@ function Index() {
                 <br />
                 objectif concret.
               </h2>
-              <p className="mt-4 max-w-[42ch] text-lg text-ink-soft text-pretty">
+              <p className="mt-6 max-w-prose text-lg leading-relaxed text-ink-soft text-pretty">
                 Un agent de sécurité de nuit, un nettoyage après chantier, une
                 intérimaire qualifiée… Dites ce qu'il vous faut, on trouve les
                 bons pros.
               </p>
 
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-8 space-y-4 max-w-prose">
+
                 <Benefit>
                   Jusqu'à 3 devis de professionnels vérifiés et comparables.
                 </Benefit>
@@ -132,9 +134,10 @@ function Index() {
         </div>
       </section>
 
-      <section id="section-prestataire" className="scroll-mt-20 border-y-2 border-ink bg-paper-deep">
-        <div className="max-w-6xl mx-auto px-5 py-16 lg:py-20">
-          <div className="grid lg:grid-cols-2 gap-10 items-start">
+      <section id="section-prestataire" className="scroll-mt-24 border-y-2 border-ink bg-paper-deep">
+        <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+
             <div className="drop [animation-delay:80ms]">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra-deep mb-4">
                 [ b ] — Vous proposez des services
@@ -144,12 +147,13 @@ function Index() {
                 <br />
                 réseau vérifié.
               </h2>
-              <p className="mt-4 max-w-[42ch] text-lg text-ink-soft text-pretty">
+              <p className="mt-6 max-w-prose text-lg leading-relaxed text-ink-soft text-pretty">
                 Inscrivez votre société pour recevoir des demandes qualifiées
                 dans votre métier et votre ville.
               </p>
 
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-8 space-y-4 max-w-prose">
+
                 <Benefit>
                   Accès anticipé : vous faites partie des premiers prestataires
                   et vous façonnez le produit.
@@ -186,29 +190,31 @@ function Nav() {
   return (
     <nav className="sticky top-0 z-20 border-b-2 border-ink bg-paper/95">
       <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
-        <div className="flex items-baseline gap-3">
+        <div className="flex items-center gap-3 min-w-0">
           <img
             src={LOGO_URL}
             alt="Page.ma"
             className="h-9 sm:h-10 w-auto"
           />
-          <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[0.18em] border border-ink px-2 py-0.5 rotate-[-2deg]">
+          <span className="hidden sm:inline-flex items-center font-mono text-[10px] leading-none uppercase tracking-[0.18em] border border-ink px-2 py-1 rotate-[-2deg]">
             Pré-lancement
           </span>
+
         </div>
         <div className="flex items-center gap-2">
           <a
             href="#section-client"
-            className="font-mono text-[10px] sm:text-xs uppercase tracking-wide border-2 border-ink px-2.5 sm:px-3 py-1.5 lift"
+            className="inline-flex items-center font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift"
           >
             Je cherche
           </a>
           <a
             href="#section-prestataire"
-            className="font-mono text-[10px] sm:text-xs uppercase tracking-wide border-2 border-ink px-2.5 sm:px-3 py-1.5 lift bg-terra text-paper"
+            className="inline-flex items-center font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift bg-terra text-paper"
           >
             Je suis pro
           </a>
+
         </div>
       </div>
     </nav>
@@ -226,8 +232,9 @@ function Hero() {
       />
       <div className="absolute inset-0 -z-10 bg-ink/75" aria-hidden="true" />
 
-      <div className="max-w-5xl mx-auto px-5 py-12 lg:py-14 text-center text-paper">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-paper drop mb-4">
+      <div className="max-w-5xl mx-auto px-5 py-20 lg:py-28 text-center text-paper">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-paper drop mb-6">
+
           Le réseau de pros vérifiés — 25 villes du Maroc
         </p>
         <h1 className="font-display leading-[0.92] tracking-tight text-[clamp(3rem,9vw,6.5rem)] drop [animation-delay:80ms]">
@@ -237,40 +244,42 @@ function Hero() {
           <br />
           prévient <span className="text-terra">3 pros</span>.
         </h1>
-        <p className="mt-5 max-w-[56ch] mx-auto text-lg text-paper text-pretty drop [animation-delay:160ms]">
+        <p className="mt-6 max-w-2xl mx-auto text-lg leading-relaxed text-paper text-pretty drop [animation-delay:160ms]">
           Vous décrivez votre besoin, Page.ma le qualifie par téléphone, et vous
           recevez jusqu'à trois devis de professionnels sélectionnés. Gratuit,
           sans compte, sans spam.
         </p>
 
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 drop [animation-delay:220ms]">
+        <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 drop [animation-delay:220ms]">
           <a
             href="#section-client"
-            className="w-full sm:w-auto bg-terra text-paper border-2 border-paper font-display text-xl tracking-tight px-8 py-3 lift"
+            className="inline-flex items-center justify-center w-full sm:w-auto bg-terra text-paper border-2 border-paper font-display text-xl leading-none tracking-tight px-8 py-4 lift"
           >
             Je cherche un prestataire
           </a>
           <a
             href="#section-prestataire"
-            className="w-full sm:w-auto bg-paper text-ink border-2 border-paper font-display text-xl tracking-tight px-8 py-3 lift hover:bg-paper-deep"
+            className="inline-flex items-center justify-center w-full sm:w-auto bg-paper text-ink border-2 border-paper font-display text-xl leading-none tracking-tight px-8 py-4 lift hover:bg-paper-deep"
           >
             Je propose mes services
           </a>
         </div>
 
-        <p className="mt-4 font-mono text-[10px] uppercase tracking-wide text-paper drop [animation-delay:260ms]">
+        <p className="mt-6 font-mono text-[10px] uppercase tracking-wide text-paper drop [animation-delay:260ms]">
           Sans engagement · Aucun compte requis · Zéro spam
         </p>
 
-        <div className="mt-8 flex flex-wrap justify-center gap-2 drop [animation-delay:300ms]">
+        <div className="mt-10 flex flex-wrap justify-center gap-2.5 drop [animation-delay:300ms]">
+
           {CATEGORIES.map((c) => (
             <span
               key={c}
-              className="font-mono text-[11px] uppercase tracking-wide border-2 border-paper bg-ink/45 px-3 py-1"
+              className="inline-flex items-center font-mono text-[11px] leading-none uppercase tracking-wide border-2 border-paper bg-ink/45 px-3 py-1.5"
             >
               {c}
             </span>
           ))}
+
         </div>
       </div>
     </header>
@@ -280,40 +289,44 @@ function Hero() {
 function HowItWorks() {
   return (
     <section className="border-y-2 border-ink bg-ink text-paper">
-      <div className="max-w-6xl mx-auto px-5 py-12">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-8">
+      <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-10">
           [ c ] — Comment ça marche
         </p>
-        <div className="grid md:grid-cols-3 gap-5">
-          <div className="lift border-2 border-paper/25 p-5">
-            <span className="font-display text-5xl text-terra">01</span>
-            <h3 className="font-sans font-semibold text-lg mt-2">
-              Décrivez le besoin
-            </h3>
-            <p className="text-sm text-paper/70 mt-1">
-              Quelques lignes suffisent. En 2 minutes.
-            </p>
-          </div>
-          <div className="lift border-2 border-paper/25 p-5">
-            <span className="font-display text-5xl text-terra">02</span>
-            <h3 className="font-sans font-semibold text-lg mt-2">
-              Page.ma qualifie
-            </h3>
-            <p className="text-sm text-paper/70 mt-1">
-              Un appel humain pour vérifier le besoin et le bon pro.
-            </p>
-          </div>
-          <div className="lift border-2 border-paper/25 p-5">
-            <span className="font-display text-5xl text-terra">03</span>
-            <h3 className="font-sans font-semibold text-lg mt-2">
-              Recevez les devis
-            </h3>
-            <p className="text-sm text-paper/70 mt-1">
-              Jusqu'à 3 devis comparables. Pas de boîte noire.
-            </p>
-          </div>
+        <div className="grid md:grid-cols-3 gap-6 items-stretch">
+          {[
+            {
+              n: "01",
+              t: "Décrivez le besoin",
+              b: "Quelques lignes suffisent. En 2 minutes.",
+            },
+            {
+              n: "02",
+              t: "Page.ma qualifie",
+              b: "Un appel humain pour vérifier le besoin et le bon pro.",
+            },
+            {
+              n: "03",
+              t: "Recevez les devis",
+              b: "Jusqu'à 3 devis comparables. Pas de boîte noire.",
+            },
+          ].map((s) => (
+            <div
+              key={s.n}
+              className="lift-card lift-card-invert flex h-full flex-col border-2 border-paper/25 p-6"
+            >
+              <span className="font-display text-5xl leading-none text-terra">
+                {s.n}
+              </span>
+              <h3 className="font-sans font-semibold text-xl mt-4">{s.t}</h3>
+              <p className="text-sm leading-relaxed text-paper/70 mt-2">
+                {s.b}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
+
     </section>
   );
 }
@@ -353,10 +366,10 @@ const AI_FEATURES = [
 
 function AiFeatures() {
   return (
-    <section id="section-ia" className="scroll-mt-20 max-w-6xl mx-auto px-5 py-16">
-      <div className="flex items-end justify-between flex-wrap gap-3 mb-8">
+    <section id="section-ia" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28">
+      <div className="flex items-end justify-between flex-wrap gap-4 mb-6">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-3">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-4">
             [ e ] — Bientôt : l'IA au service de la mise en relation
           </p>
           <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">
@@ -365,55 +378,63 @@ function AiFeatures() {
             après l'ouverture.
           </h2>
         </div>
-        <span className="font-mono text-[10px] uppercase tracking-[0.18em] border-2 border-ink px-2 py-1 rotate-[-2deg] bg-terra text-paper">
+        <span className="inline-flex items-center font-mono text-[10px] leading-none uppercase tracking-[0.18em] border-2 border-ink px-2.5 py-1.5 rotate-[-2deg] bg-terra text-paper">
           En préparation
         </span>
       </div>
 
-      <p className="max-w-[56ch] text-lg text-ink-soft text-pretty mb-8">
+      <p className="max-w-prose text-lg leading-relaxed text-ink-soft text-pretty mb-12">
         Le cœur reste humain : un appel pour qualifier, jusqu'à 3 devis
         comparables. L'IA accélère la recherche, elle ne décide jamais à votre
         place.
       </p>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
         {AI_FEATURES.map((f) => (
-          <div key={f.n} className="lift border-2 border-ink bg-paper-deep p-5">
-            <div className="flex items-baseline justify-between gap-2">
-              <span className="font-display text-4xl text-terra">{f.n}</span>
-              <span className="font-mono text-[9px] uppercase tracking-wide border border-ink px-1.5 py-0.5">
+          <div
+            key={f.n}
+            className="lift-card flex h-full flex-col border-2 border-ink bg-paper-deep p-6"
+          >
+            <div className="flex items-center justify-between gap-3">
+              <span className="font-display text-4xl leading-none text-terra">
+                {f.n}
+              </span>
+              <span className="inline-flex items-center font-mono text-[9px] leading-none uppercase tracking-wide border border-ink px-2 py-1">
                 À venir
               </span>
             </div>
-            <h3 className="font-sans font-semibold text-lg mt-2 text-pretty">
+            <h3 className="font-sans font-semibold text-xl mt-4 text-pretty">
               {f.title}
             </h3>
-            <p className="text-sm text-ink-soft mt-1 text-pretty">{f.body}</p>
+            <p className="text-sm leading-relaxed text-ink-soft mt-2 text-pretty">
+              {f.body}
+            </p>
           </div>
         ))}
       </div>
 
-      <div className="mt-8 flex flex-col sm:flex-row gap-3">
+      <div className="mt-12 flex flex-col sm:flex-row gap-4">
         <a
           href="#section-client"
-          className="w-full sm:w-auto text-center bg-terra text-paper border-2 border-ink font-display text-xl tracking-tight px-8 py-3 lift"
+          className="inline-flex items-center justify-center w-full sm:w-auto text-center bg-terra text-paper border-2 border-ink font-display text-xl leading-none tracking-tight px-8 py-4 lift"
         >
           Accès anticipé — je cherche un pro
         </a>
         <a
           href="#section-prestataire"
-          className="w-full sm:w-auto text-center bg-paper text-ink border-2 border-ink font-display text-xl tracking-tight px-8 py-3 lift hover:bg-paper-deep"
+          className="inline-flex items-center justify-center w-full sm:w-auto text-center bg-paper text-ink border-2 border-ink font-display text-xl leading-none tracking-tight px-8 py-4 lift hover:bg-paper-deep"
         >
           Accès anticipé — je suis pro
         </a>
       </div>
+
     </section>
   );
 }
 
 function Coverage() {
   return (
-    <section className="max-w-6xl mx-auto px-5 py-14 lg:py-20" aria-labelledby="coverage-title">
+    <section className="max-w-6xl mx-auto px-5 py-20 lg:py-28" aria-labelledby="coverage-title">
       <div className="flex flex-col overflow-hidden border-[3px] border-ink bg-paper shadow-[10px_10px_0_var(--ink)] lg:flex-row">
         <div className="flex flex-col border-b-[3px] border-ink lg:w-[38%] lg:border-r-[3px] lg:border-b-0">
           <div className="border-b-[3px] border-ink bg-terra p-7 sm:p-9">
@@ -453,13 +474,14 @@ function Coverage() {
                 <br />
                 vous êtes.
               </h3>
-              <span className="border border-terra px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-terra-deep">
+              <span className="inline-flex items-center border border-terra px-2.5 py-1.5 font-mono text-[9px] font-bold leading-none uppercase tracking-[0.16em] text-terra-deep">
                 Maroc · 25 points
               </span>
             </div>
-            <p className="mt-5 max-w-[48ch] text-base leading-relaxed text-ink-soft sm:text-lg">
+            <p className="mt-6 max-w-prose text-base leading-relaxed text-ink-soft sm:text-lg">
               De Tanger à Dakhla, Page.ma vous met en relation avec des prestataires qualifiés dans les principaux pôles du Royaume.
             </p>
+
           </div>
 
           <div className="grid flex-1 grid-cols-2 gap-px bg-ink sm:grid-cols-3">
@@ -493,7 +515,7 @@ function Coverage() {
 function Footer() {
   return (
     <footer className="border-t-2 border-ink zellige">
-      <div className="max-w-6xl mx-auto px-5 py-8 flex items-center justify-between flex-wrap gap-3">
+      <div className="max-w-6xl mx-auto px-5 py-12 flex items-center justify-between flex-wrap gap-4">
         <img src={LOGO_URL} alt="Page.ma" className="h-8 w-auto" />
         <span className="font-mono text-[11px] uppercase tracking-wide text-ink-soft">
           © 2026 · Casablanca · Aucun compte requis
@@ -506,9 +528,10 @@ function Footer() {
 function Benefit({ children }: { children: React.ReactNode }) {
   return (
     <li className="flex items-start gap-3 text-ink">
-      <span className="mt-0.5 text-terra font-mono text-sm">✓</span>
-      <span className="text-pretty">{children}</span>
+      <span className="mt-1 shrink-0 font-mono text-sm leading-none text-terra">✓</span>
+      <span className="leading-relaxed text-pretty">{children}</span>
     </li>
+
   );
 }
 
@@ -558,7 +581,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
 
   return (
     <div className="drop [animation-delay:120ms]">
-      <div className="relative border-2 border-ink bg-paper-deep p-5 shadow-cut">
+      <div className="relative border-2 border-ink bg-paper-deep p-6 sm:p-7 shadow-cut">
         <span className="absolute -top-3 -right-3 w-14 h-14 stamp" aria-hidden="true">
           <img
             src={STAMP_URL}
@@ -566,9 +589,10 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             className="w-full h-full object-cover rounded-lg border-2 border-ink shadow-cut"
           />
         </span>
-        <div className="flex items-center gap-2 mb-4">
+        <div className="flex items-center gap-2.5 mb-6">
+
           <svg
-            className="text-terra w-6 h-6"
+            className="text-terra w-6 h-6 shrink-0"
             viewBox="0 0 40 40"
             fill="none"
             stroke="currentColor"
@@ -579,10 +603,11 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             <path className="drawl" d="M6 24 C 14 10, 26 10, 34 18" />
             <path className="drawl" d="M34 18 l -6 -1 M34 18 l -1 -6" />
           </svg>
-          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ink-soft">
+          <p className="font-mono text-[11px] leading-none uppercase tracking-[0.15em] text-ink-soft">
             Pré-inscription {profile === "client" ? "client" : "prestataire"}{" "}
             · gratuit
           </p>
+
         </div>
 
         {status === "done" ? (
@@ -602,7 +627,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             </p>
           </div>
         ) : (
-          <form className="space-y-3" onSubmit={handleSubmit}>
+          <form className="space-y-4" onSubmit={handleSubmit}>
             {profile === "prestataire" && (
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-company`}>
@@ -756,8 +781,9 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="w-full bg-terra text-paper border-2 border-ink font-display text-xl tracking-tight py-3 lift disabled:opacity-60"
+              className="w-full inline-flex items-center justify-center bg-terra text-paper border-2 border-ink font-display text-xl leading-none tracking-tight py-4 mt-2 lift disabled:opacity-60"
             >
+
               {status === "sending"
                 ? "Envoi…"
                 : profile === "client"
