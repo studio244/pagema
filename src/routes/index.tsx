@@ -607,7 +607,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
       team_size: profile === "prestataire" ? teamSize : null,
       need_details: profile === "client" ? needDetails.trim() || null : null,
       health_entity_type: isHealth ? healthEntity : null,
-      real_estate_intent: isRealEstate ? realEstateIntent : null,
+      real_estate_intent: isRealEstate ? intentValue : null,
     });
 
     setStatus(error ? "error" : "done");
