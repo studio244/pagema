@@ -196,6 +196,7 @@ function Index() {
               </ul>
             </div>
           </div>
+        </div>
       </section>
 
       <AiFeatures />
