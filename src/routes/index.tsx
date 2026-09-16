@@ -483,7 +483,7 @@ const MAP_LINKS: [number, number][] = [
 function MoroccoNetwork() {
   return (
     <svg
-      viewBox="0 0 400 520"
+      viewBox="8 4 356 512"
       className="absolute inset-0 h-full w-full p-4 transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
       role="img"
       aria-label="Carte du Maroc et réseau des villes couvertes, de Tanger à Dakhla"
