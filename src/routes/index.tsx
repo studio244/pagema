@@ -160,6 +160,8 @@ function Index() {
         <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
+            <PreregistrationForm profile="prestataire" />
+
             <div className="drop [animation-delay:80ms]">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra-deep mb-4">
                 [ b ] — Vous proposez des services
@@ -193,13 +195,7 @@ function Index() {
                 </Benefit>
               </ul>
             </div>
-
           </div>
-
-            <PreregistrationForm profile="prestataire" />
-
-            <div className="drop [animation-delay:80ms]">
-        </div>
       </section>
 
       <AiFeatures />
