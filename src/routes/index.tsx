@@ -11,7 +11,8 @@ const HERO_URL = heroAsset.url;
 const STAMP_URL = stampAsset.url;
 const COVERAGE_URL = coverageAsset.url;
 
-const REAL_ESTATE = "Immobilier / investissement";
+const REAL_ESTATE = "Immobilier";
+const INVESTMENT = "Investissement";
 
 const CATEGORIES = [
   "Sécurité",
@@ -23,6 +24,7 @@ const CATEGORIES = [
   "Publicité",
   "Conciergerie",
   REAL_ESTATE,
+  INVESTMENT,
 ];
 
 const HEALTH_ENTITIES = [
@@ -35,8 +37,15 @@ const REAL_ESTATE_INTENTS = [
   "Acheter un bien",
   "Vendre un bien",
   "Louer un bien",
-  "Investir (rendement locatif)",
   "Gestion locative / conciergerie",
+];
+
+const INVESTMENT_INTENTS = [
+  "Investir (rendement locatif)",
+  "Acheter pour revendre",
+  "Projet de promotion immobilière",
+  "Terrain / foncier",
+  "Investissement en société / participation",
 ];
 
 const TEAM_SIZES = ["1–5", "6–20", "21–50", "51–200", "200+"];
@@ -576,7 +585,12 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
     "block font-mono text-[10px] uppercase tracking-[0.15em] text-ink-soft mb-1";
 
   const isHealth = profile === "prestataire" && category === "Santé";
-  const isRealEstate = category === REAL_ESTATE;
+  const isInvestment = category === INVESTMENT;
+  const isRealEstate = category === REAL_ESTATE || isInvestment;
+  const intentOptions = isInvestment ? INVESTMENT_INTENTS : REAL_ESTATE_INTENTS;
+  const intentValue = intentOptions.includes(realEstateIntent)
+    ? realEstateIntent
+    : intentOptions[0]!;
   const idPrefix = profile;
 
   async function handleSubmit(e: React.FormEvent) {
@@ -593,7 +607,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
       team_size: profile === "prestataire" ? teamSize : null,
       need_details: profile === "client" ? needDetails.trim() || null : null,
       health_entity_type: isHealth ? healthEntity : null,
-      real_estate_intent: isRealEstate ? realEstateIntent : null,
+      real_estate_intent: isRealEstate ? intentValue : null,
     });
 
     setStatus(error ? "error" : "done");
@@ -645,7 +659,9 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             <p className="mt-2 text-sm text-ink-soft">
               {profile === "client"
                 ? isRealEstate
-                  ? "Un appel pour comprendre votre projet, puis une mise en relation avec un professionnel de l'immobilier vérifié."
+                  ? isInvestment
+                    ? "Un appel pour comprendre votre projet, puis une mise en relation avec un partenaire d'investissement vérifié."
+                    : "Un appel pour comprendre votre projet, puis une mise en relation avec un professionnel de l'immobilier vérifié."
                   : "On vous appelle dès l'ouverture dans votre ville pour valider votre besoin."
                 : "On vous contacte pour vérifier votre société avant l'ouverture."}
             </p>
@@ -775,22 +791,27 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-realestate`}>
                   {profile === "client"
-                    ? "Votre projet immobilier"
-                    : "Votre spécialité immobilière"}
+                    ? isInvestment
+                      ? "Votre projet d'investissement"
+                      : "Votre projet immobilier"
+                    : isInvestment
+                      ? "Votre spécialité en investissement"
+                      : "Votre spécialité immobilière"}
                 </label>
                 <select
                   id={`${idPrefix}-realestate`}
                   className={selectClass}
-                  value={realEstateIntent}
+                  value={intentValue}
                   onChange={(e) => setRealEstateIntent(e.target.value)}
                 >
-                  {REAL_ESTATE_INTENTS.map((r) => (
+                  {intentOptions.map((r) => (
                     <option key={r}>{r}</option>
                   ))}
                 </select>
                 <p className="mt-1 font-mono text-[10px] leading-relaxed text-ink-soft">
-                  Immobilier : pas de devis, mais une mise en relation directe
-                  avec un professionnel qualifié.
+                  {isInvestment
+                    ? "Investissement : pas de devis, mais une mise en relation directe avec un partenaire qualifié."
+                    : "Immobilier : pas de devis, mais une mise en relation directe avec un professionnel qualifié."}
                 </p>
               </div>
             )}
