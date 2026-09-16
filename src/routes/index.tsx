@@ -433,11 +433,10 @@ function Coverage() {
           <div className="group relative min-h-80 flex-1 overflow-hidden bg-ink sm:min-h-96">
             <img
               src={COVERAGE_URL}
-              alt="Vue d'une médina marocaine"
-              className="absolute inset-0 h-full w-full object-cover grayscale contrast-125 transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none"
+              alt="Carte politique et routière du Maroc, de Tanger à Lagouira"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-ink/20 mix-blend-multiply" aria-hidden="true" />
             <div className="absolute right-5 bottom-5 left-5 rotate-[-1deg] border-2 border-ink bg-paper/90 p-4 shadow-[5px_5px_0_var(--terra)] backdrop-blur-sm transition-transform duration-300 group-hover:-translate-y-1 motion-reduce:transition-none">
               <p className="font-sans text-base font-bold leading-tight uppercase">
                 Des professionnels vérifiés, au plus près de votre besoin.
