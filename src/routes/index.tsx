@@ -528,9 +528,10 @@ function MoroccoNetwork() {
             style={{ animationDelay: `${i * 0.25}s` }}
           />
           <text
-            x={city.x + 9}
+            x={city.anchor === "end" ? city.x - 9 : city.x + 9}
             y={city.y + 4}
-            className="net-label fill-ink font-mono text-[11px] font-bold uppercase"
+            textAnchor={city.anchor === "end" ? "end" : "start"}
+            className="net-label fill-ink font-mono text-[10px] font-bold uppercase"
             style={{ animationDelay: `${0.6 + i * 0.12}s` }}
           >
             {city.name}
