@@ -560,6 +560,10 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
   const [teamSize, setTeamSize] = useState<string>(TEAM_SIZES[0]!);
   const [needDetails, setNeedDetails] = useState("");
   const [healthEntity, setHealthEntity] = useState<string>(HEALTH_ENTITIES[0]!);
+  const [realEstateIntent, setRealEstateIntent] = useState<string>(
+    REAL_ESTATE_INTENTS[0]!,
+  );
+
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
     "idle",
   );
@@ -572,6 +576,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
     "block font-mono text-[10px] uppercase tracking-[0.15em] text-ink-soft mb-1";
 
   const isHealth = profile === "prestataire" && category === "Santé";
+  const isRealEstate = category === REAL_ESTATE;
   const idPrefix = profile;
 
   async function handleSubmit(e: React.FormEvent) {
@@ -588,7 +593,9 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
       team_size: profile === "prestataire" ? teamSize : null,
       need_details: profile === "client" ? needDetails.trim() || null : null,
       health_entity_type: isHealth ? healthEntity : null,
+      real_estate_intent: isRealEstate ? realEstateIntent : null,
     });
+
     setStatus(error ? "error" : "done");
   }
 
