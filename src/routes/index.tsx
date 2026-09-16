@@ -310,7 +310,10 @@ function Hero() {
 
 function HowItWorks() {
   return (
-    <section className="border-y-2 border-ink bg-ink text-paper">
+    <section
+      id="section-processus"
+      className="scroll-mt-24 border-y-2 border-ink bg-ink text-paper"
+    >
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra mb-10">
           [ c ] — Comment ça marche
