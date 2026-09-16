@@ -364,7 +364,7 @@ function HowItWorks() {
               <span className="font-display text-5xl leading-none text-terra">
                 {s.n}
               </span>
-              <div className="my-5 flex overflow-hidden border-y-2 border-paper/20 bg-paper/5">
+              <div className="my-5 flex overflow-hidden border-y-2 border-paper/20 bg-white">
                 <img
                   src={s.image}
                   alt={s.alt}
