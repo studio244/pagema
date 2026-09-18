@@ -994,7 +994,7 @@ function Partners() {
                 alt={index < PARTNERS.length ? partner.name : ""}
                 aria-hidden={index >= PARTNERS.length}
                 loading="lazy"
-                className="h-9 w-auto opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0 sm:h-11 lg:h-12"
+                className="h-14 w-auto opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0 sm:h-[4.5rem] lg:h-24"
               />
             </li>
           ))}
