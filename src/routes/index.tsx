@@ -6,9 +6,9 @@ import logoAsset from "@/assets/pagema-logo.png.asset.json";
 import heroAsset from "@/assets/pagema-services-hero-2.png.asset.json";
 import stampAsset from "@/assets/pagema-app-icon.png.asset.json";
 import prosAsset from "@/assets/pagema-pros-equipe.jpg.asset.json";
-import requestIllustration from "@/assets/process-step-request-milano.png";
-import qualifyIllustration from "@/assets/process-step-qualify-milano.png";
-import quotesIllustration from "@/assets/process-step-quotes-milano.png";
+import requestIllustration from "@/assets/process-step-1.png.asset.json";
+import qualifyIllustration from "@/assets/process-step-2.png.asset.json";
+import quotesIllustration from "@/assets/process-step-3.png.asset.json";
 
 const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
@@ -453,22 +453,22 @@ function HowItWorks() {
               n: "01",
               t: "Décrivez le besoin",
               b: "Quelques lignes suffisent. En 2 minutes.",
-              image: requestIllustration,
-              alt: "Un client en costume décrit rapidement son besoin sur un formulaire",
+              image: requestIllustration.url,
+              alt: "Une machine à écrire avec des livres et une tasse de café, symbole de la rédaction de la demande",
             },
             {
               n: "02",
               t: "Page.ma qualifie",
               b: "Un appel humain pour vérifier le besoin et le bon pro.",
-              image: qualifyIllustration,
-              alt: "Un conseiller Page.ma en costume vérifie la demande par téléphone",
+              image: qualifyIllustration.url,
+              alt: "Un conseiller Page.ma au casque vérifie la demande par téléphone avec des avis clients",
             },
             {
               n: "03",
               t: "Recevez les devis",
               b: "Jusqu'à 3 devis comparables. Pas de boîte noire.",
-              image: quotesIllustration,
-              alt: "Trois fiches de professionnels vérifiés à comparer",
+              image: quotesIllustration.url,
+              alt: "Trois fiches de devis notées et validées, prêtes à être comparées",
             },
           ].map((s) => (
             <div
