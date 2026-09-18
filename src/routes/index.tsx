@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { sendPreregistrationEmail } from "@/lib/notify.functions";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
@@ -18,6 +18,46 @@ import partner5 from "@/assets/partner-5.png.asset.json";
 const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
 const STAMP_URL = stampAsset.url;
+
+function Reveal({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    document.documentElement.classList.add("reveal-ready");
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        element.dataset.visible = "true";
+        observer.unobserve(element);
+      },
+      { rootMargin: "0px 0px -8%", threshold: 0.12 },
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={elementRef}
+      className={`scroll-reveal ${className}`}
+      style={{ "--reveal-delay": `${delay}ms` } as React.CSSProperties}
+    >
+      {children}
+    </div>
+  );
+}
 
 /** Marque Page.ma (la lame terre cuite du logo), utilisée comme motif de marque. */
 function BrandMark({
@@ -172,7 +212,7 @@ function Index() {
         <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-            <div className="drop [animation-delay:80ms] text-paper">
+            <Reveal className="text-paper">
               <Eyebrow className="text-terra mb-4">
                 VOUS AVEZ UN BESOIN
               </Eyebrow>
@@ -208,9 +248,11 @@ function Index() {
               <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.18em] text-paper/70">
                 Des pros vérifiés, dans votre ville
               </p>
-            </div>
+            </Reveal>
 
-            <PreregistrationForm profile="client" />
+            <Reveal delay={120}>
+              <PreregistrationForm profile="client" />
+            </Reveal>
           </div>
         </div>
       </section>
@@ -222,9 +264,11 @@ function Index() {
         <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-            <PreregistrationForm profile="prestataire" />
+            <Reveal>
+              <PreregistrationForm profile="prestataire" />
+            </Reveal>
 
-            <div className="drop [animation-delay:80ms]">
+            <Reveal delay={120}>
               <Eyebrow className="text-terra-deep mb-4">
                 VOUS PROPOSEZ DES SERVICES
               </Eyebrow>
@@ -256,7 +300,7 @@ function Index() {
                   médecins indépendants, ni établissements publics.
                 </Benefit>
               </ul>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -479,7 +523,9 @@ function HowItWorks() {
       className="scroll-mt-24 border-y-2 border-ink bg-ink text-paper"
     >
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
-        <Eyebrow className="text-terra mb-10">COMMENT ÇA MARCHE</Eyebrow>
+        <Reveal>
+          <Eyebrow className="text-terra mb-10">COMMENT ÇA MARCHE</Eyebrow>
+        </Reveal>
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
           {[
             {
@@ -503,11 +549,9 @@ function HowItWorks() {
               image: quotesIllustration.url,
               alt: "Trois fiches de devis notées et validées, prêtes à être comparées",
             },
-          ].map((s) => (
-            <div
-              key={s.n}
-              className="lift-card lift-card-invert flex h-full flex-col border-2 border-paper/25 p-6"
-            >
+          ].map((s, index) => (
+            <Reveal key={s.n} delay={index * 90} className="h-full">
+              <div className="lift-card lift-card-invert flex h-full flex-col border-2 border-paper/25 p-6">
               <span className="font-display text-5xl leading-none text-terra">
                 {s.n}
               </span>
@@ -525,7 +569,8 @@ function HowItWorks() {
               <p className="text-sm leading-relaxed text-paper/70 mt-2">
                 {s.b}
               </p>
-            </div>
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -570,7 +615,7 @@ const AI_FEATURES = [
 function AiFeatures() {
   return (
     <section id="section-ia" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28">
-      <div className="flex items-end justify-between flex-wrap gap-4 mb-6">
+      <Reveal className="flex items-end justify-between flex-wrap gap-4 mb-6">
         <div>
           <Eyebrow className="text-terra mb-4">
             BIENTÔT : L'IA AU SERVICE DE LA MISE EN RELATION
@@ -584,20 +629,20 @@ function AiFeatures() {
         <span className="inline-flex items-center font-mono text-[10px] leading-none uppercase tracking-[0.18em] border-2 border-ink px-2.5 py-1.5 rotate-[-2deg] bg-terra text-paper">
           En préparation
         </span>
-      </div>
+      </Reveal>
 
-      <p className="max-w-prose text-lg leading-relaxed text-ink-soft text-pretty mb-12">
-        Le cœur reste humain : un appel pour qualifier, jusqu'à 3 devis
-        comparables. L'IA accélère la recherche, elle ne décide jamais à votre
-        place.
-      </p>
+      <Reveal delay={70}>
+        <p className="max-w-prose text-lg leading-relaxed text-ink-soft text-pretty mb-12">
+          Le cœur reste humain : un appel pour qualifier, jusqu'à 3 devis
+          comparables. L'IA accélère la recherche, elle ne décide jamais à votre
+          place.
+        </p>
+      </Reveal>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-        {AI_FEATURES.map((f) => (
-          <div
-            key={f.n}
-            className="lift-card flex h-full flex-col border-2 border-ink bg-paper-deep p-6"
-          >
+        {AI_FEATURES.map((f, index) => (
+          <Reveal key={f.n} delay={(index % 3) * 75} className="h-full">
+            <div className="lift-card flex h-full flex-col border-2 border-ink bg-paper-deep p-6">
             <div className="flex items-center justify-between gap-3">
               <span className="font-display text-4xl leading-none text-terra">
                 {f.n}
@@ -612,11 +657,12 @@ function AiFeatures() {
             <p className="text-sm leading-relaxed text-ink-soft mt-2 text-pretty">
               {f.body}
             </p>
-          </div>
+            </div>
+          </Reveal>
         ))}
       </div>
 
-      <div className="mt-12 flex flex-col sm:flex-row gap-4">
+      <Reveal delay={120} className="mt-12 flex flex-col sm:flex-row gap-4">
         <a
           href="#section-client"
           className="inline-flex items-center justify-center w-full sm:w-auto text-center bg-terra text-paper border-2 border-ink font-display text-xl leading-none tracking-tight px-8 py-4 lift"
@@ -629,7 +675,7 @@ function AiFeatures() {
         >
           Accès anticipé — je suis pro
         </a>
-      </div>
+      </Reveal>
 
     </section>
   );
@@ -878,7 +924,7 @@ function MoroccoNetwork() {
 function Coverage() {
   return (
     <section id="section-villes" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28" aria-labelledby="coverage-title">
-      <div className="flex flex-col overflow-hidden border-[3px] border-ink bg-paper shadow-[10px_10px_0_var(--ink)] lg:flex-row">
+      <Reveal className="flex flex-col overflow-hidden border-[3px] border-ink bg-paper shadow-[10px_10px_0_var(--ink)] lg:flex-row">
         <div className="flex flex-col border-b-[3px] border-ink lg:w-[38%] lg:border-r-[3px] lg:border-b-0">
           <div className="border-b-[3px] border-ink bg-terra p-7 sm:p-9">
             <Eyebrow className="mb-4 !text-[10px] font-bold text-paper">
@@ -946,7 +992,7 @@ function Coverage() {
             </span>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }
@@ -1000,7 +1046,7 @@ function Partners() {
       className="scroll-mt-24 bg-paper-deep py-14 lg:py-20"
       aria-labelledby="partners-title"
     >
-      <div className="mx-auto max-w-6xl px-5">
+      <Reveal className="mx-auto max-w-6xl px-5">
         <Eyebrow className="mb-3 text-terra">NOS PARTENAIRES</Eyebrow>
         <h2
           id="partners-title"
@@ -1008,9 +1054,9 @@ function Partners() {
         >
           Ils nous font confiance
         </h2>
-      </div>
+      </Reveal>
 
-      <div className="marquee-viewport marquee-mask mt-9 overflow-hidden">
+      <Reveal delay={100} className="marquee-viewport marquee-mask mt-9 overflow-hidden">
         <ul className="marquee-track flex items-center gap-10 sm:gap-16 lg:gap-20">
           {loop.map((partner, index) => (
             <li key={`${partner.name}-${index}`} className="shrink-0">
@@ -1024,7 +1070,7 @@ function Partners() {
             </li>
           ))}
         </ul>
-      </div>
+      </Reveal>
     </section>
   );
 }
@@ -1033,7 +1079,7 @@ function Footer() {
   return (
     <footer className="relative isolate overflow-hidden border-t-2 border-ink zellige">
       <BrandMark className="pointer-events-none absolute -right-14 -bottom-20 -z-10 h-[24rem] w-auto text-ink/[0.07]" />
-      <div className="max-w-6xl mx-auto px-5 py-16 lg:py-20">
+      <Reveal className="max-w-6xl mx-auto px-5 py-16 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-4 lg:gap-16">
           <div className="lg:pr-8">
             <img src={LOGO_URL} alt="Page.ma" className="h-9 w-auto" />
@@ -1084,7 +1130,7 @@ function Footer() {
             </span>
           </span>
         </div>
-      </div>
+      </Reveal>
     </footer>
   );
 }
@@ -1203,7 +1249,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
   }
 
   return (
-    <div className="drop [animation-delay:120ms]">
+    <div>
       <div className="relative border-2 border-ink bg-paper-deep p-6 sm:p-7 shadow-cut">
         <span className="absolute -top-3 -right-3 w-14 h-14 stamp" aria-hidden="true">
           <img
