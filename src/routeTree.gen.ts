@@ -10,33 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiResendDomainRouteImport } from './routes/api/resend-domain'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiResendDomainRoute = ApiResendDomainRouteImport.update({
+  id: '/api/resend-domain',
+  path: '/api/resend-domain',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/resend-domain': typeof ApiResendDomainRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/resend-domain': typeof ApiResendDomainRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/resend-domain': typeof ApiResendDomainRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/api/resend-domain'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/api/resend-domain'
+  id: '__root__' | '/' | '/api/resend-domain'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiResendDomainRoute: typeof ApiResendDomainRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/resend-domain': {
+      id: '/api/resend-domain'
+      path: '/api/resend-domain'
+      fullPath: '/api/resend-domain'
+      preLoaderRoute: typeof ApiResendDomainRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiResendDomainRoute: ApiResendDomainRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
