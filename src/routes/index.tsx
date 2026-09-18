@@ -38,7 +38,7 @@ function Reveal({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry?.isIntersecting) return;
-        element.dataset.visible = "true";
+        element.dataset["visible"] = "true";
         observer.unobserve(element);
       },
       { rootMargin: "0px 0px -8%", threshold: 0.12 },
