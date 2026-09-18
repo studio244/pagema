@@ -972,7 +972,7 @@ function Partners() {
   return (
     <section
       id="section-partenaires"
-      className="scroll-mt-24 border-y-[3px] border-ink bg-paper-deep py-14 lg:py-20"
+      className="scroll-mt-24 bg-paper-deep py-14 lg:py-20"
       aria-labelledby="partners-title"
     >
       <div className="mx-auto max-w-6xl px-5">
