@@ -957,6 +957,52 @@ const FOOTER_COLUMNS: { title: string; links: { label: string; href: string }[] 
   },
 ];
 
+const PARTNERS = [
+  { name: "Asomovit Nettoyage", url: partner1.url },
+  { name: "Azur Protection", url: partner2.url },
+  { name: "S4U — Safety For You", url: partner3.url },
+  { name: "Azur Facilities", url: partner4.url },
+  { name: "Asomovit Sécurité Privée", url: partner5.url },
+];
+
+function Partners() {
+  const loop = [...PARTNERS, ...PARTNERS];
+
+  return (
+    <section
+      id="section-partenaires"
+      className="scroll-mt-24 border-y-[3px] border-ink bg-paper-deep py-14 lg:py-20"
+      aria-labelledby="partners-title"
+    >
+      <div className="mx-auto max-w-6xl px-5">
+        <Eyebrow className="mb-3 text-terra">NOS PARTENAIRES</Eyebrow>
+        <h2
+          id="partners-title"
+          className="font-display text-3xl leading-[0.95] text-ink sm:text-4xl"
+        >
+          Ils nous font confiance
+        </h2>
+      </div>
+
+      <div className="marquee-viewport marquee-mask mt-9 overflow-hidden">
+        <ul className="marquee-track flex items-center gap-10 sm:gap-16 lg:gap-20">
+          {loop.map((partner, index) => (
+            <li key={`${partner.name}-${index}`} className="shrink-0">
+              <img
+                src={partner.url}
+                alt={index < PARTNERS.length ? partner.name : ""}
+                aria-hidden={index >= PARTNERS.length}
+                loading="lazy"
+                className="h-9 w-auto opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0 sm:h-11 lg:h-12"
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 function Footer() {
   return (
     <footer className="relative isolate overflow-hidden border-t-2 border-ink zellige">
