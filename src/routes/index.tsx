@@ -990,8 +990,19 @@ function Footer() {
           <span className="font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
             © 2026 Page.ma · Casablanca · Aucun compte requis
           </span>
-          <span className="font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
-            Mentions légales · Confidentialité
+          <span className="flex items-center gap-4 font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
+            <span>Mentions légales · Confidentialité</span>
+            <span>
+              Powered by{" "}
+              <a
+                href="https://hoverswitch.net/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-terra underline decoration-terra/50 underline-offset-2 transition-colors duration-200 hover:text-ink motion-reduce:transition-none"
+              >
+                HoverSwitch
+              </a>
+            </span>
           </span>
         </div>
       </div>
