@@ -988,7 +988,7 @@ function Footer() {
 
         <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t-2 border-ink pt-6">
           <span className="font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
-            © 2026 Page.ma · Casablanca · Aucun compte requis
+            © 2026 PAGE.MA ·
           </span>
           <span className="flex items-center gap-4 font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
             <span>Mentions légales · Confidentialité</span>
