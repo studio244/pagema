@@ -215,7 +215,7 @@ function Index() {
         </div>
       </section>
 
-      <section id="section-prestataire" className="relative isolate overflow-hidden scroll-mt-24 border-y-2 border-ink bg-paper-deep">
+      <section id="section-prestataire" className="relative isolate overflow-hidden scroll-mt-24 bg-paper-deep">
         <BrandMark className="pointer-events-none absolute -right-10 -bottom-16 -z-10 h-[26rem] w-auto text-terra/10" />
         <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
