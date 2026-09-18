@@ -69,7 +69,7 @@ export const sendPreregistrationEmail = createServerFn({ method: "POST" })
 
     // Send from the verified page.ma domain; fall back to the Resend test
     // address (owner-only delivery) while DNS verification is pending.
-    let response = await send("noreply@page.ma");
+    let response = await send("contact@page.ma");
     if (response.status === 403) {
       console.error("Resend: page.ma not verified yet, falling back to onboarding@resend.dev");
       response = await send("onboarding@resend.dev");
