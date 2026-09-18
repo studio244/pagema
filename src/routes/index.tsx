@@ -453,22 +453,22 @@ function HowItWorks() {
               n: "01",
               t: "Décrivez le besoin",
               b: "Quelques lignes suffisent. En 2 minutes.",
-              image: requestIllustration,
-              alt: "Un client en costume décrit rapidement son besoin sur un formulaire",
+              image: requestIllustration.url,
+              alt: "Une machine à écrire avec des livres et une tasse de café, symbole de la rédaction de la demande",
             },
             {
               n: "02",
               t: "Page.ma qualifie",
               b: "Un appel humain pour vérifier le besoin et le bon pro.",
-              image: qualifyIllustration,
-              alt: "Un conseiller Page.ma en costume vérifie la demande par téléphone",
+              image: qualifyIllustration.url,
+              alt: "Un conseiller Page.ma au casque vérifie la demande par téléphone avec des avis clients",
             },
             {
               n: "03",
               t: "Recevez les devis",
               b: "Jusqu'à 3 devis comparables. Pas de boîte noire.",
-              image: quotesIllustration,
-              alt: "Trois fiches de professionnels vérifiés à comparer",
+              image: quotesIllustration.url,
+              alt: "Trois fiches de devis notées et validées, prêtes à être comparées",
             },
           ].map((s) => (
             <div
