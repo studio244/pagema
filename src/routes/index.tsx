@@ -6,9 +6,9 @@ import logoAsset from "@/assets/pagema-logo.png.asset.json";
 import heroAsset from "@/assets/pagema-services-hero-2.png.asset.json";
 import stampAsset from "@/assets/pagema-app-icon.png.asset.json";
 import prosAsset from "@/assets/pagema-pros-equipe.jpg.asset.json";
-import requestIllustration from "@/assets/process-step-request-milano.png";
-import qualifyIllustration from "@/assets/process-step-qualify-milano.png";
-import quotesIllustration from "@/assets/process-step-quotes-milano.png";
+import requestIllustration from "@/assets/process-step-1.png.asset.json";
+import qualifyIllustration from "@/assets/process-step-2.png.asset.json";
+import quotesIllustration from "@/assets/process-step-3.png.asset.json";
 
 const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
