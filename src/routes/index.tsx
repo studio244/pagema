@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { sendPreregistrationEmail } from "@/lib/notify.functions";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
 import heroAsset from "@/assets/pagema-services-hero-2.png.asset.json";
 import stampAsset from "@/assets/pagema-app-icon.png.asset.json";
@@ -1050,10 +1051,23 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
     : intentOptions[0]!;
   const idPrefix = profile;
 
+  function resetForm() {
+    setFullName("");
+    setPhone("");
+    setEmail("");
+    setCity("");
+    setCategory(CATEGORIES[0]!);
+    setCompanyName("");
+    setTeamSize(TEAM_SIZES[0]!);
+    setNeedDetails("");
+    setHealthEntity(HEALTH_ENTITIES[0]!);
+    setRealEstateIntent(REAL_ESTATE_INTENTS[0]!);
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("sending");
-    const { error } = await supabase.from("preregistrations").insert({
+    const payload = {
       full_name: fullName.trim(),
       phone: phone.trim(),
       email: email.trim(),
@@ -1065,9 +1079,37 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
       need_details: profile === "client" ? needDetails.trim() || null : null,
       health_entity_type: isHealth ? healthEntity : null,
       real_estate_intent: isRealEstate ? intentValue : null,
-    });
+    };
+    const { error } = await supabase.from("preregistrations").insert(payload);
+    if (error) {
+      setStatus("error");
+      return;
+    }
 
-    setStatus(error ? "error" : "done");
+    try {
+      await sendPreregistrationEmail({
+        data: {
+          profile,
+          fullName: payload.full_name,
+          phone: payload.phone,
+          email: payload.email,
+          city: payload.city,
+          category: payload.category,
+          companyName: payload.company_name,
+          teamSize: payload.team_size,
+          needDetails: payload.need_details,
+          healthEntityType: payload.health_entity_type,
+          realEstateIntent: payload.real_estate_intent,
+        },
+      });
+    } catch (emailError) {
+      console.error(emailError);
+      setStatus("error");
+      return;
+    }
+
+    resetForm();
+    setStatus("done");
   }
 
   return (
