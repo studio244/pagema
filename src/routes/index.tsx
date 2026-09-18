@@ -259,11 +259,12 @@ function Index() {
         </div>
       </section>
 
+      <Partners />
+
       <AiFeatures />
 
       <Coverage />
 
-      <Partners />
 
       <Footer />
     </div>
