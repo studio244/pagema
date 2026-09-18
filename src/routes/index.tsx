@@ -9,6 +9,11 @@ import prosAsset from "@/assets/pagema-pros-equipe.jpg.asset.json";
 import requestIllustration from "@/assets/process-step-1.png.asset.json";
 import qualifyIllustration from "@/assets/process-step-2.png.asset.json";
 import quotesIllustration from "@/assets/process-step-3.png.asset.json";
+import partner1 from "@/assets/partner-1.png.asset.json";
+import partner2 from "@/assets/partner-2.png.asset.json";
+import partner3 from "@/assets/partner-3.png.asset.json";
+import partner4 from "@/assets/partner-4.png.asset.json";
+import partner5 from "@/assets/partner-5.png.asset.json";
 
 const LOGO_URL = logoAsset.url;
 const HERO_URL = heroAsset.url;
@@ -257,6 +262,8 @@ function Index() {
       <AiFeatures />
 
       <Coverage />
+
+      <Partners />
 
       <Footer />
     </div>
