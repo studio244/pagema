@@ -261,8 +261,6 @@ function Index() {
         </div>
       </section>
 
-      <Partners />
-
       <AiFeatures />
 
       <Coverage />
