@@ -51,21 +51,29 @@ export const sendPreregistrationEmail = createServerFn({ method: "POST" })
   </table>
 </div>`;
 
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // onboarding@resend.dev only delivers until a domain is verified in Resend.
-        from: `${from} <onboarding@resend.dev>`,
-        to: [to],
-        reply_to: data.email,
-        subject,
-        html,
-      }),
-    });
+    const send = (fromAddress: string) =>
+      fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: `${from} <${fromAddress}>`,
+          to: [to],
+          reply_to: data.email,
+          subject,
+          html,
+        }),
+      });
+
+    // Send from the verified page.ma domain; fall back to the Resend test
+    // address (owner-only delivery) while DNS verification is pending.
+    let response = await send("noreply@page.ma");
+    if (response.status === 403) {
+      console.error("Resend: page.ma not verified yet, falling back to onboarding@resend.dev");
+      response = await send("onboarding@resend.dev");
+    }
 
     if (!response.ok) {
       const body = await response.text();
