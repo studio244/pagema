@@ -73,6 +73,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  staticData: { sitemap: false },
   head: () => {
     // Google Analytics measurement ID lives in the secret store and is read
     // server-side only; the ID is injected into the HTML head during SSR.
