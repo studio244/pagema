@@ -73,39 +73,60 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Page.ma — Le bon prestataire, vérifié et proche de vous" },
-      {
-        name: "description",
-        content:
-          "Décrivez votre besoin, Page.ma le qualifie et vous envoie jusqu'à 3 devis de professionnels vérifiés dans 25 villes du Maroc.",
-      },
-      { property: "og:title", content: "Page.ma — Le bon prestataire, vérifié et proche de vous" },
-      {
-        property: "og:description",
-        content:
-          "Décrivez votre besoin, Page.ma le qualifie et vous envoie jusqu'à 3 devis de professionnels vérifiés dans 25 villes du Maroc.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap",
-      },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
-    ],
-  }),
+  head: () => {
+    // Google Analytics measurement ID lives in the secret store and is read
+    // server-side only; the ID is injected into the HTML head during SSR.
+    const gaId = process.env["GOOGLE_ANALYTICS_MEASUREMENT_ID"];
+    return {
+      meta: [
+        { charSet: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { title: "Page.ma — Le bon prestataire, vérifié et proche de vous" },
+        {
+          name: "description",
+          content:
+            "Décrivez votre besoin, Page.ma le qualifie et vous envoie jusqu'à 3 devis de professionnels vérifiés dans 25 villes du Maroc.",
+        },
+        { property: "og:title", content: "Page.ma — Le bon prestataire, vérifié et proche de vous" },
+        {
+          property: "og:description",
+          content:
+            "Décrivez votre besoin, Page.ma le qualifie et vous envoie jusqu'à 3 devis de professionnels vérifiés dans 25 villes du Maroc.",
+        },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: [
+        {
+          rel: "stylesheet",
+          href: appCss,
+        },
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap",
+        },
+        { rel: "icon", href: "/favicon.png", type: "image/png" },
+      ],
+      scripts: gaId
+        ? [
+            {
+              type: "script",
+              async: true,
+              src: `https://www.googletagmanager.com/gtag/js?id=${gaId}`,
+            },
+            {
+              type: "script",
+              children: `window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${gaId}');`,
+            },
+          ]
+        : [],
+    };
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
