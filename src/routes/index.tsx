@@ -166,6 +166,7 @@ const COVERAGE_CITIES = [
 ];
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Page.ma — Le bon prestataire, vérifié et proche de vous" },

@@ -22,6 +22,7 @@ async function resendFetch(path: string, init?: RequestInit) {
 }
 
 export const Route = createFileRoute("/api/resend-domain")({
+  staticData: { sitemap: false },
   server: {
     handlers: {
       // GET: current verification status + DNS records
