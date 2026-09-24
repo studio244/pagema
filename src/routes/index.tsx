@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { sendPreregistrationEmail } from "@/lib/notify.functions";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
@@ -1088,6 +1089,35 @@ function Footer() {
               Plateforme marocaine de mise en relation entre entreprises et
               prestataires vérifiés.
             </p>
+            <div className="mt-6 flex items-center gap-3">
+              <a
+                href="https://www.facebook.com/profile.php?id=61594526347174"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Page.ma sur Facebook"
+                className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+              >
+                <Facebook size={18} strokeWidth={2} />
+              </a>
+              <a
+                href="https://www.instagram.com/page.ma22/?hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Page.ma sur Instagram"
+                className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+              >
+                <Instagram size={18} strokeWidth={2} />
+              </a>
+              <a
+                href="https://www.linkedin.com/showcase/page-ma/home/?viewAsMember=true"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Page.ma sur LinkedIn"
+                className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+              >
+                <Linkedin size={18} strokeWidth={2} />
+              </a>
+            </div>
           </div>
 
           {FOOTER_COLUMNS.map((column) => (
