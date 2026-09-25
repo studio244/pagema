@@ -16,6 +16,7 @@ import partner2 from "@/assets/partner-2.png";
 import partner3 from "@/assets/partner-3.png";
 import partner4 from "@/assets/partner-4.png";
 import partner5 from "@/assets/partner-5.png";
+import whatsappMockup from "@/assets/whatsapp-opportunity.png";
 
 const LOGO_URL = logoAsset;
 const HERO_URL = heroAsset;
@@ -617,6 +618,7 @@ function WhatsAppSection() {
         <Reveal>
           <Eyebrow className="text-terra mb-4">{t.whatsapp.eyebrow}</Eyebrow>
           <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">{t.whatsapp.title}</h2>
+          <p className="mt-4 max-w-prose text-lg text-paper/80">{t.whatsapp.body}</p>
           <ul className="mt-8 space-y-4">
             {t.whatsapp.features.map((f) => (
               <Benefit key={f} tone="paper">{f}</Benefit>
@@ -624,32 +626,14 @@ function WhatsAppSection() {
           </ul>
         </Reveal>
         <Reveal delay={120}>
-          <div className="mx-auto max-w-sm border-2 border-paper bg-paper text-ink shadow-[8px_8px_0_var(--terra)]">
-            <div className="flex items-center gap-3 border-b-2 border-ink bg-[#25D366] px-4 py-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-ink">
-                <WhatsAppIcon className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="font-semibold leading-tight text-ink">{t.whatsapp.chatName}</p>
-                <p className="font-mono text-[10px] text-ink/80">{t.whatsapp.chatStatus}</p>
-              </div>
-            </div>
-            <div className="space-y-3 bg-paper-deep p-4">
-              <div className="border-2 border-ink bg-paper p-3">
-                <p className="text-sm leading-relaxed">{t.whatsapp.message}</p>
-                <p className="mt-1 text-end font-mono text-[10px] text-ink-soft">{t.whatsapp.time}</p>
-              </div>
-              <div className="flex items-center gap-3 border-2 border-ink bg-paper p-3">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-terra text-paper" aria-hidden="true">▶</span>
-                <span className="flex h-6 flex-1 items-center gap-0.5" aria-hidden="true">
-                  {[3, 5, 8, 4, 9, 6, 3, 7, 5, 8, 4, 6, 3, 5, 7, 4].map((h, i) => (
-                    <span key={i} className="w-1 bg-ink" style={{ height: `${h * 2.5}px` }} />
-                  ))}
-                </span>
-                <span className="font-mono text-[10px] text-ink-soft">{t.whatsapp.voice}</span>
-              </div>
-            </div>
-          </div>
+          <img
+            src={whatsappMockup}
+            alt={`${t.whatsapp.chatName} — ${t.whatsapp.message}`}
+            width={400}
+            height={636}
+            loading="lazy"
+            className="mx-auto h-auto w-full max-w-sm rounded-3xl"
+          />
         </Reveal>
       </div>
     </section>
