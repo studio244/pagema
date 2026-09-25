@@ -4,22 +4,22 @@ import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { DICTS, LangContext, useT, type Dict, type Lang } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { sendPreregistrationEmail } from "@/lib/notify.functions";
-import logoAsset from "@/assets/pagema-logo.png.asset.json";
-import heroAsset from "@/assets/pagema-services-hero-2.png.asset.json";
-import stampAsset from "@/assets/pagema-app-icon.png.asset.json";
-import prosAsset from "@/assets/pagema-pros-equipe.jpg.asset.json";
-import requestIllustration from "@/assets/process-step-1.png.asset.json";
-import qualifyIllustration from "@/assets/process-step-2.png.asset.json";
-import quotesIllustration from "@/assets/process-step-3.png.asset.json";
-import partner1 from "@/assets/partner-1.png.asset.json";
-import partner2 from "@/assets/partner-2.png.asset.json";
-import partner3 from "@/assets/partner-3.png.asset.json";
-import partner4 from "@/assets/partner-4.png.asset.json";
-import partner5 from "@/assets/partner-5.png.asset.json";
+import logoAsset from "@/assets/pagema-logo.png";
+import heroAsset from "@/assets/pagema-services-hero-2.png";
+import stampAsset from "@/assets/pagema-app-icon.png";
+import prosAsset from "@/assets/pagema-pros-equipe.jpg";
+import requestIllustration from "@/assets/process-step-1.png";
+import qualifyIllustration from "@/assets/process-step-2.png";
+import quotesIllustration from "@/assets/process-step-3.png";
+import partner1 from "@/assets/partner-1.png";
+import partner2 from "@/assets/partner-2.png";
+import partner3 from "@/assets/partner-3.png";
+import partner4 from "@/assets/partner-4.png";
+import partner5 from "@/assets/partner-5.png";
 
-const LOGO_URL = logoAsset.url;
-const HERO_URL = heroAsset.url;
-const STAMP_URL = stampAsset.url;
+const LOGO_URL = logoAsset;
+const HERO_URL = heroAsset;
+const STAMP_URL = stampAsset;
 
 function Reveal({
   children,
@@ -272,7 +272,7 @@ function ClientSection() {
   return (
     <section id="section-client" className="relative isolate overflow-hidden scroll-mt-24 border-b-2 border-ink">
       <img
-        src={prosAsset.url}
+        src={prosAsset}
         alt=""
         aria-hidden="true"
         loading="lazy"
@@ -531,7 +531,7 @@ function Hero() {
 
 function Promises() {
   const { t } = useT();
-  const images = [requestIllustration.url, qualifyIllustration.url, quotesIllustration.url];
+  const images = [requestIllustration, qualifyIllustration, quotesIllustration];
   return (
     <section id="section-processus" className="scroll-mt-24 border-y-2 border-ink bg-ink text-paper">
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
@@ -1085,11 +1085,11 @@ function Coverage() {
 const FOOTER_CITIES = ["Casablanca", "Rabat", "Marrakech", "Tanger", "Agadir"];
 
 const PARTNERS = [
-  { name: "Asomovit Nettoyage", url: partner1.url },
-  { name: "Azur Protection", url: partner2.url },
-  { name: "S4U — Safety For You", url: partner3.url },
-  { name: "Azur Facilities", url: partner4.url },
-  { name: "Asomovit Sécurité Privée", url: partner5.url },
+  { name: "Asomovit Nettoyage", url: partner1 },
+  { name: "Azur Protection", url: partner2 },
+  { name: "S4U — Safety For You", url: partner3 },
+  { name: "Azur Facilities", url: partner4 },
+  { name: "Asomovit Sécurité Privée", url: partner5 },
 ];
 
 function Partners() {
