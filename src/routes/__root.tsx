@@ -113,12 +113,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       scripts: gaId
         ? [
             {
-              type: "script",
               async: true,
               src: `https://www.googletagmanager.com/gtag/js?id=${gaId}`,
             },
             {
-              type: "script",
               children: `window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
