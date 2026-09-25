@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { DICTS, LangContext, useT, type Dict, type Lang } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { sendPreregistrationEmail } from "@/lib/notify.functions";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
@@ -193,182 +194,185 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [lang, setLangState] = useState<Lang>("fr");
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem("pagema-lang");
+    if (saved === "ar" || saved === "fr") setLangState(saved);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  }, [lang]);
+
+  const setLang = (l: Lang) => {
+    setLangState(l);
+    window.localStorage.setItem("pagema-lang", l);
+  };
+  const t = DICTS[lang];
+
   return (
-    <div id="top" className="min-h-screen bg-paper text-ink font-sans paper-noise">
-      <Nav />
+    <LangContext.Provider value={{ lang, t, setLang }}>
+      <div
+        id="top"
+        dir={lang === "ar" ? "rtl" : "ltr"}
+        className="min-h-screen bg-paper text-ink font-sans paper-noise"
+      >
+        <Nav />
+        <Hero />
+        <Promises />
+        <Categories />
+        <ProSection />
+        <WhatsAppSection />
+        <Pricing />
+        <Partners />
+        <ClientSection />
+        <AiFeatures />
+        <Coverage />
+        <Footer />
+        <WhatsAppWidget />
+      </div>
+    </LangContext.Provider>
+  );
+}
 
-      <Hero />
-
-      <HowItWorks />
-
-      <section id="section-client" className="relative isolate overflow-hidden scroll-mt-24 border-b-2 border-ink">
-        <img
-          src={prosAsset.url}
-          alt=""
-          aria-hidden="true"
-          loading="lazy"
-          className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
-        />
-        <div className="absolute inset-0 -z-10 bg-ink/85" aria-hidden="true" />
-
-        <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-
-            <Reveal className="text-paper">
-              <Eyebrow className="text-terra mb-4">
-                VOUS AVEZ UN BESOIN
-              </Eyebrow>
-              <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
-                Décrivez votre
-                <br />
-                objectif concret.
-              </h2>
-              <p className="mt-6 max-w-prose text-lg leading-relaxed text-paper/85 text-pretty">
-                Un agent de sécurité de nuit, un nettoyage après chantier, une
-                intérimaire qualifiée… Dites ce qu'il vous faut, on trouve les
-                bons pros.
-              </p>
-
-              <ul className="mt-8 space-y-4 max-w-prose">
-
-                <Benefit tone="paper">
-                  Jusqu'à 3 devis de professionnels vérifiés et comparables.
-                </Benefit>
-                <Benefit tone="paper">
-                  Validation humaine par téléphone avant chaque mise en
-                  relation.
-                </Benefit>
-                <Benefit tone="paper">
-                  Pas de boîte noire : vous savez pourquoi chaque pro est
-                  sélectionné.
-                </Benefit>
-                <Benefit tone="paper">
-                  Gratuit, sans compte, zéro spam.
-                </Benefit>
-              </ul>
-
-              <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.18em] text-paper/70">
-                Des pros vérifiés, dans votre ville
-              </p>
-            </Reveal>
-
-            <Reveal delay={120}>
-              <PreregistrationForm profile="client" />
-            </Reveal>
-          </div>
+function ProSection() {
+  const { t } = useT();
+  return (
+    <section id="section-prestataire" className="relative isolate overflow-hidden scroll-mt-24 bg-paper-deep">
+      <BrandMark className="pointer-events-none absolute -right-10 -bottom-16 -z-10 h-[26rem] w-auto text-terra/10" />
+      <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <Reveal className="order-2 lg:order-1">
+            <PreregistrationForm profile="prestataire" />
+          </Reveal>
+          <Reveal delay={120} className="order-1 lg:order-2">
+            <Eyebrow className="text-terra-deep mb-4">{t.pro.eyebrow}</Eyebrow>
+            <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
+              {t.pro.title1}
+              <br />
+              {t.pro.title2}
+            </h2>
+            <p className="mt-6 max-w-prose text-lg leading-relaxed text-ink-soft text-pretty">{t.pro.body}</p>
+            <ul className="mt-8 space-y-4 max-w-prose">
+              {t.pro.benefits.map((b) => (
+                <Benefit key={b}>{b}</Benefit>
+              ))}
+            </ul>
+          </Reveal>
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      <Partners />
-
-      <section id="section-prestataire" className="relative isolate overflow-hidden scroll-mt-24 bg-paper-deep">
-        <BrandMark className="pointer-events-none absolute -right-10 -bottom-16 -z-10 h-[26rem] w-auto text-terra/10" />
-        <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-
-            <Reveal>
-              <PreregistrationForm profile="prestataire" />
-            </Reveal>
-
-            <Reveal delay={120}>
-              <Eyebrow className="text-terra-deep mb-4">
-                VOUS PROPOSEZ DES SERVICES
-              </Eyebrow>
-              <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
-                Rejoignez le
-                <br />
-                réseau vérifié.
-              </h2>
-              <p className="mt-6 max-w-prose text-lg leading-relaxed text-ink-soft text-pretty">
-                Inscrivez votre société pour recevoir des demandes qualifiées
-                dans votre métier et votre ville.
-              </p>
-
-              <ul className="mt-8 space-y-4 max-w-prose">
-
-                <Benefit>
-                  Accès anticipé : vous faites partie des premiers prestataires
-                  et vous façonnez le produit.
-                </Benefit>
-                <Benefit>
-                  Demandes pré-qualifiées par un appel humain.
-                </Benefit>
-                <Benefit>
-                  Processus transparent : pas de commission cachée, pas de
-                  boîte noire.
-                </Benefit>
-                <Benefit>
-                  Santé réservée aux groupes, cliniques et centres — ni
-                  médecins indépendants, ni établissements publics.
-                </Benefit>
-              </ul>
-            </Reveal>
-          </div>
+function ClientSection() {
+  const { t } = useT();
+  return (
+    <section id="section-client" className="relative isolate overflow-hidden scroll-mt-24 border-b-2 border-ink">
+      <img
+        src={prosAsset.url}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+      />
+      <div className="absolute inset-0 -z-10 bg-ink/85" aria-hidden="true" />
+      <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <Reveal className="text-paper">
+            <Eyebrow className="text-terra mb-4">{t.client.eyebrow}</Eyebrow>
+            <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.4rem,6vw,4.2rem)]">
+              {t.client.title1}
+              <br />
+              {t.client.title2}
+            </h2>
+            <p className="mt-6 max-w-prose text-lg leading-relaxed text-paper/85 text-pretty">{t.client.body}</p>
+            <ul className="mt-8 space-y-4 max-w-prose">
+              {t.client.benefits.map((b) => (
+                <Benefit key={b} tone="paper">{b}</Benefit>
+              ))}
+            </ul>
+            <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.18em] text-paper/70">{t.client.caption}</p>
+          </Reveal>
+          <Reveal delay={120}>
+            <PreregistrationForm profile="client" />
+          </Reveal>
         </div>
-      </section>
-
-      <AiFeatures />
-
-      <Coverage />
-
-
-      <Footer />
-
-      <WhatsAppWidget />
-    </div>
+      </div>
+    </section>
   );
 }
 
 const WHATSAPP_URL = "https://wa.me/212664272854";
 
 function WhatsAppWidget() {
+  const { t } = useT();
   return (
     <a
       href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Discuter avec nous sur WhatsApp"
+      aria-label={t.whatsappWidget}
       className="wa-widget fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg sm:bottom-6 sm:right-6 sm:h-16 sm:w-16"
     >
-      <svg
-        viewBox="0 0 32 32"
-        className="h-8 w-8 sm:h-9 sm:w-9"
-        fill="#ffffff"
-        aria-hidden="true"
-      >
-        <path d="M16.04 3C9.03 3 3.34 8.69 3.34 15.7c0 2.24.59 4.42 1.7 6.35L3.2 29l7.11-1.86a12.65 12.65 0 0 0 5.72 1.37h.01c7 0 12.7-5.7 12.7-12.7C28.74 8.69 23.05 3 16.04 3Zm0 23.24h-.01a10.6 10.6 0 0 1-5.36-1.47l-.38-.23-4.22 1.1 1.13-4.11-.25-.42a10.53 10.53 0 0 1-1.62-5.61c0-5.84 4.76-10.6 10.61-10.6 2.83 0 5.5 1.1 7.5 3.11a10.52 10.52 0 0 1 3.1 7.5c0 5.85-4.76 10.73-10.5 10.73Zm5.82-7.94c-.32-.16-1.98-.98-2.28-1.09-.31-.11-.53-.17-.75.16-.22.32-.86 1.09-1.06 1.31-.19.22-.39.24-.71.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.9-1.78-2.22-.19-.32-.02-.5.14-.66.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.72-1.82-.98-2.49-.26-.65-.52-.56-.71-.57h-.64c-.22 0-.58.08-.88.4-.3.32-1.15 1.13-1.15 2.75 0 1.62 1.18 3.19 1.34 3.41.16.21 2.32 3.54 5.62 4.96.79.34 1.4.54 1.88.69.79.25 1.51.22 2.08.13.63-.09 1.98-.81 2.26-1.59.28-.78.28-1.45.2-1.59-.08-.14-.29-.22-.61-.38Z" />
-      </svg>
+      <WhatsAppIcon className="h-8 w-8 sm:h-9 sm:w-9" />
     </a>
   );
 }
 
-const NAV_LINKS = [
-  { label: "Comment ça marche", href: "#section-processus" },
-  { label: "Villes", href: "#section-villes" },
-  { label: "L'IA", href: "#section-ia" },
-];
+function WhatsAppIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} fill="#ffffff" aria-hidden="true">
+      <path d="M16.04 3C9.03 3 3.34 8.69 3.34 15.7c0 2.24.59 4.42 1.7 6.35L3.2 29l7.11-1.86a12.65 12.65 0 0 0 5.72 1.37h.01c7 0 12.7-5.7 12.7-12.7C28.74 8.69 23.05 3 16.04 3Zm0 23.24h-.01a10.6 10.6 0 0 1-5.36-1.47l-.38-.23-4.22 1.1 1.13-4.11-.25-.42a10.53 10.53 0 0 1-1.62-5.61c0-5.84 4.76-10.6 10.61-10.6 2.83 0 5.5 1.1 7.5 3.11a10.52 10.52 0 0 1 3.1 7.5c0 5.85-4.76 10.73-10.5 10.73Zm5.82-7.94c-.32-.16-1.98-.98-2.28-1.09-.31-.11-.53-.17-.75.16-.22.32-.86 1.09-1.06 1.31-.19.22-.39.24-.71.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.9-1.78-2.22-.19-.32-.02-.5.14-.66.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.72-1.82-.98-2.49-.26-.65-.52-.56-.71-.57h-.64c-.22 0-.58.08-.88.4-.3.32-1.15 1.13-1.15 2.75 0 1.62 1.18 3.19 1.34 3.41.16.21 2.32 3.54 5.62 4.96.79.34 1.4.54 1.88.69.79.25 1.51.22 2.08.13.63-.09 1.98-.81 2.26-1.59.28-.78.28-1.45.2-1.59-.08-.14-.29-.22-.61-.38Z" />
+    </svg>
+  );
+}
+
+function LangSwitch({ className = "" }: { className?: string }) {
+  const { lang, setLang } = useT();
+  return (
+    <span className={`inline-flex items-center gap-1.5 font-mono text-xs leading-none ${className}`}>
+      <button
+        type="button"
+        onClick={() => setLang("ar")}
+        aria-pressed={lang === "ar"}
+        className={`py-1 border-b-2 ${lang === "ar" ? "border-terra text-ink" : "border-transparent text-ink-soft hover:text-ink"}`}
+      >
+        العربية
+      </button>
+      <span aria-hidden="true" className="text-ink-soft">|</span>
+      <button
+        type="button"
+        onClick={() => setLang("fr")}
+        aria-pressed={lang === "fr"}
+        className={`py-1 border-b-2 uppercase tracking-wide ${lang === "fr" ? "border-terra text-ink" : "border-transparent text-ink-soft hover:text-ink"}`}
+      >
+        Français
+      </button>
+    </span>
+  );
+}
 
 function Nav() {
+  const { t } = useT();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <nav className="sticky top-0 z-20 border-b-2 border-ink bg-paper/95">
       <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
-          <a href="#top" className="shrink-0" aria-label="Page.ma — retour en haut">
-            <img
-              src={LOGO_URL}
-              alt="Page.ma"
-              className="h-9 sm:h-10 w-auto"
-            />
+          <a href="#top" className="shrink-0" aria-label={t.nav.home}>
+            <img src={LOGO_URL} alt="Page.ma" className="h-9 sm:h-10 w-auto" />
           </a>
           <span className="hidden sm:inline-flex items-center font-mono text-[10px] leading-none uppercase tracking-[0.18em] border border-ink px-2 py-1 rotate-[-2deg]">
-            Pré-lancement
+            {t.nav.prelaunch}
           </span>
         </div>
 
-        <div className="hidden md:flex items-center gap-4">
-          {NAV_LINKS.map((link) => (
+        <div className="hidden lg:flex items-center gap-4">
+          {t.nav.links.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -379,27 +383,21 @@ function Nav() {
           ))}
         </div>
 
-        <div className="flex items-center gap-2">
-          <a
-            href="#section-client"
-            className="hidden sm:inline-flex items-center font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift"
-          >
-            Je cherche
-          </a>
+        <div className="flex items-center gap-3">
+          <LangSwitch className="hidden sm:inline-flex" />
           <a
             href="#section-prestataire"
-            className="hidden sm:inline-flex items-center font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift bg-terra text-paper"
+            className="hidden md:inline-flex items-center font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift bg-terra text-paper"
           >
-            Je suis pro
+            {t.nav.pro}
           </a>
-
           <button
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-controls="nav-menu-panel"
-            aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-            className="md:hidden inline-flex items-center justify-center w-10 h-10 border-2 border-ink lift bg-paper"
+            aria-label={menuOpen ? t.nav.close : t.nav.open}
+            className="lg:hidden inline-flex items-center justify-center w-10 h-10 border-2 border-ink lift bg-paper"
           >
             {menuOpen ? (
               <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
@@ -415,12 +413,9 @@ function Nav() {
       </div>
 
       {menuOpen && (
-        <div
-          id="nav-menu-panel"
-          className="md:hidden border-t-2 border-ink bg-paper paper-noise"
-        >
+        <div id="nav-menu-panel" className="lg:hidden border-t-2 border-ink bg-paper paper-noise">
           <div className="max-w-6xl mx-auto px-5 py-4 flex flex-col">
-            {NAV_LINKS.map((link) => (
+            {t.nav.links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -430,20 +425,21 @@ function Nav() {
                 {link.label}
               </a>
             ))}
-            <div className="mt-3 grid grid-cols-2 gap-2 sm:hidden">
+            <LangSwitch className="sm:hidden py-3" />
+            <div className="mt-3 grid grid-cols-2 gap-2">
               <a
                 href="#section-client"
                 onClick={() => setMenuOpen(false)}
-                className="inline-flex items-center justify-center font-mono text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 py-3 lift"
+                className="inline-flex items-center justify-center text-center font-mono text-xs leading-tight uppercase tracking-wide border-2 border-ink px-3 py-3 lift"
               >
-                Je cherche
+                {t.nav.client}
               </a>
               <a
                 href="#section-prestataire"
                 onClick={() => setMenuOpen(false)}
-                className="inline-flex items-center justify-center font-mono text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 py-3 lift bg-terra text-paper"
+                className="inline-flex items-center justify-center text-center font-mono text-xs leading-tight uppercase tracking-wide border-2 border-ink px-3 py-3 lift bg-terra text-paper"
               >
-                Je suis pro
+                {t.nav.pro}
               </a>
             </div>
           </div>
@@ -453,232 +449,318 @@ function Nav() {
   );
 }
 
+const LAUNCH_DATE = new Date("2026-11-01T00:00:00+01:00").getTime();
+
+function useCountdown() {
+  const [left, setLeft] = useState<number | null>(null);
+  useEffect(() => {
+    const tick = () => setLeft(Math.max(0, LAUNCH_DATE - Date.now()));
+    tick();
+    const id = window.setInterval(tick, 30_000);
+    return () => window.clearInterval(id);
+  }, []);
+  if (left === null) return null;
+  const mins = Math.floor(left / 60_000);
+  return { days: Math.floor(mins / 1440), hours: Math.floor((mins % 1440) / 60), minutes: mins % 60 };
+}
+
 function Hero() {
+  const { t } = useT();
+  const cd = useCountdown();
+  const units = [
+    { v: cd?.days, l: t.hero.days },
+    { v: cd?.hours, l: t.hero.hours },
+    { v: cd?.minutes, l: t.hero.minutes },
+  ];
+
   return (
     <header className="relative isolate overflow-hidden border-b-2 border-ink">
       <img
         src={HERO_URL}
-        alt="Professionnels marocains de la sécurité, du nettoyage et des services"
+        alt={t.hero.imgAlt}
         className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
         fetchPriority="high"
       />
       <div className="absolute inset-0 -z-10 bg-ink/75" aria-hidden="true" />
 
-      <div className="max-w-5xl mx-auto px-5 py-20 lg:py-28 text-center text-paper">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-paper drop mb-6">
-
-          Le réseau de pros vérifiés — 25 villes du Maroc
-        </p>
-        <h1 className="font-display leading-[0.92] tracking-tight text-[clamp(3rem,9vw,6.5rem)] drop [animation-delay:80ms]">
-          Dites ce qu'il
-          <br />
-          vous faut. On
-          <br />
-          prévient <span className="text-terra">3 pros</span>.
+      <div className="max-w-5xl mx-auto px-5 py-20 lg:py-24 text-center text-paper">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra drop mb-6">{t.hero.kicker}</p>
+        <h1 className="font-display leading-[1.02] tracking-tight text-[clamp(2.2rem,5.6vw,4.4rem)] text-balance drop [animation-delay:80ms]">
+          {t.hero.title}
         </h1>
-        <p className="mt-6 max-w-2xl mx-auto text-lg leading-relaxed text-paper text-pretty drop [animation-delay:160ms]">
-          Vous décrivez votre besoin, Page.ma le qualifie par téléphone, et vous
-          recevez jusqu'à trois devis de professionnels sélectionnés. Gratuit,
-          sans compte, sans spam.
+        <p className="mt-6 max-w-2xl mx-auto text-lg sm:text-xl leading-relaxed text-paper text-pretty drop [animation-delay:160ms]">
+          {t.hero.subtitle}
         </p>
 
-        <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 drop [animation-delay:220ms]">
-          <a
-            href="#section-client"
-            className="inline-flex items-center justify-center w-full sm:w-auto bg-terra text-paper border-2 border-paper font-display text-xl leading-none tracking-tight px-8 py-4 lift"
-          >
-            Je cherche un prestataire
-          </a>
+        <div className="mt-8 flex justify-center gap-3 drop [animation-delay:200ms]" aria-live="polite">
+          {units.map((u) => (
+            <div key={u.l} className="min-w-[5.5rem] border-2 border-paper bg-ink/50 px-3 py-3">
+              <span className="block font-display text-4xl leading-none tabular-nums">
+                {u.v === undefined ? "--" : String(u.v).padStart(2, "0")}
+              </span>
+              <span className="mt-1.5 block font-mono text-[10px] uppercase tracking-wide text-paper/80">{u.l}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 drop [animation-delay:240ms]">
           <a
             href="#section-prestataire"
+            className="inline-flex items-center justify-center w-full sm:w-auto bg-terra text-paper border-2 border-paper font-display text-xl leading-none tracking-tight px-8 py-4 lift"
+          >
+            {t.cta}
+          </a>
+          <a
+            href="#section-client"
             className="inline-flex items-center justify-center w-full sm:w-auto bg-paper text-ink border-2 border-paper font-display text-xl leading-none tracking-tight px-8 py-4 lift hover:bg-paper-deep"
           >
-            Je propose mes services
+            {t.hero.secondary}
           </a>
         </div>
 
-        <p className="mt-6 font-mono text-[10px] uppercase tracking-wide text-paper drop [animation-delay:260ms]">
-          Sans engagement · Aucun compte requis · Zéro spam
-        </p>
-
-        <div className="mt-10 flex flex-wrap justify-center gap-2.5 drop [animation-delay:300ms]">
-
-          {CATEGORIES.map((c) => (
-            <span
-              key={c}
-              className="inline-flex items-center font-mono text-[11px] leading-none uppercase tracking-wide border-2 border-paper bg-ink/45 px-3 py-1.5"
-            >
-              {c}
-            </span>
-          ))}
-
+        <div className="mt-10 mx-auto max-w-2xl rotate-[-1deg] border-2 border-paper bg-paper text-ink p-4 sm:p-5 text-start shadow-[6px_6px_0_var(--terra)] drop [animation-delay:300ms]">
+          <span className="inline-flex items-center font-mono text-[10px] leading-none uppercase tracking-[0.18em] bg-terra text-paper px-2 py-1">
+            {t.hero.offerTag}
+          </span>
+          <p className="mt-3 font-semibold leading-relaxed text-pretty">{t.hero.offer}</p>
         </div>
       </div>
     </header>
   );
 }
 
-function HowItWorks() {
+function Promises() {
+  const { t } = useT();
+  const images = [requestIllustration.url, qualifyIllustration.url, quotesIllustration.url];
   return (
-    <section
-      id="section-processus"
-      className="scroll-mt-24 border-y-2 border-ink bg-ink text-paper"
-    >
+    <section id="section-processus" className="scroll-mt-24 border-y-2 border-ink bg-ink text-paper">
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
         <Reveal>
-          <Eyebrow className="text-terra mb-10">COMMENT ÇA MARCHE</Eyebrow>
+          <Eyebrow className="text-terra mb-10">{t.promises.eyebrow}</Eyebrow>
         </Reveal>
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
-          {[
-            {
-              n: "01",
-              t: "Décrivez le besoin",
-              b: "Quelques lignes suffisent. En 2 minutes.",
-              image: requestIllustration.url,
-              alt: "Une machine à écrire avec des livres et une tasse de café, symbole de la rédaction de la demande",
-            },
-            {
-              n: "02",
-              t: "Page.ma qualifie",
-              b: "Un appel humain pour vérifier le besoin et le bon pro.",
-              image: qualifyIllustration.url,
-              alt: "Un conseiller Page.ma au casque vérifie la demande par téléphone avec des avis clients",
-            },
-            {
-              n: "03",
-              t: "Recevez les devis",
-              b: "Jusqu'à 3 devis comparables. Pas de boîte noire.",
-              image: quotesIllustration.url,
-              alt: "Trois fiches de devis notées et validées, prêtes à être comparées",
-            },
-          ].map((s, index) => (
-            <Reveal key={s.n} delay={index * 90} className="h-full">
+          {t.promises.items.map((s, index) => (
+            <Reveal key={index} delay={index * 90} className="h-full">
               <div className="lift-card lift-card-invert flex h-full flex-col border-2 border-paper/25 p-6">
-              <span className="font-display text-5xl leading-none text-terra">
-                {s.n}
-              </span>
-              <div className="my-5 flex overflow-hidden border-y-2 border-paper/20 bg-white">
-                <img
-                  src={s.image}
-                  alt={s.alt}
-                  loading="lazy"
-                  width={768}
-                  height={768}
-                  className="h-auto w-full object-cover"
-                />
-              </div>
-              <h3 className="font-sans font-semibold text-xl mt-4">{s.t}</h3>
-              <p className="text-sm leading-relaxed text-paper/70 mt-2">
-                {s.b}
-              </p>
+                <span className="font-display text-5xl leading-none text-terra">{String(index + 1).padStart(2, "0")}</span>
+                <div className="my-5 flex overflow-hidden border-y-2 border-paper/20 bg-white">
+                  <img src={images[index]} alt={s.alt} loading="lazy" width={768} height={768} className="h-auto w-full object-cover" />
+                </div>
+                <h3 className="font-sans font-semibold text-xl mt-4">{s.t}</h3>
+                <p className="text-sm leading-relaxed text-paper/70 mt-2">{s.b}</p>
               </div>
             </Reveal>
           ))}
         </div>
-      </div>
 
+        <Reveal delay={100}>
+          <p className="mt-16 text-center font-display text-[clamp(1.8rem,4vw,3rem)] leading-tight tracking-tight text-balance">
+            {t.promises.concept}
+          </p>
+        </Reveal>
+        <div className="mt-10 grid md:grid-cols-2 gap-6">
+          {t.promises.pillars.map((p, i) => (
+            <Reveal key={p.t} delay={i * 90} className="h-full">
+              <div className="h-full border-2 border-paper/25 p-6">
+                <span className="inline-flex font-mono text-[10px] uppercase tracking-[0.18em] bg-terra text-paper px-2 py-1">{p.tag}</span>
+                <h3 className="mt-4 font-display text-3xl leading-none">{p.t}</h3>
+                <p className="mt-3 text-paper/75 leading-relaxed">{p.b}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={120}>
+          <p className="mt-10 mx-auto max-w-2xl text-center text-paper/80 leading-relaxed text-pretty">{t.promises.trust}</p>
+        </Reveal>
+      </div>
     </section>
   );
 }
 
-const AI_FEATURES = [
-  {
-    n: "01",
-    title: "Demande en langage naturel",
-    body: "« 2 agents de sécurité de nuit à Casablanca, budget 12 000 DH, avant le 30 » — l'IA structure la demande à votre place.",
-  },
-  {
-    n: "02",
-    title: "Score de correspondance expliqué",
-    body: "Chaque pro proposé reçoit une note sur 100, avec les raisons affichées : métier, ville, taille d'équipe, disponibilité.",
-  },
-  {
-    n: "03",
-    title: "Validation humaine obligatoire",
-    body: "Aucune mise en relation n'est envoyée sans votre accord. L'IA prépare, vous décidez.",
-  },
-  {
-    n: "04",
-    title: "Indice de confiance transparent",
-    body: "Vérification des documents, historique des missions, avis vérifiés — jamais de boîte noire.",
-  },
-  {
-    n: "05",
-    title: "Veille de marché continue",
-    body: "Pour les prestataires : alertes automatiques dès qu'une demande correspond à votre métier et votre ville.",
-  },
-  {
-    n: "06",
-    title: "Bouton d'arrêt de l'IA",
-    body: "Un seul clic met en pause toute action automatique sur votre dossier.",
-  },
-];
-
-function AiFeatures() {
+function Categories() {
+  const { t } = useT();
   return (
-    <section id="section-ia" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28">
-      <Reveal className="flex items-end justify-between flex-wrap gap-4 mb-6">
-        <div>
-          <Eyebrow className="text-terra mb-4">
-            BIENTÔT : L'IA AU SERVICE DE LA MISE EN RELATION
-          </Eyebrow>
-          <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">
-            Ce qui arrive
-            <br />
-            après l'ouverture.
-          </h2>
-        </div>
-        <span className="inline-flex items-center font-mono text-[10px] leading-none uppercase tracking-[0.18em] border-2 border-ink px-2.5 py-1.5 rotate-[-2deg] bg-terra text-paper">
-          En préparation
-        </span>
+    <section className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
+      <Reveal>
+        <Eyebrow className="text-terra mb-4">{t.categories.eyebrow}</Eyebrow>
+        <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">{t.categories.title}</h2>
+        <p className="mt-4 max-w-prose text-lg text-ink-soft">{t.categories.body}</p>
       </Reveal>
-
-      <Reveal delay={70}>
-        <p className="max-w-prose text-lg leading-relaxed text-ink-soft text-pretty mb-12">
-          Le cœur reste humain : un appel pour qualifier, jusqu'à 3 devis
-          comparables. L'IA accélère la recherche, elle ne décide jamais à votre
-          place.
-        </p>
-      </Reveal>
-
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-        {AI_FEATURES.map((f, index) => (
-          <Reveal key={f.n} delay={(index % 3) * 75} className="h-full">
-            <div className="lift-card flex h-full flex-col border-2 border-ink bg-paper-deep p-6">
-            <div className="flex items-center justify-between gap-3">
-              <span className="font-display text-4xl leading-none text-terra">
-                {f.n}
-              </span>
-              <span className="inline-flex items-center font-mono text-[9px] leading-none uppercase tracking-wide border border-ink px-2 py-1">
-                À venir
-              </span>
-            </div>
-            <h3 className="font-sans font-semibold text-xl mt-4 text-pretty">
-              {f.title}
-            </h3>
-            <p className="text-sm leading-relaxed text-ink-soft mt-2 text-pretty">
-              {f.body}
-            </p>
+      <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        {CATEGORIES.map((c, i) => (
+          <Reveal key={c} delay={(i % 4) * 60} className="h-full">
+            <div className="lift-card relative h-full border-2 border-ink bg-paper-deep p-5">
+              {i < 2 && (
+                <span className="absolute -top-2.5 end-3 font-mono text-[9px] uppercase tracking-wide bg-terra text-paper px-1.5 py-0.5">
+                  {t.categories.featured}
+                </span>
+              )}
+              <BrandMark className="h-5 w-auto text-terra" />
+              <p className="mt-3 font-sans font-semibold text-lg leading-tight">{catLabel(t, c)}</p>
             </div>
           </Reveal>
         ))}
       </div>
+    </section>
+  );
+}
 
+function catLabel(t: Dict, c: string) {
+  return t.categoryLabels[c] ?? c;
+}
+
+function WhatsAppSection() {
+  const { t } = useT();
+  return (
+    <section id="section-whatsapp" className="scroll-mt-24 border-y-2 border-ink bg-ink text-paper">
+      <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">
+        <Reveal>
+          <Eyebrow className="text-terra mb-4">{t.whatsapp.eyebrow}</Eyebrow>
+          <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">{t.whatsapp.title}</h2>
+          <ul className="mt-8 space-y-4">
+            {t.whatsapp.features.map((f) => (
+              <Benefit key={f} tone="paper">{f}</Benefit>
+            ))}
+          </ul>
+        </Reveal>
+        <Reveal delay={120}>
+          <div className="mx-auto max-w-sm border-2 border-paper bg-paper text-ink shadow-[8px_8px_0_var(--terra)]">
+            <div className="flex items-center gap-3 border-b-2 border-ink bg-[#25D366] px-4 py-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-ink">
+                <WhatsAppIcon className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="font-semibold leading-tight text-ink">{t.whatsapp.chatName}</p>
+                <p className="font-mono text-[10px] text-ink/80">{t.whatsapp.chatStatus}</p>
+              </div>
+            </div>
+            <div className="space-y-3 bg-paper-deep p-4">
+              <div className="border-2 border-ink bg-paper p-3">
+                <p className="text-sm leading-relaxed">{t.whatsapp.message}</p>
+                <p className="mt-1 text-end font-mono text-[10px] text-ink-soft">{t.whatsapp.time}</p>
+              </div>
+              <div className="flex items-center gap-3 border-2 border-ink bg-paper p-3">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-terra text-paper" aria-hidden="true">▶</span>
+                <span className="flex h-6 flex-1 items-center gap-0.5" aria-hidden="true">
+                  {[3, 5, 8, 4, 9, 6, 3, 7, 5, 8, 4, 6, 3, 5, 7, 4].map((h, i) => (
+                    <span key={i} className="w-1 bg-ink" style={{ height: `${h * 2.5}px` }} />
+                  ))}
+                </span>
+                <span className="font-mono text-[10px] text-ink-soft">{t.whatsapp.voice}</span>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function Pricing() {
+  const { t } = useT();
+  return (
+    <section id="section-tarifs" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28">
+      <Reveal>
+        <Eyebrow className="text-terra mb-4">{t.pricing.eyebrow}</Eyebrow>
+        <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">{t.pricing.title}</h2>
+      </Reveal>
+      <div className="mt-12 grid md:grid-cols-3 gap-6 items-stretch">
+        {t.pricing.plans.map((p, i) => {
+          const rec = i === 1;
+          return (
+            <Reveal key={p.name} delay={i * 90} className="h-full">
+              <div className={`lift-card relative flex h-full flex-col border-2 border-ink p-6 ${rec ? "bg-terra text-paper" : "bg-paper-deep"}`}>
+                {rec && (
+                  <span className="absolute -top-3 start-5 font-mono text-[10px] uppercase tracking-wide border-2 border-ink bg-paper text-ink px-2 py-1">
+                    {t.pricing.recommended}
+                  </span>
+                )}
+                <h3 className="font-mono text-xs uppercase tracking-[0.2em]">{p.name}</h3>
+                <p className="mt-4 font-display text-5xl leading-none">
+                  {p.price} <span className="text-lg">MAD</span>
+                </p>
+                <p className={`mt-1 font-mono text-[11px] uppercase ${rec ? "text-paper/80" : "text-ink-soft"}`}>{t.pricing.perMonth}</p>
+                <p className="mt-6 font-semibold text-xl">{p.credits} {t.pricing.credits}</p>
+                <p className={`mt-2 text-sm ${rec ? "text-paper/85" : "text-ink-soft"}`}>{p.detail}</p>
+                <p className="mt-auto pt-6 font-semibold">{p.ideal}</p>
+                <a
+                  href="#section-prestataire"
+                  className={`mt-5 inline-flex items-center justify-center border-2 border-ink py-3 font-display text-lg leading-none lift ${rec ? "bg-paper text-ink" : "bg-terra text-paper"}`}
+                >
+                  {t.cta}
+                </a>
+              </div>
+            </Reveal>
+          );
+        })}
+      </div>
+      <Reveal delay={120}>
+        <div className="mt-10 border-2 border-ink bg-paper p-6 sm:flex sm:items-center sm:justify-between gap-6">
+          <p className="font-display text-2xl leading-tight">{t.pricing.rulesTitle}</p>
+          <dl className="mt-4 sm:mt-0 flex flex-wrap gap-6">
+            {t.pricing.rules.map((r) => (
+              <div key={r.k}>
+                <dt className="font-mono text-[10px] uppercase tracking-wide text-ink-soft">{r.k}</dt>
+                <dd className="font-semibold text-lg text-terra-deep">{r.v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+function AiFeatures() {
+  const { t } = useT();
+  return (
+    <section id="section-ia" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28">
+      <Reveal className="flex items-end justify-between flex-wrap gap-4 mb-6">
+        <div>
+          <Eyebrow className="text-terra mb-4">{t.ai.eyebrow}</Eyebrow>
+          <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">
+            {t.ai.title1}
+            <br />
+            {t.ai.title2}
+          </h2>
+        </div>
+        <span className="inline-flex items-center font-mono text-[10px] leading-none uppercase tracking-[0.18em] border-2 border-ink px-2.5 py-1.5 rotate-[-2deg] bg-terra text-paper">
+          {t.ai.badge}
+        </span>
+      </Reveal>
+      <Reveal delay={70}>
+        <p className="max-w-prose text-lg leading-relaxed text-ink-soft text-pretty mb-12">{t.ai.body}</p>
+      </Reveal>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+        {t.ai.features.map((f, index) => (
+          <Reveal key={f.title} delay={(index % 3) * 75} className="h-full">
+            <div className="lift-card flex h-full flex-col border-2 border-ink bg-paper-deep p-6">
+              <div className="flex items-center justify-between gap-3">
+                <span className="font-display text-4xl leading-none text-terra">{String(index + 1).padStart(2, "0")}</span>
+                <span className="inline-flex items-center font-mono text-[9px] leading-none uppercase tracking-wide border border-ink px-2 py-1">
+                  {t.ai.soon}
+                </span>
+              </div>
+              <h3 className="font-sans font-semibold text-xl mt-4 text-pretty">{f.title}</h3>
+              <p className="text-sm leading-relaxed text-ink-soft mt-2 text-pretty">{f.body}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
       <Reveal delay={120} className="mt-12 flex flex-col sm:flex-row gap-4">
         <a
-          href="#section-client"
+          href="#section-prestataire"
           className="inline-flex items-center justify-center w-full sm:w-auto text-center bg-terra text-paper border-2 border-ink font-display text-xl leading-none tracking-tight px-8 py-4 lift"
         >
-          Accès anticipé — je cherche un pro
+          {t.cta}
         </a>
         <a
-          href="#section-prestataire"
+          href="#section-client"
           className="inline-flex items-center justify-center w-full sm:w-auto text-center bg-paper text-ink border-2 border-ink font-display text-xl leading-none tracking-tight px-8 py-4 lift hover:bg-paper-deep"
         >
-          Accès anticipé — je suis pro
+          {t.ai.ctaClient}
         </a>
       </Reveal>
-
     </section>
   );
 }
@@ -924,21 +1006,22 @@ function MoroccoNetwork() {
 }
 
 function Coverage() {
+  const { t } = useT();
   return (
     <section id="section-villes" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28" aria-labelledby="coverage-title">
       <Reveal className="flex flex-col overflow-hidden border-[3px] border-ink bg-paper shadow-[10px_10px_0_var(--ink)] lg:flex-row">
         <div className="flex flex-col border-b-[3px] border-ink lg:w-[38%] lg:border-r-[3px] lg:border-b-0">
           <div className="border-b-[3px] border-ink bg-terra p-7 sm:p-9">
             <Eyebrow className="mb-4 !text-[10px] font-bold text-paper">
-              COUVERTURE NATIONALE
+              {t.coverage.eyebrow}
             </Eyebrow>
             <h2 id="coverage-title" className="font-display text-7xl leading-[0.82] text-paper sm:text-8xl">
               25
               <span className="block h-3 sm:h-5" />
-              villes
+              {t.coverage.cities}
             </h2>
             <p className="mt-6 font-mono text-xs font-bold uppercase tracking-[0.16em] text-paper">
-              Un réseau de proximité au Maroc
+              {t.coverage.tagline}
             </p>
           </div>
 
@@ -946,7 +1029,7 @@ function Coverage() {
             <MoroccoNetwork />
             <div className="absolute right-5 bottom-5 left-5 rotate-[-1deg] border-2 border-ink bg-paper/90 p-4 shadow-[5px_5px_0_var(--terra)] backdrop-blur-sm transition-transform duration-300 group-hover:-translate-y-1 motion-reduce:transition-none">
               <p className="font-sans text-base font-bold leading-tight uppercase">
-                Des professionnels vérifiés, au plus près de votre besoin.
+                {t.coverage.card}
               </p>
             </div>
           </div>
@@ -957,16 +1040,16 @@ function Coverage() {
           <div className="border-b-[3px] border-ink p-7 sm:p-9">
             <div className="flex flex-wrap items-start justify-between gap-5">
               <h3 className="font-display text-4xl leading-none sm:text-5xl">
-                Partout où
+                {t.coverage.title1}
                 <br />
-                vous êtes.
+                {t.coverage.title2}
               </h3>
               <span className="inline-flex items-center border border-terra px-2.5 py-1.5 font-mono text-[9px] font-bold leading-none uppercase tracking-[0.16em] text-terra-deep">
-                Maroc · 25 points
+                {t.coverage.badge}
               </span>
             </div>
             <p className="mt-6 max-w-prose text-base leading-relaxed text-ink-soft sm:text-lg">
-              De Tanger à Dakhla, Page.ma vous met en relation avec des prestataires qualifiés dans les principaux pôles du Royaume.
+              {t.coverage.body}
             </p>
 
           </div>
@@ -990,7 +1073,7 @@ function Coverage() {
           <div className="flex items-center gap-4 bg-ink px-5 py-4 text-paper">
             <span className="h-3 w-3 shrink-0 rounded-full bg-terra" aria-hidden="true" />
             <span className="font-mono text-[9px] font-bold uppercase tracking-[0.16em]">
-              Qualification téléphonique · Jusqu'à 3 professionnels vérifiés
+              {t.coverage.strip}
             </span>
           </div>
         </div>
@@ -999,37 +1082,7 @@ function Coverage() {
   );
 }
 
-const FOOTER_COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
-  {
-    title: "Services",
-    links: [
-      { label: "Sécurité", href: "#section-client" },
-      { label: "Nettoyage", href: "#section-client" },
-      { label: "Intérim", href: "#section-client" },
-      { label: "Assurance", href: "#section-client" },
-      { label: "Immobilier", href: "#section-client" },
-    ],
-  },
-  {
-    title: "Villes",
-    links: [
-      { label: "Casablanca", href: "#coverage-title" },
-      { label: "Rabat", href: "#coverage-title" },
-      { label: "Marrakech", href: "#coverage-title" },
-      { label: "Tanger", href: "#coverage-title" },
-      { label: "Agadir", href: "#coverage-title" },
-    ],
-  },
-  {
-    title: "Plateforme",
-    links: [
-      { label: "Comment ça marche", href: "#section-processus" },
-      { label: "Devenir partenaire", href: "#section-prestataire" },
-      { label: "Préinscription", href: "#section-client" },
-      { label: "Bientôt : l'IA", href: "#section-ia" },
-    ],
-  },
-];
+const FOOTER_CITIES = ["Casablanca", "Rabat", "Marrakech", "Tanger", "Agadir"];
 
 const PARTNERS = [
   { name: "Asomovit Nettoyage", url: partner1.url },
@@ -1040,6 +1093,7 @@ const PARTNERS = [
 ];
 
 function Partners() {
+  const { t } = useT();
   const loop = [...PARTNERS, ...PARTNERS];
 
   return (
@@ -1049,12 +1103,12 @@ function Partners() {
       aria-labelledby="partners-title"
     >
       <Reveal className="mx-auto max-w-6xl px-5">
-        <Eyebrow className="mb-3 text-terra">NOS PARTENAIRES</Eyebrow>
+        <Eyebrow className="mb-3 text-terra">{t.partners.eyebrow}</Eyebrow>
         <h2
           id="partners-title"
           className="font-display text-3xl leading-[0.95] text-ink sm:text-4xl"
         >
-          Ils nous font confiance
+          {t.partners.title}
         </h2>
       </Reveal>
 
@@ -1078,6 +1132,12 @@ function Partners() {
 }
 
 function Footer() {
+  const { t } = useT();
+  const columns = [
+    { title: t.footer.columns.services, links: ["Sécurité", "Nettoyage", "Piscine", "Jardinage", "Immobilier"].map((c) => ({ label: catLabel(t, c), href: "#section-prestataire" })) },
+    { title: t.footer.columns.cities, links: FOOTER_CITIES.map((c) => ({ label: c, href: "#coverage-title" })) },
+    { title: t.footer.columns.platform, links: t.footer.platformLinks },
+  ];
   return (
     <footer className="relative isolate overflow-hidden border-t-2 border-ink zellige">
       <BrandMark className="pointer-events-none absolute -right-14 -bottom-20 -z-10 h-[24rem] w-auto text-ink/[0.07]" />
@@ -1086,15 +1146,14 @@ function Footer() {
           <div className="lg:pr-8">
             <img src={LOGO_URL} alt="Page.ma" className="h-9 w-auto" />
             <p className="mt-6 max-w-prose font-semibold leading-relaxed text-ink-soft text-pretty">
-              Plateforme marocaine de mise en relation entre entreprises et
-              prestataires vérifiés.
+              {t.footer.about}
             </p>
             <div className="mt-6 flex items-center gap-3">
               <a
                 href="https://www.facebook.com/profile.php?id=61594526347174"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Page.ma sur Facebook"
+                aria-label={`${t.footer.on} Facebook`}
                 className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
                 <Facebook size={18} strokeWidth={2} />
@@ -1103,7 +1162,7 @@ function Footer() {
                 href="https://www.instagram.com/page.ma22/?hl=en"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Page.ma sur Instagram"
+                aria-label={`${t.footer.on} Instagram`}
                 className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
                 <Instagram size={18} strokeWidth={2} />
@@ -1112,7 +1171,7 @@ function Footer() {
                 href="https://www.linkedin.com/showcase/page-ma/home/?viewAsMember=true"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Page.ma sur LinkedIn"
+                aria-label={`${t.footer.on} LinkedIn`}
                 className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
                 <Linkedin size={18} strokeWidth={2} />
@@ -1120,7 +1179,7 @@ function Footer() {
             </div>
           </div>
 
-          {FOOTER_COLUMNS.map((column) => (
+          {columns.map((column) => (
             <nav key={column.title} aria-label={column.title}>
               <h2 className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-terra">
                 <BrandMark className="h-3 w-auto shrink-0" />
@@ -1147,7 +1206,7 @@ function Footer() {
             © 2026 PAGE.MA ·
           </span>
           <span className="flex items-center gap-4 font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
-            <span>Mentions légales · Confidentialité</span>
+            <span>{t.footer.legal}</span>
             <span>
               Powered by{" "}
               <a
