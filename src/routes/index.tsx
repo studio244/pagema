@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { DICTS, LangContext, useT, type Dict, type Lang } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { sendPreregistrationEmail } from "@/lib/notify.functions";
 import logoAsset from "@/assets/pagema-logo.png.asset.json";
@@ -1005,21 +1006,22 @@ function MoroccoNetwork() {
 }
 
 function Coverage() {
+  const { t } = useT();
   return (
     <section id="section-villes" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28" aria-labelledby="coverage-title">
       <Reveal className="flex flex-col overflow-hidden border-[3px] border-ink bg-paper shadow-[10px_10px_0_var(--ink)] lg:flex-row">
         <div className="flex flex-col border-b-[3px] border-ink lg:w-[38%] lg:border-r-[3px] lg:border-b-0">
           <div className="border-b-[3px] border-ink bg-terra p-7 sm:p-9">
             <Eyebrow className="mb-4 !text-[10px] font-bold text-paper">
-              COUVERTURE NATIONALE
+              {t.coverage.eyebrow}
             </Eyebrow>
             <h2 id="coverage-title" className="font-display text-7xl leading-[0.82] text-paper sm:text-8xl">
               25
               <span className="block h-3 sm:h-5" />
-              villes
+              {t.coverage.cities}
             </h2>
             <p className="mt-6 font-mono text-xs font-bold uppercase tracking-[0.16em] text-paper">
-              Un réseau de proximité au Maroc
+              {t.coverage.tagline}
             </p>
           </div>
 
@@ -1027,7 +1029,7 @@ function Coverage() {
             <MoroccoNetwork />
             <div className="absolute right-5 bottom-5 left-5 rotate-[-1deg] border-2 border-ink bg-paper/90 p-4 shadow-[5px_5px_0_var(--terra)] backdrop-blur-sm transition-transform duration-300 group-hover:-translate-y-1 motion-reduce:transition-none">
               <p className="font-sans text-base font-bold leading-tight uppercase">
-                Des professionnels vérifiés, au plus près de votre besoin.
+                {t.coverage.card}
               </p>
             </div>
           </div>
@@ -1038,16 +1040,16 @@ function Coverage() {
           <div className="border-b-[3px] border-ink p-7 sm:p-9">
             <div className="flex flex-wrap items-start justify-between gap-5">
               <h3 className="font-display text-4xl leading-none sm:text-5xl">
-                Partout où
+                {t.coverage.title1}
                 <br />
-                vous êtes.
+                {t.coverage.title2}
               </h3>
               <span className="inline-flex items-center border border-terra px-2.5 py-1.5 font-mono text-[9px] font-bold leading-none uppercase tracking-[0.16em] text-terra-deep">
-                Maroc · 25 points
+                {t.coverage.badge}
               </span>
             </div>
             <p className="mt-6 max-w-prose text-base leading-relaxed text-ink-soft sm:text-lg">
-              De Tanger à Dakhla, Page.ma vous met en relation avec des prestataires qualifiés dans les principaux pôles du Royaume.
+              {t.coverage.body}
             </p>
 
           </div>
@@ -1071,7 +1073,7 @@ function Coverage() {
           <div className="flex items-center gap-4 bg-ink px-5 py-4 text-paper">
             <span className="h-3 w-3 shrink-0 rounded-full bg-terra" aria-hidden="true" />
             <span className="font-mono text-[9px] font-bold uppercase tracking-[0.16em]">
-              Qualification téléphonique · Jusqu'à 3 professionnels vérifiés
+              {t.coverage.strip}
             </span>
           </div>
         </div>
@@ -1080,37 +1082,7 @@ function Coverage() {
   );
 }
 
-const FOOTER_COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
-  {
-    title: "Services",
-    links: [
-      { label: "Sécurité", href: "#section-client" },
-      { label: "Nettoyage", href: "#section-client" },
-      { label: "Intérim", href: "#section-client" },
-      { label: "Assurance", href: "#section-client" },
-      { label: "Immobilier", href: "#section-client" },
-    ],
-  },
-  {
-    title: "Villes",
-    links: [
-      { label: "Casablanca", href: "#coverage-title" },
-      { label: "Rabat", href: "#coverage-title" },
-      { label: "Marrakech", href: "#coverage-title" },
-      { label: "Tanger", href: "#coverage-title" },
-      { label: "Agadir", href: "#coverage-title" },
-    ],
-  },
-  {
-    title: "Plateforme",
-    links: [
-      { label: "Comment ça marche", href: "#section-processus" },
-      { label: "Devenir partenaire", href: "#section-prestataire" },
-      { label: "Préinscription", href: "#section-client" },
-      { label: "Bientôt : l'IA", href: "#section-ia" },
-    ],
-  },
-];
+const FOOTER_CITIES = ["Casablanca", "Rabat", "Marrakech", "Tanger", "Agadir"];
 
 const PARTNERS = [
   { name: "Asomovit Nettoyage", url: partner1.url },
@@ -1121,6 +1093,7 @@ const PARTNERS = [
 ];
 
 function Partners() {
+  const { t } = useT();
   const loop = [...PARTNERS, ...PARTNERS];
 
   return (
@@ -1130,12 +1103,12 @@ function Partners() {
       aria-labelledby="partners-title"
     >
       <Reveal className="mx-auto max-w-6xl px-5">
-        <Eyebrow className="mb-3 text-terra">NOS PARTENAIRES</Eyebrow>
+        <Eyebrow className="mb-3 text-terra">{t.partners.eyebrow}</Eyebrow>
         <h2
           id="partners-title"
           className="font-display text-3xl leading-[0.95] text-ink sm:text-4xl"
         >
-          Ils nous font confiance
+          {t.partners.title}
         </h2>
       </Reveal>
 
@@ -1159,6 +1132,12 @@ function Partners() {
 }
 
 function Footer() {
+  const { t } = useT();
+  const columns = [
+    { title: t.footer.columns.services, links: ["Sécurité", "Nettoyage", "Piscine", "Jardinage", "Immobilier"].map((c) => ({ label: catLabel(t, c), href: "#section-prestataire" })) },
+    { title: t.footer.columns.cities, links: FOOTER_CITIES.map((c) => ({ label: c, href: "#coverage-title" })) },
+    { title: t.footer.columns.platform, links: t.footer.platformLinks },
+  ];
   return (
     <footer className="relative isolate overflow-hidden border-t-2 border-ink zellige">
       <BrandMark className="pointer-events-none absolute -right-14 -bottom-20 -z-10 h-[24rem] w-auto text-ink/[0.07]" />
@@ -1167,15 +1146,14 @@ function Footer() {
           <div className="lg:pr-8">
             <img src={LOGO_URL} alt="Page.ma" className="h-9 w-auto" />
             <p className="mt-6 max-w-prose font-semibold leading-relaxed text-ink-soft text-pretty">
-              Plateforme marocaine de mise en relation entre entreprises et
-              prestataires vérifiés.
+              {t.footer.about}
             </p>
             <div className="mt-6 flex items-center gap-3">
               <a
                 href="https://www.facebook.com/profile.php?id=61594526347174"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Page.ma sur Facebook"
+                aria-label={`${t.footer.on} Facebook`}
                 className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
                 <Facebook size={18} strokeWidth={2} />
@@ -1184,7 +1162,7 @@ function Footer() {
                 href="https://www.instagram.com/page.ma22/?hl=en"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Page.ma sur Instagram"
+                aria-label={`${t.footer.on} Instagram`}
                 className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
                 <Instagram size={18} strokeWidth={2} />
@@ -1193,7 +1171,7 @@ function Footer() {
                 href="https://www.linkedin.com/showcase/page-ma/home/?viewAsMember=true"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Page.ma sur LinkedIn"
+                aria-label={`${t.footer.on} LinkedIn`}
                 className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
                 <Linkedin size={18} strokeWidth={2} />
@@ -1201,7 +1179,7 @@ function Footer() {
             </div>
           </div>
 
-          {FOOTER_COLUMNS.map((column) => (
+          {columns.map((column) => (
             <nav key={column.title} aria-label={column.title}>
               <h2 className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-terra">
                 <BrandMark className="h-3 w-auto shrink-0" />
@@ -1228,7 +1206,7 @@ function Footer() {
             © 2026 PAGE.MA ·
           </span>
           <span className="flex items-center gap-4 font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
-            <span>Mentions légales · Confidentialité</span>
+            <span>{t.footer.legal}</span>
             <span>
               Powered by{" "}
               <a
