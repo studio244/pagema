@@ -487,7 +487,11 @@ function Hero() {
       <div className="absolute inset-0 -z-10 bg-ink/75" aria-hidden="true" />
 
       <div className="max-w-5xl mx-auto px-5 py-20 lg:py-24 text-center text-paper">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra drop mb-6">{t.hero.kicker}</p>
+        <p className="drop mb-6">
+          <span className="inline-block border-2 border-paper bg-terra px-3 py-1.5 font-mono text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-paper shadow-[4px_4px_0_var(--ink)]">
+            {t.hero.kicker}
+          </span>
+        </p>
         <h1 className="font-display leading-[1.02] tracking-tight text-[clamp(2.2rem,5.6vw,4.4rem)] text-balance drop [animation-delay:80ms]">
           {highlightWords(t.hero.title, t.hero.titleHighlights)}
         </h1>
