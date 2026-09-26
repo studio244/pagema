@@ -487,7 +487,7 @@ function Hero() {
       <div className="max-w-5xl mx-auto px-5 py-20 lg:py-24 text-center text-paper">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-terra drop mb-6">{t.hero.kicker}</p>
         <h1 className="font-display leading-[1.02] tracking-tight text-[clamp(2.2rem,5.6vw,4.4rem)] text-balance drop [animation-delay:80ms]">
-          {t.hero.title}
+          {highlightWords(t.hero.title, t.hero.titleHighlights)}
         </h1>
         <p className="mt-6 max-w-2xl mx-auto text-lg sm:text-xl leading-relaxed text-paper text-pretty drop [animation-delay:160ms]">
           {t.hero.subtitle}
@@ -603,6 +603,18 @@ function Categories() {
         ))}
       </div>
     </section>
+  );
+}
+
+function highlightWords(text: string, words: string[]) {
+  return text.split(new RegExp(`(${words.join("|")})`)).map((part, i) =>
+    words.includes(part) ? (
+      <span key={i} className="text-terra">
+        {part}
+      </span>
+    ) : (
+      part
+    ),
   );
 }
 
