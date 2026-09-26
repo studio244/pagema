@@ -106,6 +106,8 @@ const INVESTMENT = "Investissement";
 const CATEGORIES = [
   "Sécurité",
   "Nettoyage",
+  "Jardinage",
+  "Piscine",
   "Intérim",
   "Assurance",
   "Santé",
