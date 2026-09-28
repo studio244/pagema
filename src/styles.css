@@ -425,7 +425,7 @@ html:lang(ar) [class*="tracking-"] {
   --font-montserrat: "Montserrat", sans-serif;
   --font-gotham: "Montserrat", sans-serif;
   --font-instrument-sans: "Instrument Sans", sans-serif;
-  --font-fraunces: "Fraunces", serif;
+  --font-fraunces: "Fraunces", "Montserrat Arabic", serif;
   --font-weight-book: 400;
   --font-weight-ultra: 400;
   --font-weight-regular: 400;
