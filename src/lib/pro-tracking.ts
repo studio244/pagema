@@ -75,7 +75,7 @@ export function trackPro(
         utm_campaign: utm("utm_campaign"),
         utm_content: utm("utm_content"),
       })
-      .then(({ error }) => {
+      .then(({ error }: { error: { message: string } | null }) => {
         if (error) console.warn("pro funnel tracking failed", error.message);
       });
   } catch (error) {
