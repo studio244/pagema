@@ -700,6 +700,7 @@ const LABEL_HEIGHT = 8.5;
 type LabelBox = { x1: number; y1: number; x2: number; y2: number };
 type PlacedLabel = {
   name: string;
+  text: string;
   x: number;
   y: number;
   anchor: "start" | "end" | "middle";
@@ -742,7 +743,7 @@ function segmentHitsBox(ax: number, ay: number, bx: number, by: number, box: Lab
 // Deterministic label layout: every city name takes the closest free slot around
 // its dot. Names never overlap each other or a dot; link lines are avoided when
 // possible, and a thin leader line ties a pushed-away name back to its dot.
-function layoutMapLabels(): PlacedLabel[] {
+function layoutMapLabels(labelOf: (name: string) => string, charWidth: number): PlacedLabel[] {
   const dotBoxes: LabelBox[] = MAP_CITIES.map((c) => ({
     x1: c.x - 4,
     y1: c.y - 4,
@@ -757,10 +758,11 @@ function layoutMapLabels(): PlacedLabel[] {
   });
   const placedBoxes: LabelBox[] = [];
   const placed: PlacedLabel[] = [];
-  const order = [...MAP_CITIES].sort((a, b) => b.name.length - a.name.length);
+  const order = [...MAP_CITIES].sort((a, b) => labelOf(b.name).length - labelOf(a.name).length);
 
   for (const city of order) {
-    const width = city.name.length * LABEL_CHAR_WIDTH;
+    const text = labelOf(city.name);
+    const width = text.length * charWidth;
 
     const evaluate = (
       candidate: (typeof LABEL_CANDIDATES)[number],
@@ -789,6 +791,7 @@ function layoutMapLabels(): PlacedLabel[] {
       placedBoxes.push(box);
       return {
         name: city.name,
+        text,
         x,
         y,
         anchor: candidate.anchor,
@@ -833,16 +836,23 @@ const MAP_LINKS: [string, string][] = [
   ["Laâyoune", "Dakhla"],
 ];
 
-const MAP_LABELS = layoutMapLabels();
+// Labels are laid out per language: names and widths differ, positions stay left-to-right.
+const MAP_LABELS: Record<Lang, PlacedLabel[]> = {
+  fr: layoutMapLabels((name) => DICTS.fr.cityLabels[name] ?? name, LABEL_CHAR_WIDTH),
+  // Arabic labels have fewer but wider glyphs than the uppercase Latin ones.
+  ar: layoutMapLabels((name) => DICTS.ar.cityLabels[name] ?? name, 5.6),
+};
 
 function MoroccoNetwork() {
+  const { t, lang } = useT();
   const byName = new Map(MAP_CITIES.map((c) => [c.name, c]));
   return (
     <svg
       viewBox="0 0 372 390"
       className="absolute inset-0 h-full w-full p-4 transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
       role="img"
-      aria-label="Carte du Maroc et réseau des principales villes couvertes, de Tanger à Dakhla"
+      aria-label={t.coverage.mapAlt}
+      style={{ direction: "ltr" }}
     >
       <path
         d="M10.0 366.6 L11.9 345.2 L20.1 338.6 L27.0 326.1 L25.7 317.8 L33.1 300.8 L44.9 285.4 L52.2 281.4 L57.7 267.5 L58.3 254.6 L66.0 239.6 L80.2 230.8 L93.7 206.2 L104.8 196.6 L124.7 193.8 L141.5 177.4 L152.2 170.9 L169.8 150.9 L164.6 120.7 L175.6 87.2 L189.3 70.9 L226.5 49.9 L247.5 10.0 L263.2 10.1 L276.1 20.4 L296.3 18.7 L327.7 24.3 L335.7 39.8 L337.0 54.5 L344.4 79.9 L350.0 85.1 L346.1 94.5 L318.3 98.5 L308.5 107.5 L296.4 109.6 L295.3 127.5 L270.4 137.0 L262.2 149.1 L244.7 155.6 L223.4 159.3 L189.1 177.1 L188.7 248.7 L118.8 247.6 L119.3 309.2 L99.3 311.6 L94.2 323.9 L98.2 358.7 L14.8 358.5 L10.0 366.6 Z"
@@ -886,7 +896,7 @@ function MoroccoNetwork() {
           />
         </g>
       ))}
-      {MAP_LABELS.map((label, i) => (
+      {MAP_LABELS[lang].map((label, i) => (
         <g key={`label-${label.name}`}>
           {label.leader && (
             <line
@@ -912,7 +922,7 @@ function MoroccoNetwork() {
             className="net-label fill-ink font-mono text-[8px] font-bold uppercase"
             style={{ animationDelay: `${0.5 + i * 0.06}s` }}
           >
-            {label.name}
+            {label.text}
           </text>
         </g>
       ))}
@@ -1063,7 +1073,7 @@ function Footer() {
     },
     {
       title: t.footer.columns.cities,
-      links: FOOTER_CITIES.map((c) => ({ label: c, href: "#coverage-title" })),
+      links: FOOTER_CITIES.map((c) => ({ label: t.cityLabels[c] ?? c, href: "#coverage-title" })),
     },
     { title: t.footer.columns.platform, links: t.footer.platformLinks },
   ];

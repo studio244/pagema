@@ -143,6 +143,7 @@ const fr = {
     ctaClient: "Accès anticipé — je cherche un pro",
   },
   coverage: {
+    mapAlt: "Carte du Maroc et réseau des principales villes couvertes, de Tanger à Dakhla",
     eyebrow: "COUVERTURE NATIONALE",
     cities: "villes",
     tagline: "Un réseau de proximité au Maroc",
@@ -368,6 +369,7 @@ const ar: Dict = {
     ctaClient: "وصول مبكر — أبحث عن مهني",
   },
   coverage: {
+    mapAlt: "خريطة المغرب وشبكة أهم المدن المغطاة، من طنجة إلى الداخلة",
     eyebrow: "تغطية وطنية",
     cities: "مدينة",
     tagline: "شبكة قرب في المغرب",
