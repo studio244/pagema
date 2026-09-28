@@ -205,7 +205,7 @@ import group38Asset from "@/assets/marrakech/group-38.png.asset.json";
 const group38 = group38Asset.url;
 import vector32 from "./assets/vector-32.svg";
 import vector33 from "./assets/vector-33.svg";
-import Avatar from "./components/Avatar";
+import Avatar from "./Avatar";
 
 const Pagema = () => {
   return (
