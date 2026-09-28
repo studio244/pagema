@@ -9,6 +9,7 @@ import { CATEGORIES, COVERAGE_CITIES } from "@/lib/catalog";
 import { BrandMark, Eyebrow, Reveal } from "@/components/brand";
 import logoAsset from "@/assets/pagema-logo.png";
 import whatsappLead from "@/assets/whatsapp-opportunity.png";
+import heroBackground from "@/assets/pagema-services-hero-2.png";
 
 /* Campaign settings — adjust here. */
 const DEFAULT_CITY = "Marrakech";
@@ -176,6 +177,14 @@ function ProHero({
 
   return (
     <section className="relative isolate overflow-hidden border-b-2 border-ink bg-ink text-paper">
+      <img
+        src={heroBackground}
+        alt=""
+        aria-hidden="true"
+        fetchPriority="high"
+        className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+      />
+      <div className="absolute inset-0 -z-10 bg-ink/75" aria-hidden="true" />
       <BrandMark className="pointer-events-none absolute -left-16 -bottom-24 -z-10 h-[28rem] w-auto text-terra/10" />
       <div className="max-w-6xl mx-auto px-5 py-14 lg:py-20 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] items-center">
         <div>
