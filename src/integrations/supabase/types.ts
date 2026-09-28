@@ -62,48 +62,6 @@ export type Database = {
         }
         Relationships: []
       }
-      pro_funnel_events: {
-        Row: {
-          category: string | null
-          city: string | null
-          created_at: string
-          event: string
-          hero_variant: string | null
-          id: string
-          session_id: string
-          utm_campaign: string | null
-          utm_content: string | null
-          utm_medium: string | null
-          utm_source: string | null
-        }
-        Insert: {
-          category?: string | null
-          city?: string | null
-          created_at?: string
-          event: string
-          hero_variant?: string | null
-          id?: string
-          session_id: string
-          utm_campaign?: string | null
-          utm_content?: string | null
-          utm_medium?: string | null
-          utm_source?: string | null
-        }
-        Update: {
-          category?: string | null
-          city?: string | null
-          created_at?: string
-          event?: string
-          hero_variant?: string | null
-          id?: string
-          session_id?: string
-          utm_campaign?: string | null
-          utm_content?: string | null
-          utm_medium?: string | null
-          utm_source?: string | null
-        }
-        Relationships: []
-      }
     }
     Views: {
       [_ in never]: never

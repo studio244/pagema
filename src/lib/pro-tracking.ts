@@ -62,7 +62,7 @@ export function trackPro(
       window.fbq?.("track", "Lead", { content_category: extra.category });
     else window.fbq?.("trackCustom", `Pro_${event}`, { hero_variant: heroVariant });
 
-    void supabase
+    void (supabase as any)
       .from("pro_funnel_events")
       .insert({
         event,
@@ -75,7 +75,7 @@ export function trackPro(
         utm_campaign: utm("utm_campaign"),
         utm_content: utm("utm_content"),
       })
-      .then(({ error }) => {
+      .then(({ error }: { error: { message: string } | null }) => {
         if (error) console.warn("pro funnel tracking failed", error.message);
       });
   } catch (error) {
