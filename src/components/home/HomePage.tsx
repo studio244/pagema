@@ -574,7 +574,7 @@ function Pricing() {
                 )}
                 <h3 className="font-mono text-xs uppercase tracking-[0.2em]">{p.name}</h3>
                 <p className="mt-4 font-display text-5xl leading-none">
-                  {p.price} <span className="text-lg">MAD</span>
+                  <bdi dir="ltr">{p.price}</bdi> <span className="text-lg">{t.pricing.currency}</span>
                 </p>
                 <p
                   className={`mt-1 font-mono text-[11px] uppercase ${rec ? "text-paper/80" : "text-ink-soft"}`}
@@ -582,7 +582,7 @@ function Pricing() {
                   {t.pricing.perMonth}
                 </p>
                 <p className="mt-6 font-semibold text-xl">
-                  {p.credits} {t.pricing.credits}
+                  <bdi dir="ltr">{p.credits}</bdi> {t.pricing.credits}
                 </p>
                 <p className={`mt-2 text-sm ${rec ? "text-paper/85" : "text-ink-soft"}`}>
                   {p.detail}
@@ -984,7 +984,7 @@ function Coverage() {
                   {String(index + 1).padStart(2, "0")} //
                 </span>
                 <span className="mt-2 block font-sans text-sm font-bold leading-tight text-ink transition-colors group-hover:text-paper sm:text-base">
-                  {city}
+                  {t.cityLabels[city] ?? city}
                 </span>
               </div>
             ))}
@@ -1157,6 +1157,8 @@ function Footer() {
 type Profile = "client" | "prestataire";
 
 function PreregistrationForm({ profile }: { profile: Profile }) {
+  const { t } = useT();
+  const f = t.form;
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -1270,30 +1272,30 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             <path className="drawl" d="M34 18 l -6 -1 M34 18 l -1 -6" />
           </svg>
           <p className="font-mono text-[11px] leading-none uppercase tracking-[0.15em] text-ink-soft">
-            Pré-inscription {profile === "client" ? "client" : "prestataire"} · gratuit
+            {f.title[profile]} · {f.free}
           </p>
         </div>
 
         {status === "done" ? (
           <div className="border-2 border-ink bg-paper px-4 py-8 text-center">
             <span className="font-mono text-[11px] uppercase tracking-wide text-terra-deep font-medium">
-              Reçu ✓
+              {f.received}
             </span>
             <p className="mt-2 font-display text-2xl tracking-tight">
               {profile === "client"
                 ? isRealEstate
-                  ? "On vous met en relation."
-                  : "On s'occupe de trouver vos pros."
-                : "Bienvenue dans le réseau."}
+                  ? f.doneClientRE
+                  : f.doneClient
+                : f.donePro}
             </p>
             <p className="mt-2 text-sm text-ink-soft">
               {profile === "client"
                 ? isRealEstate
                   ? isInvestment
-                    ? "Un appel pour comprendre votre projet, puis une mise en relation avec un partenaire d'investissement vérifié."
-                    : "Un appel pour comprendre votre projet, puis une mise en relation avec un professionnel de l'immobilier vérifié."
-                  : "On vous appelle dès l'ouverture dans votre ville pour valider votre besoin."
-                : "On vous contacte pour vérifier votre société avant l'ouverture."}
+                    ? f.doneInvestBody
+                    : f.doneREBody
+                  : f.doneClientBody
+                : f.doneProBody}
             </p>
           </div>
         ) : (
@@ -1301,12 +1303,12 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             {profile === "prestataire" && (
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-company`}>
-                  Raison sociale
+                  {f.company}
                 </label>
                 <input
                   id={`${idPrefix}-company`}
                   className={inputClass}
-                  placeholder="Nom de la société"
+                  placeholder={f.companyPh}
                   required
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
@@ -1316,12 +1318,12 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
 
             <div>
               <label className={labelClass} htmlFor={`${idPrefix}-name`}>
-                {profile === "client" ? "Votre nom" : "Personne de contact"}
+                {profile === "client" ? f.yourName : f.contact}
               </label>
               <input
                 id={`${idPrefix}-name`}
                 className={inputClass}
-                placeholder="Prénom & nom"
+                placeholder={f.namePh}
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
@@ -1331,13 +1333,14 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-phone`}>
-                  Téléphone
+                  {f.phone}
                 </label>
                 <input
                   id={`${idPrefix}-phone`}
                   className={inputClass}
                   placeholder="06…"
                   type="tel"
+                  dir="ltr"
                   required
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
@@ -1345,13 +1348,14 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
               </div>
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-email`}>
-                  Email
+                  {f.email}
                 </label>
                 <input
                   id={`${idPrefix}-email`}
                   className={inputClass}
                   placeholder={profile === "client" ? "vous@email.ma" : "contact@societe.ma"}
                   type="email"
+                  dir="ltr"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -1362,12 +1366,12 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-city`}>
-                  Ville
+                  {f.city}
                 </label>
                 <input
                   id={`${idPrefix}-city`}
                   className={inputClass}
-                  placeholder="Casablanca"
+                  placeholder={t.cityLabels["Casablanca"] ?? "Casablanca"}
                   required
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
@@ -1375,7 +1379,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
               </div>
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-category`}>
-                  {profile === "client" ? "Service cherché" : "Votre métier"}
+                  {profile === "client" ? f.serviceWanted : f.yourTrade}
                 </label>
                 <select
                   id={`${idPrefix}-category`}
@@ -1384,7 +1388,9 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                   onChange={(e) => setCategory(e.target.value)}
                 >
                   {CATEGORIES.map((c) => (
-                    <option key={c}>{c}</option>
+                    <option key={c} value={c}>
+                      {catLabel(t, c)}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -1393,7 +1399,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             {isHealth && (
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-health`}>
-                  Type d'établissement de santé
+                  {f.healthType}
                 </label>
                 <select
                   id={`${idPrefix}-health`}
@@ -1401,13 +1407,14 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                   value={healthEntity}
                   onChange={(e) => setHealthEntity(e.target.value)}
                 >
-                  {HEALTH_ENTITIES.map((h) => (
-                    <option key={h}>{h}</option>
+                  {HEALTH_ENTITIES.map((h, i) => (
+                    <option key={h} value={h}>
+                      {t.lists.health[i] ?? h}
+                    </option>
                   ))}
                 </select>
                 <p className="mt-1 font-mono text-[10px] leading-relaxed text-ink-soft">
-                  Groupes, cliniques et centres uniquement — ni médecins indépendants, ni
-                  établissements publics.
+                  {f.healthNote}
                 </p>
               </div>
             )}
@@ -1417,11 +1424,11 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                 <label className={labelClass} htmlFor={`${idPrefix}-realestate`}>
                   {profile === "client"
                     ? isInvestment
-                      ? "Votre projet d'investissement"
-                      : "Votre projet immobilier"
+                      ? f.investProject
+                      : f.reProject
                     : isInvestment
-                      ? "Votre spécialité en investissement"
-                      : "Votre spécialité immobilière"}
+                      ? f.investSpec
+                      : f.reSpec}
                 </label>
                 <select
                   id={`${idPrefix}-realestate`}
@@ -1429,14 +1436,16 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                   value={intentValue}
                   onChange={(e) => setRealEstateIntent(e.target.value)}
                 >
-                  {intentOptions.map((r) => (
-                    <option key={r}>{r}</option>
+                  {intentOptions.map((r, i) => (
+                    <option key={r} value={r}>
+                      {(isInvestment ? t.lists.investment : t.lists.realEstate)[i] ?? r}
+                    </option>
                   ))}
                 </select>
                 <p className="mt-1 font-mono text-[10px] leading-relaxed text-ink-soft">
                   {isInvestment
-                    ? "Investissement : pas de devis, mais une mise en relation directe avec un partenaire qualifié."
-                    : "Immobilier : pas de devis, mais une mise en relation directe avec un professionnel qualifié."}
+                    ? f.investNote
+                    : f.reNote}
                 </p>
               </div>
             )}
@@ -1444,7 +1453,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             {profile === "prestataire" ? (
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-team`}>
-                  Taille de l'équipe
+                  {f.team}
                 </label>
                 <select
                   id={`${idPrefix}-team`}
@@ -1452,8 +1461,8 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                   value={teamSize}
                   onChange={(e) => setTeamSize(e.target.value)}
                 >
-                  {TEAM_SIZES.map((t) => (
-                    <option key={t}>{t}</option>
+                  {TEAM_SIZES.map((size) => (
+                    <option key={size}>{size}</option>
                   ))}
                 </select>
               </div>
@@ -1461,8 +1470,8 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-need`}>
                   {isRealEstate
-                    ? "Votre projet en quelques lignes (optionnel)"
-                    : "Votre besoin (optionnel)"}
+                    ? f.projectOpt
+                    : f.needOpt}
                 </label>
                 <textarea
                   id={`${idPrefix}-need`}
@@ -1470,8 +1479,8 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                   className={inputClass}
                   placeholder={
                     isRealEstate
-                      ? "Ex : appartement 2 chambres à Casablanca, budget 1,2 M DH, achat pour location…"
-                      : "Ex : 2 agents de sécurité de nuit, site à Casablanca…"
+                      ? f.projectPh
+                      : f.needPh
                   }
                   value={needDetails}
                   onChange={(e) => setNeedDetails(e.target.value)}
@@ -1485,20 +1494,20 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
               className="w-full inline-flex items-center justify-center bg-terra text-paper border-2 border-ink font-display text-xl leading-none tracking-tight py-4 mt-2 lift disabled:opacity-60"
             >
               {status === "sending"
-                ? "Envoi…"
+                ? f.sending
                 : profile === "client"
                   ? isRealEstate
-                    ? "Je veux être mis en relation"
-                    : "Je cherche un pro"
-                  : "Je m'inscris comme pro"}
+                    ? f.submitRE
+                    : f.submitClient
+                  : f.submitPro}
             </button>
             {status === "error" && (
               <p className="text-sm text-terra-deep text-center font-medium">
-                Une erreur est survenue — réessayez.
+                {f.error}
               </p>
             )}
             <p className="text-center font-mono text-[10px] uppercase tracking-wide text-ink-soft">
-              Gratuit · Sans engagement · Zéro spam
+              {f.footnote}
             </p>
           </form>
         )}
