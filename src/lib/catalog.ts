@@ -1,0 +1,45 @@
+export const REAL_ESTATE = "Immobilier";
+export const INVESTMENT = "Investissement";
+
+export const CATEGORIES = [
+  "Sécurité",
+  "Nettoyage",
+  "Jardinage",
+  "Piscine",
+  "Intérim",
+  "Assurance",
+  "Santé",
+  "Impression",
+  "Publicité",
+  "Conciergerie",
+  REAL_ESTATE,
+  INVESTMENT,
+];
+
+export const COVERAGE_CITIES = [
+  "Casablanca",
+  "Rabat",
+  "Marrakech",
+  "Fès",
+  "Tanger",
+  "Agadir",
+  "Meknès",
+  "Oujda",
+  "Kénitra",
+  "Tétouan",
+  "Salé",
+  "Essaouira",
+  "Safi",
+  "El Jadida",
+  "Nador",
+  "Béni Mellal",
+  "Mohammédia",
+  "Khouribga",
+  "Laâyoune",
+  "Dakhla",
+  "Settat",
+  "Chefchaouen",
+  "Ifrane",
+  "Ouarzazate",
+  "Al Hoceïma",
+];

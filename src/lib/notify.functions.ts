@@ -3,9 +3,10 @@ import { z } from "zod";
 
 const payloadSchema = z.object({
   profile: z.enum(["client", "prestataire"]),
-  fullName: z.string().min(1).max(120),
+  // Name and email are optional: the /pro landing only asks for phone, activity and city.
+  fullName: z.string().max(120),
   phone: z.string().min(1).max(40),
-  email: z.string().email().max(160),
+  email: z.union([z.literal(""), z.string().email().max(160)]),
   city: z.string().min(1).max(80),
   category: z.string().min(1).max(80),
   companyName: z.string().max(120).nullish(),
@@ -13,6 +14,7 @@ const payloadSchema = z.object({
   needDetails: z.string().max(2000).nullish(),
   healthEntityType: z.string().max(80).nullish(),
   realEstateIntent: z.string().max(120).nullish(),
+  source: z.string().max(200).nullish(),
 });
 
 function row(label: string, value: string | null | undefined): string {
@@ -33,7 +35,7 @@ export const sendPreregistrationEmail = createServerFn({ method: "POST" })
       throw new Error("Configuration email manquante");
     }
 
-    const subject = `Pré-inscription ${data.profile} — ${data.fullName} (${data.city})`;
+    const subject = `Pré-inscription ${data.profile} — ${data.fullName || data.phone} (${data.city})`;
     const html = `
 <div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.5;">
   <h2 style="margin:0 0 12px;">Nouvelle pré-inscription ${data.profile === "client" ? "client" : "prestataire"}</h2>
@@ -48,6 +50,7 @@ export const sendPreregistrationEmail = createServerFn({ method: "POST" })
     ${row("Besoin", data.needDetails)}
     ${row("Type d'établissement santé", data.healthEntityType)}
     ${row("Projet immobilier", data.realEstateIntent)}
+    ${row("Source", data.source)}
   </table>
 </div>`;
 
@@ -61,7 +64,7 @@ export const sendPreregistrationEmail = createServerFn({ method: "POST" })
         body: JSON.stringify({
           from: `${from} <${fromAddress}>`,
           to: [to],
-          reply_to: data.email,
+          ...(data.email ? { reply_to: data.email } : {}),
           subject,
           html,
         }),
