@@ -6,6 +6,7 @@ import { sendPreregistrationEmail } from "@/lib/notify.functions";
 import { getProLaunchStats, type ProLaunchStats } from "@/lib/pro.functions";
 import { trackPro, type HeroVariant } from "@/lib/pro-tracking";
 import { CATEGORIES, COVERAGE_CITIES } from "@/lib/catalog";
+import { normalizeMoroccanPhone } from "@/lib/phone";
 import { BrandMark, Eyebrow, Reveal } from "@/components/brand";
 import logoAsset from "@/assets/pagema-logo.png";
 import whatsappLead from "@/assets/whatsapp-opportunity.png";
@@ -288,13 +289,6 @@ function ProSignup({
       </div>
     </section>
   );
-}
-
-/** Accepts 06…, 07…, 05…, +212… or 00212…; returns +212XXXXXXXXX or null. */
-function normalizeMoroccanPhone(raw: string): string | null {
-  const digits = raw.replace(/[\s.\-()]/g, "");
-  const match = /^(?:\+212|00212|212|0)([5-7]\d{8})$/.exec(digits);
-  return match ? `+212${match[1]}` : null;
 }
 
 function ProForm({
