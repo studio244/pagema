@@ -418,3 +418,15 @@ html:lang(ar) .font-display {
 html:lang(ar) [class*="tracking-"] {
   letter-spacing: 0;
 }
+
+/* page.ma/marrakech (Figma export) font tokens */
+@theme inline {
+  --color-azur-protection-1: hsl(211 100% 20%);
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-gotham: "Montserrat", sans-serif;
+  --font-instrument-sans: "Instrument Sans", sans-serif;
+  --font-fraunces: "Fraunces", serif;
+  --font-weight-book: 400;
+  --font-weight-ultra: 400;
+  --font-weight-regular: 400;
+}
