@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { DICTS, LangContext, useT, type Dict, type Lang } from "@/lib/i18n";
@@ -24,11 +24,7 @@ const LOGO_URL = logoAsset;
 const HERO_URL = heroAsset;
 const STAMP_URL = stampAsset;
 
-const HEALTH_ENTITIES = [
-  "Groupe de santé",
-  "Clinique",
-  "Centre de soins / diagnostic",
-];
+const HEALTH_ENTITIES = ["Groupe de santé", "Clinique", "Centre de soins / diagnostic"];
 
 const REAL_ESTATE_INTENTS = [
   "Acheter un bien",
@@ -47,53 +43,16 @@ const INVESTMENT_INTENTS = [
 
 const TEAM_SIZES = ["1–5", "6–20", "21–50", "51–200", "200+"];
 
-export const Route = createFileRoute("/")({
-  staticData: { sitemap: true },
-  head: () => ({
-    meta: [
-      { title: "Page.ma — Le bon prestataire, vérifié et proche de vous" },
-      {
-        name: "description",
-        content:
-          "Décrivez votre besoin, Page.ma le qualifie par téléphone et vous envoie jusqu'à 3 devis de professionnels vérifiés. Sécurité, nettoyage, intérim, assurance — dans 25 villes du Maroc. Pré-inscrivez-vous.",
-      },
-      {
-        property: "og:title",
-        content: "Page.ma — Le bon prestataire, vérifié et proche de vous",
-      },
-      {
-        property: "og:description",
-        content:
-          "Jusqu'à 3 devis de pros vérifiés pour la sécurité, le nettoyage, l'intérim et l'assurance. Gratuit, sans compte, sans spam.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: Index,
-});
-
-function Index() {
-  const [lang, setLangState] = useState<Lang>("fr");
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem("pagema-lang");
-    if (saved === "ar" || saved === "fr") setLangState(saved);
-  }, []);
-
+export default function HomePage({ lang }: { lang: Lang }) {
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
   }, [lang]);
 
-  const setLang = (l: Lang) => {
-    setLangState(l);
-    window.localStorage.setItem("pagema-lang", l);
-  };
   const t = DICTS[lang];
 
   return (
-    <LangContext.Provider value={{ lang, t, setLang }}>
+    <LangContext.Provider value={{ lang, t, setLang: () => {} }}>
       <div
         id="top"
         dir={lang === "ar" ? "rtl" : "ltr"}
@@ -120,7 +79,10 @@ function Index() {
 function ProSection() {
   const { t } = useT();
   return (
-    <section id="section-prestataire" className="relative isolate overflow-hidden scroll-mt-24 bg-paper-deep">
+    <section
+      id="section-prestataire"
+      className="relative isolate overflow-hidden scroll-mt-24 bg-paper-deep"
+    >
       <BrandMark className="pointer-events-none absolute -right-10 -bottom-16 -z-10 h-[26rem] w-auto text-terra/10" />
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
@@ -134,7 +96,9 @@ function ProSection() {
               <br />
               {t.pro.title2}
             </h2>
-            <p className="mt-6 max-w-prose text-lg leading-relaxed text-ink-soft text-pretty">{t.pro.body}</p>
+            <p className="mt-6 max-w-prose text-lg leading-relaxed text-ink-soft text-pretty">
+              {t.pro.body}
+            </p>
             <ul className="mt-8 space-y-4 max-w-prose">
               {t.pro.benefits.map((b) => (
                 <Benefit key={b}>{b}</Benefit>
@@ -150,7 +114,10 @@ function ProSection() {
 function ClientSection() {
   const { t } = useT();
   return (
-    <section id="section-client" className="relative isolate overflow-hidden scroll-mt-24 border-b-2 border-ink">
+    <section
+      id="section-client"
+      className="relative isolate overflow-hidden scroll-mt-24 border-b-2 border-ink"
+    >
       <img
         src={prosAsset}
         alt=""
@@ -168,13 +135,19 @@ function ClientSection() {
               <br />
               {t.client.title2}
             </h2>
-            <p className="mt-6 max-w-prose text-lg leading-relaxed text-paper/85 text-pretty">{t.client.body}</p>
+            <p className="mt-6 max-w-prose text-lg leading-relaxed text-paper/85 text-pretty">
+              {t.client.body}
+            </p>
             <ul className="mt-8 space-y-4 max-w-prose">
               {t.client.benefits.map((b) => (
-                <Benefit key={b} tone="paper">{b}</Benefit>
+                <Benefit key={b} tone="paper">
+                  {b}
+                </Benefit>
               ))}
             </ul>
-            <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.18em] text-paper/70">{t.client.caption}</p>
+            <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.18em] text-paper/70">
+              {t.client.caption}
+            </p>
           </Reveal>
           <Reveal delay={120}>
             <PreregistrationForm profile="client" />
@@ -203,26 +176,30 @@ function WhatsAppWidget() {
 }
 
 function LangSwitch({ className = "" }: { className?: string }) {
-  const { lang, setLang } = useT();
+  const { lang } = useT();
   return (
-    <span className={`inline-flex items-center gap-1.5 font-mono text-xs leading-none ${className}`}>
-      <button
-        type="button"
-        onClick={() => setLang("ar")}
-        aria-pressed={lang === "ar"}
+    <span
+      className={`inline-flex items-center gap-1.5 font-mono text-xs leading-none ${className}`}
+    >
+      <Link
+        to="/ar"
+        hrefLang="ar"
+        aria-current={lang === "ar" ? "page" : undefined}
         className={`py-1 border-b-2 ${lang === "ar" ? "border-terra text-ink" : "border-transparent text-ink-soft hover:text-ink"}`}
       >
         العربية
-      </button>
-      <span aria-hidden="true" className="text-ink-soft">|</span>
-      <button
-        type="button"
-        onClick={() => setLang("fr")}
-        aria-pressed={lang === "fr"}
+      </Link>
+      <span aria-hidden="true" className="text-ink-soft">
+        |
+      </span>
+      <Link
+        to="/"
+        hrefLang="fr"
+        aria-current={lang === "fr" ? "page" : undefined}
         className={`py-1 border-b-2 uppercase tracking-wide ${lang === "fr" ? "border-terra text-ink" : "border-transparent text-ink-soft hover:text-ink"}`}
       >
         Français
-      </button>
+      </Link>
     </span>
   );
 }
@@ -272,11 +249,25 @@ function Nav() {
             className="lg:hidden inline-flex items-center justify-center w-10 h-10 border-2 border-ink lift bg-paper"
           >
             {menuOpen ? (
-              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                aria-hidden="true"
+              >
                 <path d="M5 5l14 14M19 5L5 19" strokeLinecap="square" />
               </svg>
             ) : (
-              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                aria-hidden="true"
+              >
                 <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="square" />
               </svg>
             )}
@@ -333,7 +324,11 @@ function useCountdown() {
   }, []);
   if (left === null) return null;
   const mins = Math.floor(left / 60_000);
-  return { days: Math.floor(mins / 1440), hours: Math.floor((mins % 1440) / 60), minutes: mins % 60 };
+  return {
+    days: Math.floor(mins / 1440),
+    hours: Math.floor((mins % 1440) / 60),
+    minutes: mins % 60,
+  };
 }
 
 function Hero() {
@@ -368,13 +363,18 @@ function Hero() {
           {t.hero.subtitle}
         </p>
 
-        <div className="mt-8 flex justify-center gap-3 drop [animation-delay:200ms]" aria-live="polite">
+        <div
+          className="mt-8 flex justify-center gap-3 drop [animation-delay:200ms]"
+          aria-live="polite"
+        >
           {units.map((u) => (
             <div key={u.l} className="min-w-[5.5rem] border-2 border-paper bg-ink/50 px-3 py-3">
               <span className="block font-display text-4xl leading-none tabular-nums">
                 {u.v === undefined ? "--" : String(u.v).padStart(2, "0")}
               </span>
-              <span className="mt-1.5 block font-mono text-[10px] uppercase tracking-wide text-paper/80">{u.l}</span>
+              <span className="mt-1.5 block font-mono text-[10px] uppercase tracking-wide text-paper/80">
+                {u.l}
+              </span>
             </div>
           ))}
         </div>
@@ -409,7 +409,10 @@ function Promises() {
   const { t } = useT();
   const images = [requestIllustration, qualifyIllustration, quotesIllustration];
   return (
-    <section id="section-processus" className="scroll-mt-24 border-y-2 border-ink bg-ink text-paper">
+    <section
+      id="section-processus"
+      className="scroll-mt-24 border-y-2 border-ink bg-ink text-paper"
+    >
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
         <Reveal>
           <Eyebrow className="text-terra mb-10">{t.promises.eyebrow}</Eyebrow>
@@ -418,9 +421,18 @@ function Promises() {
           {t.promises.items.map((s, index) => (
             <Reveal key={index} delay={index * 90} className="h-full">
               <div className="lift-card lift-card-invert flex h-full flex-col border-2 border-paper/25 p-6">
-                <span className="font-display text-5xl leading-none text-terra">{String(index + 1).padStart(2, "0")}</span>
+                <span className="font-display text-5xl leading-none text-terra">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
                 <div className="my-5 flex overflow-hidden border-y-2 border-paper/20 bg-white">
-                  <img src={images[index]} alt={s.alt} loading="lazy" width={768} height={768} className="h-auto w-full object-cover" />
+                  <img
+                    src={images[index]}
+                    alt={s.alt}
+                    loading="lazy"
+                    width={768}
+                    height={768}
+                    className="h-auto w-full object-cover"
+                  />
                 </div>
                 <h3 className="font-sans font-semibold text-xl mt-4">{s.t}</h3>
                 <p className="text-sm leading-relaxed text-paper/70 mt-2">{s.b}</p>
@@ -438,7 +450,9 @@ function Promises() {
           {t.promises.pillars.map((p, i) => (
             <Reveal key={p.t} delay={i * 90} className="h-full">
               <div className="h-full border-2 border-paper/25 p-6">
-                <span className="inline-flex font-mono text-[10px] uppercase tracking-[0.18em] bg-terra text-paper px-2 py-1">{p.tag}</span>
+                <span className="inline-flex font-mono text-[10px] uppercase tracking-[0.18em] bg-terra text-paper px-2 py-1">
+                  {p.tag}
+                </span>
                 <h3 className="mt-4 font-display text-3xl leading-none">{p.t}</h3>
                 <p className="mt-3 text-paper/75 leading-relaxed">{p.b}</p>
               </div>
@@ -446,7 +460,9 @@ function Promises() {
           ))}
         </div>
         <Reveal delay={120}>
-          <p className="mt-10 mx-auto max-w-2xl text-center text-paper/80 leading-relaxed text-pretty">{t.promises.trust}</p>
+          <p className="mt-10 mx-auto max-w-2xl text-center text-paper/80 leading-relaxed text-pretty">
+            {t.promises.trust}
+          </p>
         </Reveal>
       </div>
     </section>
@@ -459,7 +475,9 @@ function Categories() {
     <section className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
       <Reveal>
         <Eyebrow className="text-terra mb-4">{t.categories.eyebrow}</Eyebrow>
-        <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">{t.categories.title}</h2>
+        <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">
+          {t.categories.title}
+        </h2>
         <p className="mt-4 max-w-prose text-lg text-ink-soft">{t.categories.body}</p>
       </Reveal>
       <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -504,11 +522,15 @@ function WhatsAppSection() {
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">
         <Reveal>
           <Eyebrow className="text-terra mb-4">{t.whatsapp.eyebrow}</Eyebrow>
-          <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">{t.whatsapp.title}</h2>
+          <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">
+            {t.whatsapp.title}
+          </h2>
           <p className="mt-4 max-w-prose text-lg text-paper/80">{t.whatsapp.body}</p>
           <ul className="mt-8 space-y-4">
             {t.whatsapp.features.map((f) => (
-              <Benefit key={f} tone="paper">{f}</Benefit>
+              <Benefit key={f} tone="paper">
+                {f}
+              </Benefit>
             ))}
           </ul>
         </Reveal>
@@ -533,14 +555,18 @@ function Pricing() {
     <section id="section-tarifs" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28">
       <Reveal>
         <Eyebrow className="text-terra mb-4">{t.pricing.eyebrow}</Eyebrow>
-        <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">{t.pricing.title}</h2>
+        <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">
+          {t.pricing.title}
+        </h2>
       </Reveal>
       <div className="mt-12 grid md:grid-cols-3 gap-6 items-stretch">
         {t.pricing.plans.map((p, i) => {
           const rec = i === 1;
           return (
             <Reveal key={p.name} delay={i * 90} className="h-full">
-              <div className={`lift-card relative flex h-full flex-col border-2 border-ink p-6 ${rec ? "bg-terra text-paper" : "bg-paper-deep"}`}>
+              <div
+                className={`lift-card relative flex h-full flex-col border-2 border-ink p-6 ${rec ? "bg-terra text-paper" : "bg-paper-deep"}`}
+              >
                 {rec && (
                   <span className="absolute -top-3 start-5 font-mono text-[10px] uppercase tracking-wide border-2 border-ink bg-paper text-ink px-2 py-1">
                     {t.pricing.recommended}
@@ -550,9 +576,17 @@ function Pricing() {
                 <p className="mt-4 font-display text-5xl leading-none">
                   {p.price} <span className="text-lg">MAD</span>
                 </p>
-                <p className={`mt-1 font-mono text-[11px] uppercase ${rec ? "text-paper/80" : "text-ink-soft"}`}>{t.pricing.perMonth}</p>
-                <p className="mt-6 font-semibold text-xl">{p.credits} {t.pricing.credits}</p>
-                <p className={`mt-2 text-sm ${rec ? "text-paper/85" : "text-ink-soft"}`}>{p.detail}</p>
+                <p
+                  className={`mt-1 font-mono text-[11px] uppercase ${rec ? "text-paper/80" : "text-ink-soft"}`}
+                >
+                  {t.pricing.perMonth}
+                </p>
+                <p className="mt-6 font-semibold text-xl">
+                  {p.credits} {t.pricing.credits}
+                </p>
+                <p className={`mt-2 text-sm ${rec ? "text-paper/85" : "text-ink-soft"}`}>
+                  {p.detail}
+                </p>
                 <p className="mt-auto pt-6 font-semibold">{p.ideal}</p>
                 <a
                   href="#section-prestataire"
@@ -571,7 +605,9 @@ function Pricing() {
           <dl className="mt-4 sm:mt-0 flex flex-wrap gap-6">
             {t.pricing.rules.map((r) => (
               <div key={r.k}>
-                <dt className="font-mono text-[10px] uppercase tracking-wide text-ink-soft">{r.k}</dt>
+                <dt className="font-mono text-[10px] uppercase tracking-wide text-ink-soft">
+                  {r.k}
+                </dt>
                 <dd className="font-semibold text-lg text-terra-deep">{r.v}</dd>
               </div>
             ))}
@@ -600,14 +636,18 @@ function AiFeatures() {
         </span>
       </Reveal>
       <Reveal delay={70}>
-        <p className="max-w-prose text-lg leading-relaxed text-ink-soft text-pretty mb-12">{t.ai.body}</p>
+        <p className="max-w-prose text-lg leading-relaxed text-ink-soft text-pretty mb-12">
+          {t.ai.body}
+        </p>
       </Reveal>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
         {t.ai.features.map((f, index) => (
           <Reveal key={f.title} delay={(index % 3) * 75} className="h-full">
             <div className="lift-card flex h-full flex-col border-2 border-ink bg-paper-deep p-6">
               <div className="flex items-center justify-between gap-3">
-                <span className="font-display text-4xl leading-none text-terra">{String(index + 1).padStart(2, "0")}</span>
+                <span className="font-display text-4xl leading-none text-terra">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
                 <span className="inline-flex items-center font-mono text-[9px] leading-none uppercase tracking-wide border border-ink px-2 py-1">
                   {t.ai.soon}
                 </span>
@@ -736,16 +776,14 @@ function layoutMapLabels(): PlacedLabel[] {
         x2: x1 + width + 1,
         y2: y + 2,
       };
-      if (
-        box.x1 < 2 ||
-        box.x2 > MAP_VIEW.width - 2 ||
-        box.y1 < 2 ||
-        box.y2 > MAP_VIEW.height - 2
-      )
+      if (box.x1 < 2 || box.x2 > MAP_VIEW.width - 2 || box.y1 < 2 || box.y2 > MAP_VIEW.height - 2)
         return null;
       if (placedBoxes.some((b) => overlaps(box, b))) return null;
       if (dotBoxes.some((b) => overlaps(box, b))) return null;
-      if (avoidLinks && linkSegments.some(([ax, ay, bx, by]) => segmentHitsBox(ax, ay, bx, by, box)))
+      if (
+        avoidLinks &&
+        linkSegments.some(([ax, ay, bx, by]) => segmentHitsBox(ax, ay, bx, by, box))
+      )
         return null;
 
       placedBoxes.push(box);
@@ -854,7 +892,13 @@ function MoroccoNetwork() {
             <line
               x1={label.cityX}
               y1={label.cityY}
-              x2={label.anchor === "end" ? label.x + 1 : label.anchor === "start" ? label.x - 1 : label.x}
+              x2={
+                label.anchor === "end"
+                  ? label.x + 1
+                  : label.anchor === "start"
+                    ? label.x - 1
+                    : label.x
+              }
               y2={label.y - 2}
               className="net-label stroke-ink/45"
               strokeWidth={0.7}
@@ -879,14 +923,21 @@ function MoroccoNetwork() {
 function Coverage() {
   const { t } = useT();
   return (
-    <section id="section-villes" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28" aria-labelledby="coverage-title">
+    <section
+      id="section-villes"
+      className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-28"
+      aria-labelledby="coverage-title"
+    >
       <Reveal className="flex flex-col overflow-hidden border-[3px] border-ink bg-paper shadow-[10px_10px_0_var(--ink)] lg:flex-row">
         <div className="flex flex-col border-b-[3px] border-ink lg:w-[38%] lg:border-r-[3px] lg:border-b-0">
           <div className="border-b-[3px] border-ink bg-terra p-7 sm:p-9">
             <Eyebrow className="mb-4 !text-[10px] font-bold text-paper">
               {t.coverage.eyebrow}
             </Eyebrow>
-            <h2 id="coverage-title" className="font-display text-7xl leading-[0.82] text-paper sm:text-8xl">
+            <h2
+              id="coverage-title"
+              className="font-display text-7xl leading-[0.82] text-paper sm:text-8xl"
+            >
               25
               <span className="block h-3 sm:h-5" />
               {t.coverage.cities}
@@ -904,7 +955,6 @@ function Coverage() {
               </p>
             </div>
           </div>
-
         </div>
 
         <div className="flex flex-1 flex-col">
@@ -922,7 +972,6 @@ function Coverage() {
             <p className="mt-6 max-w-prose text-base leading-relaxed text-ink-soft sm:text-lg">
               {t.coverage.body}
             </p>
-
           </div>
 
           <div className="grid flex-1 grid-cols-2 gap-px bg-ink sm:grid-cols-3">
@@ -1005,8 +1054,17 @@ function Partners() {
 function Footer() {
   const { t } = useT();
   const columns = [
-    { title: t.footer.columns.services, links: ["Sécurité", "Nettoyage", "Piscine", "Jardinage", "Immobilier"].map((c) => ({ label: catLabel(t, c), href: "#section-prestataire" })) },
-    { title: t.footer.columns.cities, links: FOOTER_CITIES.map((c) => ({ label: c, href: "#coverage-title" })) },
+    {
+      title: t.footer.columns.services,
+      links: ["Sécurité", "Nettoyage", "Piscine", "Jardinage", "Immobilier"].map((c) => ({
+        label: catLabel(t, c),
+        href: "#section-prestataire",
+      })),
+    },
+    {
+      title: t.footer.columns.cities,
+      links: FOOTER_CITIES.map((c) => ({ label: c, href: "#coverage-title" })),
+    },
     { title: t.footer.columns.platform, links: t.footer.platformLinks },
   ];
   return (
@@ -1108,20 +1166,15 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
   const [teamSize, setTeamSize] = useState<string>(TEAM_SIZES[0]!);
   const [needDetails, setNeedDetails] = useState("");
   const [healthEntity, setHealthEntity] = useState<string>(HEALTH_ENTITIES[0]!);
-  const [realEstateIntent, setRealEstateIntent] = useState<string>(
-    REAL_ESTATE_INTENTS[0]!,
-  );
+  const [realEstateIntent, setRealEstateIntent] = useState<string>(REAL_ESTATE_INTENTS[0]!);
 
-  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
-    "idle",
-  );
+  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
 
   const inputClass =
     "w-full bg-transparent border-2 border-ink px-3 py-2.5 text-sm placeholder:text-ink-soft focus:outline-none focus:ring-2 focus:ring-terra/50";
   const selectClass =
     "w-full bg-transparent border-2 border-ink px-2 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-terra/50";
-  const labelClass =
-    "block font-mono text-[10px] uppercase tracking-[0.15em] text-ink-soft mb-1";
+  const labelClass = "block font-mono text-[10px] uppercase tracking-[0.15em] text-ink-soft mb-1";
 
   const isHealth = profile === "prestataire" && category === "Santé";
   const isInvestment = category === INVESTMENT;
@@ -1204,7 +1257,6 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
           />
         </span>
         <div className="flex items-center gap-2.5 mb-6">
-
           <svg
             className="text-terra w-6 h-6 shrink-0"
             viewBox="0 0 40 40"
@@ -1218,10 +1270,8 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
             <path className="drawl" d="M34 18 l -6 -1 M34 18 l -1 -6" />
           </svg>
           <p className="font-mono text-[11px] leading-none uppercase tracking-[0.15em] text-ink-soft">
-            Pré-inscription {profile === "client" ? "client" : "prestataire"}{" "}
-            · gratuit
+            Pré-inscription {profile === "client" ? "client" : "prestataire"} · gratuit
           </p>
-
         </div>
 
         {status === "done" ? (
@@ -1245,7 +1295,6 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                   : "On vous appelle dès l'ouverture dans votre ville pour valider votre besoin."
                 : "On vous contacte pour vérifier votre société avant l'ouverture."}
             </p>
-
           </div>
         ) : (
           <form className="space-y-4" onSubmit={handleSubmit}>
@@ -1301,11 +1350,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                 <input
                   id={`${idPrefix}-email`}
                   className={inputClass}
-                  placeholder={
-                    profile === "client"
-                      ? "vous@email.ma"
-                      : "contact@societe.ma"
-                  }
+                  placeholder={profile === "client" ? "vous@email.ma" : "contact@societe.ma"}
                   type="email"
                   required
                   value={email}
@@ -1361,8 +1406,8 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                   ))}
                 </select>
                 <p className="mt-1 font-mono text-[10px] leading-relaxed text-ink-soft">
-                  Groupes, cliniques et centres uniquement — ni médecins
-                  indépendants, ni établissements publics.
+                  Groupes, cliniques et centres uniquement — ni médecins indépendants, ni
+                  établissements publics.
                 </p>
               </div>
             )}
@@ -1446,7 +1491,6 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                     ? "Je veux être mis en relation"
                     : "Je cherche un pro"
                   : "Je m'inscris comme pro"}
-
             </button>
             {status === "error" && (
               <p className="text-sm text-terra-deep text-center font-medium">
