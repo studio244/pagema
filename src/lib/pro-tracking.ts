@@ -62,7 +62,7 @@ export function trackPro(
       window.fbq?.("track", "Lead", { content_category: extra.category });
     else window.fbq?.("trackCustom", `Pro_${event}`, { hero_variant: heroVariant });
 
-    void supabase
+    void (supabase as any)
       .from("pro_funnel_events")
       .insert({
         event,
