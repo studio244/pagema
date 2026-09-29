@@ -6,6 +6,9 @@ export const OTHER = "Autre";
 /** Longest service the visitor can type after picking "Autre". */
 export const OTHER_MAX_LENGTH = 60;
 
+/** The database refuses a preregistration whose category is longer than this. */
+export const CATEGORY_MAX_LENGTH = 80;
+
 export const OTHER_TEXT: Record<Lang, { option: string; label: string; placeholder: string }> = {
   fr: {
     option: "Autre",

@@ -3,7 +3,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { sendPreregistrationEmail } from "@/lib/notify.functions";
 import { normalizeMoroccanPhone } from "@/lib/phone";
 import { DICTS, type Lang } from "@/lib/i18n";
-import { OTHER, OTHER_MAX_LENGTH, OTHER_TEXT, withOther } from "@/lib/other-service";
+import {
+  CATEGORY_MAX_LENGTH,
+  OTHER,
+  OTHER_MAX_LENGTH,
+  OTHER_TEXT,
+  withOther,
+} from "@/lib/other-service";
 import { MARRAKECH_COPY } from "./copy";
 
 type Profile = "client" | "prestataire";
@@ -55,6 +61,9 @@ export default function MarrakechForm({ lang }: { lang: Lang }) {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
 
   const isClient = profile === "client";
+  // Ticked services and "Autre : <text>" are saved together, within the database's 80 characters.
+  const otherPrefix = [...services.filter((s) => s !== OTHER), `${OTHER} : `].join(", ");
+  const otherMaxLength = Math.min(OTHER_MAX_LENGTH, CATEGORY_MAX_LENGTH - otherPrefix.length);
 
   const toggleService = (value: string) =>
     setServices((current) =>
@@ -73,7 +82,10 @@ export default function MarrakechForm({ lang }: { lang: Lang }) {
     if (problems.length || !normalized) return;
 
     setStatus("sending");
-    const category = services.map((s) => withOther(s, otherService)).join(", ");
+    const category = services
+      .map((s) => withOther(s, otherService))
+      .join(", ")
+      .slice(0, CATEGORY_MAX_LENGTH);
     const savedCity = toFrenchCity(city);
     const needDetails =
       [when.trim() && `Date/heure souhaitée : ${when.trim()}`, details.trim()]
@@ -179,6 +191,7 @@ export default function MarrakechForm({ lang }: { lang: Lang }) {
                 </label>
                 <input
                   id="mk-name"
+                  maxLength={120}
                   className={inputClass}
                   placeholder={isClient ? f.namePhClient : f.namePhPro}
                   autoComplete={isClient ? "name" : "organization"}
@@ -213,6 +226,7 @@ export default function MarrakechForm({ lang }: { lang: Lang }) {
                 </label>
                 <input
                   id="mk-phone"
+                  maxLength={40}
                   className={inputClass}
                   type="tel"
                   inputMode="tel"
@@ -234,6 +248,7 @@ export default function MarrakechForm({ lang }: { lang: Lang }) {
                 </label>
                 <input
                   id="mk-email"
+                  maxLength={160}
                   className={inputClass}
                   type="email"
                   autoComplete="email"
@@ -252,6 +267,7 @@ export default function MarrakechForm({ lang }: { lang: Lang }) {
               </label>
               <input
                 id="mk-city"
+                maxLength={80}
                 className={inputClass}
                 placeholder={f.cityPh}
                 autoComplete="address-level2"
@@ -301,9 +317,9 @@ export default function MarrakechForm({ lang }: { lang: Lang }) {
                     placeholder={OTHER_TEXT[lang].placeholder}
                     required
                     autoFocus
-                    maxLength={OTHER_MAX_LENGTH}
+                    maxLength={otherMaxLength}
                     value={otherService}
-                    onChange={(e) => setOtherService(e.target.value)}
+                    onChange={(e) => setOtherService(e.target.value.slice(0, otherMaxLength))}
                   />
                 </div>
               )}

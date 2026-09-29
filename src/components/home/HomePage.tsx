@@ -1319,6 +1319,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                 </label>
                 <input
                   id={`${idPrefix}-company`}
+                  maxLength={120}
                   className={inputClass}
                   placeholder={f.companyPh}
                   required
@@ -1334,6 +1335,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
               </label>
               <input
                 id={`${idPrefix}-name`}
+                maxLength={120}
                 className={inputClass}
                 placeholder={f.namePh}
                 required
@@ -1349,6 +1351,8 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                 </label>
                 <input
                   id={`${idPrefix}-phone`}
+                  maxLength={40}
+                  minLength={6}
                   className={inputClass}
                   placeholder="06…"
                   type="tel"
@@ -1364,6 +1368,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                 </label>
                 <input
                   id={`${idPrefix}-email`}
+                  maxLength={160}
                   className={inputClass}
                   placeholder={profile === "client" ? "vous@email.ma" : "contact@societe.ma"}
                   type="email"
@@ -1382,6 +1387,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                 </label>
                 <input
                   id={`${idPrefix}-city`}
+                  maxLength={80}
                   className={inputClass}
                   placeholder={t.cityLabels["Casablanca"] ?? "Casablanca"}
                   required
