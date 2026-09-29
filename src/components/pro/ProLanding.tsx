@@ -47,7 +47,11 @@ export default function ProLanding({ lang, variant }: { lang: Lang; variant: Her
     event.preventDefault();
     trackPro("cta_click", variant);
     document.getElementById("inscription")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.setTimeout(() => phoneRef.current?.focus({ preventScroll: true }), 450);
+    // The name field comes first in the form.
+    window.setTimeout(() => {
+      const first = document.getElementById("pro-name") ?? phoneRef.current;
+      first?.focus({ preventScroll: true });
+    }, 450);
   };
 
   return (
@@ -241,6 +245,7 @@ function ProSignup({
             stats={stats}
             labels={labels}
             phoneRef={phoneRef}
+            withContact
             source={`Landing ${lang === "ar" ? "/ar/pro" : "/pro"} — hero ${variant.toUpperCase()}`}
             onStart={() => trackPro("form_start", variant)}
             onSubmitted={(values) => {

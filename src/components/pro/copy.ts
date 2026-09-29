@@ -33,7 +33,10 @@ const fr = {
   signupEyebrow: "Inscription gratuite",
   signupTitle: "Votre place en 3 étapes",
   steps: [
-    { t: "Réservez votre place", b: "30 secondes : votre WhatsApp, votre activité, votre ville." },
+    {
+      t: "Réservez votre place",
+      b: "30 secondes : votre nom, WhatsApp, email, activité et ville.",
+    },
     {
       t: "On valide votre activité",
       b: "Un appel rapide pour confirmer votre profil avant le lancement.",
@@ -106,7 +109,7 @@ const ar: ProCopy = {
   signupEyebrow: "تسجيل مجاني",
   signupTitle: "مكانك في 3 خطوات",
   steps: [
-    { t: "احجز مكانك", b: "30 ثانية: رقم واتساب، نشاطك ومدينتك." },
+    { t: "احجز مكانك", b: "30 ثانية: اسمك، رقم واتساب، بريدك، نشاطك ومدينتك." },
     { t: "نتحقق من نشاطك", b: "مكالمة قصيرة لتأكيد ملفك قبل الإطلاق." },
     { t: "توصّل بالطلبات", b: "ابتداءً من 1 نونبر، تصلك طلبات الزبناء على واتساب." },
   ],

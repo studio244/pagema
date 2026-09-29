@@ -46,7 +46,7 @@ export function ProForm({
   source: string;
   onStart?: () => void;
   onSubmitted?: (values: { category: string; city: string }) => void;
-  /** Also ask for name and email (/inscription). /pro keeps its 3-field form. */
+  /** Also ask for name and email (/pro and /inscription). */
   withContact?: boolean;
   className?: string;
 }) {
