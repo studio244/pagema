@@ -1,6 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
+/** Every pre-registration and contact form lands in this inbox. */
+const CONTACT_INBOX = "contact@page.ma";
+
 const payloadSchema = z.object({
   profile: z.enum(["client", "prestataire"]),
   // Name and email are optional: the /pro landing only asks for phone, activity and city.
@@ -29,11 +32,13 @@ export const sendPreregistrationEmail = createServerFn({ method: "POST" })
   .inputValidator((data) => payloadSchema.parse(data))
   .handler(async ({ data }) => {
     const apiKey = process.env["RESEND_API_KEY"];
-    const to = process.env["CONTACT_EMAIL_TO"];
-    const from = process.env["CONTACT_EMAIL_FROM"];
-    if (!apiKey || !to || !from) {
-      throw new Error("Configuration email manquante");
+    if (!apiKey) {
+      throw new Error("Configuration email manquante (RESEND_API_KEY)");
     }
+    // CONTACT_EMAIL_TO can add a second recipient; contact@page.ma always gets the email.
+    const extraTo = process.env["CONTACT_EMAIL_TO"]?.trim();
+    const to = [CONTACT_INBOX, ...(extraTo && extraTo !== CONTACT_INBOX ? [extraTo] : [])];
+    const from = process.env["CONTACT_EMAIL_FROM"] || "Page.ma";
 
     const subject = `Pré-inscription ${data.profile} — ${data.fullName || data.phone} (${data.city})`;
     const html = `
@@ -63,7 +68,7 @@ export const sendPreregistrationEmail = createServerFn({ method: "POST" })
         },
         body: JSON.stringify({
           from: `${from} <${fromAddress}>`,
-          to: [to],
+          to,
           ...(data.email ? { reply_to: data.email } : {}),
           subject,
           html,
@@ -72,7 +77,7 @@ export const sendPreregistrationEmail = createServerFn({ method: "POST" })
 
     // Send from the verified page.ma domain; fall back to the Resend test
     // address (owner-only delivery) while DNS verification is pending.
-    let response = await send("contact@page.ma");
+    let response = await send(CONTACT_INBOX);
     if (response.status === 403) {
       console.error("Resend: page.ma not verified yet, falling back to onboarding@resend.dev");
       response = await send("onboarding@resend.dev");

@@ -11,10 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ArRouteImport } from './routes/ar'
+import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as MarrakechRouteImport } from './routes/marrakech'
 import { Route as ProRouteImport } from './routes/pro'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ApiResendDomainRouteImport } from './routes/api/resend-domain'
+import { Route as ArInscriptionRouteImport } from './routes/ar_.inscription'
 import { Route as ArMarrakechRouteImport } from './routes/ar_.marrakech'
 import { Route as ArProRouteImport } from './routes/ar_.pro'
 
@@ -26,6 +28,11 @@ const IndexRoute = IndexRouteImport.update({
 const ArRoute = ArRouteImport.update({
   id: '/ar',
   path: '/ar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InscriptionRoute = InscriptionRouteImport.update({
+  id: '/inscription',
+  path: '/inscription',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MarrakechRoute = MarrakechRouteImport.update({
@@ -48,6 +55,11 @@ const ApiResendDomainRoute = ApiResendDomainRouteImport.update({
   path: '/api/resend-domain',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArInscriptionRoute = ArInscriptionRouteImport.update({
+  id: '/ar_/inscription',
+  path: '/ar/inscription',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArMarrakechRoute = ArMarrakechRouteImport.update({
   id: '/ar_/marrakech',
   path: '/ar/marrakech',
@@ -62,20 +74,24 @@ const ArProRoute = ArProRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/ar': typeof ArRoute
+  '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
   '/pro': typeof ProRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/resend-domain': typeof ApiResendDomainRoute
+  '/ar/inscription': typeof ArInscriptionRoute
   '/ar/marrakech': typeof ArMarrakechRoute
   '/ar/pro': typeof ArProRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ar': typeof ArRoute
+  '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
   '/pro': typeof ProRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/resend-domain': typeof ApiResendDomainRoute
+  '/ar/inscription': typeof ArInscriptionRoute
   '/ar/marrakech': typeof ArMarrakechRoute
   '/ar/pro': typeof ArProRoute
 }
@@ -83,10 +99,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/ar': typeof ArRoute
+  '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
   '/pro': typeof ProRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/resend-domain': typeof ApiResendDomainRoute
+  '/ar_/inscription': typeof ArInscriptionRoute
   '/ar_/marrakech': typeof ArMarrakechRoute
   '/ar_/pro': typeof ArProRoute
 }
@@ -95,30 +113,36 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/ar'
+    | '/inscription'
     | '/marrakech'
     | '/pro'
     | '/sitemap.xml'
     | '/api/resend-domain'
+    | '/ar/inscription'
     | '/ar/marrakech'
     | '/ar/pro'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/ar'
+    | '/inscription'
     | '/marrakech'
     | '/pro'
     | '/sitemap.xml'
     | '/api/resend-domain'
+    | '/ar/inscription'
     | '/ar/marrakech'
     | '/ar/pro'
   id:
     | '__root__'
     | '/'
     | '/ar'
+    | '/inscription'
     | '/marrakech'
     | '/pro'
     | '/sitemap.xml'
     | '/api/resend-domain'
+    | '/ar_/inscription'
     | '/ar_/marrakech'
     | '/ar_/pro'
   fileRoutesById: FileRoutesById
@@ -126,10 +150,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ArRoute: typeof ArRoute
+  InscriptionRoute: typeof InscriptionRoute
   MarrakechRoute: typeof MarrakechRoute
   ProRoute: typeof ProRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiResendDomainRoute: typeof ApiResendDomainRoute
+  ArInscriptionRoute: typeof ArInscriptionRoute
   ArMarrakechRoute: typeof ArMarrakechRoute
   ArProRoute: typeof ArProRoute
 }
@@ -148,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/ar'
       fullPath: '/ar'
       preLoaderRoute: typeof ArRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inscription': {
+      id: '/inscription'
+      path: '/inscription'
+      fullPath: '/inscription'
+      preLoaderRoute: typeof InscriptionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/marrakech': {
@@ -178,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiResendDomainRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ar_/inscription': {
+      id: '/ar_/inscription'
+      path: '/ar/inscription'
+      fullPath: '/ar/inscription'
+      preLoaderRoute: typeof ArInscriptionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ar_/marrakech': {
       id: '/ar_/marrakech'
       path: '/ar/marrakech'
@@ -198,10 +238,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ArRoute: ArRoute,
+  InscriptionRoute: InscriptionRoute,
   MarrakechRoute: MarrakechRoute,
   ProRoute: ProRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiResendDomainRoute: ApiResendDomainRoute,
+  ArInscriptionRoute: ArInscriptionRoute,
   ArMarrakechRoute: ArMarrakechRoute,
   ArProRoute: ArProRoute,
 }

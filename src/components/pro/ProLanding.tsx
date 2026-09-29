@@ -1,35 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { DICTS, type Lang } from "@/lib/i18n";
-import { supabase } from "@/integrations/supabase/client";
-import { sendPreregistrationEmail } from "@/lib/notify.functions";
 import { getProLaunchStats, type ProLaunchStats } from "@/lib/pro.functions";
 import { trackPro, type HeroVariant } from "@/lib/pro-tracking";
-import { CATEGORIES, COVERAGE_CITIES } from "@/lib/catalog";
-import { normalizeMoroccanPhone } from "@/lib/phone";
+import { CATEGORIES } from "@/lib/catalog";
 import { BrandMark, Eyebrow, Reveal } from "@/components/brand";
 import { PRO_COPY, type ProCopy } from "./copy";
+import { ProForm, Reassurance } from "./ProForm";
+import { PLACES_PER_ACTIVITY, placesText, remainingPlaces, type Labels } from "./places";
 import logoAsset from "@/assets/pagema-logo.png";
 import whatsappLead from "@/assets/whatsapp-opportunity.png";
 import heroBackground from "@/assets/pagema-services-hero-2.png";
 
-/* Campaign settings — adjust here. */
-const DEFAULT_CITY = "Marrakech";
-/** Free first month for the first N providers per activity (same rule as the homepage offer). */
-const PLACES_PER_ACTIVITY = 5;
 /** Only show "X professionnels déjà préinscrits" once there are at least this many. */
 const SOCIAL_PROOF_MIN = 5;
 
 type CtaHandler = (event: React.MouseEvent<HTMLAnchorElement>) => void;
-type Labels = { copy: ProCopy; category: (c: string) => string; city: (c: string) => string };
-
-function remainingPlaces(stats: ProLaunchStats | null, category: string): number | null {
-  if (!stats) return null;
-  return Math.max(0, PLACES_PER_ACTIVITY - (stats.byCategory[category] ?? 0));
-}
-
-function placesText(copy: ProCopy, remaining: number) {
-  return remaining === 0 ? copy.places.full : copy.places.left(remaining);
-}
 
 export default function ProLanding({ lang, variant }: { lang: Lang; variant: HeroVariant }) {
   const copy = PRO_COPY[lang];
@@ -105,21 +90,6 @@ function CtaButton({
     >
       {copy.cta}
     </a>
-  );
-}
-
-function Reassurance({ copy, className = "" }: { copy: ProCopy; className?: string }) {
-  return (
-    <ul
-      className={`flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs font-semibold uppercase tracking-wide ${className}`}
-    >
-      {copy.reassurance.map((item, i) => (
-        <li key={item} className="flex items-center gap-3">
-          {i > 0 && <span aria-hidden="true">·</span>}
-          {item}
-        </li>
-      ))}
-    </ul>
   );
 }
 
@@ -268,11 +238,15 @@ function ProSignup({
         <Reveal className="lg:order-2">
           <ProForm
             lang={lang}
-            variant={variant}
             stats={stats}
             labels={labels}
             phoneRef={phoneRef}
-            onRegistered={onRegistered}
+            source={`Landing ${lang === "ar" ? "/ar/pro" : "/pro"} — hero ${variant.toUpperCase()}`}
+            onStart={() => trackPro("form_start", variant)}
+            onSubmitted={(values) => {
+              trackPro("form_submit", variant, values);
+              onRegistered();
+            }}
           />
         </Reveal>
         <Reveal delay={120} className="lg:order-1">
@@ -296,195 +270,6 @@ function ProSignup({
         </Reveal>
       </div>
     </section>
-  );
-}
-
-function ProForm({
-  lang,
-  variant,
-  stats,
-  labels,
-  phoneRef,
-  onRegistered,
-}: {
-  lang: Lang;
-  variant: HeroVariant;
-  stats: ProLaunchStats | null;
-  labels: Labels;
-  phoneRef: React.RefObject<HTMLInputElement | null>;
-  onRegistered: () => void;
-}) {
-  const { copy } = labels;
-  const [phone, setPhone] = useState("");
-  const [category, setCategory] = useState("");
-  const [city, setCity] = useState(DEFAULT_CITY);
-  const [phoneError, setPhoneError] = useState(false);
-  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
-
-  const inputClass =
-    "w-full bg-paper border-2 border-ink px-3 py-3 text-base placeholder:text-ink-soft focus:outline-none focus:ring-2 focus:ring-terra/50";
-  const labelClass =
-    "block font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-ink-soft mb-1.5";
-
-  // First real input (not mere focus: CTA clicks focus the phone field programmatically).
-  const onStart = () => trackPro("form_start", variant);
-  const remaining = category && city === DEFAULT_CITY ? remainingPlaces(stats, category) : null;
-  const activityName = category ? labels.category(category) : "";
-  const activityInline = lang === "fr" ? activityName.toLowerCase() : activityName;
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const normalized = normalizeMoroccanPhone(phone);
-    if (!normalized) {
-      setPhoneError(true);
-      phoneRef.current?.focus();
-      return;
-    }
-    setStatus("sending");
-    const { error } = await supabase.from("preregistrations").insert({
-      full_name: "",
-      email: "",
-      phone: normalized,
-      city,
-      category,
-      profile: "prestataire",
-    });
-    if (error) {
-      console.error(error);
-      setStatus("error");
-      return;
-    }
-
-    trackPro("form_submit", variant, { category, city });
-    setStatus("done");
-    onRegistered();
-
-    // The registration is saved; a failed notification email must not block the provider.
-    sendPreregistrationEmail({
-      data: {
-        profile: "prestataire",
-        fullName: "",
-        phone: normalized,
-        email: "",
-        city,
-        category,
-        source: `Landing ${lang === "ar" ? "/ar/pro" : "/pro"} — hero ${variant.toUpperCase()}`,
-      },
-    }).catch((emailError: unknown) => console.error(emailError));
-  }
-
-  return (
-    <div className="relative border-2 border-ink bg-paper p-6 sm:p-8 shadow-cut">
-      {status === "done" ? (
-        <div className="py-6 text-center" role="status">
-          <span className="font-mono text-xs font-semibold uppercase tracking-wide text-terra-deep">
-            {copy.form.doneTag}
-          </span>
-          <p className="mt-3 font-display text-3xl leading-tight tracking-tight">
-            {copy.form.doneTitle}
-          </p>
-          <p className="mt-3 leading-relaxed text-ink-soft">{copy.form.doneBody}</p>
-        </div>
-      ) : (
-        <form className="space-y-5" onSubmit={handleSubmit} onChange={onStart}>
-          <div>
-            <p className="font-display text-2xl leading-tight tracking-tight">{copy.form.title}</p>
-            <Reassurance copy={copy} className="mt-2 text-terra-deep" />
-          </div>
-
-          <div>
-            <label className={labelClass} htmlFor="pro-phone">
-              {copy.form.phone}
-            </label>
-            <input
-              id="pro-phone"
-              ref={phoneRef}
-              className={inputClass}
-              type="tel"
-              inputMode="tel"
-              autoComplete="tel"
-              dir="ltr"
-              placeholder={copy.form.phonePh}
-              required
-              value={phone}
-              aria-invalid={phoneError}
-              aria-describedby={phoneError ? "pro-phone-error" : undefined}
-              onChange={(e) => {
-                setPhone(e.target.value);
-                if (phoneError) setPhoneError(false);
-              }}
-            />
-            {phoneError && (
-              <p id="pro-phone-error" className="mt-1.5 text-sm font-semibold text-terra-deep">
-                {copy.form.phoneError}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <label className={labelClass} htmlFor="pro-category">
-              {copy.form.activity}
-            </label>
-            <select
-              id="pro-category"
-              className={inputClass}
-              required
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="" disabled>
-                {copy.form.activityPh}
-              </option>
-              {CATEGORIES.map((c) => (
-                <option key={c} value={c}>
-                  {labels.category(c)}
-                </option>
-              ))}
-            </select>
-            {remaining !== null && (
-              <p className="mt-1.5 text-sm font-semibold text-terra-deep">
-                {remaining === 0
-                  ? copy.form.placesFull(activityInline)
-                  : copy.form.placesLeft(placesText(copy, remaining), activityInline)}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <label className={labelClass} htmlFor="pro-city">
-              {copy.form.city}
-            </label>
-            <select
-              id="pro-city"
-              className={inputClass}
-              required
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            >
-              {COVERAGE_CITIES.map((c) => (
-                <option key={c} value={c}>
-                  {labels.city(c)}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <button
-            type="submit"
-            disabled={status === "sending"}
-            className="w-full bg-terra text-paper border-2 border-ink px-6 py-4 font-display text-xl leading-tight tracking-tight lift disabled:opacity-60"
-          >
-            {status === "sending" ? copy.form.sending : copy.cta}
-          </button>
-
-          {status === "error" && (
-            <p className="text-sm font-semibold text-terra-deep" role="alert">
-              {copy.form.error}
-            </p>
-          )}
-        </form>
-      )}
-    </div>
   );
 }
 
