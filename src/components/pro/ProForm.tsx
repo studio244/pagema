@@ -24,7 +24,7 @@ export function Reassurance({ copy, className = "" }: { copy: ProCopy; className
 }
 
 /**
- * Provider pre-registration form (WhatsApp, activity, city), shared by /pro and /inscription.
+ * Provider pre-registration form (WhatsApp, activity, city; optionally name and email), shared by /pro and /inscription.
  * Activity and city values are always saved in French, whatever the page language.
  */
 export function ProForm({
@@ -35,6 +35,7 @@ export function ProForm({
   source,
   onStart,
   onSubmitted,
+  withContact = false,
   className = "",
 }: {
   lang: Lang;
@@ -45,9 +46,13 @@ export function ProForm({
   source: string;
   onStart?: () => void;
   onSubmitted?: (values: { category: string; city: string }) => void;
+  /** Also ask for name and email (/inscription). /pro keeps its 3-field form. */
+  withContact?: boolean;
   className?: string;
 }) {
   const { copy } = labels;
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [category, setCategory] = useState("");
   const [city, setCity] = useState(DEFAULT_CITY);
@@ -73,8 +78,8 @@ export function ProForm({
     }
     setStatus("sending");
     const { error } = await supabase.from("preregistrations").insert({
-      full_name: "",
-      email: "",
+      full_name: fullName.trim(),
+      email: email.trim(),
       phone: normalized,
       city,
       category,
@@ -93,9 +98,9 @@ export function ProForm({
     sendPreregistrationEmail({
       data: {
         profile: "prestataire",
-        fullName: "",
+        fullName: fullName.trim(),
         phone: normalized,
-        email: "",
+        email: email.trim(),
         city,
         category,
         source,
@@ -122,6 +127,25 @@ export function ProForm({
             <p className="font-display text-2xl leading-tight tracking-tight">{copy.form.title}</p>
             <Reassurance copy={copy} className="mt-2 text-terra-deep" />
           </div>
+
+          {withContact && (
+            <div>
+              <label className={labelClass} htmlFor="pro-name">
+                {copy.form.name}
+              </label>
+              <input
+                id="pro-name"
+                className={inputClass}
+                type="text"
+                autoComplete="name"
+                placeholder={copy.form.namePh}
+                required
+                maxLength={120}
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+              />
+            </div>
+          )}
 
           <div>
             <label className={labelClass} htmlFor="pro-phone">
@@ -151,6 +175,27 @@ export function ProForm({
               </p>
             )}
           </div>
+
+          {withContact && (
+            <div>
+              <label className={labelClass} htmlFor="pro-email">
+                {copy.form.email}
+              </label>
+              <input
+                id="pro-email"
+                className={inputClass}
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                dir="ltr"
+                placeholder={copy.form.emailPh}
+                required
+                maxLength={160}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+          )}
 
           <div>
             <label className={labelClass} htmlFor="pro-category">

@@ -118,6 +118,7 @@ export default function SignupPage({ lang }: { lang: Lang }) {
               stats={stats}
               labels={labels}
               phoneRef={phoneRef}
+              withContact
               source={`Page ${lang === "ar" ? "/ar/inscription" : "/inscription"}`}
               onSubmitted={({ category }) => {
                 window.fbq?.("track", "Lead", { content_category: category });
