@@ -3,12 +3,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { sendPreregistrationEmail } from "@/lib/notify.functions";
 import { normalizeMoroccanPhone } from "@/lib/phone";
 import { DICTS, type Lang } from "@/lib/i18n";
+import { OTHER, OTHER_MAX_LENGTH, OTHER_TEXT, withOther } from "@/lib/other-service";
 import { MARRAKECH_COPY } from "./copy";
 
 type Profile = "client" | "prestataire";
 
 /** Saved values stay French whatever the page language. */
-const SERVICES = ["Sécurité", "Nettoyage", "Jardinage", "Piscine", "Autre"];
+const SERVICES = ["Sécurité", "Nettoyage", "Jardinage", "Piscine", OTHER];
 
 const labelClass =
   "text-xs font-medium text-start text-[#404653] leading-normal tracking-wide w-fit h-fit";
@@ -47,6 +48,7 @@ export default function MarrakechForm({ lang }: { lang: Lang }) {
   const [email, setEmail] = useState("");
   const [city, setCity] = useState(f.defaultCity);
   const [services, setServices] = useState<string[]>([]);
+  const [otherService, setOtherService] = useState("");
   const [details, setDetails] = useState("");
   const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
@@ -71,7 +73,7 @@ export default function MarrakechForm({ lang }: { lang: Lang }) {
     if (problems.length || !normalized) return;
 
     setStatus("sending");
-    const category = services.join(", ");
+    const category = services.map((s) => withOther(s, otherService)).join(", ");
     const savedCity = toFrenchCity(city);
     const needDetails =
       [when.trim() && `Date/heure souhaitée : ${when.trim()}`, details.trim()]
@@ -287,6 +289,24 @@ export default function MarrakechForm({ lang }: { lang: Lang }) {
                   );
                 })}
               </div>
+              {services.includes(OTHER) && (
+                <div className="flex flex-col gap-1.5 self-stretch">
+                  <label className={labelClass} htmlFor="mk-other-service">
+                    {OTHER_TEXT[lang].label}
+                  </label>
+                  <input
+                    id="mk-other-service"
+                    className={inputClass}
+                    type="text"
+                    placeholder={OTHER_TEXT[lang].placeholder}
+                    required
+                    autoFocus
+                    maxLength={OTHER_MAX_LENGTH}
+                    value={otherService}
+                    onChange={(e) => setOtherService(e.target.value)}
+                  />
+                </div>
+              )}
               {errors.includes("services") && (
                 <p className="text-xs font-medium text-[#b83e26]">{f.servicesError}</p>
               )}

@@ -5,6 +5,7 @@ import { sendPreregistrationEmail } from "@/lib/notify.functions";
 import type { ProLaunchStats } from "@/lib/pro.functions";
 import { CATEGORIES, COVERAGE_CITIES } from "@/lib/catalog";
 import { normalizeMoroccanPhone } from "@/lib/phone";
+import { OTHER, OTHER_MAX_LENGTH, OTHER_TEXT, withOther } from "@/lib/other-service";
 import type { ProCopy } from "./copy";
 import { DEFAULT_CITY, placesText, remainingPlaces, type Labels } from "./places";
 
@@ -55,6 +56,7 @@ export function ProForm({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [category, setCategory] = useState("");
+  const [otherService, setOtherService] = useState("");
   const [city, setCity] = useState(DEFAULT_CITY);
   const [phoneError, setPhoneError] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
@@ -64,7 +66,11 @@ export function ProForm({
   const labelClass =
     "block font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-ink-soft mb-1.5";
 
-  const remaining = category && city === DEFAULT_CITY ? remainingPlaces(stats, category) : null;
+  const otherText = OTHER_TEXT[lang];
+  const remaining =
+    category && category !== OTHER && city === DEFAULT_CITY
+      ? remainingPlaces(stats, category)
+      : null;
   const activityName = category ? labels.category(category) : "";
   const activityInline = lang === "fr" ? activityName.toLowerCase() : activityName;
 
@@ -77,12 +83,13 @@ export function ProForm({
       return;
     }
     setStatus("sending");
+    const savedCategory = withOther(category, otherService);
     const { error } = await supabase.from("preregistrations").insert({
       full_name: fullName.trim(),
       email: email.trim(),
       phone: normalized,
       city,
-      category,
+      category: savedCategory,
       profile: "prestataire",
     });
     if (error) {
@@ -92,7 +99,7 @@ export function ProForm({
     }
 
     setStatus("done");
-    onSubmitted?.({ category, city });
+    onSubmitted?.({ category: savedCategory, city });
 
     // The registration is saved; a failed notification email must not block the provider.
     sendPreregistrationEmail({
@@ -102,7 +109,7 @@ export function ProForm({
         phone: normalized,
         email: email.trim(),
         city,
-        category,
+        category: savedCategory,
         source,
       },
     }).catch((emailError: unknown) => console.error(emailError));
@@ -216,7 +223,26 @@ export function ProForm({
                   {labels.category(c)}
                 </option>
               ))}
+              <option value={OTHER}>{otherText.option}</option>
             </select>
+            {category === OTHER && (
+              <div className="mt-3">
+                <label className="sr-only" htmlFor="pro-category-other">
+                  {otherText.label}
+                </label>
+                <input
+                  id="pro-category-other"
+                  className={inputClass}
+                  type="text"
+                  placeholder={otherText.placeholder}
+                  required
+                  autoFocus
+                  maxLength={OTHER_MAX_LENGTH}
+                  value={otherService}
+                  onChange={(e) => setOtherService(e.target.value)}
+                />
+              </div>
+            )}
             {remaining !== null && (
               <p className="mt-1.5 text-sm font-semibold text-terra-deep">
                 {remaining === 0

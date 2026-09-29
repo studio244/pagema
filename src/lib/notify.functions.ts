@@ -11,7 +11,8 @@ const payloadSchema = z.object({
   phone: z.string().min(1).max(40),
   email: z.union([z.literal(""), z.string().email().max(160)]),
   city: z.string().min(1).max(80),
-  category: z.string().min(1).max(80),
+  // Several services, or "Autre : <typed service>", can make this longer than one name.
+  category: z.string().min(1).max(200),
   companyName: z.string().max(120).nullish(),
   teamSize: z.string().max(40).nullish(),
   needDetails: z.string().max(2000).nullish(),

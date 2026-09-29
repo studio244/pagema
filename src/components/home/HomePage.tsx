@@ -19,6 +19,7 @@ import partner5 from "@/assets/partner-5.png";
 import whatsappMockup from "@/assets/whatsapp-opportunity.png";
 import { Benefit, BrandMark, Eyebrow, Reveal, WhatsAppIcon } from "@/components/brand";
 import { whatsappUrl } from "@/lib/whatsapp";
+import { OTHER, OTHER_MAX_LENGTH, OTHER_TEXT, withOther } from "@/lib/other-service";
 import { CATEGORIES, COVERAGE_CITIES, INVESTMENT, REAL_ESTATE } from "@/lib/catalog";
 
 const LOGO_URL = logoAsset;
@@ -1166,13 +1167,14 @@ function Footer() {
 type Profile = "client" | "prestataire";
 
 function PreregistrationForm({ profile }: { profile: Profile }) {
-  const { t } = useT();
+  const { t, lang } = useT();
   const f = t.form;
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [category, setCategory] = useState<string>(CATEGORIES[0]!);
+  const [otherService, setOtherService] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [teamSize, setTeamSize] = useState<string>(TEAM_SIZES[0]!);
   const [needDetails, setNeedDetails] = useState("");
@@ -1202,6 +1204,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
     setEmail("");
     setCity("");
     setCategory(CATEGORIES[0]!);
+    setOtherService("");
     setCompanyName("");
     setTeamSize(TEAM_SIZES[0]!);
     setNeedDetails("");
@@ -1217,7 +1220,7 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
       phone: phone.trim(),
       email: email.trim(),
       city: city.trim(),
-      category,
+      category: withOther(category, otherService),
       profile,
       company_name: profile === "prestataire" ? companyName.trim() || null : null,
       team_size: profile === "prestataire" ? teamSize : null,
@@ -1401,7 +1404,22 @@ function PreregistrationForm({ profile }: { profile: Profile }) {
                       {catLabel(t, c)}
                     </option>
                   ))}
+                  <option value={OTHER}>{OTHER_TEXT[lang].option}</option>
                 </select>
+                {category === OTHER && (
+                  <input
+                    id={`${idPrefix}-category-other`}
+                    className={`${inputClass} mt-2`}
+                    type="text"
+                    placeholder={OTHER_TEXT[lang].placeholder}
+                    aria-label={OTHER_TEXT[lang].label}
+                    required
+                    autoFocus
+                    maxLength={OTHER_MAX_LENGTH}
+                    value={otherService}
+                    onChange={(e) => setOtherService(e.target.value)}
+                  />
+                )}
               </div>
             </div>
 
