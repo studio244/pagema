@@ -4,7 +4,7 @@ import { proHead, validateProSearch } from "@/components/pro/route";
 
 // "ar_" keeps this page out of the /ar homepage layout: the URL is /ar/pro.
 export const Route = createFileRoute("/ar_/pro")({
-  staticData: { sitemap: false },
+  staticData: { sitemap: true },
   validateSearch: validateProSearch,
   head: () => proHead("ar"),
   component: ProAr,

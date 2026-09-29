@@ -3,7 +3,7 @@ import ProLanding from "@/components/pro/ProLanding";
 import { proHead, validateProSearch } from "@/components/pro/route";
 
 export const Route = createFileRoute("/pro")({
-  staticData: { sitemap: false },
+  staticData: { sitemap: true },
   validateSearch: validateProSearch,
   head: () => proHead("fr"),
   component: ProFr,

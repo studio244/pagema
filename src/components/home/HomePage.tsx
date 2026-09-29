@@ -5,7 +5,7 @@ import { DICTS, LangContext, useT, type Dict, type Lang } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { sendPreregistrationEmail } from "@/lib/notify.functions";
 import logoAsset from "@/assets/pagema-logo.png";
-import heroAsset from "@/assets/pagema-services-hero-2.png";
+import heroAsset from "@/assets/pagema-services-hero-2.webp";
 import stampAsset from "@/assets/pagema-app-icon.png";
 import prosAsset from "@/assets/pagema-pros-equipe.jpg";
 import requestIllustration from "@/assets/process-step-1.png";

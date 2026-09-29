@@ -9,7 +9,7 @@ import { ProForm, Reassurance } from "./ProForm";
 import { PLACES_PER_ACTIVITY, placesText, remainingPlaces, type Labels } from "./places";
 import logoAsset from "@/assets/pagema-logo.png";
 import whatsappLead from "@/assets/whatsapp-opportunity.png";
-import heroBackground from "@/assets/pagema-services-hero-2.png";
+import heroBackground from "@/assets/pagema-services-hero-2.webp";
 
 /** Only show "X professionnels déjà préinscrits" once there are at least this many. */
 const SOCIAL_PROOF_MIN = 5;

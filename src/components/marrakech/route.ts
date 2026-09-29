@@ -1,4 +1,5 @@
 import type { Lang } from "@/lib/i18n";
+import { SITE_URL, organizationJsonLd, seoHead } from "@/lib/seo";
 import { MARRAKECH_COPY } from "./copy";
 
 const FONTS =
@@ -6,21 +7,30 @@ const FONTS =
 
 export function marrakechHead(lang: Lang) {
   const meta = MARRAKECH_COPY[lang].meta;
-  return {
-    meta: [
-      { title: meta.title },
-      { name: "description", content: meta.description },
-      { property: "og:title", content: meta.ogTitle },
-      { property: "og:description", content: meta.ogDescription },
-      { property: "og:type", content: "website" },
-      { property: "og:locale", content: meta.locale },
-      { name: "twitter:card", content: "summary_large_image" },
+  const path = lang === "ar" ? "/ar/marrakech" : "/marrakech";
+  const head = seoHead({
+    lang,
+    paths: { fr: "/marrakech", ar: "/ar/marrakech" },
+    title: meta.title,
+    description: meta.description,
+    ogTitle: meta.ogTitle,
+    ogDescription: meta.ogDescription,
+    jsonLd: [
+      organizationJsonLd(lang),
+      {
+        "@type": "Service",
+        name: meta.title,
+        description: meta.description,
+        url: SITE_URL + path,
+        inLanguage: lang,
+        provider: { "@id": `${SITE_URL}/#organization` },
+        areaServed: { "@type": "City", name: lang === "ar" ? "مراكش" : "Marrakech" },
+        serviceType:
+          lang === "ar"
+            ? ["الأمن", "النظافة", "البستنة", "المسابح"]
+            : ["Sécurité", "Nettoyage", "Jardinage", "Piscine"],
+      },
     ],
-    links: [
-      { rel: "stylesheet", href: FONTS },
-      { rel: "alternate", hrefLang: "fr", href: "https://page.ma/marrakech" },
-      { rel: "alternate", hrefLang: "ar", href: "https://page.ma/ar/marrakech" },
-      { rel: "alternate", hrefLang: "x-default", href: "https://page.ma/marrakech" },
-    ],
-  };
+  });
+  return { ...head, links: [{ rel: "stylesheet", href: FONTS }, ...head.links] };
 }

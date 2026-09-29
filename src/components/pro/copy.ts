@@ -6,7 +6,7 @@ const fr = {
   meta: {
     title: "Page.ma Pro — Trouvez de nouveaux clients à Marrakech",
     description:
-      "Professionnels de Marrakech : recevez des demandes de clients correspondant à votre activité directement sur WhatsApp. 1 mois offert aux premiers inscrits — 0 MAD, sans carte bancaire, sans engagement.",
+      "Professionnels de Marrakech : recevez des demandes de clients sur WhatsApp. 1 mois offert aux premiers inscrits — 0 MAD, sans carte bancaire, sans engagement.",
     ogDescription:
       "Recevez des demandes correspondant à votre activité directement sur WhatsApp. 1 mois offert aux premiers professionnels inscrits.",
     locale: "fr_MA",
