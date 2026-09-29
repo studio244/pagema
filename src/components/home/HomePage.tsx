@@ -18,6 +18,7 @@ import partner4 from "@/assets/partner-4.png";
 import partner5 from "@/assets/partner-5.png";
 import whatsappMockup from "@/assets/whatsapp-opportunity.png";
 import { Benefit, BrandMark, Eyebrow, Reveal, WhatsAppIcon } from "@/components/brand";
+import { whatsappUrl } from "@/lib/whatsapp";
 import { CATEGORIES, COVERAGE_CITIES, INVESTMENT, REAL_ESTATE } from "@/lib/catalog";
 
 const LOGO_URL = logoAsset;
@@ -158,13 +159,11 @@ function ClientSection() {
   );
 }
 
-const WHATSAPP_URL = "https://wa.me/212664272854";
-
 function WhatsAppWidget() {
-  const { t } = useT();
+  const { t, lang } = useT();
   return (
     <a
-      href={WHATSAPP_URL}
+      href={whatsappUrl(lang)}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t.whatsappWidget}

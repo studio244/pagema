@@ -44,9 +44,8 @@ import logoPBlade2 from "./assets/vector-33.svg";
 import footerP from "@/assets/marrakech/group-37.png";
 import footerPBlade from "./assets/vector-29.svg";
 import footerPBlade2 from "./assets/vector-30.svg";
+import { whatsappUrl } from "@/lib/whatsapp";
 import footerWordmark from "@/assets/marrakech/group-36.png";
-
-const WHATSAPP_URL = "https://wa.me/212664272854";
 
 const PARTNERS = [
   { src: partner1, name: "Asomovit Nettoyage" },
@@ -180,7 +179,7 @@ function Header({ lang, copy, proHref }: Ctx) {
     { label: copy.nav.services, href: "#services" },
     { label: copy.nav.how, href: "#fonctionnement" },
     { label: copy.nav.advantages, href: "#avantages" },
-    { label: copy.nav.contact, href: WHATSAPP_URL },
+    { label: copy.nav.contact, href: whatsappUrl(lang) },
   ];
   return (
     <header className="sticky top-0 z-50 border-b border-[#16181f]/10 bg-white/70 backdrop-blur-xl">
@@ -668,7 +667,7 @@ function Footer({ lang, copy, proHref }: Ctx) {
         { label: copy.footer.how, href: "#fonctionnement" },
         { label: copy.footer.partner, href: proHref },
         { label: copy.footer.signup, href: "#inscription" },
-        { label: copy.footer.contact, href: WHATSAPP_URL },
+        { label: copy.footer.contact, href: whatsappUrl(lang) },
       ],
     },
   ];
