@@ -83,7 +83,7 @@ export default function AgencyDirectory({
         </div>
 
         {shown.length > 0 ? (
-          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid gap-5">
             {shown.map((agency) => (
               <li key={agency.slug}>
                 <AgencyCard agency={agency} lang={lang} copy={copy} label={label} />
@@ -150,33 +150,50 @@ function AgencyCard({
 }) {
   const summary = agencySummary(agency, lang);
   const city = agency.city ? (DICTS[lang].cityLabels[agency.city] ?? agency.city) : null;
+  const image =
+    AGENCY_SERVICE_IMAGES[agency.slug] ??
+    (agency.services.includes("Nettoyage")
+      ? "/agencies/asomovit-nettoyage-service.jpg"
+      : "/agencies/azur-protection-service.jpg");
   return (
     <Link
       to={lang === "ar" ? "/ar/services/$slug" : "/services/$slug"}
       params={{ slug: agency.slug }}
-      className="lift-card group flex h-full flex-col border-2 border-ink bg-paper focus:outline-none focus-visible:ring-4 focus-visible:ring-terra/40"
+      className="lift-card group grid h-full overflow-hidden border-2 border-ink bg-paper focus:outline-none focus-visible:ring-4 focus-visible:ring-terra/40 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
     >
-      <div className="grid h-32 place-items-center border-b-2 border-ink bg-white p-5">
-        <AgencyLogo agency={agency} className="h-full max-h-20 w-full max-w-[12rem]" />
+      <div className="relative min-h-56 overflow-hidden border-b-2 border-ink bg-paper-deep md:min-h-[18rem] md:border-b-0 md:border-e-2">
+        <img
+          src={image}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        />
+        <div className="absolute start-4 top-4 grid h-16 min-w-20 place-items-center border-2 border-ink bg-white/95 p-2 shadow-cut backdrop-blur-sm sm:h-[4.5rem] sm:min-w-24 sm:p-2.5">
+          <AgencyLogo agency={agency} className="h-full max-h-12 w-full max-w-20" />
+        </div>
       </div>
-      <div className="flex flex-1 flex-col gap-3 p-5">
+      <div className="flex min-w-0 flex-col items-start gap-3 p-5 sm:p-7">
         <AgencyBadges agency={agency} lang={lang} />
-        <h3 className="font-display text-xl leading-tight tracking-tight">{agency.name}</h3>
+        <h3 className="font-display text-2xl leading-tight tracking-tight sm:text-3xl">
+          {agency.name}
+        </h3>
         {city && (
           <p className="-mt-1 inline-flex items-center gap-1.5 text-sm text-ink-soft">
             <MapPin className="h-4 w-4" aria-hidden="true" />
             {city}
           </p>
         )}
-        {summary && <p className="line-clamp-3 leading-relaxed text-ink-soft">{summary}</p>}
-        <ul className="mt-auto flex flex-wrap gap-1.5 pt-1">
+        {summary && <p className="max-w-2xl leading-relaxed text-ink-soft">{summary}</p>}
+        <ul className="flex flex-wrap gap-1.5 pt-1">
           {agency.services.map((s) => (
             <li key={s} className="border border-ink/25 px-2 py-0.5 text-xs font-semibold">
               {label(s)}
             </li>
           ))}
         </ul>
-        <span className="inline-flex items-center gap-1.5 pt-1 text-sm font-semibold text-terra-deep">
+        <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-semibold text-terra-deep">
           {copy.viewAgency}
           <ArrowRight
             className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1"
@@ -187,6 +204,14 @@ function AgencyCard({
     </Link>
   );
 }
+
+const AGENCY_SERVICE_IMAGES: Record<string, string> = {
+  "asomovit-nettoyage": "/agencies/asomovit-nettoyage-service.jpg",
+  "azur-protection": "/agencies/azur-protection-service.jpg",
+  "s4u-safety-for-you": "/agencies/s4u-safety-for-you-service.jpg",
+  "azur-facilities": "/agencies/azur-facilities-service.jpg",
+  "asomovit-securite-privee": "/agencies/asomovit-securite-privee-service.jpg",
+};
 
 function EmptyState({
   lang,
