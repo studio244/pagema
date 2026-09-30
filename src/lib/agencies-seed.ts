@@ -25,6 +25,7 @@ export const SEED_AGENCIES: Agency[] = [
     city: "Marrakech",
     is_partner: true,
     is_verified: false,
+    clients_generated: 0,
   },
   {
     slug: "azur-protection",
@@ -45,6 +46,7 @@ export const SEED_AGENCIES: Agency[] = [
     city: "Casablanca",
     is_partner: true,
     is_verified: false,
+    clients_generated: 0,
   },
   {
     slug: "s4u-safety-for-you",
@@ -65,6 +67,7 @@ export const SEED_AGENCIES: Agency[] = [
     city: "Marrakech",
     is_partner: true,
     is_verified: false,
+    clients_generated: 0,
   },
   {
     slug: "azur-facilities",
@@ -85,6 +88,7 @@ export const SEED_AGENCIES: Agency[] = [
     city: "Casablanca",
     is_partner: true,
     is_verified: false,
+    clients_generated: 0,
   },
   {
     slug: "asomovit-securite-privee",
@@ -104,5 +108,6 @@ export const SEED_AGENCIES: Agency[] = [
     city: "Marrakech",
     is_partner: true,
     is_verified: false,
+    clients_generated: 0,
   },
 ];

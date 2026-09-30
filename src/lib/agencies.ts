@@ -19,10 +19,12 @@ export type Agency = {
   city: string | null;
   is_partner: boolean;
   is_verified: boolean;
+  /** "Clients générés par Page.ma", entered by hand in Supabase. */
+  clients_generated: number;
 };
 
 const COLUMNS =
-  "slug, name, logo_url, summary_fr, summary_ar, description_fr, description_ar, services, phone, website, address, city, is_partner, is_verified";
+  "slug, name, logo_url, summary_fr, summary_ar, description_fr, description_ar, services, phone, website, address, city, is_partner, is_verified, clients_generated";
 
 // The generated Supabase types don't include this table until Lovable regenerates them.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -40,6 +42,23 @@ export async function fetchAgencies(): Promise<Agency[]> {
     return SEED_AGENCIES;
   }
   return data as Agency[];
+}
+
+/**
+ * Visitors who contacted this agency from its page (call, website, WhatsApp), counted once each.
+ * 0 while the agency_stats migration is not applied.
+ */
+export async function fetchContactCount(slug: string): Promise<number> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (supabase as any).rpc("agency_contact_counts");
+  if (error) {
+    console.warn("agency contact counts unavailable:", error.message);
+    return 0;
+  }
+  const row = (data as { agency_slug: string; contacts: number }[]).find(
+    (r) => r.agency_slug === slug,
+  );
+  return Number(row?.contacts ?? 0);
 }
 
 /** One published agency, or null when the slug is unknown. */
@@ -79,6 +98,24 @@ export function websiteLabel(website: string): string {
     .replace(/^https?:\/\//i, "")
     .replace(/^www\./i, "")
     .replace(/\/$/, "");
+}
+
+/** What to search on the map: the address (plus the city when missing from it), else the city. */
+export function agencyMapQuery(agency: Agency): string | null {
+  const { address, city } = agency;
+  if (address)
+    return city && !address.includes(city) ? `${address}, ${city}, Maroc` : `${address}, Maroc`;
+  return city ? `${city}, Maroc` : null;
+}
+
+/** Google Maps page for the agency (opens in a new tab). */
+export function mapsLink(query: string): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+/** Keyless Google Maps embed, shown in an iframe on the agency page. */
+export function mapsEmbed(query: string, lang: Lang): string {
+  return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&hl=${lang}&z=15&output=embed`;
 }
 
 export function agencyPath(lang: Lang, slug?: string): string {
