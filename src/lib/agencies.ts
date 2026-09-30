@@ -11,8 +11,11 @@ export type Agency = {
   summary_ar: string | null;
   description_fr: string | null;
   description_ar: string | null;
-  /** French service names, same values as CATEGORIES and the forms. */
+  /** French service names, same values as CATEGORIES and the forms (used by the filter). */
   services: string[];
+  /** The agency's own detailed services, as named on its website. */
+  offerings_fr: string[];
+  offerings_ar: string[];
   phone: string | null;
   website: string | null;
   address: string | null;
@@ -24,7 +27,7 @@ export type Agency = {
 };
 
 const COLUMNS =
-  "slug, name, logo_url, summary_fr, summary_ar, description_fr, description_ar, services, phone, website, address, city, is_partner, is_verified, clients_generated";
+  "slug, name, logo_url, summary_fr, summary_ar, description_fr, description_ar, services, offerings_fr, offerings_ar, phone, website, address, city, is_partner, is_verified, clients_generated";
 
 // The generated Supabase types don't include this table until Lovable regenerates them.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -79,6 +82,13 @@ export function agencySummary(agency: Agency, lang: Lang): string | null {
   return lang === "ar"
     ? (agency.summary_ar ?? agency.summary_fr)
     : (agency.summary_fr ?? agency.summary_ar);
+}
+
+/** The agency's detailed services in the page language (French when the Arabic list is empty). */
+export function agencyOfferings(agency: Agency, lang: Lang): string[] {
+  const ar = agency.offerings_ar ?? [];
+  const fr = agency.offerings_fr ?? [];
+  return lang === "ar" && ar.length ? ar : fr;
 }
 
 export function agencyDescription(agency: Agency, lang: Lang): string | null {

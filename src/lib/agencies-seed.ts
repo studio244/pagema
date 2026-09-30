@@ -2,6 +2,7 @@ import type { Agency } from "./agencies";
 
 /**
  * The five partner agencies, from their own websites (checked 30/09/2026).
+ * offerings_fr / offerings_ar: each agency's own list of services, as named on its site.
  * Same rows as the seed in supabase/migrations/20260930100000_agencies.sql, and used by the site
  * only while that table does not exist yet. Once it exists, edit agencies in Supabase instead.
  */
@@ -19,6 +20,8 @@ export const SEED_AGENCIES: Agency[] = [
     description_ar:
       "منذ أكثر من 13 سنة، ترافق أسوموفيت الشركات في مراكش في تنظيف وصيانة مقرّاتها: المكاتب، الفضاءات التجارية، الفنادق، المطاعم، المتاجر والمواقع اللوجستية.\n\nتشمل خدماتها تنظيف المكاتب والفضاءات التجارية، التنظيف الصناعي، معالجة الأرضيات، تنظيف الواجهات الزجاجية والتنظيف بعد الأشغال. الخدمة متوفرة 24 ساعة على 24 و7 أيام على 7.",
     services: ["Nettoyage"],
+    offerings_fr: ["Nettoyage de bureaux et locaux professionnels","Nettoyage de commerces et boutiques","Nettoyage industriel","Nettoyage d'hôtels et restaurants","Nettoyage de fin de chantier","Nettoyage de vitres","Nettoyage et traitement des sols","Nettoyage de tapis, moquettes et meubles en tissu","Nettoyage ponctuel ou contrat d'entretien régulier"],
+    offerings_ar: ["تنظيف المكاتب والمقرّات المهنية","تنظيف المحلات التجارية والمتاجر","التنظيف الصناعي","تنظيف الفنادق والمطاعم","التنظيف بعد الأشغال","تنظيف الواجهات الزجاجية","تنظيف ومعالجة الأرضيات","تنظيف الزرابي والموكيت والأثاث القماشي","تنظيف لمرة واحدة أو عقد صيانة منتظم"],
     phone: "+212 661-622455",
     website: "https://www.asomovit.com/",
     address: "3ème étage, Bureau N°27, Immeuble 26, Bd Allal Al Fassi, Marrakech",
@@ -40,6 +43,8 @@ export const SEED_AGENCIES: Agency[] = [
     description_ar:
       "منذ 2005، تصمّم أزور بروتكشن حلولاً أمنية حسب الطلب للشركات والمؤسسات والأفراد في كل أنحاء المغرب.\n\nمجالات عملها: الأمن البشري (الحراسة ومراقبة الولوج)، الأمن الإلكتروني، الدوريات الأمنية، تأمين التظاهرات، الحماية المقرّبة، إضافة إلى الهندسة والتكوين عبر مركز تكوين داخلي.",
     services: ["Sécurité"],
+    offerings_fr: ["Sécurité physique","Sécurité électronique","Patrouille de sécurité","Sécurité événementielle","Protection rapprochée","Ingénierie & formation"],
+    offerings_ar: ["الأمن البشري","الأمن الإلكتروني","الدوريات الأمنية","تأمين التظاهرات","الحماية المقرّبة","الهندسة والتكوين"],
     phone: "+212 6 62 33 18 68",
     website: "https://www.azurprotection.ma/",
     address: "Sidi Moumen Jadid, Lot Warda 251, Rue 38, N°4, Casablanca",
@@ -61,6 +66,8 @@ export const SEED_AGENCIES: Agency[] = [
     description_ar:
       "سيفتي فور يو (S4U) شركة أمن خاص مقرّها مراكش، في خدمة الأفراد والشركات ومنظّمي التظاهرات.\n\nخدماتها: الأمن البشري والحراسة، الأمن الإلكتروني والمراقبة بالفيديو، الدوريات الأمنية، تأمين التظاهرات، الحماية المقرّبة، الهندسة والتكوين في مجال الأمن، والسلامة من الحرائق. الهاتف الثابت: ‎+212 524 312 304.",
     services: ["Sécurité"],
+    offerings_fr: ["Sécurité physique : gardiennage résidentiel et sécurité professionnelle","Sécurité électronique et vidéosurveillance","Patrouille de sécurité","Sécurité événementielle","Protection rapprochée","Ingénierie & formation de sécurité","Sécurité incendie"],
+    offerings_ar: ["الأمن البشري: حراسة المساكن وأمن الشركات","الأمن الإلكتروني والمراقبة بالفيديو","الدوريات الأمنية","تأمين التظاهرات","الحماية المقرّبة","الهندسة والتكوين في مجال الأمن","السلامة من الحرائق"],
     phone: "+212 661 319 512",
     website: "https://safetyforyou.ma/",
     address: "1er étage, Bureau 2, 38 Sidi Abbad 1, Marrakech 40000",
@@ -82,6 +89,8 @@ export const SEED_AGENCIES: Agency[] = [
     description_ar:
       "تقدّم أزور فاسيليتيز حلول تنظيف احترافية لفضاءات صحية ومريحة، لدى الأفراد والشركات، في الدار البيضاء وفي كل أنحاء المغرب.\n\nخدماتها: تنظيف المساكن، صيانة المكاتب والفضاءات التجارية، التنظيف الصناعي وما بعد الأشغال، التعقيم والخدمات المتخصصة. أوقات العمل: من الاثنين إلى الجمعة من 8 إلى 12 ومن 14:30 إلى 18:30، والسبت من 8 إلى 12.",
     services: ["Nettoyage"],
+    offerings_fr: ["Nettoyage de bureaux et espaces de travail","Entretien des commerces et boutiques","Nettoyage de fin de chantier","Entretien des résidences et copropriétés","Nettoyage pour hôtels et restaurants","Nettoyage industriel et entrepôts","Désinfection et nettoyage spécifique"],
+    offerings_ar: ["تنظيف المكاتب وفضاءات العمل","صيانة المحلات التجارية والمتاجر","التنظيف بعد الأشغال","صيانة المساكن والملكيات المشتركة","تنظيف الفنادق والمطاعم","التنظيف الصناعي والمستودعات","التعقيم والتنظيف المتخصص"],
     phone: "+212 6 62 33 18 68",
     website: "https://www.azurfacilities.com/",
     address: "N°4, Sidi Moumen Jadid, 251 Rue 38, Casablanca 20000",
@@ -102,6 +111,8 @@ export const SEED_AGENCIES: Agency[] = [
     description_ar:
       "أسوموفيت سيكو شركة أمن خاص وحراسة مقرّها مراكش منذ 2005، معتمدة من وزارة الداخلية وحاصلة على شهادة ISO 9001.\n\nخدماتها للشركات والإقامات والتظاهرات: الأمن البشري، الأمن الإلكتروني والمراقبة بالفيديو، الدوريات والتدخل عند الإنذار، تأمين التظاهرات والاستقبال، الهندسة والتكوين. الهاتف الثابت: ‎+212 524 44 66 33.",
     services: ["Sécurité"],
+    offerings_fr: ["Sécurité physique","Sécurité électronique et vidéosurveillance","Patrouille et intervention sur alarme","Sécurité événementielle et accueil","Ingénierie & formation"],
+    offerings_ar: ["الأمن البشري","الأمن الإلكتروني والمراقبة بالفيديو","الدوريات والتدخل عند الإنذار","تأمين التظاهرات والاستقبال","الهندسة والتكوين"],
     phone: "+212 661-077668",
     website: "https://asomovitsecu.com/",
     address: "Résidence Jakar, 55 Bd Mohammed V, Bureau 32, Marrakech",

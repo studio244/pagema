@@ -5,6 +5,7 @@ import { DICTS, type Lang } from "@/lib/i18n";
 import {
   agencyDescription,
   agencyMapQuery,
+  agencyOfferings,
   agencyPath,
   agencySummary,
   mapsEmbed,
@@ -39,6 +40,7 @@ export default function AgencyDetail({
   const city = agency.city ? (DICTS[lang].cityLabels[agency.city] ?? agency.city) : null;
   const summary = agencySummary(agency, lang);
   const description = agencyDescription(agency, lang);
+  const offerings = agencyOfferings(agency, lang);
   const listPath = lang === "ar" ? "/ar/services" : "/services";
   const mapQuery = agencyMapQuery(agency);
 
@@ -122,6 +124,24 @@ export default function AgencyDetail({
                 ))}
               </ul>
             </section>
+
+            {offerings.length > 0 && (
+              <section>
+                <h2 className="font-display text-2xl leading-tight tracking-tight">
+                  {copy.offeringsTitle}
+                </h2>
+                <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {offerings.map((offering) => (
+                    <li
+                      key={offering}
+                      className="border-2 border-ink bg-paper-deep px-4 py-3 font-medium leading-relaxed"
+                    >
+                      {offering}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
             {mapQuery && (
               <section>
