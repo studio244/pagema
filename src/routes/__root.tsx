@@ -90,7 +90,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           content:
             "Décrivez votre besoin, Page.ma le qualifie et vous envoie jusqu'à 3 devis de professionnels vérifiés dans 25 villes du Maroc.",
         },
-        { property: "og:title", content: "Page.ma — Le bon prestataire, vérifié et proche de vous" },
+        {
+          property: "og:title",
+          content: "Page.ma — Le bon prestataire, vérifié et proche de vous",
+        },
         {
           property: "og:description",
           content:

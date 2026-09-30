@@ -19,6 +19,10 @@ import { Route as ApiResendDomainRouteImport } from './routes/api/resend-domain'
 import { Route as ArInscriptionRouteImport } from './routes/ar_.inscription'
 import { Route as ArMarrakechRouteImport } from './routes/ar_.marrakech'
 import { Route as ArProRouteImport } from './routes/ar_.pro'
+import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as ArServicesIndexRouteImport } from './routes/ar_.services.index'
+import { Route as ArServicesSlugRouteImport } from './routes/ar_.services.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -70,6 +74,26 @@ const ArProRoute = ArProRouteImport.update({
   path: '/ar/pro',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
+  id: '/services/',
+  path: '/services/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesSlugRoute = ServicesSlugRouteImport.update({
+  id: '/services/$slug',
+  path: '/services/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArServicesIndexRoute = ArServicesIndexRouteImport.update({
+  id: '/ar_/services/',
+  path: '/ar/services/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArServicesSlugRoute = ArServicesSlugRouteImport.update({
+  id: '/ar_/services/$slug',
+  path: '/ar/services/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -82,6 +106,10 @@ export interface FileRoutesByFullPath {
   '/ar/inscription': typeof ArInscriptionRoute
   '/ar/marrakech': typeof ArMarrakechRoute
   '/ar/pro': typeof ArProRoute
+  '/services/$slug': typeof ServicesSlugRoute
+  '/services/': typeof ServicesIndexRoute
+  '/ar/services/$slug': typeof ArServicesSlugRoute
+  '/ar/services/': typeof ArServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -94,6 +122,10 @@ export interface FileRoutesByTo {
   '/ar/inscription': typeof ArInscriptionRoute
   '/ar/marrakech': typeof ArMarrakechRoute
   '/ar/pro': typeof ArProRoute
+  '/services/$slug': typeof ServicesSlugRoute
+  '/services': typeof ServicesIndexRoute
+  '/ar/services/$slug': typeof ArServicesSlugRoute
+  '/ar/services': typeof ArServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -107,6 +139,10 @@ export interface FileRoutesById {
   '/ar_/inscription': typeof ArInscriptionRoute
   '/ar_/marrakech': typeof ArMarrakechRoute
   '/ar_/pro': typeof ArProRoute
+  '/services/$slug': typeof ServicesSlugRoute
+  '/services/': typeof ServicesIndexRoute
+  '/ar_/services/$slug': typeof ArServicesSlugRoute
+  '/ar_/services/': typeof ArServicesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +157,10 @@ export interface FileRouteTypes {
     | '/ar/inscription'
     | '/ar/marrakech'
     | '/ar/pro'
+    | '/services/$slug'
+    | '/services/'
+    | '/ar/services/$slug'
+    | '/ar/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,6 +173,10 @@ export interface FileRouteTypes {
     | '/ar/inscription'
     | '/ar/marrakech'
     | '/ar/pro'
+    | '/services/$slug'
+    | '/services'
+    | '/ar/services/$slug'
+    | '/ar/services'
   id:
     | '__root__'
     | '/'
@@ -145,6 +189,10 @@ export interface FileRouteTypes {
     | '/ar_/inscription'
     | '/ar_/marrakech'
     | '/ar_/pro'
+    | '/services/$slug'
+    | '/services/'
+    | '/ar_/services/$slug'
+    | '/ar_/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -158,6 +206,10 @@ export interface RootRouteChildren {
   ArInscriptionRoute: typeof ArInscriptionRoute
   ArMarrakechRoute: typeof ArMarrakechRoute
   ArProRoute: typeof ArProRoute
+  ServicesSlugRoute: typeof ServicesSlugRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
+  ArServicesSlugRoute: typeof ArServicesSlugRoute
+  ArServicesIndexRoute: typeof ArServicesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -232,6 +284,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArProRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/': {
+      id: '/services/'
+      path: '/services'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/$slug': {
+      id: '/services/$slug'
+      path: '/services/$slug'
+      fullPath: '/services/$slug'
+      preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ar_/services/': {
+      id: '/ar_/services/'
+      path: '/ar/services'
+      fullPath: '/ar/services/'
+      preLoaderRoute: typeof ArServicesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ar_/services/$slug': {
+      id: '/ar_/services/$slug'
+      path: '/ar/services/$slug'
+      fullPath: '/ar/services/$slug'
+      preLoaderRoute: typeof ArServicesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -246,6 +326,10 @@ const rootRouteChildren: RootRouteChildren = {
   ArInscriptionRoute: ArInscriptionRoute,
   ArMarrakechRoute: ArMarrakechRoute,
   ArProRoute: ArProRoute,
+  ServicesSlugRoute: ServicesSlugRoute,
+  ServicesIndexRoute: ServicesIndexRoute,
+  ArServicesSlugRoute: ArServicesSlugRoute,
+  ArServicesIndexRoute: ArServicesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

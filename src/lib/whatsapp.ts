@@ -8,6 +8,7 @@ const FIRST_MESSAGE: Record<Lang, string> = {
   ar: "مرحباً Page.ma، أريد معرفة المزيد عن خدماتكم.",
 };
 
-export function whatsappUrl(lang: Lang): string {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(FIRST_MESSAGE[lang])}`;
+/** WhatsApp chat with Page.ma, first message pre-filled (default: "I'd like to learn about your services"). */
+export function whatsappUrl(lang: Lang, message: string = FIRST_MESSAGE[lang]): string {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }

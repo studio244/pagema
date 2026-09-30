@@ -28,9 +28,7 @@ export const Route = createFileRoute("/api/resend-domain")({
       // GET: current verification status + DNS records
       GET: async () => {
         const { data: domains } = await resendFetch("/domains");
-        const domain = (domains ?? []).find(
-          (d: { name?: string }) => d.name === DOMAIN,
-        );
+        const domain = (domains ?? []).find((d: { name?: string }) => d.name === DOMAIN);
         if (!domain) {
           return Response.json({ registered: false, domain: DOMAIN });
         }
@@ -41,9 +39,7 @@ export const Route = createFileRoute("/api/resend-domain")({
       POST: async ({ request }) => {
         const body = await request.json().catch(() => ({}));
         const { data: domains } = await resendFetch("/domains");
-        let domain = (domains ?? []).find(
-          (d: { name?: string }) => d.name === DOMAIN,
-        );
+        let domain = (domains ?? []).find((d: { name?: string }) => d.name === DOMAIN);
         if (!domain) {
           domain = await resendFetch("/domains", {
             method: "POST",
