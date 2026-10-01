@@ -55,7 +55,7 @@ export const SEED_AGENCIES: Agency[] = [
   },
   {
     slug: "s4u-safety-for-you",
-    name: "S4U — Safety For You",
+    name: "S4U (Safety For You)",
     logo_url: "/agencies/s4u-safety-for-you.png",
     summary_fr:
       "Société de sécurité privée à Marrakech : gardiennage, vidéosurveillance, rondes, événementiel, protection rapprochée et sécurité incendie.",

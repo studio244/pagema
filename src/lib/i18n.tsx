@@ -4,7 +4,7 @@ export type Lang = "fr" | "ar";
 
 const fr = {
   nav: {
-    home: "Page.ma — retour en haut",
+    home: "Page.ma, retour en haut",
     prelaunch: "Pré-lancement",
     links: [
       { label: "Promesses", href: "#section-processus" },
@@ -68,7 +68,7 @@ const fr = {
   whatsapp: {
     eyebrow: "IA + WHATSAPP",
     title: "Recevez vos opportunités directement sur WhatsApp",
-    body: "Dès qu'un client décrit un besoin qui correspond à votre métier et votre ville, notre IA vous envoie une alerte WhatsApp claire — résumé, localisation et détails du service, en texte et en note vocale.",
+    body: "Dès qu'un client décrit un besoin qui correspond à votre métier et votre ville, notre IA vous envoie une alerte WhatsApp claire : résumé, localisation et détails du service, en texte et en note vocale.",
     features: [
       "Résumé généré par IA en quelques secondes",
       "Localisation et spécifications du service",
@@ -121,7 +121,7 @@ const fr = {
       "Accès anticipé : vous faites partie des premiers prestataires et vous façonnez le produit.",
       "Opportunités reçues rapidement, notamment via WhatsApp.",
       "Processus transparent : pas de commission cachée, pas de boîte noire.",
-      "Santé réservée aux groupes, cliniques et centres — ni médecins indépendants, ni établissements publics.",
+      "Santé réservée aux groupes, cliniques et centres (ni médecins indépendants, ni établissements publics).",
     ],
   },
   partners: { eyebrow: "NOS PARTENAIRES", title: "Ils nous font confiance" },
@@ -133,14 +133,14 @@ const fr = {
     soon: "À venir",
     body: "Le cœur reste humain : un appel pour qualifier chaque besoin. L'IA accélère la recherche, elle ne décide jamais à votre place.",
     features: [
-      { title: "Demande en langage naturel", body: "« 2 agents de sécurité de nuit à Casablanca, avant le 30 » — l'IA structure la demande automatiquement." },
+      { title: "Demande en langage naturel", body: "« 2 agents de sécurité de nuit à Casablanca, avant le 30 » : l'IA structure la demande automatiquement." },
       { title: "Score de correspondance expliqué", body: "Chaque pro proposé reçoit une note sur 100, avec les raisons affichées : métier, ville, taille d'équipe, disponibilité." },
       { title: "Validation humaine obligatoire", body: "Aucune mise en relation n'est envoyée sans accord. L'IA prépare, vous décidez." },
-      { title: "Indice de confiance transparent", body: "Vérification des documents, historique des missions, avis vérifiés — jamais de boîte noire." },
+      { title: "Indice de confiance transparent", body: "Vérification des documents, historique des missions, avis vérifiés. Jamais de boîte noire." },
       { title: "Veille de marché continue", body: "Pour les prestataires : alertes automatiques dès qu'une demande correspond à votre métier et votre ville." },
       { title: "Bouton d'arrêt de l'IA", body: "Un seul clic met en pause toute action automatique sur votre dossier." },
     ],
-    ctaClient: "Accès anticipé — je cherche un pro",
+    ctaClient: "Accès anticipé : je cherche un pro",
   },
   coverage: {
     mapAlt: "Carte du Maroc et réseau des principales villes couvertes, de Tanger à Dakhla",
@@ -190,10 +190,11 @@ const fr = {
     phone: "Téléphone",
     email: "Email",
     city: "Ville",
+    cityPh: "Choisissez votre ville",
     serviceWanted: "Service cherché",
     yourTrade: "Votre métier",
     healthType: "Type d'établissement de santé",
-    healthNote: "Groupes, cliniques et centres uniquement — ni médecins indépendants, ni établissements publics.",
+    healthNote: "Groupes, cliniques et centres uniquement (ni médecins indépendants, ni établissements publics).",
     investProject: "Votre projet d'investissement",
     reProject: "Votre projet immobilier",
     investSpec: "Votre spécialité en investissement",
@@ -209,7 +210,7 @@ const fr = {
     submitRE: "Je veux être mis en relation",
     submitClient: "Je cherche un pro",
     submitPro: "Je m'inscris comme pro",
-    error: "Une erreur est survenue — réessayez.",
+    error: "Une erreur est survenue. Réessayez.",
     footnote: "Gratuit · Sans engagement · Zéro spam",
   },
   lists: {
@@ -231,7 +232,7 @@ export type Dict = typeof fr;
 
 const ar: Dict = {
   nav: {
-    home: "Page.ma — العودة إلى الأعلى",
+    home: "Page.ma: العودة إلى الأعلى",
     prelaunch: "قبل الإطلاق",
     links: [
       { label: "وعودنا", href: "#section-processus" },
@@ -294,7 +295,7 @@ const ar: Dict = {
   whatsapp: {
     eyebrow: "ذكاء اصطناعي + واتساب",
     title: "توصّل بفرصك مباشرة على واتساب",
-    body: "بمجرد أن يصف زبون حاجة تتوافق مع مهنتك ومدينتك، يرسل لك ذكاؤنا الاصطناعي تنبيهًا واضحًا على واتساب — ملخّص، الموقع وتفاصيل الخدمة، نصًّا ورسالة صوتية.",
+    body: "بمجرد أن يصف زبون حاجة تتوافق مع مهنتك ومدينتك، يرسل لك ذكاؤنا الاصطناعي تنبيهًا واضحًا على واتساب: ملخّص، الموقع وتفاصيل الخدمة، نصًّا ورسالة صوتية.",
     features: [
       "ملخّص مُنشأ بالذكاء الاصطناعي في ثوانٍ",
       "الموقع ومواصفات الخدمة",
@@ -347,7 +348,7 @@ const ar: Dict = {
       "وصول مبكر: أنت من أوائل مقدّمي الخدمات وتساهم في بناء المنتج.",
       "فرص تصلك بسرعة، خاصة عبر واتساب.",
       "مسار شفاف: لا عمولات خفية ولا صندوق أسود.",
-      "قطاع الصحة مخصّص للمجموعات والمصحّات والمراكز — لا للأطباء المستقلين ولا للمؤسسات العمومية.",
+      "قطاع الصحة مخصّص للمجموعات والمصحّات والمراكز، لا للأطباء المستقلين ولا للمؤسسات العمومية.",
     ],
   },
   partners: { eyebrow: "شركاؤنا", title: "يثقون بنا" },
@@ -359,14 +360,14 @@ const ar: Dict = {
     soon: "قريباً",
     body: "يبقى الجوهر إنسانياً: مكالمة لتأهيل كل حاجة. الذكاء الاصطناعي يسرّع البحث، لكنه لا يقرّر أبداً مكانك.",
     features: [
-      { title: "طلب باللغة الطبيعية", body: "« حارسا أمن ليليان في الدار البيضاء قبل يوم 30 » — الذكاء الاصطناعي ينظّم الطلب تلقائياً." },
+      { title: "طلب باللغة الطبيعية", body: "« حارسا أمن ليليان في الدار البيضاء قبل يوم 30 »: الذكاء الاصطناعي ينظّم الطلب تلقائياً." },
       { title: "درجة توافق مفسَّرة", body: "كل مهني مقترح يحصل على نقطة من 100 مع الأسباب: المهنة، المدينة، حجم الفريق، التوفّر." },
       { title: "تحقّق بشري إلزامي", body: "لا يُرسل أي ربط دون موافقة. الذكاء الاصطناعي يحضّر، وأنت تقرّر." },
-      { title: "مؤشر ثقة شفاف", body: "التحقق من الوثائق، سجل المهام، آراء موثّقة — بدون صندوق أسود." },
+      { title: "مؤشر ثقة شفاف", body: "التحقق من الوثائق، سجل المهام، آراء موثّقة. بدون صندوق أسود." },
       { title: "رصد مستمر للسوق", body: "لمقدّمي الخدمات: تنبيهات تلقائية فور ظهور طلب يوافق نشاطك ومدينتك." },
       { title: "زر إيقاف الذكاء الاصطناعي", body: "نقرة واحدة توقف أي إجراء تلقائي على ملفك." },
     ],
-    ctaClient: "وصول مبكر — أبحث عن مهني",
+    ctaClient: "وصول مبكر: أبحث عن مهني",
   },
   coverage: {
     mapAlt: "خريطة المغرب وشبكة أهم المدن المغطاة، من طنجة إلى الداخلة",
@@ -412,10 +413,11 @@ const ar: Dict = {
     phone: "الهاتف",
     email: "البريد الإلكتروني",
     city: "المدينة",
+    cityPh: "اختر مدينتك",
     serviceWanted: "الخدمة المطلوبة",
     yourTrade: "نشاطك",
     healthType: "نوع المؤسسة الصحية",
-    healthNote: "المجموعات والمصحّات والمراكز فقط — لا للأطباء المستقلين ولا للمؤسسات العمومية.",
+    healthNote: "المجموعات والمصحّات والمراكز فقط، لا للأطباء المستقلين ولا للمؤسسات العمومية.",
     investProject: "مشروعك الاستثماري",
     reProject: "مشروعك العقاري",
     investSpec: "تخصّصك في الاستثمار",
@@ -431,7 +433,7 @@ const ar: Dict = {
     submitRE: "أريد أن يتم ربطي",
     submitClient: "أبحث عن مهني",
     submitPro: "أسجّل كمهني",
-    error: "حدث خطأ — حاول مرة أخرى.",
+    error: "حدث خطأ، حاول مرة أخرى.",
     footnote: "مجاني · بدون التزام · بدون رسائل مزعجة",
   },
   lists: {

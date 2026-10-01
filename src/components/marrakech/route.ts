@@ -7,10 +7,10 @@ const FONTS =
 
 export function marrakechHead(lang: Lang) {
   const meta = MARRAKECH_COPY[lang].meta;
-  const path = lang === "ar" ? "/ar/marrakech" : "/marrakech";
+  const path = lang === "ar" ? "/ar/annuaire" : "/annuaire";
   const head = seoHead({
     lang,
-    paths: { fr: "/marrakech", ar: "/ar/marrakech" },
+    paths: { fr: "/annuaire", ar: "/ar/annuaire" },
     title: meta.title,
     description: meta.description,
     ogTitle: meta.ogTitle,

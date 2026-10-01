@@ -19,7 +19,7 @@ import {
   Zap,
 } from "lucide-react";
 import { DICTS, type Lang } from "@/lib/i18n";
-import MarrakechForm from "./MarrakechForm";
+import MarrakechForm, { selectSignupTab } from "./MarrakechForm";
 import { MARRAKECH_COPY, type MarrakechCopy } from "./copy";
 
 import heroPhoto from "@/assets/pagema-services-hero-2.webp";
@@ -50,7 +50,7 @@ import footerWordmark from "@/assets/marrakech/group-36.png";
 const PARTNERS = [
   { src: partner1, name: "Asomovit Nettoyage" },
   { src: partner2, name: "Azur Protection" },
-  { src: partner3, name: "S4U — Safety For You" },
+  { src: partner3, name: "S4U (Safety For You)" },
   { src: partner4, name: "Azur Facilities" },
   { src: partner5, name: "Asomovit Sécurité Privée" },
 ];
@@ -79,7 +79,7 @@ const JOURNEY_STYLES = [
   {
     photo: entreprisePhoto,
     tagClass: "bg-[#ffd000] text-[#16181f]",
-    href: "/pro",
+    href: "/annuaire-ai",
     ctaClass: "bg-[#ffd000] text-[#16181f] hover:bg-[#f5c800]",
   },
 ];
@@ -163,7 +163,7 @@ function LangSwitch({ lang, className = "" }: { lang: Lang; className?: string }
   const other = lang === "ar" ? "fr" : "ar";
   return (
     <a
-      href={lang === "ar" ? "/marrakech" : "/ar/marrakech"}
+      href={lang === "ar" ? "/annuaire" : "/ar/annuaire"}
       hrefLang={other}
       lang={other}
       className={`text-sm font-semibold text-[#404653] underline-offset-4 hover:text-[#16181f] hover:underline ${className}`}
@@ -173,7 +173,7 @@ function LangSwitch({ lang, className = "" }: { lang: Lang; className?: string }
   );
 }
 
-function Header({ lang, copy, proHref }: Ctx) {
+function Header({ lang, copy }: Ctx) {
   const [open, setOpen] = useState(false);
   const nav = [
     { label: copy.nav.services, href: "#services" },
@@ -203,12 +203,14 @@ function Header({ lang, copy, proHref }: Ctx) {
           <LangSwitch lang={lang} />
           <a
             href="#inscription"
+            onClick={() => selectSignupTab("client")}
             className={`${pill} border border-[#16181f]/15 bg-white px-4 py-2.5 text-[#16181f] hover:bg-[#16181f]/5`}
           >
             {copy.nav.search}
           </a>
           <a
-            href={proHref}
+            href="#inscription"
+            onClick={() => selectSignupTab("prestataire")}
             className={`${pill} bg-[#ffd000] px-4 py-2.5 text-black hover:bg-[#f5c800]`}
           >
             {copy.nav.partner}
@@ -245,12 +247,22 @@ function Header({ lang, copy, proHref }: Ctx) {
             <div className="mt-3 grid grid-cols-2 gap-2">
               <a
                 href="#inscription"
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  selectSignupTab("client");
+                  setOpen(false);
+                }}
                 className={`${pill} border border-[#16181f]/15 bg-white text-[#16181f]`}
               >
                 {copy.nav.search}
               </a>
-              <a href={proHref} className={`${pill} bg-[#ffd000] text-black`}>
+              <a
+                href="#inscription"
+                onClick={() => {
+                  selectSignupTab("prestataire");
+                  setOpen(false);
+                }}
+                className={`${pill} bg-[#ffd000] text-black`}
+              >
                 {copy.nav.partner}
               </a>
             </div>
@@ -416,7 +428,7 @@ function HowItWorks({ copy, proHref }: Ctx) {
         <div className="mt-12 grid gap-8 lg:grid-cols-2">
           {copy.how.journeys.map((j, index) => {
             const style = JOURNEY_STYLES[index] ?? JOURNEY_STYLES[0]!;
-            const href = style.href === "/pro" ? proHref : style.href;
+            const href = style.href === "/annuaire-ai" ? proHref : style.href;
             return (
               <article
                 key={j.tag}
@@ -718,7 +730,7 @@ export default function Pagema({ lang }: { lang: Lang }) {
   const ctx: Ctx = {
     lang,
     copy: MARRAKECH_COPY[lang],
-    proHref: lang === "ar" ? "/ar/pro" : "/pro",
+    proHref: lang === "ar" ? "/ar/annuaire-ai" : "/annuaire-ai",
   };
   return (
     <div

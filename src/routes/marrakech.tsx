@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import MarrakechPage from "@/components/marrakech/MarrakechPage";
-import { marrakechHead } from "@/components/marrakech/route";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
+// The page moved to /annuaire; keep old links and search results working.
 export const Route = createFileRoute("/marrakech")({
-  staticData: { sitemap: true },
-  head: () => marrakechHead("fr"),
-  component: () => <MarrakechPage lang="fr" />,
+  staticData: { sitemap: false },
+  beforeLoad: () => {
+    throw redirect({ to: "/annuaire", statusCode: 301 });
+  },
 });

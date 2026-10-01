@@ -120,7 +120,7 @@ function ProHeader({
   copy: ProCopy;
   onCta: CtaHandler;
 }) {
-  const other = lang === "ar" ? "/pro" : "/ar/pro";
+  const other = lang === "ar" ? "/annuaire-ai" : "/ar/annuaire-ai";
   const switchHref = variant === "b" ? `${other}?h=b` : other;
   return (
     <header className="sticky top-0 z-40 border-b-2 border-ink bg-paper/95 backdrop-blur">
@@ -246,7 +246,7 @@ function ProSignup({
             labels={labels}
             phoneRef={phoneRef}
             withContact
-            source={`Landing ${lang === "ar" ? "/ar/pro" : "/pro"} — hero ${variant.toUpperCase()}`}
+            source={`Landing ${lang === "ar" ? "/ar/annuaire-ai" : "/annuaire-ai"} — hero ${variant.toUpperCase()}`}
             onStart={() => trackPro("form_start", variant)}
             onSubmitted={(values) => {
               trackPro("form_submit", variant, values);

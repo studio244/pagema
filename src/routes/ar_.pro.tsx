@@ -1,16 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import ProLanding from "@/components/pro/ProLanding";
-import { proHead, validateProSearch } from "@/components/pro/route";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
-// "ar_" keeps this page out of the /ar homepage layout: the URL is /ar/pro.
+// The page moved to /ar/annuaire-ai; keep old links, ads (?h=b) and search results working.
 export const Route = createFileRoute("/ar_/pro")({
-  staticData: { sitemap: true },
-  validateSearch: validateProSearch,
-  head: () => proHead("ar"),
-  component: ProAr,
+  staticData: { sitemap: false },
+  beforeLoad: ({ location }) => {
+    throw redirect({ href: `/ar/annuaire-ai${location.searchStr}`, statusCode: 301 });
+  },
 });
-
-function ProAr() {
-  const { h } = Route.useSearch();
-  return <ProLanding lang="ar" variant={h === "b" ? "b" : "a"} />;
-}

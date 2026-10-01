@@ -10,12 +10,16 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnnuaireRouteImport } from './routes/annuaire'
+import { Route as AnnuaireAiRouteImport } from './routes/annuaire-ai'
 import { Route as ArRouteImport } from './routes/ar'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as MarrakechRouteImport } from './routes/marrakech'
 import { Route as ProRouteImport } from './routes/pro'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ApiResendDomainRouteImport } from './routes/api/resend-domain'
+import { Route as ArAnnuaireRouteImport } from './routes/ar_.annuaire'
+import { Route as ArAnnuaireAiRouteImport } from './routes/ar_.annuaire-ai'
 import { Route as ArInscriptionRouteImport } from './routes/ar_.inscription'
 import { Route as ArMarrakechRouteImport } from './routes/ar_.marrakech'
 import { Route as ArProRouteImport } from './routes/ar_.pro'
@@ -27,6 +31,16 @@ import { Route as ArServicesSlugRouteImport } from './routes/ar_.services.$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnnuaireRoute = AnnuaireRouteImport.update({
+  id: '/annuaire',
+  path: '/annuaire',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnnuaireAiRoute = AnnuaireAiRouteImport.update({
+  id: '/annuaire-ai',
+  path: '/annuaire-ai',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArRoute = ArRouteImport.update({
@@ -57,6 +71,16 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ApiResendDomainRoute = ApiResendDomainRouteImport.update({
   id: '/api/resend-domain',
   path: '/api/resend-domain',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArAnnuaireRoute = ArAnnuaireRouteImport.update({
+  id: '/ar_/annuaire',
+  path: '/ar/annuaire',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArAnnuaireAiRoute = ArAnnuaireAiRouteImport.update({
+  id: '/ar_/annuaire-ai',
+  path: '/ar/annuaire-ai',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArInscriptionRoute = ArInscriptionRouteImport.update({
@@ -97,12 +121,16 @@ const ArServicesSlugRoute = ArServicesSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/annuaire': typeof AnnuaireRoute
+  '/annuaire-ai': typeof AnnuaireAiRoute
   '/ar': typeof ArRoute
   '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
   '/pro': typeof ProRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/resend-domain': typeof ApiResendDomainRoute
+  '/ar/annuaire': typeof ArAnnuaireRoute
+  '/ar/annuaire-ai': typeof ArAnnuaireAiRoute
   '/ar/inscription': typeof ArInscriptionRoute
   '/ar/marrakech': typeof ArMarrakechRoute
   '/ar/pro': typeof ArProRoute
@@ -113,12 +141,16 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/annuaire': typeof AnnuaireRoute
+  '/annuaire-ai': typeof AnnuaireAiRoute
   '/ar': typeof ArRoute
   '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
   '/pro': typeof ProRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/resend-domain': typeof ApiResendDomainRoute
+  '/ar/annuaire': typeof ArAnnuaireRoute
+  '/ar/annuaire-ai': typeof ArAnnuaireAiRoute
   '/ar/inscription': typeof ArInscriptionRoute
   '/ar/marrakech': typeof ArMarrakechRoute
   '/ar/pro': typeof ArProRoute
@@ -130,12 +162,16 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/annuaire': typeof AnnuaireRoute
+  '/annuaire-ai': typeof AnnuaireAiRoute
   '/ar': typeof ArRoute
   '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
   '/pro': typeof ProRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/resend-domain': typeof ApiResendDomainRoute
+  '/ar_/annuaire': typeof ArAnnuaireRoute
+  '/ar_/annuaire-ai': typeof ArAnnuaireAiRoute
   '/ar_/inscription': typeof ArInscriptionRoute
   '/ar_/marrakech': typeof ArMarrakechRoute
   '/ar_/pro': typeof ArProRoute
@@ -148,12 +184,16 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/annuaire'
+    | '/annuaire-ai'
     | '/ar'
     | '/inscription'
     | '/marrakech'
     | '/pro'
     | '/sitemap.xml'
     | '/api/resend-domain'
+    | '/ar/annuaire'
+    | '/ar/annuaire-ai'
     | '/ar/inscription'
     | '/ar/marrakech'
     | '/ar/pro'
@@ -164,12 +204,16 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/annuaire'
+    | '/annuaire-ai'
     | '/ar'
     | '/inscription'
     | '/marrakech'
     | '/pro'
     | '/sitemap.xml'
     | '/api/resend-domain'
+    | '/ar/annuaire'
+    | '/ar/annuaire-ai'
     | '/ar/inscription'
     | '/ar/marrakech'
     | '/ar/pro'
@@ -180,12 +224,16 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/annuaire'
+    | '/annuaire-ai'
     | '/ar'
     | '/inscription'
     | '/marrakech'
     | '/pro'
     | '/sitemap.xml'
     | '/api/resend-domain'
+    | '/ar_/annuaire'
+    | '/ar_/annuaire-ai'
     | '/ar_/inscription'
     | '/ar_/marrakech'
     | '/ar_/pro'
@@ -197,12 +245,16 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnnuaireRoute: typeof AnnuaireRoute
+  AnnuaireAiRoute: typeof AnnuaireAiRoute
   ArRoute: typeof ArRoute
   InscriptionRoute: typeof InscriptionRoute
   MarrakechRoute: typeof MarrakechRoute
   ProRoute: typeof ProRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiResendDomainRoute: typeof ApiResendDomainRoute
+  ArAnnuaireRoute: typeof ArAnnuaireRoute
+  ArAnnuaireAiRoute: typeof ArAnnuaireAiRoute
   ArInscriptionRoute: typeof ArInscriptionRoute
   ArMarrakechRoute: typeof ArMarrakechRoute
   ArProRoute: typeof ArProRoute
@@ -219,6 +271,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/annuaire': {
+      id: '/annuaire'
+      path: '/annuaire'
+      fullPath: '/annuaire'
+      preLoaderRoute: typeof AnnuaireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/annuaire-ai': {
+      id: '/annuaire-ai'
+      path: '/annuaire-ai'
+      fullPath: '/annuaire-ai'
+      preLoaderRoute: typeof AnnuaireAiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ar': {
@@ -261,6 +327,20 @@ declare module '@tanstack/react-router' {
       path: '/api/resend-domain'
       fullPath: '/api/resend-domain'
       preLoaderRoute: typeof ApiResendDomainRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ar_/annuaire': {
+      id: '/ar_/annuaire'
+      path: '/ar/annuaire'
+      fullPath: '/ar/annuaire'
+      preLoaderRoute: typeof ArAnnuaireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ar_/annuaire-ai': {
+      id: '/ar_/annuaire-ai'
+      path: '/ar/annuaire-ai'
+      fullPath: '/ar/annuaire-ai'
+      preLoaderRoute: typeof ArAnnuaireAiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ar_/inscription': {
@@ -317,12 +397,16 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnnuaireRoute: AnnuaireRoute,
+  AnnuaireAiRoute: AnnuaireAiRoute,
   ArRoute: ArRoute,
   InscriptionRoute: InscriptionRoute,
   MarrakechRoute: MarrakechRoute,
   ProRoute: ProRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiResendDomainRoute: ApiResendDomainRoute,
+  ArAnnuaireRoute: ArAnnuaireRoute,
+  ArAnnuaireAiRoute: ArAnnuaireAiRoute,
   ArInscriptionRoute: ArInscriptionRoute,
   ArMarrakechRoute: ArMarrakechRoute,
   ArProRoute: ArProRoute,

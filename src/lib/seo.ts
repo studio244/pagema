@@ -9,11 +9,11 @@ export const CONTACT_PHONE = "+212664272854";
 const OG_IMAGE: Record<Lang, { src: string; alt: string }> = {
   fr: {
     src: "/og/pagema-fr.jpg",
-    alt: "Page.ma — des prestataires vérifiés près de chez vous, au Maroc",
+    alt: "Page.ma : des prestataires vérifiés près de chez vous, au Maroc",
   },
   ar: {
     src: "/og/pagema-ar.jpg",
-    alt: "Page.ma — مقدّمو خدمات موثوقون بالقرب منك في المغرب",
+    alt: "Page.ma: مقدّمو خدمات موثوقون بالقرب منك في المغرب",
   },
 };
 
@@ -36,7 +36,7 @@ export function seoHead({
   jsonLd = [],
 }: {
   lang: Lang;
-  /** Path of the page in each language, e.g. { fr: "/pro", ar: "/ar/pro" }. */
+  /** Path of the page in each language, e.g. { fr: "/annuaire-ai", ar: "/ar/annuaire-ai" }. */
   paths: Record<Lang, string>;
   title: string;
   description: string;

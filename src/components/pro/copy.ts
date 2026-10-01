@@ -1,12 +1,12 @@
 import type { Lang } from "@/lib/i18n";
 import type { HeroVariant } from "@/lib/pro-tracking";
 
-/** All text of the /pro and /ar/pro provider landing. */
+/** All text of the /annuaire-ai and /ar/annuaire-ai provider landing. */
 const fr = {
   meta: {
-    title: "Page.ma Pro — Trouvez de nouveaux clients à Marrakech",
+    title: "Page.ma Pro | Trouvez de nouveaux clients à Marrakech",
     description:
-      "Professionnels de Marrakech : recevez des demandes de clients sur WhatsApp. 1 mois offert aux premiers inscrits — 0 MAD, sans carte bancaire, sans engagement.",
+      "Professionnels de Marrakech : recevez des demandes de clients sur WhatsApp. 1 mois offert aux premiers inscrits : 0 MAD, sans carte bancaire, sans engagement.",
     ogDescription:
       "Recevez des demandes correspondant à votre activité directement sur WhatsApp. 1 mois offert aux premiers professionnels inscrits.",
     locale: "fr_MA",
@@ -28,7 +28,7 @@ const fr = {
   subtitle: "Recevez des demandes correspondant à votre activité directement sur WhatsApp.",
   proof: "professionnels déjà préinscrits à Marrakech",
   leadAlt:
-    "Exemple de demande reçue sur WhatsApp : Piscine — entretien mensuel à Targa, Marrakech, budget indicatif 800–1 200 MAD par mois.",
+    "Exemple de demande reçue sur WhatsApp : Piscine, entretien mensuel à Targa, Marrakech, budget indicatif 800–1 200 MAD par mois.",
   leadCaption: "Exemple de demande reçue sur WhatsApp",
   signupEyebrow: "Inscription gratuite",
   signupTitle: "Votre place en 3 étapes",
@@ -65,7 +65,7 @@ const fr = {
     doneBody:
       "Votre mois offert est réservé. On vous contacte sur WhatsApp pour valider votre activité avant le lancement du 1er novembre.",
     placesFull: (activity: string) =>
-      `Places offertes épuisées en ${activity} — l'inscription reste gratuite.`,
+      `Places offertes épuisées en ${activity}, mais l'inscription reste gratuite.`,
     placesLeft: (places: string, activity: string) => `${places} en ${activity} à Marrakech.`,
   },
   places: {
@@ -86,9 +86,9 @@ export type ProCopy = typeof fr;
 
 const ar: ProCopy = {
   meta: {
-    title: "Page.ma Pro — اعثر على زبناء جدد في مراكش",
+    title: "Page.ma Pro | اعثر على زبناء جدد في مراكش",
     description:
-      "مهنيو مراكش: توصّلوا بطلبات زبناء تناسب نشاطكم مباشرة على واتساب. شهر مجاني لأوائل المسجّلين — 0 درهم، بدون بطاقة بنكية، بدون التزام.",
+      "مهنيو مراكش: توصّلوا بطلبات زبناء تناسب نشاطكم مباشرة على واتساب. شهر مجاني لأوائل المسجّلين: 0 درهم، بدون بطاقة بنكية، بدون التزام.",
     ogDescription:
       "توصّل بطلبات تناسب نشاطك مباشرة على واتساب. شهر مجاني لأوائل المهنيين المسجّلين.",
     locale: "ar_MA",
@@ -104,7 +104,7 @@ const ar: ProCopy = {
   subtitle: "توصّل بطلبات تناسب نشاطك مباشرة على واتساب.",
   proof: "مهنيون سجّلوا مسبقاً في مراكش",
   leadAlt:
-    "مثال على طلب يصل عبر واتساب: مسبح — صيانة شهرية في تاركة، مراكش، ميزانية تقديرية 800–1200 درهم في الشهر.",
+    "مثال على طلب يصل عبر واتساب: مسبح، صيانة شهرية في تاركة، مراكش، ميزانية تقديرية 800–1200 درهم في الشهر.",
   leadCaption: "مثال على طلب يصلك عبر واتساب",
   signupEyebrow: "تسجيل مجاني",
   signupTitle: "مكانك في 3 خطوات",
@@ -131,7 +131,7 @@ const ar: ProCopy = {
     doneTitle: "مرحباً بك في Page.ma.",
     doneBody: "تم حجز شهرك المجاني. سنتواصل معك عبر واتساب للتحقق من نشاطك قبل الإطلاق في 1 نونبر.",
     placesFull: (activity: string) =>
-      `نفدت الأماكن المجانية في ${activity} — التسجيل يبقى مجانياً.`,
+      `نفدت الأماكن المجانية في ${activity}، لكن التسجيل يبقى مجانياً.`,
     placesLeft: (places: string, activity: string) => `${places} في ${activity} بمراكش.`,
   },
   places: {

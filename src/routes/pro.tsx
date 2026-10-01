@@ -1,15 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import ProLanding from "@/components/pro/ProLanding";
-import { proHead, validateProSearch } from "@/components/pro/route";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
+// The page moved to /annuaire-ai; keep old links, ads (?h=b) and search results working.
 export const Route = createFileRoute("/pro")({
-  staticData: { sitemap: true },
-  validateSearch: validateProSearch,
-  head: () => proHead("fr"),
-  component: ProFr,
+  staticData: { sitemap: false },
+  beforeLoad: ({ location }) => {
+    throw redirect({ href: `/annuaire-ai${location.searchStr}`, statusCode: 301 });
+  },
 });
-
-function ProFr() {
-  const { h } = Route.useSearch();
-  return <ProLanding lang="fr" variant={h === "b" ? "b" : "a"} />;
-}

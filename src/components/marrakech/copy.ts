@@ -1,12 +1,12 @@
 import type { Lang } from "@/lib/i18n";
 
-/** All text of the /marrakech and /ar/marrakech landing. Service keys stay French (saved values). */
+/** All text of the /annuaire and /ar/annuaire landing. Service keys stay French (saved values). */
 const fr = {
   meta: {
-    title: "Page.ma Marrakech — Trouvez le bon service à Marrakech",
+    title: "Page.ma Marrakech | Trouvez le bon service à Marrakech",
     description:
       "Sécurité, nettoyage, jardinage, piscine : Page.ma met en relation clients et entreprises de services vérifiées à Marrakech.",
-    ogTitle: "Page.ma Marrakech — Trouvez le bon service",
+    ogTitle: "Page.ma Marrakech | Trouvez le bon service",
     ogDescription:
       "Mise en relation avec des entreprises de services vérifiées à Marrakech. Inscription gratuite, sans engagement.",
     locale: "fr_MA",
@@ -19,7 +19,7 @@ const fr = {
     contact: "Contact",
     search: "Je cherche",
     partner: "Devenir partenaire",
-    top: "Page.ma — haut de page",
+    top: "Page.ma, haut de page",
     open: "Ouvrir le menu",
     close: "Fermer le menu",
     main: "Navigation principale",
@@ -144,7 +144,7 @@ const fr = {
   signup: {
     title: "Vous êtes intéressé(e) ?",
     titleAccent: "Dites-le nous.",
-    body: "Dites-nous ce que vous cherchez ou présentez ce que vous proposez — rejoignez la plateforme et nous vous recontacterons.",
+    body: "Dites-nous ce que vous cherchez ou présentez ce que vous proposez. Rejoignez la plateforme et nous vous recontacterons.",
   },
   footer: {
     about: "Plateforme marocaine de mise en relation entre entreprises et prestataires vérifiés.",
@@ -162,45 +162,6 @@ const fr = {
   form: {
     tabClient: "Je cherche un prestataire",
     tabPro: "Je suis prestataire",
-    infoClient:
-      "Pour les entreprises et particuliers : nous réunissons vos informations pour qualifier la demande et la transmettre aux bons professionnels de votre ville.",
-    infoPro:
-      "Pour les entreprises de services : présentez votre activité, nous vous recontactons pour valider votre profil avant le lancement.",
-    nameClient: "NOM & PRÉNOM *",
-    namePro: "SOCIÉTÉ / CONTACT *",
-    namePhClient: "Prénom Nom",
-    namePhPro: "Nom de la société",
-    whenClient: "DATE/HEURE SOUHAITÉE",
-    whenPro: "ZONE D'INTERVENTION",
-    whenPhClient: "Ex. : semaine prochaine, le matin",
-    whenPhPro: "Ex. : Marrakech et environs",
-    optional: "Optionnel",
-    phone: "TÉLÉPHONE *",
-    phoneError: "Numéro marocain attendu, ex. 06 12 34 56 78.",
-    email: "EMAIL *",
-    city: "VILLE *",
-    cityPh: "Saisissez votre ville",
-    defaultCity: "Marrakech",
-    servicesClient: "SERVICES QUI VOUS INTÉRESSENT *",
-    servicesPro: "VOS ACTIVITÉS *",
-    servicesError: "Choisissez au moins un service.",
-    detailsClient: "DÉCRIVEZ VOTRE BESOIN",
-    detailsPro: "DÉCRIVEZ VOTRE ACTIVITÉ",
-    detailsPhClient: "Localisation, fréquence, surface à traiter, équipes requises...",
-    detailsPhPro: "Services proposés, taille de l'équipe, références...",
-    consent:
-      "J'accepte que les données collectées par Page.ma soient utilisées pour la mise en relation et conformément aux règles de confidentialité.",
-    consentError: "Merci de cocher cette case pour continuer.",
-    submitClient: "Je veux recevoir des devis",
-    submitPro: "Je rejoins Page.ma",
-    sending: "Envoi…",
-    error: "L'envoi n'a pas abouti. Vérifiez vos informations et réessayez.",
-    note: "Sans engagement. Vos données restent confidentielles et ne sont jamais revendues.",
-    received: "Reçu ✓",
-    doneClient: "On s'occupe de trouver vos pros.",
-    donePro: "Bienvenue dans le réseau Page.ma.",
-    doneBodyClient: "On vous rappelle rapidement pour valider votre besoin.",
-    doneBodyPro: "On vous contacte pour vérifier votre société avant le lancement.",
   },
 };
 
@@ -208,10 +169,10 @@ export type MarrakechCopy = typeof fr;
 
 const ar: MarrakechCopy = {
   meta: {
-    title: "Page.ma مراكش — اعثر على الخدمة المناسبة في مراكش",
+    title: "Page.ma مراكش | اعثر على الخدمة المناسبة في مراكش",
     description:
       "الأمن، النظافة، البستنة، المسابح: Page.ma تربط الزبناء بشركات خدمات موثوقة في مراكش.",
-    ogTitle: "Page.ma مراكش — اعثر على الخدمة المناسبة",
+    ogTitle: "Page.ma مراكش | اعثر على الخدمة المناسبة",
     ogDescription: "ربط مباشر بشركات خدمات موثوقة في مراكش. تسجيل مجاني وبدون التزام.",
     locale: "ar_MA",
   },
@@ -223,7 +184,7 @@ const ar: MarrakechCopy = {
     contact: "اتصل بنا",
     search: "أبحث عن خدمة",
     partner: "كن شريكاً",
-    top: "Page.ma — العودة إلى الأعلى",
+    top: "Page.ma: العودة إلى الأعلى",
     open: "فتح القائمة",
     close: "إغلاق القائمة",
     main: "التنقل الرئيسي",
@@ -330,7 +291,7 @@ const ar: MarrakechCopy = {
   signup: {
     title: "هل أنت مهتم؟",
     titleAccent: "أخبرنا.",
-    body: "أخبرنا بما تبحث عنه أو عرّفنا بما تقدّمه — انضم إلى المنصة وسنعاود الاتصال بك.",
+    body: "أخبرنا بما تبحث عنه أو عرّفنا بما تقدّمه، وانضم إلى المنصة وسنعاود الاتصال بك.",
   },
   footer: {
     about: "منصة مغربية للربط بين الشركات ومقدّمي الخدمات الموثوقين.",
@@ -348,43 +309,6 @@ const ar: MarrakechCopy = {
   form: {
     tabClient: "أبحث عن مقدّم خدمة",
     tabPro: "أنا مقدّم خدمة",
-    infoClient:
-      "للشركات والأفراد: نجمع معلوماتك لتأهيل الطلب وإرساله إلى المهنيين المناسبين في مدينتك.",
-    infoPro: "لشركات الخدمات: عرّفنا بنشاطك، وسنتواصل معك للتحقق من ملفك قبل الإطلاق.",
-    nameClient: "الاسم الكامل *",
-    namePro: "الشركة / الشخص المسؤول *",
-    namePhClient: "الاسم الشخصي والعائلي",
-    namePhPro: "اسم الشركة",
-    whenClient: "التاريخ / الوقت المرغوب",
-    whenPro: "منطقة التدخّل",
-    whenPhClient: "مثال: الأسبوع المقبل، صباحاً",
-    whenPhPro: "مثال: مراكش ونواحيها",
-    optional: "اختياري",
-    phone: "الهاتف *",
-    phoneError: "أدخل رقماً مغربياً صحيحاً، مثلاً 06 12 34 56 78.",
-    email: "البريد الإلكتروني *",
-    city: "المدينة *",
-    cityPh: "أدخل مدينتك",
-    defaultCity: "مراكش",
-    servicesClient: "الخدمات التي تهمّك *",
-    servicesPro: "أنشطتك *",
-    servicesError: "اختر خدمة واحدة على الأقل.",
-    detailsClient: "صِف حاجتك",
-    detailsPro: "صِف نشاطك",
-    detailsPhClient: "الموقع، التكرار، المساحة، الفرق المطلوبة...",
-    detailsPhPro: "الخدمات المقدّمة، حجم الفريق، المراجع...",
-    consent: "أوافق على استعمال Page.ma للمعطيات المجمّعة من أجل الربط وفقاً لقواعد الخصوصية.",
-    consentError: "المرجو تحديد هذه الخانة للمتابعة.",
-    submitClient: "أريد التوصّل بعروض الأسعار",
-    submitPro: "أنضم إلى Page.ma",
-    sending: "جارٍ الإرسال…",
-    error: "تعذّر الإرسال. تحقّق من معلوماتك وأعد المحاولة.",
-    note: "بدون التزام. تبقى معطياتك سرّية ولا تُباع أبداً.",
-    received: "تم الاستلام ✓",
-    doneClient: "سنتكفّل بإيجاد المهنيين المناسبين لك.",
-    donePro: "مرحباً بك في شبكة Page.ma.",
-    doneBodyClient: "سنعاود الاتصال بك قريباً للتحقق من حاجتك.",
-    doneBodyPro: "سنتواصل معك للتحقق من شركتك قبل الإطلاق.",
   },
 };
 

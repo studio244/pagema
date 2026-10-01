@@ -3,10 +3,10 @@ import type { Lang } from "@/lib/i18n";
 /** Text of /services (agency directory) and /services/<slug> (agency page), FR and AR. */
 const fr = {
   meta: {
-    title: "Services & agences au Maroc — Page.ma",
+    title: "Services & agences au Maroc | Page.ma",
     description:
       "Sécurité, nettoyage, jardinage, piscine… Choisissez un service et trouvez les agences qui le proposent au Maroc, avec leurs coordonnées.",
-    agencyTitle: (name: string) => `${name} — Services et contact | Page.ma`,
+    agencyTitle: (name: string) => `${name} | Services et contact | Page.ma`,
     agencyDescription: (name: string, services: string) =>
       `${name} : ${services}. Présentation, services proposés et coordonnées de l'agence sur Page.ma.`,
     locale: "fr_MA",
@@ -67,10 +67,10 @@ export type AgenciesCopy = typeof fr;
 
 const ar: AgenciesCopy = {
   meta: {
-    title: "الخدمات والوكالات في المغرب — Page.ma",
+    title: "الخدمات والوكالات في المغرب | Page.ma",
     description:
       "الأمن، النظافة، البستنة، المسابح… اختر خدمة واعثر على الوكالات التي تقدّمها في المغرب، مع معلومات الاتصال بها.",
-    agencyTitle: (name: string) => `${name} — الخدمات والاتصال | Page.ma`,
+    agencyTitle: (name: string) => `${name} | الخدمات والاتصال | Page.ma`,
     agencyDescription: (name: string, services: string) =>
       `${name}: ${services}. تقديم الوكالة وخدماتها ومعلومات الاتصال بها على Page.ma.`,
     locale: "ar_MA",

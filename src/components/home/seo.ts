@@ -3,14 +3,14 @@ import { SITE_NAME, SITE_URL, organizationJsonLd, seoHead } from "@/lib/seo";
 
 const META = {
   fr: {
-    title: "Page.ma — Visibilité et clients pour les prestataires au Maroc",
+    title: "Page.ma | Visibilité et clients pour les prestataires au Maroc",
     description:
       "Sécurité, nettoyage, jardinage, piscine… Page.ma rend les prestataires visibles et leur envoie des demandes de clients sur WhatsApp. 25 villes du Maroc.",
     ogDescription:
       "La plateforme de visibilité et de génération de leads pour les prestataires au Maroc. Pré-inscription gratuite, sans engagement.",
   },
   ar: {
-    title: "Page.ma — منصة الظهور وتوليد الفرص لمقدّمي الخدمات في المغرب",
+    title: "Page.ma | منصة الظهور وتوليد الفرص لمقدّمي الخدمات في المغرب",
     description:
       "الأمن، النظافة، البستنة، المسابح… Page.ma يجعل مقدّمي الخدمات مرئيين ويرسل لهم طلبات الزبناء على واتساب. 25 مدينة في المغرب.",
     ogDescription:

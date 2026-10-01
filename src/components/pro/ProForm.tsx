@@ -7,6 +7,7 @@ import { CATEGORIES, COVERAGE_CITIES } from "@/lib/catalog";
 import { normalizeMoroccanPhone } from "@/lib/phone";
 import { OTHER, OTHER_MAX_LENGTH, OTHER_TEXT, withOther } from "@/lib/other-service";
 import type { ProCopy } from "./copy";
+import { FORM_SKINS, type FormSkinName } from "@/components/form-skin";
 import { DEFAULT_CITY, placesText, remainingPlaces, type Labels } from "./places";
 
 export function Reassurance({ copy, className = "" }: { copy: ProCopy; className?: string }) {
@@ -37,6 +38,7 @@ export function ProForm({
   onStart,
   onSubmitted,
   withContact = false,
+  skin = "zine",
   className = "",
 }: {
   lang: Lang;
@@ -49,6 +51,8 @@ export function ProForm({
   onSubmitted?: (values: { category: string; city: string }) => void;
   /** Also ask for name and email (/pro and /inscription). */
   withContact?: boolean;
+  /** "marrakech" restyles the form for /annuaire; the content is the same. */
+  skin?: FormSkinName;
   className?: string;
 }) {
   const { copy } = labels;
@@ -61,10 +65,15 @@ export function ProForm({
   const [phoneError, setPhoneError] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
 
+  // The /pro look stays as it was; other skins come from the shared form skins.
+  const s = skin === "zine" ? null : FORM_SKINS[skin];
   const inputClass =
+    s?.input ??
     "w-full bg-paper border-2 border-ink px-3 py-3 text-base placeholder:text-ink-soft focus:outline-none focus:ring-2 focus:ring-terra/50";
   const labelClass =
+    s?.label ??
     "block font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-ink-soft mb-1.5";
+  const noteClass = s ? "mt-1.5 text-xs font-medium text-[#b83e26]" : "mt-1.5 text-sm font-semibold text-terra-deep";
 
   const otherText = OTHER_TEXT[lang];
   const remaining =
@@ -116,23 +125,29 @@ export function ProForm({
   }
 
   return (
-    <div className={`relative border-2 border-ink bg-paper p-6 sm:p-8 shadow-cut ${className}`}>
+    <div
+      className={`${s?.card ?? "relative border-2 border-ink bg-paper p-6 sm:p-8 shadow-cut"} ${className}`}
+    >
       {status === "done" ? (
         <div className="py-6 text-center" role="status">
-          <span className="font-mono text-xs font-semibold uppercase tracking-wide text-terra-deep">
+          <span
+            className={s?.doneTag ?? "font-mono text-xs font-semibold uppercase tracking-wide text-terra-deep"}
+          >
             {copy.form.doneTag}
           </span>
-          <p className="mt-3 font-display text-3xl leading-tight tracking-tight">
+          <p className={s?.doneTitle ?? "mt-3 font-display text-3xl leading-tight tracking-tight"}>
             {copy.form.doneTitle}
           </p>
-          <p className="mt-3 leading-relaxed text-ink-soft">{copy.form.doneBody}</p>
+          <p className={s?.doneBody ?? "mt-3 leading-relaxed text-ink-soft"}>{copy.form.doneBody}</p>
         </div>
       ) : (
         // First real input (not mere focus: CTA clicks focus the phone field programmatically).
         <form className="space-y-5" onSubmit={handleSubmit} onChange={onStart}>
           <div>
-            <p className="font-display text-2xl leading-tight tracking-tight">{copy.form.title}</p>
-            <Reassurance copy={copy} className="mt-2 text-terra-deep" />
+            <p className={s?.title ?? "font-display text-2xl leading-tight tracking-tight"}>
+              {copy.form.title}
+            </p>
+            <Reassurance copy={copy} className={s ? "mt-2 text-[#e0b400]" : "mt-2 text-terra-deep"} />
           </div>
 
           {withContact && (
@@ -177,7 +192,7 @@ export function ProForm({
               }}
             />
             {phoneError && (
-              <p id="pro-phone-error" className="mt-1.5 text-sm font-semibold text-terra-deep">
+              <p id="pro-phone-error" className={noteClass}>
                 {copy.form.phoneError}
               </p>
             )}
@@ -244,7 +259,7 @@ export function ProForm({
               </div>
             )}
             {remaining !== null && (
-              <p className="mt-1.5 text-sm font-semibold text-terra-deep">
+              <p className={noteClass}>
                 {remaining === 0
                   ? copy.form.placesFull(activityInline)
                   : copy.form.placesLeft(placesText(copy, remaining), activityInline)}
@@ -274,13 +289,16 @@ export function ProForm({
           <button
             type="submit"
             disabled={status === "sending"}
-            className="w-full bg-terra text-paper border-2 border-ink px-6 py-4 font-display text-xl leading-tight tracking-tight lift disabled:opacity-60"
+            className={
+              s?.button ??
+              "w-full bg-terra text-paper border-2 border-ink px-6 py-4 font-display text-xl leading-tight tracking-tight lift disabled:opacity-60"
+            }
           >
             {status === "sending" ? copy.form.sending : copy.cta}
           </button>
 
           {status === "error" && (
-            <p className="text-sm font-semibold text-terra-deep" role="alert">
+            <p className={s?.error ?? "text-sm font-semibold text-terra-deep"} role="alert">
               {copy.form.error}
             </p>
           )}
