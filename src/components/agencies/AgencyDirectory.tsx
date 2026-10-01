@@ -7,6 +7,7 @@ import { whatsappUrl } from "@/lib/whatsapp";
 import { Eyebrow, WhatsAppIcon } from "@/components/brand";
 import { AGENCIES_COPY, type AgenciesCopy } from "./copy";
 import { AgenciesLayout, AgencyBadges, AgencyLogo } from "./AgenciesLayout";
+import { agencyServiceImage } from "./agency-image";
 
 /** /services and /ar/services: every service with its agency count, then the matching agencies. */
 export default function AgencyDirectory({
@@ -150,11 +151,7 @@ function AgencyCard({
 }) {
   const summary = agencySummary(agency, lang);
   const city = agency.city ? (DICTS[lang].cityLabels[agency.city] ?? agency.city) : null;
-  const image =
-    AGENCY_SERVICE_IMAGES[agency.slug] ??
-    (agency.services.includes("Nettoyage")
-      ? "/agencies/asomovit-nettoyage-service.jpg"
-      : "/agencies/azur-protection-service.jpg");
+  const image = agencyServiceImage(agency);
   return (
     <Link
       to={lang === "ar" ? "/ar/services/$slug" : "/services/$slug"}
@@ -204,14 +201,6 @@ function AgencyCard({
     </Link>
   );
 }
-
-const AGENCY_SERVICE_IMAGES: Record<string, string> = {
-  "asomovit-nettoyage": "/agencies/asomovit-nettoyage-service.jpg",
-  "azur-protection": "/agencies/azur-protection-service.jpg",
-  "s4u-safety-for-you": "/agencies/s4u-safety-for-you-service.jpg",
-  "azur-facilities": "/agencies/azur-facilities-service.jpg",
-  "asomovit-securite-privee": "/agencies/asomovit-securite-privee-service.jpg",
-};
 
 function EmptyState({
   lang,

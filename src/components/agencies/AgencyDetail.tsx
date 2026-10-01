@@ -19,6 +19,7 @@ import { trackAgencyContact, type ContactChannel } from "@/lib/agency-tracking";
 import { WhatsAppIcon } from "@/components/brand";
 import { AGENCIES_COPY, type AgenciesCopy } from "./copy";
 import { AgenciesLayout, AgencyBadges, AgencyLogo } from "./AgenciesLayout";
+import { agencyOfferingImage, agencyServiceImage } from "./agency-image";
 
 /** /services/<slug> and /ar/services/<slug>: everything about one agency. */
 export default function AgencyDetail({
@@ -74,6 +75,16 @@ export default function AgencyDetail({
             {summary && <p className="mt-3 max-w-2xl text-lg leading-relaxed">{summary}</p>}
           </div>
         </header>
+
+        <figure className="mt-6 overflow-hidden border-2 border-ink bg-paper-deep shadow-cut">
+          <img
+            src={agencyServiceImage(agency)}
+            alt=""
+            aria-hidden="true"
+            decoding="async"
+            className="block aspect-[16/7] w-full object-cover sm:aspect-[2.5/1]"
+          />
+        </figure>
 
         <dl className="mt-6 grid grid-cols-2 border-2 border-ink bg-ink text-paper">
           <Stat
@@ -134,9 +145,17 @@ export default function AgencyDetail({
                   {offerings.map((offering) => (
                     <li
                       key={offering}
-                      className="border-2 border-ink bg-paper-deep px-4 py-3 font-medium leading-relaxed"
+                      className="overflow-hidden border-2 border-ink bg-paper-deep font-medium leading-relaxed"
                     >
-                      {offering}
+                      <img
+                        src={agencyOfferingImage(agency, offering)}
+                        alt=""
+                        aria-hidden="true"
+                        loading="lazy"
+                        decoding="async"
+                        className="block aspect-[16/9] w-full object-cover"
+                      />
+                      <p className="px-4 py-3">{offering}</p>
                     </li>
                   ))}
                 </ul>
