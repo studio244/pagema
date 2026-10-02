@@ -64,8 +64,8 @@ const CATEGORIES: {
 }[] = [
   { key: "Sécurité", photo: securitePhoto, Icon: ShieldCheck },
   { key: "Nettoyage", photo: nettoyagePhoto, Icon: Sparkles },
-  { key: "Jardinage", photo: null, Icon: Sprout },
-  { key: "Piscine", photo: null, Icon: Waves },
+  { key: "Jardinage", photo: "/agencies/categories/gardening.jpg", Icon: Sprout },
+  { key: "Piscine", photo: "/agencies/categories/pool.jpg", Icon: Waves },
 ];
 
 const ENGAGEMENT_ICONS = [MapPin, Zap, BadgeCheck, Lock];
@@ -336,20 +336,28 @@ function Hero({ copy, proHref }: Ctx) {
 function PartnersStrip({ copy }: Ctx) {
   return (
     <section aria-label={copy.partnersLabel} className="border-y border-[#16181f]/10 bg-white">
-      <ul
-        className={`${container} grid grid-cols-2 items-center gap-x-6 gap-y-6 py-8 sm:grid-cols-3 lg:grid-cols-5`}
-      >
-        {PARTNERS.map((p) => (
-          <li key={p.name} className="flex justify-center">
-            <img
-              src={p.src}
-              alt={p.name}
-              className="h-12 w-auto max-w-full object-contain sm:h-14"
-              loading="lazy"
-            />
-          </li>
-        ))}
-      </ul>
+      <div className="partners-marquee partners-mask overflow-hidden py-8" dir="ltr">
+        <div className="partners-track flex w-max">
+          {[0, 1].map((copyIndex) => (
+            <ul
+              key={copyIndex}
+              aria-hidden={copyIndex === 1 ? true : undefined}
+              className="flex shrink-0 items-center gap-8 px-4 sm:gap-12 sm:px-6 lg:gap-16 lg:px-8"
+            >
+              {PARTNERS.map((p) => (
+                <li key={p.name} className="flex w-36 shrink-0 justify-center sm:w-44">
+                  <img
+                    src={p.src}
+                    alt={copyIndex === 0 ? p.name : ""}
+                    className="h-12 w-auto max-w-full object-contain sm:h-14"
+                    loading="lazy"
+                  />
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

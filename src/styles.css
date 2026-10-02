@@ -379,6 +379,49 @@
     transparent
   );
 }
+
+/* Partner logos loop from left to right. Each group includes its trailing
+   padding so the repeated groups meet without a gap at the animation seam. */
+@keyframes partnersMarqueeRight {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.partners-track {
+  animation: partnersMarqueeRight 32s linear infinite;
+}
+.partners-track > ul {
+  padding-inline-end: 0;
+}
+.partners-track > ul + ul {
+  padding-inline-start: 0;
+}
+.partners-mask {
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .partners-track {
+    animation: none;
+    width: 100%;
+    transform: none;
+  }
+  .partners-track > ul {
+    box-sizing: border-box;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-inline: 1rem;
+  }
+  .partners-track > ul + ul {
+    display: none;
+  }
+  .partners-mask {
+    mask-image: none;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
     animation: none;
