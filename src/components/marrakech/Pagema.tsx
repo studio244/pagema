@@ -5,6 +5,7 @@ import {
   BadgeCheck,
   CircleCheck,
   Clock,
+  Gift,
   Inbox,
   Lock,
   MapPin,
@@ -45,6 +46,7 @@ import footerP from "@/assets/marrakech/group-37.png";
 import footerPBlade from "./assets/vector-29.svg";
 import footerPBlade2 from "./assets/vector-30.svg";
 import { whatsappUrl } from "@/lib/whatsapp";
+import { Reveal } from "@/components/brand";
 import footerWordmark from "@/assets/marrakech/group-36.png";
 
 const PARTNERS = [
@@ -310,6 +312,10 @@ function Hero({ copy, proHref }: Ctx) {
       <div
         className={`${container} flex min-h-[560px] flex-col items-center justify-center py-20 text-center text-white sm:min-h-[620px] lg:py-28`}
       >
+        <p className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#ffd000] px-4 py-1.5 text-sm font-semibold text-[#16181f] shadow-[0_8px_24px_-8px_rgb(255_208_0_/_0.7)]">
+          <Gift className="h-4 w-4" aria-hidden="true" />
+          {copy.hero.offer}
+        </p>
         <h1 className="max-w-3xl text-[clamp(2.2rem,5.4vw,3.75rem)] font-bold leading-[1.12] tracking-[0.01em] text-balance">
           {copy.hero.title} <span className="text-[#ffd000]">{copy.hero.titleAccent}</span>
         </h1>
@@ -480,83 +486,189 @@ function HowItWorks({ copy, proHref }: Ctx) {
   );
 }
 
+/** Yellow link with a pulse travelling along it: horizontal on desktop, vertical when stacked. */
+function EcoLink({ delay = 0 }: { delay?: number }) {
+  const style = { "--eco-delay": `${delay}ms` } as React.CSSProperties;
+  return (
+    <>
+      <span className="eco-link eco-link-x hidden md:block" style={style} aria-hidden="true" />
+      <span className="eco-link eco-link-y md:hidden" style={style} aria-hidden="true" />
+    </>
+  );
+}
+
+/** Fixed positions so server and client render the same sparkles. */
+const ECO_SPARKS = [
+  { x: 6, y: 18, s: 3, d: 0 },
+  { x: 14, y: 72, s: 2, d: 1.4 },
+  { x: 22, y: 40, s: 4, d: 2.6 },
+  { x: 31, y: 88, s: 2, d: 0.8 },
+  { x: 44, y: 12, s: 3, d: 3.2 },
+  { x: 52, y: 62, s: 2, d: 1.9 },
+  { x: 63, y: 30, s: 3, d: 0.4 },
+  { x: 71, y: 82, s: 4, d: 2.2 },
+  { x: 79, y: 16, s: 2, d: 3.6 },
+  { x: 86, y: 52, s: 3, d: 1.1 },
+  { x: 93, y: 78, s: 2, d: 2.9 },
+  { x: 97, y: 34, s: 3, d: 0.6 },
+];
+
+/** Tilts the card toward the pointer; CSS reads --rx/--ry and ignores them under reduced motion. */
+function tiltHandlers() {
+  return {
+    onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+      if (e.pointerType !== "mouse") return;
+      const el = e.currentTarget;
+      const r = el.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      el.style.setProperty("--ry", `${px * 6}deg`);
+      el.style.setProperty("--rx", `${py * -6}deg`);
+      el.style.setProperty("--mx", `${(px + 0.5) * 100}%`);
+      el.style.setProperty("--my", `${(py + 0.5) * 100}%`);
+    },
+    onPointerLeave(e: React.PointerEvent<HTMLDivElement>) {
+      const el = e.currentTarget;
+      el.style.setProperty("--ry", "0deg");
+      el.style.setProperty("--rx", "0deg");
+    },
+  };
+}
+
 function Ecosystem({ copy }: Ctx) {
+  const words = copy.ecosystem.title.split(" ");
   return (
     <section className="relative isolate overflow-hidden bg-black text-white">
       <div
         aria-hidden="true"
-        className="absolute -start-40 -top-40 -z-10 h-[520px] w-[520px] rounded-full bg-[#ffd000]/10 blur-3xl"
+        className="eco-glow absolute -start-40 -top-40 -z-10 h-[520px] w-[520px] rounded-full bg-[#ffd000]/10 blur-3xl"
       />
       <div
         aria-hidden="true"
-        className="absolute -bottom-48 end-0 -z-10 h-[520px] w-[640px] rounded-full bg-white/10 blur-3xl"
+        className="eco-glow eco-glow-alt absolute -bottom-48 end-0 -z-10 h-[520px] w-[640px] rounded-full bg-white/10 blur-3xl"
       />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        {ECO_SPARKS.map((p, i) => (
+          <span
+            key={i}
+            className="eco-spark"
+            style={
+              {
+                left: `${p.x}%`,
+                top: `${p.y}%`,
+                width: p.s,
+                height: p.s,
+                "--eco-delay": `${p.d}s`,
+              } as React.CSSProperties
+            }
+          />
+        ))}
+      </div>
       <div className={`${container} py-16 sm:py-24`}>
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="eco-title mx-auto max-w-2xl text-center">
           <p className="text-xs font-medium uppercase tracking-[1.76px] text-white/70">
             {copy.ecosystem.eyebrow}
           </p>
-          <h2 className={`${h2} mt-4`}>{copy.ecosystem.title}</h2>
-        </div>
+          <h2 className={`${h2} mt-4`} aria-label={copy.ecosystem.title}>
+            {words.map((w, i) => (
+              <span key={i} aria-hidden="true">
+                <span className="eco-word inline-block" style={{ "--i": i } as React.CSSProperties}>
+                  {w}
+                </span>
+                {i < words.length - 1 ? " " : null}
+              </span>
+            ))}
+          </h2>
+        </Reveal>
 
-        <div className="mx-auto mt-12 max-w-5xl rounded-[27px] bg-white p-5 text-[#16181f] shadow-[0px_0px_0px_1px_rgb(22_24_31_/_0.1)] sm:p-8 lg:p-11">
-          <div className="grid items-center gap-5 md:grid-cols-[1fr_auto_1fr] md:gap-8">
-            <div className="flex flex-col items-center gap-2 rounded-[22px] bg-[#16181f]/4 p-7 text-center">
-              <div className="flex -space-x-3">
-                {[clientAvatar, clientPhoto, entreprisePhoto].map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt=""
-                    className="h-12 w-12 rounded-full border-2 border-white object-cover"
-                  />
-                ))}
+        <Reveal delay={120} className="eco-stage mx-auto mt-12 max-w-5xl">
+          <div className="eco-tilt" {...tiltHandlers()}>
+            <div className="eco-frame rounded-[29px] p-[2px]">
+              <div className="eco-card relative overflow-hidden rounded-[27px] bg-white p-5 text-[#16181f] sm:p-8 lg:p-11">
+                <div className="grid items-center gap-5 md:grid-cols-[1fr_auto_1fr] md:gap-8">
+                  <div className="eco-side eco-side-start flex flex-col items-center gap-2 rounded-[22px] bg-[#16181f]/4 p-7 text-center">
+                    <div className="flex -space-x-3">
+                      {[clientAvatar, clientPhoto, entreprisePhoto].map((src, i) => (
+                        <img
+                          key={i}
+                          src={src}
+                          alt=""
+                          className="eco-avatar h-12 w-12 rounded-full border-2 border-white object-cover"
+                          style={
+                            {
+                              "--eco-delay": `${i * 220}ms`,
+                              "--pop": `${400 + i * 110}ms`,
+                            } as React.CSSProperties
+                          }
+                        />
+                      ))}
+                    </div>
+                    <p className="mt-2 text-xs font-medium uppercase tracking-[1.76px] text-[#404653]/70">
+                      {copy.ecosystem.clients}
+                    </p>
+                    <p className="text-base leading-relaxed text-[#404653]">
+                      {copy.ecosystem.clientsBody}
+                    </p>
+                  </div>
+
+                  <div className="eco-center flex flex-col items-center justify-center gap-3 md:flex-row">
+                    <EcoLink />
+                    <span className="eco-hub relative inline-flex">
+                      <span className="eco-orbit" aria-hidden="true">
+                        <span />
+                        <span />
+                      </span>
+                      <LogoMark className="eco-logo scale-125" />
+                    </span>
+                    <EcoLink delay={900} />
+                  </div>
+
+                  <div className="eco-side eco-side-end flex flex-col items-center gap-2 rounded-[22px] bg-[#ffd000]/15 p-7 text-center">
+                    <div className="flex -space-x-3">
+                      {[companyLogo1, companyLogo2, companyLogo3].map((src, i) => (
+                        <img
+                          key={i}
+                          src={src}
+                          alt=""
+                          className="eco-avatar h-12 w-12 rounded-full border-2 border-white object-cover"
+                          style={
+                            {
+                              "--eco-delay": `${660 + i * 220}ms`,
+                              "--pop": `${620 + i * 110}ms`,
+                            } as React.CSSProperties
+                          }
+                        />
+                      ))}
+                    </div>
+                    <p className="mt-2 text-xs font-medium uppercase tracking-[1.76px]">
+                      {copy.ecosystem.companies}
+                    </p>
+                    <p className="text-base leading-relaxed text-[#404653]">
+                      {copy.ecosystem.companiesBody}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <p className="mt-2 text-xs font-medium uppercase tracking-[1.76px] text-[#404653]/70">
-                {copy.ecosystem.clients}
-              </p>
-              <p className="text-base leading-relaxed text-[#404653]">
-                {copy.ecosystem.clientsBody}
-              </p>
-            </div>
-
-            <div className="flex items-center justify-center gap-3">
-              <span className="hidden h-px w-16 bg-[#ffd000] md:block" aria-hidden="true" />
-              <LogoMark className="scale-125" />
-              <span className="hidden h-px w-16 bg-[#ffd000] md:block" aria-hidden="true" />
-            </div>
-
-            <div className="flex flex-col items-center gap-2 rounded-[22px] bg-[#ffd000]/15 p-7 text-center">
-              <div className="flex -space-x-3">
-                {[companyLogo1, companyLogo2, companyLogo3].map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt=""
-                    className="h-12 w-12 rounded-full border-2 border-white object-cover"
-                  />
-                ))}
-              </div>
-              <p className="mt-2 text-xs font-medium uppercase tracking-[1.76px]">
-                {copy.ecosystem.companies}
-              </p>
-              <p className="text-base leading-relaxed text-[#404653]">
-                {copy.ecosystem.companiesBody}
-              </p>
             </div>
           </div>
-        </div>
+        </Reveal>
 
         <ul className="mx-auto mt-6 grid max-w-5xl grid-cols-2 gap-3 lg:grid-cols-4">
-          {CATEGORIES.map(({ key, Icon }) => (
+          {CATEGORIES.map(({ key, Icon }, i) => (
             <li key={key}>
-              <a
-                href="#services"
-                className="flex items-center justify-center gap-3 rounded-2xl bg-white/15 px-4 py-4 text-sm font-medium shadow-[0px_0px_0px_1px_rgb(255_255_255_/_0.15)] backdrop-blur-xl hover:bg-white/25 sm:text-base"
-              >
-                <Icon className="h-5 w-5 text-[#ffd000]" aria-hidden="true" />
-                {copy.services[key]}
-              </a>
+              <Reveal delay={240 + i * 90}>
+                <a
+                  href="#services"
+                  className="eco-chip group relative flex items-center justify-center gap-3 overflow-hidden rounded-2xl bg-white/15 px-4 py-4 text-sm font-medium shadow-[0px_0px_0px_1px_rgb(255_255_255_/_0.15)] backdrop-blur-xl transition-[background-color,translate,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-white/25 hover:shadow-[0px_0px_0px_1px_rgb(255_208_0_/_0.6),0_10px_30px_-10px_rgb(255_208_0_/_0.5)] sm:text-base"
+                  style={{ "--eco-delay": `${i * 0.7}s` } as React.CSSProperties}
+                >
+                  <Icon
+                    className="h-5 w-5 text-[#ffd000] transition-transform duration-500 group-hover:rotate-12 group-hover:scale-125"
+                    aria-hidden="true"
+                  />
+                  {copy.services[key]}
+                </a>
+              </Reveal>
             </li>
           ))}
         </ul>

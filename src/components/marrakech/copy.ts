@@ -32,6 +32,7 @@ const fr = {
     partner: "Devenir partenaire",
     quotes: "Recevoir des devis",
     free: "Inscription gratuite, sans engagement.",
+    offer: "1 mois offert aux entreprises partenaires",
   },
   partnersLabel: "Ils nous font confiance",
   categories: {
@@ -127,7 +128,7 @@ const fr = {
           { t: "Développez votre activité", b: "Un canal d'acquisition dédié à votre métier." },
           {
             t: "Soyez parmi les premiers partenaires",
-            b: "Une visibilité prioritaire dès le lancement.",
+            b: "Un mois offert et une visibilité prioritaire dès le lancement.",
           },
         ],
       },
@@ -136,7 +137,7 @@ const fr = {
   launch: {
     badge: "Places partenaires limitées pour le lancement",
     title: "Le lancement approche",
-    body: "Rejoignez les premiers utilisateurs et partenaires Page.ma au Maroc.",
+    body: "Rejoignez les premiers utilisateurs et partenaires Page.ma au Maroc. Les entreprises partenaires profitent d'un mois offert.",
     search: "Je cherche un service",
     partner: "Je deviens partenaire",
     steps: ["Inscription", "Sélection", "Lancement"],
@@ -197,6 +198,7 @@ const ar: MarrakechCopy = {
     partner: "كن شريكاً",
     quotes: "توصّل بعروض الأسعار",
     free: "تسجيل مجاني وبدون التزام.",
+    offer: "شهر مجاني للشركات الشريكة",
   },
   partnersLabel: "شركاء يثقون بنا",
   categories: {
@@ -275,7 +277,7 @@ const ar: MarrakechCopy = {
         items: [
           { t: "توصّل بفرص جديدة", b: "طلبات مؤهّلة في مدن تدخّلك." },
           { t: "طوّر نشاطك", b: "قناة استقطاب مخصّصة لمهنتك." },
-          { t: "كن من أوائل الشركاء", b: "ظهور ذو أولوية منذ الإطلاق." },
+          { t: "كن من أوائل الشركاء", b: "شهر مجاني وظهور ذو أولوية منذ الإطلاق." },
         ],
       },
     ],
@@ -283,7 +285,7 @@ const ar: MarrakechCopy = {
   launch: {
     badge: "أماكن الشركاء محدودة عند الإطلاق",
     title: "الإطلاق يقترب",
-    body: "انضم إلى أوائل مستخدمي وشركاء Page.ma في المغرب.",
+    body: "انضم إلى أوائل مستخدمي وشركاء Page.ma في المغرب. تستفيد الشركات الشريكة من شهر مجاني.",
     search: "أبحث عن خدمة",
     partner: "أصبح شريكاً",
     steps: ["التسجيل", "الانتقاء", "الإطلاق"],
