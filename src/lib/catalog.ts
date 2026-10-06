@@ -6,6 +6,7 @@ export const CATEGORIES = [
   "Nettoyage",
   "Jardinage",
   "Piscine",
+  "Traiteur",
   "Intérim",
   "Assurance",
   "Santé",

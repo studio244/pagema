@@ -15,6 +15,7 @@ import {
   Sparkles,
   Sprout,
   TrendingUp,
+  UtensilsCrossed,
   Waves,
   X,
   Zap,
@@ -68,6 +69,7 @@ const CATEGORIES: {
   { key: "Nettoyage", photo: nettoyagePhoto, Icon: Sparkles },
   { key: "Jardinage", photo: "/agencies/categories/gardening.jpg", Icon: Sprout },
   { key: "Piscine", photo: "/agencies/categories/pool.jpg", Icon: Waves },
+  { key: "Traiteur", photo: null, Icon: UtensilsCrossed },
 ];
 
 const ENGAGEMENT_ICONS = [MapPin, Zap, BadgeCheck, Lock];
@@ -377,7 +379,7 @@ function Categories({ copy }: Ctx) {
           <h2 className={`${h2} mt-4`}>{copy.categories.title}</h2>
           <p className="mt-4 text-base leading-relaxed text-[#404653]">{copy.categories.body}</p>
         </div>
-        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {CATEGORIES.map(({ key, photo, Icon }) => (
             <li
               key={key}
@@ -653,7 +655,7 @@ function Ecosystem({ copy }: Ctx) {
           </div>
         </Reveal>
 
-        <ul className="mx-auto mt-6 grid max-w-5xl grid-cols-2 gap-3 lg:grid-cols-4">
+        <ul className="mx-auto mt-6 grid max-w-5xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {CATEGORIES.map(({ key, Icon }, i) => (
             <li key={key}>
               <Reveal delay={240 + i * 90}>

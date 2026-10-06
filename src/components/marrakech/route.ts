@@ -27,8 +27,8 @@ export function marrakechHead(lang: Lang) {
         areaServed: { "@type": "City", name: lang === "ar" ? "مراكش" : "Marrakech" },
         serviceType:
           lang === "ar"
-            ? ["الأمن", "النظافة", "البستنة", "المسابح"]
-            : ["Sécurité", "Nettoyage", "Jardinage", "Piscine"],
+            ? ["الأمن", "النظافة", "البستنة", "المسابح", "ممون الحفلات"]
+            : ["Sécurité", "Nettoyage", "Jardinage", "Piscine", "Traiteur"],
       },
     ],
   });

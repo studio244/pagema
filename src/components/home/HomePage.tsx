@@ -1043,10 +1043,12 @@ function Footer() {
   const columns = [
     {
       title: t.footer.columns.services,
-      links: ["Sécurité", "Nettoyage", "Piscine", "Jardinage", "Immobilier"].map((c) => ({
-        label: catLabel(t, c),
-        href: "#section-prestataire",
-      })),
+      links: ["Sécurité", "Nettoyage", "Piscine", "Jardinage", "Traiteur", "Immobilier"].map(
+        (c) => ({
+          label: catLabel(t, c),
+          href: "#section-prestataire",
+        }),
+      ),
     },
     {
       title: t.footer.columns.cities,

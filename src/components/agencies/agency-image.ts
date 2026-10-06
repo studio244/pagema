@@ -18,7 +18,7 @@ const CLEANING_OFFERING_IMAGES = [
   "/agencies/offerings/cleaning-floors.jpg",
   "/agencies/offerings/cleaning-upholstery.jpg",
   "/agencies/offerings/cleaning-maintenance.jpg",
-];
+] as const;
 
 const SECURITY_OFFERING_IMAGES = [
   "/agencies/offerings/security-physical.jpg",
@@ -28,9 +28,9 @@ const SECURITY_OFFERING_IMAGES = [
   "/agencies/offerings/security-close-protection.jpg",
   "/agencies/offerings/security-training.jpg",
   "/agencies/offerings/security-fire-safety.jpg",
-];
+] as const;
 
-const AGENCY_OFFERING_IMAGES: Record<string, string[]> = {
+const AGENCY_OFFERING_IMAGES: Record<string, readonly string[]> = {
   "asomovit-nettoyage": CLEANING_OFFERING_IMAGES,
   "azur-facilities": [
     CLEANING_OFFERING_IMAGES[0],

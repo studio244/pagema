@@ -37,13 +37,14 @@ const fr = {
   partnersLabel: "Ils nous font confiance",
   categories: {
     eyebrow: "Nos catégories",
-    title: "Quatre métiers, un seul point d'entrée",
+    title: "Cinq métiers, un seul point d'entrée",
     body: "Choisissez votre catégorie : votre demande est transmise aux entreprises correspondantes, dans votre ville.",
     items: {
       Sécurité: "Sociétés de sécurité, gardiennage et surveillance pour vos sites.",
       Nettoyage: "Équipes de nettoyage professionnel pour bureaux, locaux et domiciles.",
       Jardinage: "Entretien de jardins, espaces verts et aménagements extérieurs.",
       Piscine: "Entretien, nettoyage et maintenance de piscines.",
+      Traiteur: "Traiteurs pour vos événements, réceptions, séminaires et repas d'entreprise.",
     } as Record<string, string>,
   },
   services: {
@@ -51,6 +52,7 @@ const fr = {
     Nettoyage: "Nettoyage",
     Jardinage: "Jardinage",
     Piscine: "Piscine",
+    Traiteur: "Traiteur",
     Autre: "Autre",
   } as Record<string, string>,
   engagements: [
@@ -203,13 +205,14 @@ const ar: MarrakechCopy = {
   partnersLabel: "شركاء يثقون بنا",
   categories: {
     eyebrow: "فئاتنا",
-    title: "أربع مهن، ونقطة دخول واحدة",
+    title: "خمس مهن، ونقطة دخول واحدة",
     body: "اختر الفئة: يُرسَل طلبك إلى الشركات المناسبة في مدينتك.",
     items: {
       Sécurité: "شركات الأمن والحراسة والمراقبة لمواقعكم.",
       Nettoyage: "فرق نظافة محترفة للمكاتب والمحلات والمنازل.",
       Jardinage: "العناية بالحدائق والمساحات الخضراء والتهيئة الخارجية.",
       Piscine: "صيانة المسابح وتنظيفها.",
+      Traiteur: "ممونو الحفلات لمناسباتكم وحفلات الاستقبال والندوات ووجبات الشركات.",
     },
   },
   services: {
@@ -217,6 +220,7 @@ const ar: MarrakechCopy = {
     Nettoyage: "النظافة",
     Jardinage: "البستنة",
     Piscine: "المسابح",
+    Traiteur: "ممون الحفلات",
     Autre: "أخرى",
   },
   engagements: [

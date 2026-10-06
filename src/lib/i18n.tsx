@@ -452,6 +452,7 @@ const ar: Dict = {
     Nettoyage: "النظافة / الصيانة",
     Jardinage: "البستنة",
     Piscine: "المسابح",
+    Traiteur: "ممون الحفلات",
     Intérim: "التشغيل المؤقت",
     Assurance: "التأمين",
     Santé: "الصحة",
