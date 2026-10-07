@@ -84,23 +84,12 @@ function LangSwitch({ className = "" }: { className?: string }) {
   return (
     <span className={`inline-flex items-center gap-1.5 font-mono text-xs leading-none ${className}`}>
       <Link
-        to="/ar/nettoyage-casablanca"
-        hrefLang="ar"
-        aria-current={lang === "ar" ? "page" : undefined}
-        className={`py-1 border-b-2 ${lang === "ar" ? "border-terra text-ink" : "border-transparent text-ink-soft hover:text-ink"}`}
+        to={lang === "fr" ? "/ar/nettoyage-casablanca" : "/nettoyage-casablanca"}
+        hrefLang={lang === "fr" ? "ar" : "fr"}
+        lang={lang === "fr" ? "ar" : "fr"}
+        className="py-1 border-b-2 border-transparent text-ink-soft hover:text-ink"
       >
-        العربية
-      </Link>
-      <span aria-hidden="true" className="text-ink-soft">
-        |
-      </span>
-      <Link
-        to="/nettoyage-casablanca"
-        hrefLang="fr"
-        aria-current={lang === "fr" ? "page" : undefined}
-        className={`py-1 border-b-2 uppercase tracking-wide ${lang === "fr" ? "border-terra text-ink" : "border-transparent text-ink-soft hover:text-ink"}`}
-      >
-        Français
+        {lang === "fr" ? "العربية" : "Français"}
       </Link>
     </span>
   );
@@ -613,10 +602,10 @@ const SOCIALS = [
     href: "https://www.facebook.com/profile.php?id=61594526347174",
     Icon: Facebook,
   },
-  { name: "Instagram", href: "https://www.instagram.com/page.ma22/?hl=en", Icon: Instagram },
+  { name: "Instagram", href: "https://www.instagram.com/page.ma22/", Icon: Instagram },
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/showcase/page-ma/home/?viewAsMember=true",
+    href: "https://www.linkedin.com/showcase/page-ma/",
     Icon: Linkedin,
   },
 ];

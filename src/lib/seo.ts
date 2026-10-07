@@ -77,8 +77,8 @@ export function seoHead({
     ],
     links: [
       { rel: "canonical", href: url },
-      { rel: "alternate", hrefLang: "fr", href: SITE_URL + paths.fr },
-      { rel: "alternate", hrefLang: "ar", href: SITE_URL + paths.ar },
+      { rel: "alternate", hrefLang: "fr-MA", href: SITE_URL + paths.fr },
+      { rel: "alternate", hrefLang: "ar-MA", href: SITE_URL + paths.ar },
       { rel: "alternate", hrefLang: "x-default", href: SITE_URL + paths.fr },
     ],
     // One block for the whole page. Several <script type="application/ld+json">

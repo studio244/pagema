@@ -292,6 +292,7 @@ export function PreregistrationForm({
                 <select
                   id={`${idPrefix}-category`}
                   className={selectClass}
+                  aria-describedby={isHealth ? `${idPrefix}-health-note` : undefined}
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
@@ -302,6 +303,7 @@ export function PreregistrationForm({
                   ))}
                   <option value={OTHER}>{OTHER_TEXT[lang].option}</option>
                 </select>
+                {isHealth && <p id={`${idPrefix}-health-note`} className={s.hint}>{f.healthNote}</p>}
                 {category === OTHER && (
                   <input
                     id={`${idPrefix}-category-other`}
@@ -336,9 +338,6 @@ export function PreregistrationForm({
                     </option>
                   ))}
                 </select>
-                <p className={s.hint}>
-                  {f.healthNote}
-                </p>
               </div>
             )}
 

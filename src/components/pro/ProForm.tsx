@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Lang } from "@/lib/i18n";
+import { DICTS, type Lang } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { sendPreregistrationEmail } from "@/lib/notify.functions";
 import type { ProLaunchStats } from "@/lib/pro.functions";
@@ -226,6 +226,7 @@ export function ProForm({
             <select
               id="pro-category"
               className={inputClass}
+              aria-describedby={category === "Santé" ? "pro-health-note" : undefined}
               required
               value={category}
               onChange={(e) => setCategory(e.target.value)}
@@ -240,6 +241,7 @@ export function ProForm({
               ))}
               <option value={OTHER}>{otherText.option}</option>
             </select>
+            {category === "Santé" && <p id="pro-health-note" className={noteClass}>{DICTS[lang].form.healthNote}</p>}
             {category === OTHER && (
               <div className="mt-3">
                 <label className="sr-only" htmlFor="pro-category-other">

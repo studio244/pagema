@@ -43,7 +43,7 @@ const fr = {
     minutes: "minutes",
     offerTag: "Offre de lancement",
     offer:
-      "Les 5 premiers prestataires inscrits en nettoyage à Casablanca bénéficient du 1er mois offert à 990 MAD.",
+      "Les 5 premiers prestataires inscrits en nettoyage à Casablanca bénéficient du 1er mois offert (valeur 990 MAD).",
   },
   steps: {
     eyebrow: "COMMENT ÇA MARCHE",
@@ -241,7 +241,7 @@ const ar: Copy = {
     hours: "ساعات",
     minutes: "دقائق",
     offerTag: "عرض الانطلاق",
-    offer: "أول 5 مزوّدين مسجّلين في التنظيف بالدار البيضاء يحصلون على الشهر الأول مجّانا بسعر 990 درهما.",
+    offer: "أول 5 مزوّدين مسجّلين في التنظيف بالدار البيضاء يحصلون على الشهر الأول مجّاناً بقيمة 990 درهماً.",
   },
   steps: {
     eyebrow: "كيف يعمل",
