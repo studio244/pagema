@@ -15,6 +15,7 @@ import { Route as AnnuaireAiRouteImport } from './routes/annuaire-ai'
 import { Route as ArRouteImport } from './routes/ar'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as MarrakechRouteImport } from './routes/marrakech'
+import { Route as NettoyageCasablancaRouteImport } from './routes/nettoyage-casablanca'
 import { Route as ProRouteImport } from './routes/pro'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ApiResendDomainRouteImport } from './routes/api/resend-domain'
@@ -22,6 +23,7 @@ import { Route as ArAnnuaireRouteImport } from './routes/ar_.annuaire'
 import { Route as ArAnnuaireAiRouteImport } from './routes/ar_.annuaire-ai'
 import { Route as ArInscriptionRouteImport } from './routes/ar_.inscription'
 import { Route as ArMarrakechRouteImport } from './routes/ar_.marrakech'
+import { Route as ArNettoyageCasablancaRouteImport } from './routes/ar_.nettoyage-casablanca'
 import { Route as ArProRouteImport } from './routes/ar_.pro'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
@@ -56,6 +58,11 @@ const InscriptionRoute = InscriptionRouteImport.update({
 const MarrakechRoute = MarrakechRouteImport.update({
   id: '/marrakech',
   path: '/marrakech',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageCasablancaRoute = NettoyageCasablancaRouteImport.update({
+  id: '/nettoyage-casablanca',
+  path: '/nettoyage-casablanca',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProRoute = ProRouteImport.update({
@@ -93,6 +100,11 @@ const ArMarrakechRoute = ArMarrakechRouteImport.update({
   path: '/ar/marrakech',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArNettoyageCasablancaRoute = ArNettoyageCasablancaRouteImport.update({
+  id: '/ar_/nettoyage-casablanca',
+  path: '/ar/nettoyage-casablanca',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArProRoute = ArProRouteImport.update({
   id: '/ar_/pro',
   path: '/ar/pro',
@@ -126,6 +138,7 @@ export interface FileRoutesByFullPath {
   '/ar': typeof ArRoute
   '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
+  '/nettoyage-casablanca': typeof NettoyageCasablancaRoute
   '/pro': typeof ProRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/resend-domain': typeof ApiResendDomainRoute
@@ -133,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/ar/annuaire-ai': typeof ArAnnuaireAiRoute
   '/ar/inscription': typeof ArInscriptionRoute
   '/ar/marrakech': typeof ArMarrakechRoute
+  '/ar/nettoyage-casablanca': typeof ArNettoyageCasablancaRoute
   '/ar/pro': typeof ArProRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/services/': typeof ServicesIndexRoute
@@ -146,6 +160,7 @@ export interface FileRoutesByTo {
   '/ar': typeof ArRoute
   '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
+  '/nettoyage-casablanca': typeof NettoyageCasablancaRoute
   '/pro': typeof ProRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/resend-domain': typeof ApiResendDomainRoute
@@ -153,6 +168,7 @@ export interface FileRoutesByTo {
   '/ar/annuaire-ai': typeof ArAnnuaireAiRoute
   '/ar/inscription': typeof ArInscriptionRoute
   '/ar/marrakech': typeof ArMarrakechRoute
+  '/ar/nettoyage-casablanca': typeof ArNettoyageCasablancaRoute
   '/ar/pro': typeof ArProRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/services': typeof ServicesIndexRoute
@@ -167,6 +183,7 @@ export interface FileRoutesById {
   '/ar': typeof ArRoute
   '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
+  '/nettoyage-casablanca': typeof NettoyageCasablancaRoute
   '/pro': typeof ProRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/resend-domain': typeof ApiResendDomainRoute
@@ -174,6 +191,7 @@ export interface FileRoutesById {
   '/ar_/annuaire-ai': typeof ArAnnuaireAiRoute
   '/ar_/inscription': typeof ArInscriptionRoute
   '/ar_/marrakech': typeof ArMarrakechRoute
+  '/ar_/nettoyage-casablanca': typeof ArNettoyageCasablancaRoute
   '/ar_/pro': typeof ArProRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/services/': typeof ServicesIndexRoute
@@ -189,6 +207,7 @@ export interface FileRouteTypes {
     | '/ar'
     | '/inscription'
     | '/marrakech'
+    | '/nettoyage-casablanca'
     | '/pro'
     | '/sitemap.xml'
     | '/api/resend-domain'
@@ -196,6 +215,7 @@ export interface FileRouteTypes {
     | '/ar/annuaire-ai'
     | '/ar/inscription'
     | '/ar/marrakech'
+    | '/ar/nettoyage-casablanca'
     | '/ar/pro'
     | '/services/$slug'
     | '/services/'
@@ -209,6 +229,7 @@ export interface FileRouteTypes {
     | '/ar'
     | '/inscription'
     | '/marrakech'
+    | '/nettoyage-casablanca'
     | '/pro'
     | '/sitemap.xml'
     | '/api/resend-domain'
@@ -216,6 +237,7 @@ export interface FileRouteTypes {
     | '/ar/annuaire-ai'
     | '/ar/inscription'
     | '/ar/marrakech'
+    | '/ar/nettoyage-casablanca'
     | '/ar/pro'
     | '/services/$slug'
     | '/services'
@@ -229,6 +251,7 @@ export interface FileRouteTypes {
     | '/ar'
     | '/inscription'
     | '/marrakech'
+    | '/nettoyage-casablanca'
     | '/pro'
     | '/sitemap.xml'
     | '/api/resend-domain'
@@ -236,6 +259,7 @@ export interface FileRouteTypes {
     | '/ar_/annuaire-ai'
     | '/ar_/inscription'
     | '/ar_/marrakech'
+    | '/ar_/nettoyage-casablanca'
     | '/ar_/pro'
     | '/services/$slug'
     | '/services/'
@@ -250,6 +274,7 @@ export interface RootRouteChildren {
   ArRoute: typeof ArRoute
   InscriptionRoute: typeof InscriptionRoute
   MarrakechRoute: typeof MarrakechRoute
+  NettoyageCasablancaRoute: typeof NettoyageCasablancaRoute
   ProRoute: typeof ProRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiResendDomainRoute: typeof ApiResendDomainRoute
@@ -257,6 +282,7 @@ export interface RootRouteChildren {
   ArAnnuaireAiRoute: typeof ArAnnuaireAiRoute
   ArInscriptionRoute: typeof ArInscriptionRoute
   ArMarrakechRoute: typeof ArMarrakechRoute
+  ArNettoyageCasablancaRoute: typeof ArNettoyageCasablancaRoute
   ArProRoute: typeof ArProRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
@@ -308,6 +334,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarrakechRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nettoyage-casablanca': {
+      id: '/nettoyage-casablanca'
+      path: '/nettoyage-casablanca'
+      fullPath: '/nettoyage-casablanca'
+      preLoaderRoute: typeof NettoyageCasablancaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pro': {
       id: '/pro'
       path: '/pro'
@@ -357,6 +390,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArMarrakechRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ar_/nettoyage-casablanca': {
+      id: '/ar_/nettoyage-casablanca'
+      path: '/ar/nettoyage-casablanca'
+      fullPath: '/ar/nettoyage-casablanca'
+      preLoaderRoute: typeof ArNettoyageCasablancaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ar_/pro': {
       id: '/ar_/pro'
       path: '/ar/pro'
@@ -402,6 +442,7 @@ const rootRouteChildren: RootRouteChildren = {
   ArRoute: ArRoute,
   InscriptionRoute: InscriptionRoute,
   MarrakechRoute: MarrakechRoute,
+  NettoyageCasablancaRoute: NettoyageCasablancaRoute,
   ProRoute: ProRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiResendDomainRoute: ApiResendDomainRoute,
@@ -409,6 +450,7 @@ const rootRouteChildren: RootRouteChildren = {
   ArAnnuaireAiRoute: ArAnnuaireAiRoute,
   ArInscriptionRoute: ArInscriptionRoute,
   ArMarrakechRoute: ArMarrakechRoute,
+  ArNettoyageCasablancaRoute: ArNettoyageCasablancaRoute,
   ArProRoute: ArProRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   ServicesIndexRoute: ServicesIndexRoute,
