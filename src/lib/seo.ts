@@ -81,10 +81,18 @@ export function seoHead({
       { rel: "alternate", hrefLang: "ar", href: SITE_URL + paths.ar },
       { rel: "alternate", hrefLang: "x-default", href: SITE_URL + paths.fr },
     ],
-    scripts: jsonLd.map((data) => ({
-      type: "application/ld+json",
-      children: JSON.stringify({ "@context": "https://schema.org", ...data }),
-    })),
+    // One block for the whole page. Several <script type="application/ld+json">
+    // tags carry identical attributes, and the router's head handling collapses
+    // them once the page is hydrated (the homepage lost its Organization node
+    // that way), so the graph is served and re-applied as a single unit.
+    scripts: jsonLd.length
+      ? [
+          {
+            type: "application/ld+json",
+            children: JSON.stringify({ "@context": "https://schema.org", "@graph": jsonLd }),
+          },
+        ]
+      : [],
   };
 }
 
