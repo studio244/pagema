@@ -96,9 +96,8 @@ export default function AgencyDirectory({
           <EmptyState lang={lang} copy={copy} service={service ? label(service) : null} />
         )}
       </section>
+      <FrequentlyAskedQuestions lang={lang} variant="directory" />
     </AgenciesLayout>
-  );
-}
   );
 }
 

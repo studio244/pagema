@@ -49,6 +49,7 @@ import footerPBlade2 from "./assets/vector-30.svg";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { Reveal } from "@/components/brand";
 import footerWordmark from "@/assets/marrakech/group-36.png";
+import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
 
 const PARTNERS = [
   { src: partner1, name: "Asomovit Nettoyage" },
@@ -870,6 +871,7 @@ export default function Pagema({ lang }: { lang: Lang }) {
         <Advantages {...ctx} />
         <Launch {...ctx} />
         <Signup {...ctx} />
+        <FrequentlyAskedQuestions lang={lang} variant="annuaire" />
       </main>
       <Footer {...ctx} />
     </div>

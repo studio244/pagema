@@ -20,6 +20,7 @@ import { WhatsAppIcon } from "@/components/brand";
 import { AGENCIES_COPY, type AgenciesCopy } from "./copy";
 import { AgenciesLayout, AgencyBadges, AgencyLogo } from "./AgenciesLayout";
 import { agencyOfferingImage, agencyServiceImage } from "./agency-image";
+import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
 
 /** /services/<slug> and /ar/services/<slug>: everything about one agency. */
 export default function AgencyDetail({
