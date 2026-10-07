@@ -683,7 +683,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  to="/"
+                  to={lang === "ar" ? "/ar" : "/"}
                   className="inline-flex items-center text-sm font-semibold leading-none text-ink-soft transition-colors duration-200 hover:text-ink motion-reduce:transition-none"
                 >
                   {c.backHome}

@@ -793,7 +793,10 @@ function Footer({ lang, copy, proHref }: Ctx) {
   const columns: { title: string; links: { label: string; href?: string }[] }[] = [
     {
       title: copy.footer.services,
-      links: CATEGORIES.map(({ key }) => ({ label: copy.services[key] ?? key, href: "#services" })),
+      links: CATEGORIES.map(({ key }) => ({
+        label: copy.services[key] ?? key,
+        href: key === "Nettoyage" ? (lang === "ar" ? "/ar/nettoyage-casablanca" : "/nettoyage-casablanca") : "#services",
+      })),
     },
     { title: copy.footer.cities, links: FOOTER_CITIES.map((c) => ({ label: cityLabels[c] ?? c })) },
     {
