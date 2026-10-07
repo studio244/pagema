@@ -1039,14 +1039,15 @@ function Partners() {
 }
 
 function Footer() {
-  const { t } = useT();
+  const { t, lang } = useT();
+  const cleaningHref = lang === "ar" ? "/ar/nettoyage-casablanca" : "/nettoyage-casablanca";
   const columns = [
     {
       title: t.footer.columns.services,
       links: ["Sécurité", "Nettoyage", "Piscine", "Jardinage", "Traiteur", "Immobilier"].map(
         (c) => ({
           label: catLabel(t, c),
-          href: "#section-prestataire",
+          href: c === "Nettoyage" ? cleaningHref : "#section-prestataire",
         }),
       ),
     },
