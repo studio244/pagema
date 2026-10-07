@@ -131,6 +131,7 @@ export default function SignupPage({ lang }: { lang: Lang }) {
             </p>
           </div>
         </div>
+        <FrequentlyAskedQuestions lang={lang} variant="pro" />
         <footer className="border-t-2 border-ink/10 px-5 py-5 text-center text-xs text-ink-soft sm:px-8">
           © {new Date().getFullYear()} Page.ma
         </footer>

@@ -194,6 +194,7 @@ export default function AgencyDetail({
         </div>
       </div>
 
+      <FrequentlyAskedQuestions lang={lang} variant="agency" />
       <section className="border-t-2 border-ink bg-ink text-paper">
         <div className="mx-auto flex max-w-6xl flex-col items-start gap-5 px-5 py-12 sm:flex-row sm:items-center sm:justify-between">
           <div>
