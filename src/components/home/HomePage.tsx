@@ -161,23 +161,12 @@ function LangSwitch({ className = "" }: { className?: string }) {
       className={`inline-flex items-center gap-1.5 font-mono text-xs leading-none ${className}`}
     >
       <Link
-        to="/ar"
-        hrefLang="ar"
-        aria-current={lang === "ar" ? "page" : undefined}
-        className={`py-1 border-b-2 ${lang === "ar" ? "border-terra text-ink" : "border-transparent text-ink-soft hover:text-ink"}`}
+        to={lang === "fr" ? "/ar" : "/"}
+        hrefLang={lang === "fr" ? "ar" : "fr"}
+        lang={lang === "fr" ? "ar" : "fr"}
+        className="py-1 border-b-2 border-transparent text-ink-soft hover:text-ink"
       >
-        العربية
-      </Link>
-      <span aria-hidden="true" className="text-ink-soft">
-        |
-      </span>
-      <Link
-        to="/"
-        hrefLang="fr"
-        aria-current={lang === "fr" ? "page" : undefined}
-        className={`py-1 border-b-2 uppercase tracking-wide ${lang === "fr" ? "border-terra text-ink" : "border-transparent text-ink-soft hover:text-ink"}`}
-      >
-        Français
+        {lang === "fr" ? "العربية" : "Français"}
       </Link>
     </span>
   );
@@ -619,9 +608,9 @@ function AiFeatures() {
           {t.ai.body}
         </p>
       </Reveal>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-6 items-stretch">
         {t.ai.features.map((f, index) => (
-          <Reveal key={f.title} delay={(index % 3) * 75} className="h-full">
+          <Reveal key={f.title} delay={(index % 3) * 75} className={`h-full ${index < 3 ? "lg:col-span-2" : "lg:col-span-3"} ${index === 4 ? "sm:col-span-2" : ""}`}>
             <div className="lift-card flex h-full flex-col border-2 border-ink bg-paper-deep p-6">
               <div className="flex items-center justify-between gap-3">
                 <span className="font-display text-4xl leading-none text-terra">
@@ -1024,7 +1013,7 @@ function Partners() {
       <Reveal delay={100} className="marquee-viewport marquee-mask mt-9 overflow-hidden">
         <ul className="marquee-track flex items-center gap-10 sm:gap-16 lg:gap-20">
           {loop.map((partner, index) => (
-            <li key={`${partner.name}-${index}`} className="shrink-0">
+            <li key={`${partner.name}-${index}`} aria-hidden={index >= PARTNERS.length ? true : undefined} className="shrink-0">
               <img
                 src={partner.url}
                 alt={index < PARTNERS.length ? partner.name : ""}
@@ -1080,7 +1069,7 @@ function Footer() {
                 <Facebook size={18} strokeWidth={2} />
               </a>
               <a
-                href="https://www.instagram.com/page.ma22/?hl=en"
+                href="https://www.instagram.com/page.ma22/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${t.footer.on} Instagram`}
@@ -1089,7 +1078,7 @@ function Footer() {
                 <Instagram size={18} strokeWidth={2} />
               </a>
               <a
-                href="https://www.linkedin.com/showcase/page-ma/home/?viewAsMember=true"
+                href="https://www.linkedin.com/showcase/page-ma/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${t.footer.on} LinkedIn`}

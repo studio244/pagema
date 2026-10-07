@@ -15,6 +15,7 @@ export function marrakechHead(lang: Lang) {
     description: meta.description,
     ogTitle: meta.ogTitle,
     ogDescription: meta.ogDescription,
+    noindex: true,
     jsonLd: [
       organizationJsonLd(lang),
       {
