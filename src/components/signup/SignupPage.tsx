@@ -9,6 +9,7 @@ import type { Labels } from "@/components/pro/places";
 import { SIGNUP_COPY } from "./copy";
 import logoAsset from "@/assets/pagema-logo.png";
 import teamPhoto from "@/assets/pagema-pros-equipe.jpg";
+import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
 
 /** Only show "X professionnels déjà préinscrits" once there are at least this many. */
 const SOCIAL_PROOF_MIN = 5;
