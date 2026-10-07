@@ -19,3 +19,4 @@
   their head metadata in a sibling `route.ts`, so French and Arabic twins stay paired and
   hreflang stays correct.
 - Public pages share the bilingual FAQ presentation and audience-specific copy in `src/components/faq`; cleaning keeps its existing sector-specific FAQ to avoid duplication.
+- Bilingual SEO alternates use `fr-MA`, `ar-MA`, and `x-default` in the shared head helper to match the site's Moroccan audience.
