@@ -36,10 +36,13 @@ export function PreregistrationForm({
   source,
   skin = "zine",
   defaultCity = "",
+  defaultCategory = CATEGORIES[0]!,
 }: {
   profile: Profile;
   /** Preselected city (French value from COVERAGE_CITIES); empty shows the placeholder. */
   defaultCity?: string;
+  /** Preselected trade (French value from CATEGORIES); defaults to the first one. */
+  defaultCategory?: string;
   /** Visual style; the form content is the same. */
   skin?: FormSkinName;
   /** Shown in the notification email, e.g. "Page /annuaire". */
@@ -51,7 +54,7 @@ export function PreregistrationForm({
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState(defaultCity);
-  const [category, setCategory] = useState<string>(CATEGORIES[0]!);
+  const [category, setCategory] = useState<string>(defaultCategory);
   const [otherService, setOtherService] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [teamSize, setTeamSize] = useState<string>(TEAM_SIZES[0]!);
@@ -80,7 +83,7 @@ export function PreregistrationForm({
     setPhone("");
     setEmail("");
     setCity(defaultCity);
-    setCategory(CATEGORIES[0]!);
+    setCategory(defaultCategory);
     setOtherService("");
     setCompanyName("");
     setTeamSize(TEAM_SIZES[0]!);
