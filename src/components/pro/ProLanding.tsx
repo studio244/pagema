@@ -10,6 +10,7 @@ import { PLACES_PER_ACTIVITY, placesText, remainingPlaces, type Labels } from ".
 import logoAsset from "@/assets/pagema-logo.png";
 import whatsappLead from "@/assets/whatsapp-opportunity.png";
 import heroBackground from "@/assets/pagema-services-hero-2.webp";
+import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
 
 /** Only show "X professionnels déjà préinscrits" once there are at least this many. */
 const SOCIAL_PROOF_MIN = 5;
@@ -72,6 +73,7 @@ export default function ProLanding({ lang, variant }: { lang: Lang; variant: Her
       />
       <ProPlaces stats={stats} labels={labels} onCta={onCta} />
       <ProFinalCta copy={copy} onCta={onCta} />
+      <FrequentlyAskedQuestions lang={lang} variant="pro" />
       <ProFooter copy={copy} />
     </div>
   );

@@ -8,6 +8,7 @@ import { Eyebrow, WhatsAppIcon } from "@/components/brand";
 import { AGENCIES_COPY, type AgenciesCopy } from "./copy";
 import { AgenciesLayout, AgencyBadges, AgencyLogo } from "./AgenciesLayout";
 import { agencyServiceImage } from "./agency-image";
+import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
 
 /** /services and /ar/services: every service with its agency count, then the matching agencies. */
 export default function AgencyDirectory({
@@ -95,6 +96,7 @@ export default function AgencyDirectory({
           <EmptyState lang={lang} copy={copy} service={service ? label(service) : null} />
         )}
       </section>
+      <FrequentlyAskedQuestions lang={lang} variant="directory" />
     </AgenciesLayout>
   );
 }

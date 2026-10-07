@@ -20,6 +20,7 @@ import { WhatsAppIcon } from "@/components/brand";
 import { AGENCIES_COPY, type AgenciesCopy } from "./copy";
 import { AgenciesLayout, AgencyBadges, AgencyLogo } from "./AgenciesLayout";
 import { agencyOfferingImage, agencyServiceImage } from "./agency-image";
+import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
 
 /** /services/<slug> and /ar/services/<slug>: everything about one agency. */
 export default function AgencyDetail({
@@ -193,6 +194,7 @@ export default function AgencyDetail({
         </div>
       </div>
 
+      <FrequentlyAskedQuestions lang={lang} variant="agency" />
       <section className="border-t-2 border-ink bg-ink text-paper">
         <div className="mx-auto flex max-w-6xl flex-col items-start gap-5 px-5 py-12 sm:flex-row sm:items-center sm:justify-between">
           <div>

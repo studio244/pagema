@@ -9,6 +9,7 @@ import type { Labels } from "@/components/pro/places";
 import { SIGNUP_COPY } from "./copy";
 import logoAsset from "@/assets/pagema-logo.png";
 import teamPhoto from "@/assets/pagema-pros-equipe.jpg";
+import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
 
 /** Only show "X professionnels déjà préinscrits" once there are at least this many. */
 const SOCIAL_PROOF_MIN = 5;
@@ -130,6 +131,7 @@ export default function SignupPage({ lang }: { lang: Lang }) {
             </p>
           </div>
         </div>
+        <FrequentlyAskedQuestions lang={lang} variant="pro" />
         <footer className="border-t-2 border-ink/10 px-5 py-5 text-center text-xs text-ink-soft sm:px-8">
           © {new Date().getFullYear()} Page.ma
         </footer>

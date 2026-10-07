@@ -18,6 +18,7 @@ import { Benefit, BrandMark, Eyebrow, Reveal, WhatsAppIcon } from "@/components/
 import { whatsappUrl } from "@/lib/whatsapp";
 import { CATEGORIES, COVERAGE_CITIES } from "@/lib/catalog";
 import { PreregistrationForm } from "./PreregistrationForm";
+import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
 
 const LOGO_URL = logoAsset;
 const HERO_URL = heroAsset;
@@ -48,6 +49,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
         <ClientSection />
         <AiFeatures />
         <Coverage />
+        <FrequentlyAskedQuestions lang={lang} variant="home" />
         <Footer />
         <WhatsAppWidget />
       </div>

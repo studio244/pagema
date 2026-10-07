@@ -18,3 +18,4 @@
 - Landing pages keep their copy in a bilingual `copy.ts` next to the page component and
   their head metadata in a sibling `route.ts`, so French and Arabic twins stay paired and
   hreflang stays correct.
+- Public pages share the bilingual FAQ presentation and audience-specific copy in `src/components/faq`; cleaning keeps its existing sector-specific FAQ to avoid duplication.
