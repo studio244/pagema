@@ -16,7 +16,7 @@ import partner5 from "@/assets/partner-5.png";
 import whatsappMockup from "@/assets/whatsapp-opportunity.png";
 import { Benefit, BrandMark, Eyebrow, Reveal, WhatsAppIcon } from "@/components/brand";
 import { whatsappUrl } from "@/lib/whatsapp";
-import { CATEGORIES, COVERAGE_CITIES } from "@/lib/catalog";
+import { CATEGORIES, COVERAGE_CITIES, INVESTMENT } from "@/lib/catalog";
 import { PreregistrationForm } from "./PreregistrationForm";
 import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
 
@@ -437,6 +437,9 @@ function Promises() {
   );
 }
 
+/** Trades kept out of the network grid (still selectable in the forms). */
+const GRID_EXCLUDED = ["Publicité", INVESTMENT];
+
 function Categories() {
   const { t } = useT();
   return (
@@ -449,7 +452,7 @@ function Categories() {
         <p className="mt-4 max-w-prose text-lg text-ink-soft">{t.categories.body}</p>
       </Reveal>
       <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {CATEGORIES.map((c, i) => (
+        {CATEGORIES.filter((c) => !GRID_EXCLUDED.includes(c)).map((c, i) => (
           <Reveal key={c} delay={(i % 4) * 60} className="h-full">
             <div className="lift-card relative h-full border-2 border-ink bg-paper-deep p-5">
               {i < 2 && (

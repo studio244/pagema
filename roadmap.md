@@ -1,5 +1,7 @@
 # Corrections de l’audit
 
+- [x] Retirer les cartes « الإشهار » (Publicité) et « الاستثمار » (Investissement) de la grille des métiers de l’accueil FR et AR.
+
 - [x] Corriger l’offre et les cartes IA en FR et AR.
 - [x] Corriger les langues, les métiers arabes, les villes et l’aide Santé (25 villes confirmées).
 - [x] Corriger l’accessibilité des logos et les liens des footers. Les pages /services/<slug> sont des fiches d’agences, pas des métiers : garder les ancres des métiers sans page dédiée ; Nettoyage ouvre sa page FR/AR.
