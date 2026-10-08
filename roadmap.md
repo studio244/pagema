@@ -1,6 +1,6 @@
 # Corrections de l’audit
 
-- [ ] Retirer les cartes « الإشهار » (Publicité) et « الاستثمار » (Investissement) de la grille des métiers de l’accueil FR et AR.
+- [x] Retirer les cartes « الإشهار » (Publicité) et « الاستثمار » (Investissement) de la grille des métiers de l’accueil FR et AR.
 
 - [x] Corriger l’offre et les cartes IA en FR et AR.
 - [x] Corriger les langues, les métiers arabes, les villes et l’aide Santé (25 villes confirmées).
