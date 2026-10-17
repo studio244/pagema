@@ -1,9 +1,14 @@
 import type { Lang } from "@/lib/i18n";
 
-export type FaqVariant = "home" | "pro" | "directory" | "agency" | "annuaire";
+export type FaqVariant = "home" | "pro" | "directory" | "agency" | "annuaire" | "partners";
 type FaqItem = { q: string; a: string };
 
 const fr: Record<FaqVariant, FaqItem[]> = {
+  partners: [
+    { q: "Ces offres sont-elles disponibles ?", a: "Non. Les cartes sont des exemples fictifs. Aucun coupon ne peut être utilisé et aucune réduction n’est garantie. Les partenaires et leurs conditions doivent encore être confirmés." },
+    { q: "Que se passe-t-il si je demande une offre ?", a: "Vous pouvez exprimer votre intérêt avec le formulaire prestataire. Il s’agit d’une préinscription, sans achat ni réservation de prestation. Page.ma vous contactera lorsque des offres seront confirmées." },
+    { q: "La réduction s’applique-t-elle à mon abonnement Page.ma ?", a: "Non. Les exemples illustrent des réductions possibles sur les prestations de futurs partenaires. Un éventuel crédit d’abonnement reste à l’étude et n’est pas acquis." },
+  ],
   home: [
     { q: "À qui s’adresse Page.ma ?", a: "Page.ma met en relation les clients qui cherchent un service et les professionnels qui le proposent au Maroc." },
     { q: "Comment demander des devis ?", a: "Remplissez le formulaire client avec votre activité recherchée, votre ville et vos coordonnées. Votre besoin est étudié pour vous orienter vers les prestataires adaptés, avec jusqu’à 3 devis de professionnels vérifiés." },
@@ -37,6 +42,11 @@ const fr: Record<FaqVariant, FaqItem[]> = {
 };
 
 const ar: Record<FaqVariant, FaqItem[]> = {
+  partners: [
+    { q: "هل هذه العروض متاحة؟", a: "لا. البطاقات أمثلة افتراضية. لا يمكن استخدام أي قسيمة ولا يوجد تخفيض مضمون. لم يتم تأكيد الشركاء وشروطهم بعد." },
+    { q: "ماذا يحدث عندما أطلب عرضاً؟", a: "يمكنك التعبير عن اهتمامك عبر استمارة مقدّم الخدمات. إنه تسجيل مسبق دون شراء أو حجز خدمة. ستتواصل معك Page.ma عند تأكيد العروض." },
+    { q: "هل يُطبّق التخفيض على اشتراكي في Page.ma؟", a: "لا. الأمثلة تعرض تخفيضات محتملة على خدمات شركاء مستقبليين. أي رصيد للاشتراك ما زال قيد الدراسة وغير مضمون." },
+  ],
   home: [
     { q: "لمن تُوجّه منصة Page.ma؟", a: "تربط Page.ma بين الزبناء الذين يبحثون عن خدمة والمهنيين الذين يقدّمونها في المغرب." },
     { q: "كيف أطلب عروض أسعار؟", a: "املأ استمارة الزبون وحدّد الخدمة والمدينة ومعلومات الاتصال. تتم دراسة طلبك لتوجيهك نحو مقدّمي الخدمات المناسبين، مع ما يصل إلى 3 عروض أسعار من مهنيين تم التحقق منهم." },

@@ -25,4 +25,5 @@
 
 ## Avantages partenaires
 
-- [ ] Créer la page « Avantages partenaires » : recherche par activité et ville, bouton « Demander cette offre » vers le formulaire prestataire. Contenu des offres à confirmer avec Salim.
+- [ ] Créer la page « Avantages partenaires » FR/AR : recherche par activité et ville, exemples fictifs validés, bouton « Demander cette offre » vers le formulaire prestataire et suivi des clics.
+- [ ] Vérifier les filtres, le préremplissage et les clics ; publier cette page et le bouton du parcours personnalisé.
