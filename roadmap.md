@@ -16,4 +16,13 @@
 
 ## Pré-lancement : retirer la date de lancement
 
-- [x] Retirer la date de lancement (1er novembre 2026) et le compte à rebours des 8 emplacements, en FR et en AR, avec les textes validés.- [x] Vérifier l’ouverture du lien Instagram (page.ma01) depuis les pieds de page, mobile et ordinateur
+- [x] Retirer la date de lancement (1er novembre 2026) et le compte à rebours des 8 emplacements, en FR et en AR, avec les textes validés.
+- [x] Vérifier l’ouverture du lien Instagram (page.ma01) depuis les pieds de page, mobile et ordinateur
+
+## Parcours personnalisé → préinscription
+
+- [x] Bouton « Je réserve ma place gratuitement » après le parcours IA : préremplit activité + ville dans le formulaire prestataire, mesure les clics (vérifié dans l’aperçu, en attente de publication).
+
+## Avantages partenaires
+
+- [ ] Créer la page « Avantages partenaires » : recherche par activité et ville, bouton « Demander cette offre » vers le formulaire prestataire. Contenu des offres à confirmer avec Salim.

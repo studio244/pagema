@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useT } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { sendPreregistrationEmail } from "@/lib/notify.functions";
@@ -68,6 +68,12 @@ export function PreregistrationForm({
   const inputClass = s.input;
   const selectClass = s.select;
   const labelClass = s.label;
+
+  // The journey preview can prefill the provider form with the chosen activity and city.
+  useEffect(() => {
+    if (defaultCity) setCity(defaultCity);
+    if (defaultCategory) setCategory(defaultCategory);
+  }, [defaultCity, defaultCategory]);
 
   const isHealth = profile === "prestataire" && category === "Santé";
   const isInvestment = category === INVESTMENT;
