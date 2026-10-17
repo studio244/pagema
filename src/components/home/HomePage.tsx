@@ -76,8 +76,7 @@ function ProSection({ selection }: { selection: { category: string; city: string
           <Reveal className="order-2 lg:order-1">
             <PreregistrationForm
               profile="prestataire"
-              defaultCity={selection?.city}
-              defaultCategory={selection?.category}
+              {...(selection ? { defaultCity: selection.city, defaultCategory: selection.category } : {})}
             />
           </Reveal>
           <Reveal delay={120} className="order-1 lg:order-2">
