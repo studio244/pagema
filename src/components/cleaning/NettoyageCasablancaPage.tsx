@@ -18,8 +18,6 @@ const LOGO_URL = logoAsset;
 const HERO_URL = heroAsset;
 const STEP_IMAGES = [step1, step2, step3];
 
-/** Same official opening date as the homepage countdown. */
-const LAUNCH_DATE = new Date("2026-11-01T00:00:00+01:00").getTime();
 
 export default function NettoyageCasablancaPage({ lang }: { lang: Lang }) {
   useEffect(() => {
@@ -50,22 +48,6 @@ export default function NettoyageCasablancaPage({ lang }: { lang: Lang }) {
   );
 }
 
-function useCountdown() {
-  const [left, setLeft] = useState<number | null>(null);
-  useEffect(() => {
-    const tick = () => setLeft(Math.max(0, LAUNCH_DATE - Date.now()));
-    tick();
-    const id = window.setInterval(tick, 30_000);
-    return () => window.clearInterval(id);
-  }, []);
-  if (left === null) return null;
-  const mins = Math.floor(left / 60_000);
-  return {
-    days: Math.floor(mins / 1440),
-    hours: Math.floor((mins % 1440) / 60),
-    minutes: mins % 60,
-  };
-}
 
 function highlightWords(text: string, words: string[]) {
   return text.split(new RegExp(`(${words.join("|")})`)).map((part, i) =>
@@ -207,12 +189,6 @@ function Nav() {
 function Hero() {
   const { lang } = useT();
   const c = CLEANING_COPY[lang].hero;
-  const cd = useCountdown();
-  const units = [
-    { v: cd?.days, l: c.days },
-    { v: cd?.hours, l: c.hours },
-    { v: cd?.minutes, l: c.minutes },
-  ];
 
   return (
     <header className="relative isolate overflow-hidden border-b-2 border-ink">
@@ -237,18 +213,6 @@ function Hero() {
           {c.subtitle}
         </p>
 
-        <div className="mt-8 flex justify-center gap-3 drop [animation-delay:200ms]" aria-live="polite">
-          {units.map((u) => (
-            <div key={u.l} className="min-w-[5.5rem] border-2 border-paper bg-ink/50 px-3 py-3">
-              <span className="block font-display text-4xl leading-none tabular-nums">
-                {u.v === undefined ? "--" : String(u.v).padStart(2, "0")}
-              </span>
-              <span className="mt-1.5 block font-mono text-[10px] uppercase tracking-wide text-paper/80">
-                {u.l}
-              </span>
-            </div>
-          ))}
-        </div>
 
         <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 drop [animation-delay:240ms]">
           <a
