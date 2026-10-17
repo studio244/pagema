@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+import { FREE_MONTH_OFFER } from "./free-month-offer";
 
 export type Lang = "fr" | "ar";
 
@@ -25,8 +26,7 @@ const fr = {
     titleHighlights: ["leads", "prestataires"],
     subtitle: "Soyez visible. Recevez des opportunités. Développez votre activité.",
     secondary: "Je cherche un prestataire",
-    offer:
-      "Offre spéciale lancement : Les 5 premiers prestataires inscrits dans chaque ville et chaque activité bénéficient du 1er mois offert (valeur 990 MAD).",
+    offer: FREE_MONTH_OFFER.fr.title,
     offerTag: "Offre spéciale",
   },
   promises: {
@@ -248,8 +248,7 @@ const ar: Dict = {
     titleHighlights: ["مقدّمي الخدمات", "فرص أعمال جديدة"],
     subtitle: "وسّع حضورك في السوق. اكتشف فرصاً جديدة. طوّر أعمالك.",
     secondary: "ابحث عن مزوّد خدمة",
-    offer:
-      "ميزة حصرية: يستفيد أول خمسة مزوّدي خدمات مسجّلين في كل مدينة وفي كل قطاع من الشهر الأول مجاناً، بقيمة تصل إلى 990 درهماً.",
+    offer: FREE_MONTH_OFFER.ar.title,
     offerTag: "ميزة حصرية",
   },
   promises: {

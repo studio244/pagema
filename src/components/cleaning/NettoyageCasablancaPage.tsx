@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { trackSocialClick } from "@/lib/social-tracking";
+import { FreeMonthCounter } from "@/components/FreeMonthCounter";
 import { DICTS, LangContext, useT, type Lang } from "@/lib/i18n";
 import { Benefit, BrandMark, Eyebrow, Reveal, WhatsAppIcon } from "@/components/brand";
 import { MoroccoNetwork } from "@/components/MoroccoNetwork";
@@ -235,6 +236,7 @@ function Hero() {
             {c.offerTag}
           </span>
           <p className="mt-3 font-semibold leading-relaxed text-pretty">{c.offer}</p>
+          <FreeMonthCounter lang={lang} />
         </div>
       </div>
     </header>

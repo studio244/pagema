@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { DICTS, type Lang } from "@/lib/i18n";
 import { getProLaunchStats, type ProLaunchStats } from "@/lib/pro.functions";
 import { trackPro, type HeroVariant } from "@/lib/pro-tracking";
-import { CATEGORIES } from "@/lib/catalog";
 import { BrandMark, Eyebrow, Reveal } from "@/components/brand";
 import { PRO_COPY, type ProCopy } from "./copy";
 import { ProForm, Reassurance } from "./ProForm";
-import { PLACES_PER_ACTIVITY, placesText, remainingPlaces, type Labels } from "./places";
+import { type Labels } from "./places";
+import { FreeMonthCounter } from "@/components/FreeMonthCounter";
+import { FREE_MONTH_PLACES_REMAINING } from "@/lib/free-month-offer";
 import logoAsset from "@/assets/pagema-logo.png";
 import whatsappLead from "@/assets/whatsapp-opportunity.png";
 import heroBackground from "@/assets/pagema-services-hero-2.webp";
@@ -71,7 +72,7 @@ export default function ProLanding({ lang, variant }: { lang: Lang; variant: Her
         phoneRef={phoneRef}
         onRegistered={loadStats}
       />
-      <ProPlaces stats={stats} labels={labels} onCta={onCta} />
+      <ProPlaces lang={lang} labels={labels} onCta={onCta} />
       <ProFinalCta copy={copy} onCta={onCta} />
       <FrequentlyAskedQuestions lang={lang} variant="pro" />
       <ProFooter copy={copy} />
@@ -281,11 +282,11 @@ function ProSignup({
 }
 
 function ProPlaces({
-  stats,
+  lang,
   labels,
   onCta,
 }: {
-  stats: ProLaunchStats | null;
+  lang: Lang;
   labels: Labels;
   onCta: CtaHandler;
 }) {
@@ -298,32 +299,10 @@ function ProPlaces({
           {copy.places.title}
         </h2>
         <p className="mt-4 max-w-prose text-lg leading-relaxed text-ink-soft">
-          {copy.places.body(PLACES_PER_ACTIVITY)}
+          {copy.places.body(FREE_MONTH_PLACES_REMAINING)}
         </p>
+        <FreeMonthCounter lang={lang} />
       </Reveal>
-      <ul className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {CATEGORIES.map((c, i) => {
-          const remaining = remainingPlaces(stats, c);
-          const full = remaining === 0;
-          return (
-            <li key={c}>
-              <Reveal delay={(i % 4) * 60} className="h-full">
-                <div
-                  className={`h-full border-2 border-ink p-5 ${full ? "bg-paper opacity-60" : "bg-paper-deep lift-card"}`}
-                >
-                  <BrandMark className="h-5 w-auto text-terra" />
-                  <p className="mt-3 font-semibold text-lg leading-tight">{labels.category(c)}</p>
-                  <p
-                    className={`mt-2 text-sm font-semibold ${full ? "text-ink-soft" : "text-terra-deep"}`}
-                  >
-                    {remaining === null ? copy.places.unknown : placesText(copy, remaining)}
-                  </p>
-                </div>
-              </Reveal>
-            </li>
-          );
-        })}
-      </ul>
       <div className="mt-10 text-center">
         <CtaButton
           copy={copy}

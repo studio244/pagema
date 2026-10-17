@@ -1,4 +1,5 @@
 import type { Lang } from "@/lib/i18n";
+import { FREE_MONTH_OFFER } from "@/lib/free-month-offer";
 
 /**
  * Copy for the /nettoyage-casablanca landing page (French) and its Arabic twin
@@ -39,8 +40,7 @@ const fr = {
     ctaMain: "Décrire mon besoin",
     ctaSecondary: "Je propose mes services",
     offerTag: "Offre de lancement",
-    offer:
-      "Les 5 premiers prestataires inscrits en nettoyage à Casablanca bénéficient du 1er mois offert (valeur 990 MAD).",
+    offer: FREE_MONTH_OFFER.fr.title,
   },
   steps: {
     eyebrow: "COMMENT ÇA MARCHE",
@@ -235,7 +235,7 @@ const ar: Copy = {
     ctaMain: "أشرح حاجتي",
     ctaSecondary: "أقدّم خدماتي",
     offerTag: "عرض الانطلاق",
-    offer: "أول 5 مزوّدين مسجّلين في التنظيف بالدار البيضاء يحصلون على الشهر الأول مجّاناً بقيمة 990 درهماً.",
+    offer: FREE_MONTH_OFFER.ar.title,
   },
   steps: {
     eyebrow: "كيف يعمل",
