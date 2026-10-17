@@ -33,6 +33,8 @@ export default function HomePage({ lang }: { lang: Lang }) {
   }, [lang]);
 
   const t = DICTS[lang];
+  // Activity and city chosen in the journey preview, carried into the provider form.
+  const [journeySelection, setJourneySelection] = useState<{ category: string; city: string } | null>(null);
 
   return (
     <LangContext.Provider value={{ lang, t, setLang: () => {} }}>
@@ -44,9 +46,9 @@ export default function HomePage({ lang }: { lang: Lang }) {
         <Nav />
         <Hero />
         <Promises />
-        <JourneyPreviewSection />
+        <JourneyPreviewSection onReserve={setJourneySelection} />
         <Categories />
-        <ProSection />
+        <ProSection selection={journeySelection} />
         <WhatsAppSection />
         <Pricing />
         <Partners />
@@ -61,7 +63,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
   );
 }
 
-function ProSection() {
+function ProSection({ selection }: { selection: { category: string; city: string } | null }) {
   const { t } = useT();
   return (
     <section
@@ -72,7 +74,11 @@ function ProSection() {
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           <Reveal className="order-2 lg:order-1">
-            <PreregistrationForm profile="prestataire" />
+            <PreregistrationForm
+              profile="prestataire"
+              defaultCity={selection?.city}
+              defaultCategory={selection?.category}
+            />
           </Reveal>
           <Reveal delay={120} className="order-1 lg:order-2">
             <Eyebrow className="text-terra-deep mb-4">{t.pro.eyebrow}</Eyebrow>
