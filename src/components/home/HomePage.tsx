@@ -1020,7 +1020,10 @@ function Footer() {
       title: t.footer.columns.cities,
       links: FOOTER_CITIES.map((c) => ({ label: t.cityLabels[c] ?? c, href: "#coverage-title" })),
     },
-    { title: t.footer.columns.platform, links: t.footer.platformLinks },
+    { title: t.footer.columns.platform, links: [...t.footer.platformLinks, {
+      label: lang === "ar" ? "مزايا الشركاء" : "Avantages partenaires",
+      href: lang === "ar" ? "/ar/avantages-partenaires" : "/avantages-partenaires",
+    }] },
   ];
   return (
     <footer className="relative isolate overflow-hidden border-t-2 border-ink zellige">

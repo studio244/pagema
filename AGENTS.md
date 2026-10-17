@@ -22,3 +22,4 @@
   hreflang stays correct.
 - Public pages share the bilingual FAQ presentation and audience-specific copy in `src/components/faq`; cleaning keeps its existing sector-specific FAQ to avoid duplication.
 - Bilingual SEO alternates use `fr-MA`, `ar-MA`, and `x-default` in the shared head helper to match the site's Moroccan audience.
+- Partner benefits use a browser-safe example catalogue with intersecting activity/city filters and the shared provider form; log offer clicks with their example ID and retain that ID in the notification source so interest never implies coupon activation.
