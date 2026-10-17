@@ -43,7 +43,7 @@ const fr = {
     },
     {
       t: "Recevez vos demandes",
-      b: "Dès le 1er novembre, les demandes de clients arrivent sur votre WhatsApp.",
+      b: "Les demandes de clients arrivent sur votre WhatsApp.",
     },
   ],
   form: {
@@ -63,7 +63,7 @@ const fr = {
     doneTag: "Place réservée ✓",
     doneTitle: "Bienvenue sur Page.ma.",
     doneBody:
-      "Votre mois offert est réservé. On vous contacte sur WhatsApp pour valider votre activité avant le lancement du 1er novembre.",
+      "Votre mois offert est réservé. On vous contacte sur WhatsApp pour valider votre activité avant le lancement.",
     placesFull: (activity: string) =>
       `Places offertes épuisées en ${activity}, mais l'inscription reste gratuite.`,
     placesLeft: (places: string, activity: string) => `${places} en ${activity} à Marrakech.`,
@@ -78,7 +78,7 @@ const fr = {
       `Les ${n} premiers professionnels inscrits dans chaque activité à Marrakech bénéficient du premier mois offert.`,
   },
   finalTitle: "Vos prochains clients à Marrakech vous écrivent sur WhatsApp.",
-  footer: "Lancement officiel le 1er novembre 2026",
+  footer: "Préinscriptions ouvertes — plateforme en préparation",
   switchLabel: "العربية",
 };
 
@@ -111,7 +111,7 @@ const ar: ProCopy = {
   steps: [
     { t: "احجز مكانك", b: "30 ثانية: اسمك، رقم واتساب، بريدك، نشاطك ومدينتك." },
     { t: "نتحقق من نشاطك", b: "مكالمة قصيرة لتأكيد ملفك قبل الإطلاق." },
-    { t: "توصّل بالطلبات", b: "ابتداءً من 1 نونبر، تصلك طلبات الزبناء على واتساب." },
+    { t: "توصّل بالطلبات", b: "تصلك طلبات الزبناء على واتساب مباشرةً." },
   ],
   form: {
     title: "احجز شهرك المجاني",
@@ -129,7 +129,7 @@ const ar: ProCopy = {
     error: "تعذّر الإرسال. تحقّق من الاتصال وأعد المحاولة.",
     doneTag: "تم حجز مكانك ✓",
     doneTitle: "مرحباً بك في Page.ma.",
-    doneBody: "تم حجز شهرك المجاني. سنتواصل معك عبر واتساب للتحقق من نشاطك قبل الإطلاق في 1 نونبر.",
+    doneBody: "تم حجز شهرك المجاني. سنتواصل معك عبر واتساب للتحقق من نشاطك قبل الإطلاق.",
     placesFull: (activity: string) =>
       `نفدت الأماكن المجانية في ${activity}، لكن التسجيل يبقى مجانياً.`,
     placesLeft: (places: string, activity: string) => `${places} في ${activity} بمراكش.`,
@@ -144,7 +144,7 @@ const ar: ProCopy = {
       `أول ${n} مهنيين يسجّلون في كل نشاط بمراكش يستفيدون من الشهر الأول مجاناً.`,
   },
   finalTitle: "زبناؤك القادمون في مراكش يراسلونك على واتساب.",
-  footer: "الإطلاق الرسمي في 1 نونبر 2026",
+  footer: "التسجيلات المسبقة مفتوحة — المنصة قيد التحضير",
   switchLabel: "Français",
 };
 

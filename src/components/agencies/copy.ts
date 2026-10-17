@@ -60,7 +60,7 @@ const fr = {
     body: "Soyez visible auprès des clients qui cherchent vos services et recevez leurs demandes sur WhatsApp.",
     button: "Inscrire mon agence gratuitement",
   },
-  footer: "Lancement officiel le 1er novembre 2026",
+  footer: "Préinscriptions ouvertes",
 };
 
 export type AgenciesCopy = typeof fr;
@@ -122,7 +122,7 @@ const ar: AgenciesCopy = {
     body: "كن مرئياً لدى الزبناء الذين يبحثون عن خدماتك وتوصّل بطلباتهم على واتساب.",
     button: "سجّل وكالتك مجاناً",
   },
-  footer: "الإطلاق الرسمي في 1 نونبر 2026",
+  footer: "التسجيلات المسبقة مفتوحة",
 };
 
 export const AGENCIES_COPY: Record<Lang, AgenciesCopy> = { fr, ar };

@@ -20,13 +20,10 @@ const fr = {
   cta: "Préinscrire mon entreprise",
   hero: {
     imgAlt: "Professionnels marocains de la sécurité, du nettoyage et des services",
-    kicker: "Lancement officiel le 1er novembre 2026",
+    kicker: "Préinscriptions ouvertes",
     title: "La plateforme de visibilité et de génération de leads pour les prestataires au Maroc",
     titleHighlights: ["leads", "prestataires"],
     subtitle: "Soyez visible. Recevez des opportunités. Développez votre activité.",
-    days: "jours",
-    hours: "heures",
-    minutes: "minutes",
     secondary: "Je cherche un prestataire",
     offer:
       "Offre spéciale lancement : Les 5 premiers prestataires inscrits dans chaque ville et chaque activité bénéficient du 1er mois offert (valeur 990 MAD).",
@@ -246,13 +243,10 @@ const ar: Dict = {
   cta: "سجّل شركتك مسبقاً",
   hero: {
     imgAlt: "مهنيون مغاربة في الأمن والنظافة والخدمات",
-    kicker: "الإطلاق الرسمي في 1 نونبر 2026",
+    kicker: "التسجيلات المسبقة مفتوحة",
     title: "منصة رقمية تربط العملاء بمقدّمي الخدمات وتولّد فرص أعمال جديدة في المغرب.",
     titleHighlights: ["مقدّمي الخدمات", "فرص أعمال جديدة"],
     subtitle: "وسّع حضورك في السوق. اكتشف فرصاً جديدة. طوّر أعمالك.",
-    days: "يوم",
-    hours: "ساعة",
-    minutes: "دقيقة",
     secondary: "ابحث عن مزوّد خدمة",
     offer:
       "ميزة حصرية: يستفيد أول خمسة مزوّدي خدمات مسجّلين في كل مدينة وفي كل قطاع من الشهر الأول مجاناً، بقيمة تصل إلى 990 درهماً.",
