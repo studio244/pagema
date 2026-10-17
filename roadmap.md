@@ -1,5 +1,10 @@
 # Corrections de l’audit
 
+## Offre du premier mois — 10 places
+
+- [ ] Remplacer l’ancienne limite et afficher un compteur de 10 places en FR/AR.
+- [ ] Vérifier les pages concernées et demander la publication.
+
 - [x] Retirer les cartes « الإشهار » (Publicité) et « الاستثمار » (Investissement) de la grille des métiers de l’accueil FR et AR.
 
 - [x] Corriger l’offre et les cartes IA en FR et AR.
