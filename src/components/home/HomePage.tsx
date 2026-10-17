@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { trackSocialClick } from "@/lib/social-tracking";
 import { DICTS, LangContext, useT, type Dict, type Lang } from "@/lib/i18n";
 import logoAsset from "@/assets/pagema-logo.png";
 import heroAsset from "@/assets/pagema-services-hero-2.webp";

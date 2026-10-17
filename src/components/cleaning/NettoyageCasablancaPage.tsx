@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { trackSocialClick } from "@/lib/social-tracking";
 import { DICTS, LangContext, useT, type Lang } from "@/lib/i18n";
 import { Benefit, BrandMark, Eyebrow, Reveal, WhatsAppIcon } from "@/components/brand";
 import { MoroccoNetwork } from "@/components/MoroccoNetwork";
