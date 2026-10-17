@@ -3,6 +3,7 @@ import { useT } from "@/lib/i18n";
 import { CATEGORIES, COVERAGE_CITIES } from "@/lib/catalog";
 import { getJourneyPreview } from "@/lib/journey.functions";
 import type { JourneyPreview } from "@/lib/journey.server";
+import { trackPro } from "@/lib/pro-tracking";
 import { BrandMark, Eyebrow, Reveal } from "@/components/brand";
 
 const COPY = {
@@ -22,6 +23,7 @@ const COPY = {
     quoteLabel: "Devis · à envoyer au client",
     transmitted: "Transmise à 3 prestataires vérifiés maximum.",
     compare: "Le client compare les devis des 3 prestataires et choisit en confiance.",
+    reserve: "Je réserve ma place gratuitement",
   },
   ar: {
     eyebrow: "المنصة قيد التحضير",
@@ -39,10 +41,16 @@ const COPY = {
     quoteLabel: "عرض ثمن · لإرساله إلى الزبون",
     transmitted: "يُرسَل إلى 3 مقدّمي خدمات موثوقين كحد أقصى.",
     compare: "يقارن الزبون عروض الثمن الثلاثة ويختار بثقة.",
+    reserve: "أحجز مكاني مجاناً",
   },
 } as const;
 
-export function JourneyPreviewSection() {
+export function JourneyPreviewSection({
+  onReserve,
+}: {
+  /** Carries the chosen activity and city into the provider form. */
+  onReserve?: (selection: { category: string; city: string }) => void;
+}) {
   const { lang, t } = useT();
   const c = COPY[lang];
   const [activity, setActivity] = useState<string>(CATEGORIES[1] ?? "Nettoyage");
@@ -190,6 +198,22 @@ export function JourneyPreviewSection() {
               <p className="mt-3 text-sm text-ink-soft">{c.compare}</p>
             </PreviewCard>
           </ol>
+        )}
+
+        {preview && (
+          <div className="mt-10 text-center">
+            <button
+              type="button"
+              onClick={() => {
+                trackPro("cta_click", "a", { category: activity, city });
+                onReserve?.({ category: activity, city });
+                document.getElementById("section-prestataire")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="border-2 border-ink bg-terra px-8 py-4 font-display text-xl text-paper lift"
+            >
+              {c.reserve}
+            </button>
+          </div>
         )}
       </div>
     </section>
