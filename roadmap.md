@@ -21,8 +21,9 @@
 
 ## Parcours personnalisé → préinscription
 
-- [x] Bouton « Je réserve ma place gratuitement » après le parcours IA : préremplit activité + ville dans le formulaire prestataire, mesure les clics (vérifié dans l’aperçu, en attente de publication).
+- [x] Bouton « Je réserve ma place gratuitement » après le parcours IA : préremplit activité + ville dans le formulaire prestataire et mesure les clics ; parcours réel vérifié.
 
 ## Avantages partenaires
 
-- [ ] Créer la page « Avantages partenaires » : recherche par activité et ville, bouton « Demander cette offre » vers le formulaire prestataire. Contenu des offres à confirmer avec Salim.
+- [x] Créer la page « Avantages partenaires » FR/AR : recherche par activité et ville, exemples fictifs validés, bouton « Demander cette offre » vers le formulaire prestataire et suivi des clics.
+- [x] Vérifier les filtres, le préremplissage et les clics dans les deux langues, sur téléphone et ordinateur ; demander la publication de cette page et du bouton du parcours personnalisé.
