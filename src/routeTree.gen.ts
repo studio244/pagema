@@ -14,6 +14,7 @@ import { Route as AnnaireRouteImport } from './routes/annaire'
 import { Route as AnnuaireRouteImport } from './routes/annuaire'
 import { Route as AnnuaireAiRouteImport } from './routes/annuaire-ai'
 import { Route as ArRouteImport } from './routes/ar'
+import { Route as AvantagesPartenairesRouteImport } from './routes/avantages-partenaires'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as MarrakechRouteImport } from './routes/marrakech'
 import { Route as NettoyageCasablancaRouteImport } from './routes/nettoyage-casablanca'
@@ -22,6 +23,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ApiResendDomainRouteImport } from './routes/api/resend-domain'
 import { Route as ArAnnuaireRouteImport } from './routes/ar_.annuaire'
 import { Route as ArAnnuaireAiRouteImport } from './routes/ar_.annuaire-ai'
+import { Route as ArAvantagesPartenairesRouteImport } from './routes/ar_.avantages-partenaires'
 import { Route as ArInscriptionRouteImport } from './routes/ar_.inscription'
 import { Route as ArMarrakechRouteImport } from './routes/ar_.marrakech'
 import { Route as ArNettoyageCasablancaRouteImport } from './routes/ar_.nettoyage-casablanca'
@@ -54,6 +56,11 @@ const AnnuaireAiRoute = AnnuaireAiRouteImport.update({
 const ArRoute = ArRouteImport.update({
   id: '/ar',
   path: '/ar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AvantagesPartenairesRoute = AvantagesPartenairesRouteImport.update({
+  id: '/avantages-partenaires',
+  path: '/avantages-partenaires',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InscriptionRoute = InscriptionRouteImport.update({
@@ -94,6 +101,11 @@ const ArAnnuaireRoute = ArAnnuaireRouteImport.update({
 const ArAnnuaireAiRoute = ArAnnuaireAiRouteImport.update({
   id: '/ar_/annuaire-ai',
   path: '/ar/annuaire-ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArAvantagesPartenairesRoute = ArAvantagesPartenairesRouteImport.update({
+  id: '/ar_/avantages-partenaires',
+  path: '/ar/avantages-partenaires',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArInscriptionRoute = ArInscriptionRouteImport.update({
@@ -143,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/annuaire': typeof AnnuaireRoute
   '/annuaire-ai': typeof AnnuaireAiRoute
   '/ar': typeof ArRoute
+  '/avantages-partenaires': typeof AvantagesPartenairesRoute
   '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
   '/nettoyage-casablanca': typeof NettoyageCasablancaRoute
@@ -151,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/api/resend-domain': typeof ApiResendDomainRoute
   '/ar/annuaire': typeof ArAnnuaireRoute
   '/ar/annuaire-ai': typeof ArAnnuaireAiRoute
+  '/ar/avantages-partenaires': typeof ArAvantagesPartenairesRoute
   '/ar/inscription': typeof ArInscriptionRoute
   '/ar/marrakech': typeof ArMarrakechRoute
   '/ar/nettoyage-casablanca': typeof ArNettoyageCasablancaRoute
@@ -166,6 +180,7 @@ export interface FileRoutesByTo {
   '/annuaire': typeof AnnuaireRoute
   '/annuaire-ai': typeof AnnuaireAiRoute
   '/ar': typeof ArRoute
+  '/avantages-partenaires': typeof AvantagesPartenairesRoute
   '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
   '/nettoyage-casablanca': typeof NettoyageCasablancaRoute
@@ -174,6 +189,7 @@ export interface FileRoutesByTo {
   '/api/resend-domain': typeof ApiResendDomainRoute
   '/ar/annuaire': typeof ArAnnuaireRoute
   '/ar/annuaire-ai': typeof ArAnnuaireAiRoute
+  '/ar/avantages-partenaires': typeof ArAvantagesPartenairesRoute
   '/ar/inscription': typeof ArInscriptionRoute
   '/ar/marrakech': typeof ArMarrakechRoute
   '/ar/nettoyage-casablanca': typeof ArNettoyageCasablancaRoute
@@ -190,6 +206,7 @@ export interface FileRoutesById {
   '/annuaire': typeof AnnuaireRoute
   '/annuaire-ai': typeof AnnuaireAiRoute
   '/ar': typeof ArRoute
+  '/avantages-partenaires': typeof AvantagesPartenairesRoute
   '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
   '/nettoyage-casablanca': typeof NettoyageCasablancaRoute
@@ -198,6 +215,7 @@ export interface FileRoutesById {
   '/api/resend-domain': typeof ApiResendDomainRoute
   '/ar_/annuaire': typeof ArAnnuaireRoute
   '/ar_/annuaire-ai': typeof ArAnnuaireAiRoute
+  '/ar_/avantages-partenaires': typeof ArAvantagesPartenairesRoute
   '/ar_/inscription': typeof ArInscriptionRoute
   '/ar_/marrakech': typeof ArMarrakechRoute
   '/ar_/nettoyage-casablanca': typeof ArNettoyageCasablancaRoute
@@ -215,6 +233,7 @@ export interface FileRouteTypes {
     | '/annuaire'
     | '/annuaire-ai'
     | '/ar'
+    | '/avantages-partenaires'
     | '/inscription'
     | '/marrakech'
     | '/nettoyage-casablanca'
@@ -223,6 +242,7 @@ export interface FileRouteTypes {
     | '/api/resend-domain'
     | '/ar/annuaire'
     | '/ar/annuaire-ai'
+    | '/ar/avantages-partenaires'
     | '/ar/inscription'
     | '/ar/marrakech'
     | '/ar/nettoyage-casablanca'
@@ -238,6 +258,7 @@ export interface FileRouteTypes {
     | '/annuaire'
     | '/annuaire-ai'
     | '/ar'
+    | '/avantages-partenaires'
     | '/inscription'
     | '/marrakech'
     | '/nettoyage-casablanca'
@@ -246,6 +267,7 @@ export interface FileRouteTypes {
     | '/api/resend-domain'
     | '/ar/annuaire'
     | '/ar/annuaire-ai'
+    | '/ar/avantages-partenaires'
     | '/ar/inscription'
     | '/ar/marrakech'
     | '/ar/nettoyage-casablanca'
@@ -261,6 +283,7 @@ export interface FileRouteTypes {
     | '/annuaire'
     | '/annuaire-ai'
     | '/ar'
+    | '/avantages-partenaires'
     | '/inscription'
     | '/marrakech'
     | '/nettoyage-casablanca'
@@ -269,6 +292,7 @@ export interface FileRouteTypes {
     | '/api/resend-domain'
     | '/ar_/annuaire'
     | '/ar_/annuaire-ai'
+    | '/ar_/avantages-partenaires'
     | '/ar_/inscription'
     | '/ar_/marrakech'
     | '/ar_/nettoyage-casablanca'
@@ -285,6 +309,7 @@ export interface RootRouteChildren {
   AnnuaireRoute: typeof AnnuaireRoute
   AnnuaireAiRoute: typeof AnnuaireAiRoute
   ArRoute: typeof ArRoute
+  AvantagesPartenairesRoute: typeof AvantagesPartenairesRoute
   InscriptionRoute: typeof InscriptionRoute
   MarrakechRoute: typeof MarrakechRoute
   NettoyageCasablancaRoute: typeof NettoyageCasablancaRoute
@@ -293,6 +318,7 @@ export interface RootRouteChildren {
   ApiResendDomainRoute: typeof ApiResendDomainRoute
   ArAnnuaireRoute: typeof ArAnnuaireRoute
   ArAnnuaireAiRoute: typeof ArAnnuaireAiRoute
+  ArAvantagesPartenairesRoute: typeof ArAvantagesPartenairesRoute
   ArInscriptionRoute: typeof ArInscriptionRoute
   ArMarrakechRoute: typeof ArMarrakechRoute
   ArNettoyageCasablancaRoute: typeof ArNettoyageCasablancaRoute
@@ -338,6 +364,13 @@ declare module '@tanstack/react-router' {
       path: '/ar'
       fullPath: '/ar'
       preLoaderRoute: typeof ArRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/avantages-partenaires': {
+      id: '/avantages-partenaires'
+      path: '/avantages-partenaires'
+      fullPath: '/avantages-partenaires'
+      preLoaderRoute: typeof AvantagesPartenairesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/inscription': {
@@ -394,6 +427,13 @@ declare module '@tanstack/react-router' {
       path: '/ar/annuaire-ai'
       fullPath: '/ar/annuaire-ai'
       preLoaderRoute: typeof ArAnnuaireAiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ar_/avantages-partenaires': {
+      id: '/ar_/avantages-partenaires'
+      path: '/ar/avantages-partenaires'
+      fullPath: '/ar/avantages-partenaires'
+      preLoaderRoute: typeof ArAvantagesPartenairesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ar_/inscription': {
@@ -461,6 +501,7 @@ const rootRouteChildren: RootRouteChildren = {
   AnnuaireRoute: AnnuaireRoute,
   AnnuaireAiRoute: AnnuaireAiRoute,
   ArRoute: ArRoute,
+  AvantagesPartenairesRoute: AvantagesPartenairesRoute,
   InscriptionRoute: InscriptionRoute,
   MarrakechRoute: MarrakechRoute,
   NettoyageCasablancaRoute: NettoyageCasablancaRoute,
@@ -469,6 +510,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiResendDomainRoute: ApiResendDomainRoute,
   ArAnnuaireRoute: ArAnnuaireRoute,
   ArAnnuaireAiRoute: ArAnnuaireAiRoute,
+  ArAvantagesPartenairesRoute: ArAvantagesPartenairesRoute,
   ArInscriptionRoute: ArInscriptionRoute,
   ArMarrakechRoute: ArMarrakechRoute,
   ArNettoyageCasablancaRoute: ArNettoyageCasablancaRoute,
