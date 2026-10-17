@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnnaireRouteImport } from './routes/annaire'
 import { Route as AnnuaireRouteImport } from './routes/annuaire'
 import { Route as AnnuaireAiRouteImport } from './routes/annuaire-ai'
 import { Route as ArRouteImport } from './routes/ar'
@@ -33,6 +34,11 @@ import { Route as ArServicesSlugRouteImport } from './routes/ar_.services.$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnnaireRoute = AnnaireRouteImport.update({
+  id: '/annaire',
+  path: '/annaire',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnnuaireRoute = AnnuaireRouteImport.update({
@@ -133,6 +139,7 @@ const ArServicesSlugRoute = ArServicesSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/annaire': typeof AnnaireRoute
   '/annuaire': typeof AnnuaireRoute
   '/annuaire-ai': typeof AnnuaireAiRoute
   '/ar': typeof ArRoute
@@ -155,6 +162,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/annaire': typeof AnnaireRoute
   '/annuaire': typeof AnnuaireRoute
   '/annuaire-ai': typeof AnnuaireAiRoute
   '/ar': typeof ArRoute
@@ -178,6 +186,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/annaire': typeof AnnaireRoute
   '/annuaire': typeof AnnuaireRoute
   '/annuaire-ai': typeof AnnuaireAiRoute
   '/ar': typeof ArRoute
@@ -202,6 +211,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/annaire'
     | '/annuaire'
     | '/annuaire-ai'
     | '/ar'
@@ -224,6 +234,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/annaire'
     | '/annuaire'
     | '/annuaire-ai'
     | '/ar'
@@ -246,6 +257,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/annaire'
     | '/annuaire'
     | '/annuaire-ai'
     | '/ar'
@@ -269,6 +281,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnnaireRoute: typeof AnnaireRoute
   AnnuaireRoute: typeof AnnuaireRoute
   AnnuaireAiRoute: typeof AnnuaireAiRoute
   ArRoute: typeof ArRoute
@@ -297,6 +310,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/annaire': {
+      id: '/annaire'
+      path: '/annaire'
+      fullPath: '/annaire'
+      preLoaderRoute: typeof AnnaireRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/annuaire': {
@@ -437,6 +457,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnnaireRoute: AnnaireRoute,
   AnnuaireRoute: AnnuaireRoute,
   AnnuaireAiRoute: AnnuaireAiRoute,
   ArRoute: ArRoute,
