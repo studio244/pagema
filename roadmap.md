@@ -11,4 +11,4 @@
 
 ## Pré-lancement : retirer la date de lancement
 
-- [ ] Présenter les textes FR/AR remplaçant « 1er novembre 2026 » et le compte à rebours, puis attendre la validation avant de modifier le site.
+- [x] Retirer la date de lancement (1er novembre 2026) et le compte à rebours des 8 emplacements, en FR et en AR, avec les textes validés.
