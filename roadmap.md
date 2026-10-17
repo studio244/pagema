@@ -8,3 +8,7 @@
 - [x] Exclure uniquement annuaire FR/AR de l’indexation et du sitemap ; vérifier hreflang régionaux dans le HTML reçu.
 - [x] Vérifier les 22 pages FR/AR, les changements de langue et l’aide conditionnelle, sans erreur ; préserver design, H1, tarifs, mentions légales et Powered by HoverSwitch.
 - [x] Rediriger en permanence /annaire vers /annuaire (301), sans autre changement ; adresse hors sitemap.
+
+## Pré-lancement : retirer la date de lancement
+
+- [ ] Présenter les textes FR/AR remplaçant « 1er novembre 2026 » et le compte à rebours, puis attendre la validation avant de modifier le site.
