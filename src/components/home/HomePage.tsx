@@ -1036,6 +1036,7 @@ function Footer() {
                 href="https://www.instagram.com/page.ma01/"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackSocialClick("instagram", "home")}
                 aria-label={`${t.footer.on} Instagram`}
                 className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
