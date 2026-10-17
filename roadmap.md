@@ -21,7 +21,7 @@
 
 ## Parcours personnalisé → préinscription
 
-- [ ] Bouton « Je réserve ma place gratuitement » après le parcours IA : préremplit activité + ville dans le formulaire prestataire, mesure les clics. À vérifier dans l’aperçu.
+- [x] Bouton « Je réserve ma place gratuitement » après le parcours IA : préremplit activité + ville dans le formulaire prestataire, mesure les clics (vérifié dans l’aperçu, en attente de publication).
 
 ## Avantages partenaires
 
