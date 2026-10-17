@@ -566,7 +566,7 @@ const SOCIALS = [
     href: "https://www.facebook.com/profile.php?id=61594526347174",
     Icon: Facebook,
   },
-  { name: "Instagram", href: "https://www.instagram.com/page.ma22/", Icon: Instagram },
+  { name: "Instagram", href: "https://www.instagram.com/page.ma01/", Icon: Instagram },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/showcase/page-ma/",

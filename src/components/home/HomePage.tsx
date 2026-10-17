@@ -1033,7 +1033,7 @@ function Footer() {
                 <Facebook size={18} strokeWidth={2} />
               </a>
               <a
-                href="https://www.instagram.com/page.ma22/"
+                href="https://www.instagram.com/page.ma01/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${t.footer.on} Instagram`}
