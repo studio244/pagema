@@ -76,10 +76,7 @@ export function ProForm({
   const noteClass = s ? "mt-1.5 text-xs font-medium text-[#b83e26]" : "mt-1.5 text-sm font-semibold text-terra-deep";
 
   const otherText = OTHER_TEXT[lang];
-  const remaining =
-    category && category !== OTHER && city === DEFAULT_CITY
-      ? remainingPlaces(stats, category)
-      : null;
+  const remaining = remainingPlaces(stats, category);
   const activityName = category ? labels.category(category) : "";
   const activityInline = lang === "fr" ? activityName.toLowerCase() : activityName;
 

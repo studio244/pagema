@@ -1,5 +1,6 @@
 import type { Lang } from "@/lib/i18n";
 import type { HeroVariant } from "@/lib/pro-tracking";
+import { FREE_MONTH_OFFER } from "@/lib/free-month-offer";
 
 /** All text of the /annuaire-ai and /ar/annuaire-ai provider landing. */
 const fr = {
@@ -14,7 +15,7 @@ const fr = {
   cta: "Je réserve ma place gratuitement",
   reassurance: ["0 MAD", "Sans carte bancaire", "Sans engagement"],
   offerTag: "Offre lancement",
-  offer: "1 mois offert aux premiers professionnels inscrits",
+  offer: FREE_MONTH_OFFER.fr.title,
   heroes: {
     a: {
       title: "Trouvez de nouveaux clients à Marrakech avec Page.ma.",
@@ -66,16 +67,16 @@ const fr = {
       "Votre mois offert est réservé. On vous contacte sur WhatsApp pour valider votre activité avant le lancement.",
     placesFull: (activity: string) =>
       `Places offertes épuisées en ${activity}, mais l'inscription reste gratuite.`,
-    placesLeft: (places: string, activity: string) => `${places} en ${activity} à Marrakech.`,
+    placesLeft: (places: string, _activity: string) => `${places} pour profiter du 1er mois offert.`,
   },
   places: {
     left: (n: number) => (n === 1 ? "Plus qu'1 place offerte" : `Plus que ${n} places offertes`),
     full: "Places offertes épuisées",
     unknown: "Places offertes limitées",
     eyebrow: "Offre lancement · Marrakech",
-    title: "Un mois offert, activité par activité",
+    title: FREE_MONTH_OFFER.fr.title,
     body: (n: number) =>
-      `Les ${n} premiers professionnels inscrits dans chaque activité à Marrakech bénéficient du premier mois offert.`,
+      `Il reste ${n} places pour cette offre, toutes villes et activités confondues.`,
   },
   finalTitle: "Vos prochains clients à Marrakech vous écrivent sur WhatsApp.",
   footer: "Préinscriptions ouvertes — plateforme en préparation",
@@ -96,7 +97,7 @@ const ar: ProCopy = {
   cta: "أحجز مكاني مجاناً",
   reassurance: ["0 درهم", "بدون بطاقة بنكية", "بدون التزام"],
   offerTag: "عرض الإطلاق",
-  offer: "شهر مجاني لأوائل المهنيين المسجّلين",
+  offer: FREE_MONTH_OFFER.ar.title,
   heroes: {
     a: { title: "اعثر على زبناء جدد في مراكش مع Page.ma.", highlight: "زبناء جدد" },
     b: { title: "كن المهني الذي يجده زبناء مراكش أولاً.", highlight: "أولاً" },
@@ -132,16 +133,16 @@ const ar: ProCopy = {
     doneBody: "تم حجز شهرك المجاني. سنتواصل معك عبر واتساب للتحقق من نشاطك قبل الإطلاق.",
     placesFull: (activity: string) =>
       `نفدت الأماكن المجانية في ${activity}، لكن التسجيل يبقى مجانياً.`,
-    placesLeft: (places: string, activity: string) => `${places} في ${activity} بمراكش.`,
+    placesLeft: (places: string, _activity: string) => `${places} للاستفادة من الشهر الأول مجاناً.`,
   },
   places: {
     left: (n: number) => (n === 1 ? "بقي مكان مجاني واحد" : `بقيت ${n} أماكن مجانية`),
     full: "نفدت الأماكن المجانية",
     unknown: "أماكن مجانية محدودة",
     eyebrow: "عرض الإطلاق · مراكش",
-    title: "شهر مجاني، نشاطاً بنشاط",
+    title: FREE_MONTH_OFFER.ar.title,
     body: (n: number) =>
-      `أول ${n} مهنيين يسجّلون في كل نشاط بمراكش يستفيدون من الشهر الأول مجاناً.`,
+      `بقيت ${n} أماكن لهذا العرض، لجميع المدن والأنشطة مجتمعة.`,
   },
   finalTitle: "زبناؤك القادمون في مراكش يراسلونك على واتساب.",
   footer: "التسجيلات المسبقة مفتوحة — المنصة قيد التحضير",
