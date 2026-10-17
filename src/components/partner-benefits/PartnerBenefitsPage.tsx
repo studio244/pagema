@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { PreregistrationForm } from "@/components/home/PreregistrationForm";
 import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
 import logo from "@/assets/pagema-logo.png";
-import illustration from "@/assets/process-step-2.png";
+import teamPhoto from "@/assets/pagema-pros-equipe.jpg";
 import { PARTNER_COPY } from "./copy";
 import { filterPartnerExamples, type PARTNER_EXAMPLES } from "./offers";
 
@@ -88,7 +88,7 @@ export default function PartnerBenefitsPage({ lang }: { lang: Lang }) {
                     <Ticket aria-hidden="true" className="h-5 w-5 text-terra" />
                   </div>
                   <div className="flex flex-1 flex-col p-5">
-                    <p className="text-xs font-semibold text-ink-soft">{c.partner} · {t.categoryLabels[offer.category]}</p>
+                    <p className="text-xs font-semibold text-ink-soft">{c.partner} · {t.categoryLabels[offer.category] ?? offer.category}</p>
                     <h2 className="mt-3 font-display text-xl leading-snug">{c.titles[offer.category]}</h2>
                     <p className="mt-3 flex items-center gap-2 text-sm font-semibold"><MapPin className="h-4 w-4" aria-hidden="true" />{t.cityLabels[offer.city] ?? offer.city}</p>
                     <p className="mt-6 font-display text-3xl text-terra-deep">{c.amount}</p>
@@ -110,7 +110,7 @@ export default function PartnerBenefitsPage({ lang }: { lang: Lang }) {
                 <h2 className="font-display text-3xl leading-tight">{c.formTitle}</h2>
                 <p className="mt-5 max-w-prose leading-relaxed text-ink-soft">{c.formNote}</p>
                 {selected && <div role="status" className="mt-6 border-s-4 border-terra ps-4"><p className="text-sm font-bold">{c.selected} · {t.categoryLabels[selected.category]} · {t.cityLabels[selected.city] ?? selected.city}</p><p className="mt-2 text-sm text-ink-soft">{c.selectedNote}</p></div>}
-                <img src={illustration} alt="" aria-hidden="true" loading="lazy" className="mt-8 h-48 w-full object-contain lg:h-64" />
+                <img src={teamPhoto} alt="" aria-hidden="true" loading="lazy" className="mt-8 aspect-[3/2] w-full border-2 border-ink object-cover" />
               </div>
               <PreregistrationForm profile="prestataire" defaultCity={selected?.city ?? ""} source={`Page ${lang === "ar" ? "/ar/avantages-partenaires" : "/avantages-partenaires"} · ${selected?.id ?? "intérêt général"} · EXEMPLE FICTIF — aucun coupon activé`} />
             </div>
