@@ -10,7 +10,7 @@ const fr = {
   meta: {
     title: "Société de nettoyage à Casablanca : 3 devis | Page.ma",
     description:
-      "Décrivez votre besoin : Page.ma le qualifie par téléphone et vous transmet jusqu'à 3 devis de sociétés de nettoyage vérifiées à Casablanca. Ouverture le 1er novembre 2026.",
+      "Décrivez votre besoin : Page.ma le qualifie par téléphone et vous transmet jusqu'à 3 devis de sociétés de nettoyage vérifiées à Casablanca. Préinscriptions ouvertes.",
     ogTitle: "Société de nettoyage à Casablanca — jusqu'à 3 devis de pros vérifiés",
     ogDescription:
       "Page.ma qualifie votre demande par téléphone, puis vous envoie jusqu'à 3 devis comparables de sociétés de nettoyage vérifiées à Casablanca.",
@@ -31,16 +31,13 @@ const fr = {
   },
   hero: {
     imgAlt: "Équipe de professionnels marocains de la sécurité, du nettoyage et des services",
-    kicker: "Ouverture le 1er novembre 2026 · Casablanca",
+    kicker: "Préinscriptions ouvertes · Casablanca",
     title: "Trouver une société de nettoyage à Casablanca",
     titleHighlights: ["société de nettoyage", "Casablanca"],
     subtitle:
       "Décrivez votre besoin en deux minutes. Page.ma le qualifie par téléphone, puis vous transmet jusqu'à 3 devis de sociétés de nettoyage vérifiées à Casablanca.",
     ctaMain: "Décrire mon besoin",
     ctaSecondary: "Je propose mes services",
-    days: "jours",
-    hours: "heures",
-    minutes: "minutes",
     offerTag: "Offre de lancement",
     offer:
       "Les 5 premiers prestataires inscrits en nettoyage à Casablanca bénéficient du 1er mois offert (valeur 990 MAD).",
@@ -171,7 +168,7 @@ const fr = {
       },
       {
         q: "Quels délais pour recevoir des devis ?",
-        a: "Page.ma ouvre le 1er novembre 2026. Votre pré-inscription est enregistrée dès maintenant et nous vous appelons dès l'ouverture à Casablanca pour valider votre besoin et lancer la recherche.",
+        a: "Page.ma est en préparation. Votre pré-inscription est enregistrée dès maintenant et nous vous appelons dès l'ouverture à Casablanca pour valider votre besoin et lancer la recherche.",
       },
       {
         q: "Est-ce que ça m'engage à quelque chose ?",
@@ -209,7 +206,7 @@ const ar: Copy = {
   meta: {
     title: "شركة تنظيف في الدار البيضاء | 3 عروض من Page.ma",
     description:
-      "اشرحوا حاجتكم: Page.ma يؤهّلها بالهاتف ثم يرسل لكم حتى 3 عروض أسعار من شركات تنظيف موثوقة في الدار البيضاء. الانطلاق يوم 1 نونبر 2026.",
+      "اشرحوا حاجتكم: Page.ma يؤهّلها بالهاتف ثم يرسل لكم حتى 3 عروض أسعار من شركات تنظيف موثوقة في الدار البيضاء. التسجيلات المسبقة مفتوحة.",
     ogTitle: "شركة تنظيف في الدار البيضاء — حتى 3 عروض من محترفين موثوقين",
     ogDescription:
       "Page.ma يؤهّل طلبكم بالهاتف ثم يرسل لكم حتى 3 عروض أسعار قابلة للمقارنة من شركات تنظيف موثوقة في الدار البيضاء.",
@@ -230,16 +227,13 @@ const ar: Copy = {
   },
   hero: {
     imgAlt: "فريق من المهنيين المغاربة في الأمن والنظافة والخدمات",
-    kicker: "الانطلاق يوم 1 نونبر 2026 · الدار البيضاء",
+    kicker: "التسجيلات المسبقة مفتوحة · الدار البيضاء",
     title: "إيجاد شركة تنظيف في الدار البيضاء",
     titleHighlights: ["شركة تنظيف", "الدار البيضاء"],
     subtitle:
       "اشرحوا حاجتكم في دقيقتين. Page.ma يؤهّلها بالهاتف ثم يرسل لكم حتى 3 عروض أسعار من شركات تنظيف موثوقة في الدار البيضاء.",
     ctaMain: "أشرح حاجتي",
     ctaSecondary: "أقدّم خدماتي",
-    days: "أيام",
-    hours: "ساعات",
-    minutes: "دقائق",
     offerTag: "عرض الانطلاق",
     offer: "أول 5 مزوّدين مسجّلين في التنظيف بالدار البيضاء يحصلون على الشهر الأول مجّاناً بقيمة 990 درهماً.",
   },
