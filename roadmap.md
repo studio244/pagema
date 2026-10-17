@@ -2,8 +2,8 @@
 
 ## Offre du premier mois — 10 places
 
-- [ ] Remplacer l’ancienne limite et afficher un compteur de 10 places en FR/AR.
-- [ ] Vérifier les pages concernées et demander la publication.
+- [x] Remplacer l’ancienne limite et afficher un compteur de 10 places en FR/AR.
+- [x] Vérifier les six pages concernées sur mobile et ordinateur, tester la limite et préparer la demande de publication.
 
 - [x] Retirer les cartes « الإشهار » (Publicité) et « الاستثمار » (Investissement) de la grille des métiers de l’accueil FR et AR.
 
