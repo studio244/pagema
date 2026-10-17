@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { trackSocialClick } from "@/lib/social-tracking";
+import { FreeMonthCounter } from "@/components/FreeMonthCounter";
 import { DICTS, LangContext, useT, type Dict, type Lang } from "@/lib/i18n";
 import logoAsset from "@/assets/pagema-logo.png";
 import heroAsset from "@/assets/pagema-services-hero-2.webp";
@@ -285,7 +286,7 @@ function Nav() {
 
 
 function Hero() {
-  const { t } = useT();
+  const { t, lang } = useT();
 
   return (
     <header className="relative isolate overflow-hidden border-b-2 border-ink">
@@ -331,6 +332,7 @@ function Hero() {
             {t.hero.offerTag}
           </span>
           <p className="mt-3 font-semibold leading-relaxed text-pretty">{t.hero.offer}</p>
+          <FreeMonthCounter lang={lang} />
         </div>
       </div>
     </header>

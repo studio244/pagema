@@ -11,6 +11,8 @@
 
 ## Project rules
 
+- Free-month marketing availability is shared in a browser-safe campaign module and displayed by one bilingual counter; maintain it manually rather than inventing registration-driven decrements.
+
 - Structured data for a page is emitted as one JSON-LD `<script>` block using `@graph`
   (see `seoHead` in `src/lib/seo.ts`): the router's head handling collapses multiple
   `application/ld+json` scripts with identical attributes after hydration, which silently
