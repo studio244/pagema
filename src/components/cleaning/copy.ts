@@ -3,7 +3,7 @@ import type { Lang } from "@/lib/i18n";
 /**
  * Copy for the /nettoyage-casablanca landing page (French) and its Arabic twin
  * /ar/nettoyage-casablanca. Only facts already stated elsewhere on the site are
- * used here: pre-launch status, 1 November 2026 opening, up to 3 comparable
+ * used here: pre-launch status, up to 3 comparable
  * quotes, human phone validation, free for clients, 25 cities, launch offer.
  */
 const fr = {
