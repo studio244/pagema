@@ -12,4 +12,4 @@ export const FREE_MONTH_OFFER = {
     value: "بقيمة 990 درهماً",
     remaining: "أماكن متبقية",
   },
-} as const;
+};
