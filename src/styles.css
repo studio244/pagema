@@ -847,6 +847,14 @@ html:lang(ar) [class*="tracking-"] {
 .brand-v2 .bg-terra * {
   color: var(--ink);
 }
+/* Boutons principaux (variant par défaut) en turquoise, texte pétrole. */
+.brand-v2 .bg-primary {
+  background-color: var(--terra);
+  color: var(--ink);
+}
+.brand-v2 .bg-primary:hover {
+  background-color: var(--terra-deep);
+}
 /* Cartes arrondies, bordures discrètes, ombres légères. */
 .brand-v2 .border-2,
 .brand-v2 .shadow-cut,
