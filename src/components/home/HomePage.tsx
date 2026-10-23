@@ -346,7 +346,7 @@ function Hero() {
 
 function Promises() {
   const { t } = useT();
-  const images = [requestIllustration, qualifyIllustration, quotesIllustration];
+  const images = [requestIllustration.url, qualifyIllustration.url, quotesIllustration.url];
   return (
     <section
       id="section-processus"

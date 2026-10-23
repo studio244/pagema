@@ -18,7 +18,7 @@ import step3 from "@/assets/process-step-3.png.asset.json";
 
 const LOGO_URL = logoAsset;
 const HERO_URL = heroAsset;
-const STEP_IMAGES = [step1, step2, step3];
+const STEP_IMAGES = [step1.url, step2.url, step3.url];
 
 
 export default function NettoyageCasablancaPage({ lang }: { lang: Lang }) {
