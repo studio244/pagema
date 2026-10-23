@@ -12,13 +12,13 @@ import { CLEANING_COPY } from "./copy";
 import logoAsset from "@/assets/pagema-logo.png";
 import heroAsset from "@/assets/pagema-services-hero-2.webp";
 import prosAsset from "@/assets/pagema-pros-equipe.jpg";
-import step1 from "@/assets/process-step-1.png";
-import step2 from "@/assets/process-step-2.png";
-import step3 from "@/assets/process-step-3.png";
+import step1 from "@/assets/process-step-1.png.asset.json";
+import step2 from "@/assets/process-step-2.png.asset.json";
+import step3 from "@/assets/process-step-3.png.asset.json";
 
 const LOGO_URL = logoAsset;
 const HERO_URL = heroAsset;
-const STEP_IMAGES = [step1, step2, step3];
+const STEP_IMAGES = [step1.url, step2.url, step3.url];
 
 
 export default function NettoyageCasablancaPage({ lang }: { lang: Lang }) {
