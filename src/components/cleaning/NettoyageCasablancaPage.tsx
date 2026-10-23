@@ -32,7 +32,7 @@ export default function NettoyageCasablancaPage({ lang }: { lang: Lang }) {
       <div
         id="top"
         dir={lang === "ar" ? "rtl" : "ltr"}
-        className="min-h-screen bg-paper text-ink font-sans paper-noise"
+        className="brand-v2 min-h-screen bg-paper text-ink font-sans"
       >
         <Nav />
         <Hero />

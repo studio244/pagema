@@ -26,7 +26,7 @@ export function AgenciesLayout({
   return (
     <div
       dir={lang === "ar" ? "rtl" : "ltr"}
-      className="flex min-h-dvh flex-col bg-paper font-sans text-ink paper-noise"
+      className="brand-v2 flex min-h-dvh flex-col bg-paper font-sans text-ink"
     >
       <header className="sticky top-0 z-40 border-b-2 border-ink bg-paper/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-5 py-3">

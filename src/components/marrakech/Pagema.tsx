@@ -862,7 +862,7 @@ export default function Pagema({ lang }: { lang: Lang }) {
     <div
       id="top"
       dir={lang === "ar" ? "rtl" : "ltr"}
-      className="min-h-screen bg-white text-[#16181f]"
+      className="brand-v2 min-h-screen bg-white text-[#16181f]"
     >
       <Header {...ctx} />
       <main>

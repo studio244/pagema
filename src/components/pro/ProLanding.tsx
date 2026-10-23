@@ -60,7 +60,7 @@ export default function ProLanding({ lang, variant }: { lang: Lang; variant: Her
     <div
       id="top"
       dir={lang === "ar" ? "rtl" : "ltr"}
-      className="min-h-screen bg-paper text-ink font-sans paper-noise"
+      className="brand-v2 min-h-screen bg-paper text-ink font-sans"
     >
       <ProHeader lang={lang} variant={variant} copy={copy} onCta={onCta} />
       <ProHero variant={variant} stats={stats} copy={copy} onCta={onCta} />

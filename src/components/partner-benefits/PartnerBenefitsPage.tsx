@@ -44,7 +44,7 @@ export default function PartnerBenefitsPage({ lang }: { lang: Lang }) {
 
   return (
     <LangContext.Provider value={{ lang, t, setLang: () => {} }}>
-      <div dir={lang === "ar" ? "rtl" : "ltr"} className="min-h-dvh bg-paper text-ink font-sans">
+      <div dir={lang === "ar" ? "rtl" : "ltr"} className="brand-v2 min-h-dvh bg-paper text-ink font-sans">
         <header className="border-b-2 border-ink">
           <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
             <Link to={lang === "ar" ? "/ar" : "/"} aria-label={`Page.ma · ${c.home}`}>
