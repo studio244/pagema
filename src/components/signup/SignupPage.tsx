@@ -46,7 +46,7 @@ export default function SignupPage({ lang }: { lang: Lang }) {
   return (
     <div
       dir={lang === "ar" ? "rtl" : "ltr"}
-      className="min-h-dvh bg-paper text-ink font-sans lg:grid lg:grid-cols-[1.05fr_1fr]"
+      className="brand-v2 min-h-dvh bg-paper text-ink font-sans lg:grid lg:grid-cols-[1.05fr_1fr]"
     >
       {/* Photo panel: top of the page on mobile, left half on desktop (right half in Arabic). */}
       <section className="relative isolate flex min-h-[36rem] flex-col justify-between overflow-hidden bg-ink text-paper lg:sticky lg:top-0 lg:h-dvh lg:min-h-0">
