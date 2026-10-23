@@ -24,3 +24,4 @@
 - Bilingual SEO alternates use `fr-MA`, `ar-MA`, and `x-default` in the shared head helper to match the site's Moroccan audience.
 - Partner benefits use a browser-safe example catalogue with intersecting activity/city filters and the shared provider form; log offer clicks with their example ID and retain that ID in the notification source so interest never implies coupon activation.
 - Extend the router-derived sitemap with agency details only after the published-only source is available; use paginated anonymous reads and surface failures rather than seed substitutes or partial XML.
+- Keep Bun registry concurrency limited in bunfig.toml to reduce shared-cache throttling without changing dependency versions or supply-chain safeguards.
