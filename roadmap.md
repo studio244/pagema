@@ -2,9 +2,10 @@
 
 ## Audit technique SEO — 23 octobre 2026
 
-- [ ] Examiner les pages, liens, réponses HTTP, balises et sitemap ; corriger les défauts confirmés sans changer le design ni les exclusions volontaires.
-- [ ] Vérifier les corrections et fournir un rapport distinguant les défauts du site des états rapportés par Google.
-- [ ] Obtenir les URL concernées ou l’accès Search Console pour diagnostiquer les 134 occurrences annoncées.
+- [x] Examiner les pages, liens, réponses HTTP, balises et sitemap ; corriger les groupes Googlebot/Bingbot sans changer le design ni les exclusions volontaires.
+- [x] Vérifier les corrections et fournir un rapport distinguant les défauts du site des états rapportés par Google.
+- [ ] Diagnostiquer les 134 occurrences : bloqué par l’absence d’exports des URL concernées, connexion Search Console refusée.
+- [ ] Ajouter les fiches d’agences au sitemap : bloqué par la source publiée absente ; conserver le sitemap statique fonctionnel sans utiliser de liste de secours.
 
 ## Offre du premier mois — 10 places
 
