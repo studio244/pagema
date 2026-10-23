@@ -820,3 +820,62 @@ html:lang(ar) [class*="tracking-"] {
   --font-weight-ultra: 400;
   --font-weight-regular: 400;
 }
+
+/* Nouvelle charte Page.ma (turquoise / pétrole) — appliquée d'abord à l'accueil
+   pour validation, via la classe .brand-v2. */
+.brand-v2 {
+  --paper: #ffffff;
+  --paper-deep: #f2f6f6;
+  --ink: #184646;
+  --ink-soft: rgb(24 70 70 / 85%);
+  --terra: #00d6d6;
+  --terra-deep: #00b3b3;
+  --brand-sky: #36a9e1;
+  --brand-line: #e0e9e9;
+  --brand-highlight: #e0fafa;
+  --ring: #00d6d6;
+  font-family: "DejaVu Sans", "Montserrat Arabic", Arial, sans-serif;
+}
+.brand-v2 h1,
+.brand-v2 h2,
+.brand-v2 .font-display {
+  font-family: "Liberation Serif", Georgia, "Times New Roman", "Montserrat Arabic", serif;
+  font-weight: 700;
+}
+/* Texte sur turquoise toujours en pétrole. */
+.brand-v2 .bg-terra,
+.brand-v2 .bg-terra * {
+  color: var(--ink);
+}
+/* Cartes arrondies, bordures discrètes, ombres légères. */
+.brand-v2 .border-2,
+.brand-v2 .shadow-cut,
+.brand-v2 .lift-card {
+  border-radius: 14px;
+}
+.brand-v2 .border-2.border-ink {
+  border-color: var(--brand-line);
+}
+.brand-v2 a.border-2,
+.brand-v2 button.border-2 {
+  border-radius: 10px;
+}
+.brand-v2 [class*="shadow-["],
+.brand-v2 .shadow-cut {
+  box-shadow: 0 10px 30px -14px rgb(24 70 70 / 30%);
+}
+.brand-v2 .lift-card:hover,
+.brand-v2 .lift-card-invert:hover {
+  box-shadow: 0 16px 36px -16px rgb(24 70 70 / 35%);
+}
+.brand-v2 :focus-visible {
+  outline: 3px solid var(--terra);
+  outline-offset: 2px;
+}
+.brand-v2 .zellige {
+  background-image: none;
+}
+.brand-v2 a.font-display,
+.brand-v2 button.font-display {
+  font-family: "DejaVu Sans", "Montserrat Arabic", Arial, sans-serif;
+}
