@@ -4,7 +4,7 @@ import { agencyHead } from "@/components/agencies/route";
 import { fetchAgency, fetchContactCount } from "@/lib/agencies";
 
 export const Route = createFileRoute("/services/$slug")({
-  staticData: { sitemap: false },
+  staticData: { sitemap: true },
   loader: async ({ params }) => {
     const [agency, contacts] = await Promise.all([
       fetchAgency(params.slug),
