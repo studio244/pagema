@@ -1,5 +1,11 @@
 # Corrections de l’audit
 
+## Audit technique SEO — 23 octobre 2026
+
+- [ ] Examiner les pages, liens, réponses HTTP, balises et sitemap ; corriger les défauts confirmés sans changer le design ni les exclusions volontaires.
+- [ ] Vérifier les corrections et fournir un rapport distinguant les défauts du site des états rapportés par Google.
+- [ ] Obtenir les URL concernées ou l’accès Search Console pour diagnostiquer les 134 occurrences annoncées.
+
 ## Offre du premier mois — 10 places
 
 - [x] Remplacer l’ancienne limite et afficher un compteur de 10 places en FR/AR.
