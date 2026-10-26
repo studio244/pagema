@@ -9,6 +9,8 @@
 
 ## Offre du premier mois — 10 places
 
+- [x] 26 octobre 2026 : titre remplacé par « Plus que quelques places pour profiter du 1er mois offert » en FR/AR ; compteur et mentions du nombre conservés.
+
 - [x] Remplacer l’ancienne limite et afficher un compteur de 10 places en FR/AR.
 - [x] Vérifier les six pages concernées sur mobile et ordinateur, tester la limite et préparer la demande de publication.
 
