@@ -299,7 +299,7 @@ function ProPlaces({
           {copy.places.title}
         </h2>
         <p className="mt-4 max-w-prose text-lg leading-relaxed text-ink-soft">
-          {copy.places.body(FREE_MONTH_PLACES_REMAINING)}
+          {copy.places.body()}
         </p>
         <FreeMonthCounter lang={lang} />
       </Reveal>

@@ -1,6 +1,6 @@
 import type { Lang } from "@/lib/i18n";
 import type { HeroVariant } from "@/lib/pro-tracking";
-import { FREE_MONTH_OFFER } from "@/lib/free-month-offer";
+import { FREE_MONTH_OFFER, FREE_MONTH_PLACES_LABEL } from "@/lib/free-month-offer";
 
 /** All text of the /annuaire-ai and /ar/annuaire-ai provider landing. */
 const fr = {
@@ -70,13 +70,13 @@ const fr = {
     placesLeft: (places: string, _activity: string) => `${places} pour profiter du 1er mois offert.`,
   },
   places: {
-    left: (n: number) => (n === 1 ? "Plus qu'1 place offerte" : `Plus que ${n} places offertes`),
+    left: () => `Plus que ${FREE_MONTH_PLACES_LABEL.fr} offertes`,
     full: "Places offertes épuisées",
     unknown: "Places offertes limitées",
     eyebrow: "Offre lancement · Marrakech",
     title: FREE_MONTH_OFFER.fr.title,
-    body: (n: number) =>
-      `Il reste ${n} places pour cette offre, toutes villes et activités confondues.`,
+    body: () =>
+      `Il reste ${FREE_MONTH_PLACES_LABEL.fr} pour cette offre, toutes villes et activités confondues.`,
   },
   finalTitle: "Vos prochains clients à Marrakech vous écrivent sur WhatsApp.",
   footer: "Préinscriptions ouvertes — plateforme en préparation",
@@ -136,13 +136,13 @@ const ar: ProCopy = {
     placesLeft: (places: string, _activity: string) => `${places} للاستفادة من الشهر الأول مجاناً.`,
   },
   places: {
-    left: (n: number) => (n === 1 ? "بقي مكان مجاني واحد" : `بقيت ${n} أماكن مجانية`),
+    left: () => `بقيت ${FREE_MONTH_PLACES_LABEL.ar}`,
     full: "نفدت الأماكن المجانية",
     unknown: "أماكن مجانية محدودة",
     eyebrow: "عرض الإطلاق · مراكش",
     title: FREE_MONTH_OFFER.ar.title,
-    body: (n: number) =>
-      `بقيت ${n} أماكن لهذا العرض، لجميع المدن والأنشطة مجتمعة.`,
+    body: () =>
+      `بقيت ${FREE_MONTH_PLACES_LABEL.ar} لهذا العرض، لجميع المدن والأنشطة مجتمعة.`,
   },
   finalTitle: "زبناؤك القادمون في مراكش يراسلونك على واتساب.",
   footer: "التسجيلات المسبقة مفتوحة — المنصة قيد التحضير",
