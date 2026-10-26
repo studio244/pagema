@@ -77,9 +77,9 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   staticData: { sitemap: false },
   head: () => {
-    // Google Analytics measurement ID lives in the secret store and is read
-    // server-side only; the ID is injected into the HTML head during SSR.
-    const gaId = process.env["GOOGLE_ANALYTICS_MEASUREMENT_ID"];
+    // Google Tag Manager container GTM-PH8DLC52. The gtag() shim is kept so the
+    // existing optional-chained window.gtag?.() calls in the app keep pushing
+    // their events into the shared dataLayer (previously provided by gtag.js).
     return {
       meta: [
         { charSet: "utf-8" },
@@ -117,20 +117,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         { rel: "icon", href: "/favicon.png", type: "image/png" },
         { rel: "apple-touch-icon", href: "/logo.png" },
       ],
-      scripts: gaId
-        ? [
-            {
-              async: true,
-              src: `https://www.googletagmanager.com/gtag/js?id=${gaId}`,
-            },
-            {
-              children: `window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', '${gaId}');`,
-            },
-          ]
-        : [],
+      scripts: [
+        {
+          children: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PH8DLC52');
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){window.dataLayer.push(arguments);}
+window.gtag = window.gtag || gtag;`,
+        },
+      ],
     };
   },
   shellComponent: RootShell,
