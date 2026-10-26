@@ -16,5 +16,5 @@ export function remainingPlaces(_stats: ProLaunchStats | null, _category: string
 }
 
 export function placesText(copy: ProCopy, remaining: number) {
-  return remaining === 0 ? copy.places.full : copy.places.left(remaining);
+  return remaining === 0 ? copy.places.full : copy.places.left();
 }

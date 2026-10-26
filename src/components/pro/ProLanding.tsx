@@ -7,7 +7,6 @@ import { PRO_COPY, type ProCopy } from "./copy";
 import { ProForm, Reassurance } from "./ProForm";
 import { type Labels } from "./places";
 import { FreeMonthCounter } from "@/components/FreeMonthCounter";
-import { FREE_MONTH_PLACES_REMAINING } from "@/lib/free-month-offer";
 import logoAsset from "@/assets/pagema-logo.png";
 import whatsappLead from "@/assets/whatsapp-opportunity.png";
 import heroBackground from "@/assets/pagema-services-hero-2.webp";
@@ -299,7 +298,7 @@ function ProPlaces({
           {copy.places.title}
         </h2>
         <p className="mt-4 max-w-prose text-lg leading-relaxed text-ink-soft">
-          {copy.places.body(FREE_MONTH_PLACES_REMAINING)}
+          {copy.places.body()}
         </p>
         <FreeMonthCounter lang={lang} />
       </Reveal>
