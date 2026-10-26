@@ -7,7 +7,6 @@ import { PRO_COPY, type ProCopy } from "./copy";
 import { ProForm, Reassurance } from "./ProForm";
 import { type Labels } from "./places";
 import { FreeMonthCounter } from "@/components/FreeMonthCounter";
-import { FREE_MONTH_PLACES_REMAINING } from "@/lib/free-month-offer";
 import logoAsset from "@/assets/pagema-logo.png";
 import whatsappLead from "@/assets/whatsapp-opportunity.png";
 import heroBackground from "@/assets/pagema-services-hero-2.webp";
