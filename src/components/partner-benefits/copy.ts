@@ -1,8 +1,10 @@
 export const PARTNER_COPY = {
   fr: {
     title: "Avantages partenaires",
+    findIn: "Trouver un prestataire :", localCleaning: "Société de nettoyage à Casablanca",
+    more: ["Vous voulez être visible dès maintenant ? ", { label: "Inscrivez votre entreprise sur Page.ma", href: "/inscription" }, " ou ", { label: "parcourez l’annuaire des agences", href: "/services" }, "."],
     meta: { title: "Avantages partenaires · Exemples d’offres | Page.ma", description: "Découvrez des exemples fictifs d’avantages entre professionnels Page.ma. Recherchez par activité et ville et exprimez votre intérêt gratuitement." },
-    home: "Accueil", switchLabel: "العربية", eyebrow: "Le réseau Page.ma · en préparation",
+    eyebrow: "Le réseau Page.ma · en préparation",
     intro: "Vos prochains prestataires pourraient aussi être vos partenaires.",
     notice: "Exemples fictifs — aucune offre disponible à ce jour. Les partenaires, réductions et conditions restent à confirmer.",
     activity: "Activité recherchée", city: "Ville", allActivities: "Toutes les activités", allCities: "Toutes les villes",
@@ -16,8 +18,10 @@ export const PARTNER_COPY = {
   },
   ar: {
     title: "مزايا الشركاء",
+    findIn: "ابحث عن مقدّم خدمة:", localCleaning: "شركة تنظيف في الدار البيضاء",
+    more: ["تريد أن تكون مرئياً من الآن؟ ", { label: "سجّل شركتك على Page.ma", href: "/ar/inscription" }, " أو ", { label: "تصفّح دليل الوكالات", href: "/ar/services" }, "."],
     meta: { title: "مزايا الشركاء · أمثلة على العروض | Page.ma", description: "اكتشف أمثلة افتراضية لمزايا بين مهنيي Page.ma. ابحث حسب النشاط والمدينة وعبّر عن اهتمامك مجاناً." },
-    home: "الرئيسية", switchLabel: "Français", eyebrow: "شبكة Page.ma · قيد التحضير",
+    eyebrow: "شبكة Page.ma · قيد التحضير",
     intro: "قد يصبح مقدّمو خدماتكم القادمون شركاءكم أيضاً.",
     notice: "أمثلة افتراضية — لا توجد عروض متاحة حالياً. الشركاء والتخفيضات والشروط لم تُؤكّد بعد.",
     activity: "النشاط المطلوب", city: "المدينة", allActivities: "جميع الأنشطة", allCities: "جميع المدن",

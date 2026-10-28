@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, MapPin, Ticket } from "lucide-react";
 import { DICTS, LangContext, type Lang } from "@/lib/i18n";
 import { CATEGORIES, COVERAGE_CITIES } from "@/lib/catalog";
@@ -7,12 +6,19 @@ import { trackPro } from "@/lib/pro-tracking";
 import { Button } from "@/components/ui/button";
 import { PreregistrationForm } from "@/components/home/PreregistrationForm";
 import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
-import logo from "@/assets/pagema-logo.png";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { SiteBreadcrumb } from "@/components/site/SiteBreadcrumb";
+import { RichLine } from "@/components/site/RichLine";
+import { crumbs, localPath, tradeHref } from "@/components/site/nav";
 import teamPhoto from "@/assets/pagema-pros-equipe.jpg";
 import { PARTNER_COPY } from "./copy";
 import { filterPartnerExamples, type PARTNER_EXAMPLES } from "./offers";
 
 type Example = (typeof PARTNER_EXAMPLES)[number];
+
+/** The Casablanca cleaning example points to the local page rather than the directory filter. */
+const localCleaning = (offer: Example) => offer.category === "Nettoyage" && offer.city === "Casablanca";
 
 export default function PartnerBenefitsPage({ lang }: { lang: Lang }) {
   const c = PARTNER_COPY[lang];
@@ -45,19 +51,11 @@ export default function PartnerBenefitsPage({ lang }: { lang: Lang }) {
   return (
     <LangContext.Provider value={{ lang, t, setLang: () => {} }}>
       <div dir={lang === "ar" ? "rtl" : "ltr"} className="brand-v2 min-h-dvh bg-paper text-ink font-sans">
-        <header className="border-b-2 border-ink">
-          <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
-            <Link to={lang === "ar" ? "/ar" : "/"} aria-label={`Page.ma · ${c.home}`}>
-              <img src={logo} alt="Page.ma" className="h-9 w-auto" />
-            </Link>
-            <Button asChild variant="ghost" className="text-ink">
-              <Link to={lang === "ar" ? "/avantages-partenaires" : "/ar/avantages-partenaires"} hrefLang={lang === "ar" ? "fr" : "ar"} lang={lang === "ar" ? "fr" : "ar"}>{c.switchLabel}</Link>
-            </Button>
-          </nav>
-        </header>
+        <SiteHeader lang={lang} switchHref={lang === "ar" ? "/avantages-partenaires" : "/ar/avantages-partenaires"} />
         <main>
           <section className="border-b-2 border-ink bg-paper-deep">
-            <div className="mx-auto max-w-6xl px-5 py-12 lg:py-16">
+            <div className="mx-auto max-w-6xl px-5 pt-6 pb-12 lg:pt-8 lg:pb-16">
+              <SiteBreadcrumb lang={lang} items={crumbs(lang).partners} className="mb-8 lg:mb-10" />
               <p className="mb-4 text-xs font-bold uppercase text-terra-deep">{c.eyebrow}</p>
               <h1 className="font-display text-3xl leading-tight sm:text-5xl">{c.title}</h1>
               <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">{c.intro}</p>
@@ -95,6 +93,12 @@ export default function PartnerBenefitsPage({ lang }: { lang: Lang }) {
                     <p className="mt-1 text-sm font-semibold">{c.reduction}</p>
                     <p className="mt-4 text-sm leading-relaxed text-ink-soft">{c.descriptions[offer.category]}</p>
                     <p className="mb-5 mt-3 text-xs leading-relaxed text-ink-soft">{c.condition}</p>
+                    <p className="mb-5 text-sm text-ink-soft">
+                      {c.findIn}{" "}
+                      <a href={localCleaning(offer) ? localPath(lang, "/nettoyage-casablanca") : tradeHref(lang, offer.category)} className="font-semibold text-ink underline decoration-terra decoration-2 underline-offset-4 hover:text-terra-deep">
+                        {localCleaning(offer) ? c.localCleaning : (t.categoryLabels[offer.category] ?? offer.category)}
+                      </a>
+                    </p>
                     <Button onClick={() => request(offer)} className="mt-auto h-auto min-h-12 w-full whitespace-normal rounded-none border-2 border-ink px-3 py-3 text-base font-bold">
                       {c.request}<ArrowUpRight aria-hidden="true" />
                     </Button>
@@ -109,6 +113,7 @@ export default function PartnerBenefitsPage({ lang }: { lang: Lang }) {
               <div>
                 <h2 className="font-display text-3xl leading-tight">{c.formTitle}</h2>
                 <p className="mt-5 max-w-prose leading-relaxed text-ink-soft">{c.formNote}</p>
+                <RichLine parts={c.more} className="mt-4 max-w-prose leading-relaxed text-ink-soft" />
                 {selected && <div role="status" className="mt-6 border-s-4 border-terra ps-4"><p className="text-sm font-bold">{c.selected} · {t.categoryLabels[selected.category]} · {t.cityLabels[selected.city] ?? selected.city}</p><p className="mt-2 text-sm text-ink-soft">{c.selectedNote}</p></div>}
                 <img src={teamPhoto} alt="" aria-hidden="true" loading="lazy" className="mt-8 aspect-[3/2] w-full border-2 border-ink object-cover" />
               </div>
@@ -117,12 +122,7 @@ export default function PartnerBenefitsPage({ lang }: { lang: Lang }) {
           </section>
           <FrequentlyAskedQuestions lang={lang} variant="partners" />
         </main>
-        <footer className="border-t-2 border-ink px-5 py-8">
-          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 text-sm">
-            <Button asChild variant="link"><Link to={lang === "ar" ? "/ar" : "/"}>{c.home}</Link></Button>
-            <span>© 2026 Page.ma · Powered by <a href="https://hoverswitch.net/" target="_blank" rel="noopener noreferrer" className="underline">HoverSwitch</a></span>
-          </div>
-        </footer>
+        <SiteFooter lang={lang} page="avantages-partenaires" />
       </div>
     </LangContext.Provider>
   );

@@ -1,5 +1,7 @@
 import type { Lang } from "@/lib/i18n";
-import { SITE_URL, organizationJsonLd, seoHead } from "@/lib/seo";
+import { SITE_URL, breadcrumbJsonLd, organizationJsonLd, seoHead } from "@/lib/seo";
+import { fetchAgencies } from "@/lib/agencies";
+import { crumbs } from "@/components/site/nav";
 import { CLEANING_COPY } from "./copy";
 
 /** URL of the page in each language. */
@@ -62,23 +64,13 @@ export function nettoyageHead(lang: Lang) {
           acceptedAnswer: { "@type": "Answer", text: item.a },
         })),
       },
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: isArabic ? "الرئيسية" : "Accueil",
-            item: SITE_URL + (isArabic ? "/ar" : "/"),
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: isArabic ? "شركة تنظيف في الدار البيضاء" : "Société de nettoyage à Casablanca",
-            item: url,
-          },
-        ],
-      },
+      breadcrumbJsonLd(crumbs(lang).cleaning),
     ],
   });
+}
+
+/** Directory agencies offering Nettoyage in Casablanca, linked from the page. */
+export async function fetchCasablancaCleaners() {
+  const agencies = await fetchAgencies();
+  return agencies.filter((a) => a.city === "Casablanca" && a.services.includes("Nettoyage"));
 }

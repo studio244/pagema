@@ -12,8 +12,6 @@ const fr = {
     locale: "fr_MA",
   },
   switchLabel: "العربية",
-  home: "Accueil",
-  headerCta: "Inscrire mon agence",
   eyebrow: "Services & agences",
   title: "Trouvez l'agence qu'il vous faut",
   intro: "Choisissez un service pour voir les agences qui le proposent.",
@@ -34,7 +32,8 @@ const fr = {
   emptyAsk: (service: string) =>
     `Bonjour Page.ma, je cherche une agence en ${service}. Pouvez-vous m'orienter ?`,
   noAgencies: "Les agences arrivent bientôt sur Page.ma.",
-  back: "Toutes les agences",
+  localTitle: "Page locale :",
+  localCleaning: "Société de nettoyage à Casablanca",
   about: "Présentation",
   noDescription: "La présentation détaillée de cette agence sera bientôt disponible.",
   servicesTitle: "Services proposés",
@@ -60,7 +59,6 @@ const fr = {
     body: "Soyez visible auprès des clients qui cherchent vos services et recevez leurs demandes sur WhatsApp.",
     button: "Inscrire mon agence gratuitement",
   },
-  footer: "Préinscriptions ouvertes",
 };
 
 export type AgenciesCopy = typeof fr;
@@ -76,8 +74,6 @@ const ar: AgenciesCopy = {
     locale: "ar_MA",
   },
   switchLabel: "Français",
-  home: "الرئيسية",
-  headerCta: "سجّل وكالتك",
   eyebrow: "الخدمات والوكالات",
   title: "اعثر على الوكالة التي تحتاجها",
   intro: "اختر خدمة لعرض الوكالات التي تقدّمها.",
@@ -98,7 +94,8 @@ const ar: AgenciesCopy = {
   emptyAll: "عرض كل الوكالات",
   emptyAsk: (service: string) => `مرحباً Page.ma، أبحث عن وكالة في ${service}. هل يمكنكم توجيهي؟`,
   noAgencies: "الوكالات قادمة قريباً على Page.ma.",
-  back: "كل الوكالات",
+  localTitle: "صفحة محلية:",
+  localCleaning: "شركة تنظيف في الدار البيضاء",
   about: "تقديم",
   noDescription: "سيتوفر التقديم المفصّل لهذه الوكالة قريباً.",
   servicesTitle: "الخدمات المقدّمة",
@@ -122,7 +119,6 @@ const ar: AgenciesCopy = {
     body: "كن مرئياً لدى الزبناء الذين يبحثون عن خدماتك وتوصّل بطلباتهم على واتساب.",
     button: "سجّل وكالتك مجاناً",
   },
-  footer: "التسجيلات المسبقة مفتوحة",
 };
 
 export const AGENCIES_COPY: Record<Lang, AgenciesCopy> = { fr, ar };

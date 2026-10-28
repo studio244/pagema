@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, Globe, MapPin, MessageSquareText, Phone, UsersRound } from "lucide-react";
+import { Globe, MapPin, MessageSquareText, Phone, UsersRound } from "lucide-react";
+import { SiteBreadcrumb } from "@/components/site/SiteBreadcrumb";
+import { crumbs } from "@/components/site/nav";
 import { DICTS, type Lang } from "@/lib/i18n";
 import {
   agencyDescription,
@@ -18,7 +20,7 @@ import { whatsappUrl } from "@/lib/whatsapp";
 import { trackAgencyContact, type ContactChannel } from "@/lib/agency-tracking";
 import { WhatsAppIcon } from "@/components/brand";
 import { AGENCIES_COPY, type AgenciesCopy } from "./copy";
-import { AgenciesLayout, AgencyBadges, AgencyLogo } from "./AgenciesLayout";
+import { AgenciesLayout, AgencyBadges, AgencyLogo, AgencyProCta } from "./AgenciesLayout";
 import { agencyOfferingImage, agencyServiceImage } from "./agency-image";
 import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
 
@@ -49,14 +51,10 @@ export default function AgencyDetail({
   return (
     <AgenciesLayout lang={lang} switchHref={agencyPath(lang === "ar" ? "fr" : "ar", agency.slug)}>
       <div className="mx-auto max-w-6xl px-5 py-8 lg:py-12">
-        <Link
-          to={listPath}
-          search={{}}
-          className="inline-flex items-center gap-2 text-sm font-semibold text-ink-soft hover:text-ink"
-        >
-          <ArrowLeft className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
-          {copy.back}
-        </Link>
+        <SiteBreadcrumb
+          lang={lang}
+          items={crumbs(lang).agency(agency.name, agencyPath(lang, agency.slug))}
+        />
 
         <header className="mt-6 flex flex-col gap-6 border-2 border-ink bg-paper p-6 shadow-cut sm:flex-row sm:items-center sm:p-8">
           <div className="grid h-28 w-full shrink-0 place-items-center border-2 border-ink bg-white p-4 sm:w-44">
@@ -195,22 +193,7 @@ export default function AgencyDetail({
       </div>
 
       <FrequentlyAskedQuestions lang={lang} variant="agency" />
-      <section className="border-t-2 border-ink bg-ink text-paper">
-        <div className="mx-auto flex max-w-6xl flex-col items-start gap-5 px-5 py-12 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="font-display text-2xl leading-tight tracking-tight">
-              {copy.proCta.title}
-            </p>
-            <p className="mt-2 max-w-xl leading-relaxed text-paper/85">{copy.proCta.body}</p>
-          </div>
-          <a
-            href={lang === "ar" ? "/ar/inscription" : "/inscription"}
-            className="lift shrink-0 border-2 border-paper bg-terra px-6 py-3 font-display leading-tight tracking-tight text-paper"
-          >
-            {copy.proCta.button}
-          </a>
-        </div>
-      </section>
+      <AgencyProCta lang={lang} />
     </AgenciesLayout>
   );
 }

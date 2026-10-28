@@ -3,7 +3,9 @@ import { BadgeCheck, Handshake } from "lucide-react";
 import type { Lang } from "@/lib/i18n";
 import type { Agency } from "@/lib/agencies";
 import { AGENCIES_COPY } from "./copy";
-import logoAsset from "@/assets/pagema-logo.png";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { localPath } from "@/components/site/nav";
 
 /** Header + footer shared by /services and /services/<slug>, in both languages. */
 export function AgenciesLayout({
@@ -16,8 +18,6 @@ export function AgenciesLayout({
   switchHref: string;
   children: React.ReactNode;
 }) {
-  const copy = AGENCIES_COPY[lang];
-
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
@@ -28,40 +28,11 @@ export function AgenciesLayout({
       dir={lang === "ar" ? "rtl" : "ltr"}
       className="brand-v2 flex min-h-dvh flex-col bg-paper font-sans text-ink"
     >
-      <header className="sticky top-0 z-40 border-b-2 border-ink bg-paper/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-5 py-3">
-          <a href={lang === "ar" ? "/ar" : "/"} aria-label={copy.home} className="shrink-0">
-            <img src={logoAsset} alt="Page.ma" className="h-9 w-auto sm:h-10" dir="ltr" />
-          </a>
-          <div className="flex items-center gap-3 sm:gap-4">
-            <a
-              href={switchHref}
-              hrefLang={lang === "ar" ? "fr" : "ar"}
-              lang={lang === "ar" ? "fr" : "ar"}
-              className="py-1 text-sm font-semibold text-ink-soft underline-offset-4 hover:text-ink hover:underline"
-            >
-              {copy.switchLabel}
-            </a>
-            <a
-              href={lang === "ar" ? "/ar/inscription" : "/inscription"}
-              className="lift border-2 border-ink bg-terra px-3 py-2 font-display text-sm leading-tight tracking-tight text-paper sm:px-4"
-            >
-              {copy.headerCta}
-            </a>
-          </div>
-        </div>
-      </header>
+      <SiteHeader lang={lang} switchHref={switchHref} />
 
       <main className="flex-1">{children}</main>
 
-      <footer className="border-t-2 border-ink/10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 py-6 text-sm text-ink-soft sm:flex-row">
-          <img src={logoAsset} alt="Page.ma" className="h-7 w-auto" dir="ltr" />
-          <p>
-            © {new Date().getFullYear()} Page.ma · {copy.footer}
-          </p>
-        </div>
-      </footer>
+      <SiteFooter lang={lang} page="services" />
     </div>
   );
 }
@@ -113,5 +84,26 @@ export function AgencyBadges({ agency, lang }: { agency: Agency; lang: Lang }) {
         </li>
       )}
     </ul>
+  );
+}
+
+/** "Vous êtes une agence ?" band closing /services and /services/<slug>. */
+export function AgencyProCta({ lang }: { lang: Lang }) {
+  const copy = AGENCIES_COPY[lang];
+  return (
+    <section className="border-t-2 border-ink bg-ink text-paper">
+      <div className="mx-auto flex max-w-6xl flex-col items-start gap-5 px-5 py-12 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="font-display text-2xl leading-tight tracking-tight">{copy.proCta.title}</p>
+          <p className="mt-2 max-w-xl leading-relaxed text-paper/85">{copy.proCta.body}</p>
+        </div>
+        <a
+          href={localPath(lang, "/inscription")}
+          className="lift shrink-0 border-2 border-paper bg-terra px-6 py-3 font-display leading-tight tracking-tight text-paper"
+        >
+          {copy.proCta.button}
+        </a>
+      </div>
+    </section>
   );
 }

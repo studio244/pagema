@@ -6,7 +6,9 @@ import { agencyPath, agencySummary, type Agency } from "@/lib/agencies";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { Eyebrow, WhatsAppIcon } from "@/components/brand";
 import { AGENCIES_COPY, type AgenciesCopy } from "./copy";
-import { AgenciesLayout, AgencyBadges, AgencyLogo } from "./AgenciesLayout";
+import { AgenciesLayout, AgencyBadges, AgencyLogo, AgencyProCta } from "./AgenciesLayout";
+import { SiteBreadcrumb } from "@/components/site/SiteBreadcrumb";
+import { crumbs, localPath } from "@/components/site/nav";
 import { agencyServiceImage } from "./agency-image";
 import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
 
@@ -34,7 +36,8 @@ export default function AgencyDirectory({
       switchHref={service ? `${switchPath}?service=${encodeURIComponent(service)}` : switchPath}
     >
       <section className="border-b-2 border-ink bg-paper-deep">
-        <div className="mx-auto max-w-6xl px-5 pt-12 pb-10 lg:pt-16">
+        <div className="mx-auto max-w-6xl px-5 pt-6 pb-10 lg:pt-8">
+          <SiteBreadcrumb lang={lang} items={crumbs(lang).directory} className="mb-8 lg:mb-10" />
           <Eyebrow className="mb-4 text-terra-deep">{copy.eyebrow}</Eyebrow>
           <h1 className="max-w-3xl font-display text-[clamp(2.1rem,5vw,3.6rem)] leading-[1.02] tracking-tight text-balance">
             {copy.title}
@@ -61,6 +64,19 @@ export default function AgencyDirectory({
               ))}
             </ul>
           </nav>
+          {(!service || service === "Nettoyage") && (
+            <p className="mt-6 text-sm text-ink-soft">
+              <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em]">
+                {copy.localTitle}
+              </span>{" "}
+              <a
+                href={localPath(lang, "/nettoyage-casablanca")}
+                className="font-semibold text-ink underline decoration-terra decoration-2 underline-offset-4 hover:text-terra-deep"
+              >
+                {copy.localCleaning}
+              </a>
+            </p>
+          )}
         </div>
       </section>
 
@@ -97,6 +113,7 @@ export default function AgencyDirectory({
         )}
       </section>
       <FrequentlyAskedQuestions lang={lang} variant="directory" />
+      <AgencyProCta lang={lang} />
     </AgenciesLayout>
   );
 }

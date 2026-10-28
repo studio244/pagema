@@ -96,6 +96,19 @@ export function seoHead({
   };
 }
 
+/** BreadcrumbList node matching the breadcrumb shown on the page. */
+export function breadcrumbJsonLd(items: { label: string; href: string }[]): JsonLd {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.label,
+      item: SITE_URL + item.href,
+    })),
+  };
+}
+
 /** Schema.org description of Page.ma itself, reused by the pages' structured data. */
 export function organizationJsonLd(lang: Lang): JsonLd {
   return {

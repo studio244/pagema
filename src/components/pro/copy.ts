@@ -67,7 +67,8 @@ const fr = {
       "Votre mois offert est réservé. On vous contacte sur WhatsApp pour valider votre activité avant le lancement.",
     placesFull: (activity: string) =>
       `Places offertes épuisées en ${activity}, mais l'inscription reste gratuite.`,
-    placesLeft: (places: string, _activity: string) => `${places} pour profiter du 1er mois offert.`,
+    placesLeft: (places: string, _activity: string) =>
+      `${places} pour profiter du 1er mois offert.`,
   },
   places: {
     left: () => `Plus que ${FREE_MONTH_PLACES_LABEL.fr} offertes`,
@@ -79,8 +80,8 @@ const fr = {
       `Il reste ${FREE_MONTH_PLACES_LABEL.fr} pour cette offre, toutes villes et activités confondues.`,
   },
   finalTitle: "Vos prochains clients à Marrakech vous écrivent sur WhatsApp.",
-  footer: "Préinscriptions ouvertes — plateforme en préparation",
   switchLabel: "العربية",
+  home: "Accueil",
 };
 
 export type ProCopy = typeof fr;
@@ -141,12 +142,11 @@ const ar: ProCopy = {
     unknown: "أماكن مجانية محدودة",
     eyebrow: "عرض الإطلاق · مراكش",
     title: FREE_MONTH_OFFER.ar.title,
-    body: () =>
-      `بقيت ${FREE_MONTH_PLACES_LABEL.ar} لهذا العرض، لجميع المدن والأنشطة مجتمعة.`,
+    body: () => `بقيت ${FREE_MONTH_PLACES_LABEL.ar} لهذا العرض، لجميع المدن والأنشطة مجتمعة.`,
   },
   finalTitle: "زبناؤك القادمون في مراكش يراسلونك على واتساب.",
-  footer: "التسجيلات المسبقة مفتوحة — المنصة قيد التحضير",
   switchLabel: "Français",
+  home: "الرئيسية",
 };
 
 export const PRO_COPY: Record<Lang, ProCopy> = { fr, ar };

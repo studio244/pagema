@@ -11,6 +11,7 @@ import logoAsset from "@/assets/pagema-logo.png";
 import whatsappLead from "@/assets/whatsapp-opportunity.png";
 import heroBackground from "@/assets/pagema-services-hero-2.webp";
 import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
+import { SiteFooter } from "@/components/site/SiteFooter";
 
 /** Only show "X professionnels déjà préinscrits" once there are at least this many. */
 const SOCIAL_PROOF_MIN = 5;
@@ -74,7 +75,7 @@ export default function ProLanding({ lang, variant }: { lang: Lang; variant: Her
       <ProPlaces lang={lang} labels={labels} onCta={onCta} />
       <ProFinalCta copy={copy} onCta={onCta} />
       <FrequentlyAskedQuestions lang={lang} variant="pro" />
-      <ProFooter copy={copy} />
+      <SiteFooter lang={lang} page="annuaire-ai" />
     </div>
   );
 }
@@ -127,8 +128,16 @@ function ProHeader({
   return (
     <header className="sticky top-0 z-40 border-b-2 border-ink bg-paper/95 backdrop-blur">
       <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
-        <img src={logoAsset} alt="Page.ma" className="h-9 sm:h-10 w-auto shrink-0" />
+        <a href={lang === "ar" ? "/ar" : "/"} aria-label="Page.ma" className="shrink-0">
+          <img src={logoAsset} alt="Page.ma" className="h-9 sm:h-10 w-auto" />
+        </a>
         <div className="flex items-center gap-3">
+          <a
+            href={lang === "ar" ? "/ar" : "/"}
+            className="hidden py-1 text-sm font-semibold text-ink-soft underline-offset-4 hover:text-ink hover:underline sm:inline"
+          >
+            {copy.home}
+          </a>
           <a
             href={switchHref}
             hrefLang={lang === "ar" ? "fr" : "ar"}
@@ -280,15 +289,7 @@ function ProSignup({
   );
 }
 
-function ProPlaces({
-  lang,
-  labels,
-  onCta,
-}: {
-  lang: Lang;
-  labels: Labels;
-  onCta: CtaHandler;
-}) {
+function ProPlaces({ lang, labels, onCta }: { lang: Lang; labels: Labels; onCta: CtaHandler }) {
   const { copy } = labels;
   return (
     <section className="max-w-6xl mx-auto px-5 py-16 lg:py-24">
@@ -331,16 +332,5 @@ function ProFinalCta({ copy, onCta }: { copy: ProCopy; onCta: CtaHandler }) {
         </div>
       </div>
     </section>
-  );
-}
-
-function ProFooter({ copy }: { copy: ProCopy }) {
-  return (
-    <footer className="max-w-6xl mx-auto px-5 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-ink-soft">
-      <img src={logoAsset} alt="Page.ma" className="h-8 w-auto" />
-      <p>
-        © {new Date().getFullYear()} Page.ma · {copy.footer}
-      </p>
-    </footer>
   );
 }

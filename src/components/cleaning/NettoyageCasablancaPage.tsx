@@ -1,27 +1,33 @@
-import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
-import { trackSocialClick } from "@/lib/social-tracking";
+import { useEffect } from "react";
 import { FreeMonthCounter } from "@/components/FreeMonthCounter";
 import { DICTS, LangContext, useT, type Lang } from "@/lib/i18n";
 import { Benefit, BrandMark, Eyebrow, Reveal, WhatsAppIcon } from "@/components/brand";
 import { MoroccoNetwork } from "@/components/MoroccoNetwork";
 import { PreregistrationForm } from "@/components/home/PreregistrationForm";
 import { whatsappUrl } from "@/lib/whatsapp";
+import { agencyPath, type Agency } from "@/lib/agencies";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { SiteBreadcrumb } from "@/components/site/SiteBreadcrumb";
+import { crumbs, localPath, tradeHref } from "@/components/site/nav";
 import { CLEANING_COPY } from "./copy";
-import logoAsset from "@/assets/pagema-logo.png";
 import heroAsset from "@/assets/pagema-services-hero-2.webp";
 import prosAsset from "@/assets/pagema-pros-equipe.jpg";
 import step1 from "@/assets/process-step-1.png.asset.json";
 import step2 from "@/assets/process-step-2.png.asset.json";
 import step3 from "@/assets/process-step-3.png.asset.json";
 
-const LOGO_URL = logoAsset;
 const HERO_URL = heroAsset;
 const STEP_IMAGES = [step1.url, step2.url, step3.url];
 
-
-export default function NettoyageCasablancaPage({ lang }: { lang: Lang }) {
+export default function NettoyageCasablancaPage({
+  lang,
+  agencies,
+}: {
+  lang: Lang;
+  /** Published directory agencies offering Nettoyage in Casablanca. */
+  agencies: Agency[];
+}) {
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
@@ -34,22 +40,32 @@ export default function NettoyageCasablancaPage({ lang }: { lang: Lang }) {
         dir={lang === "ar" ? "rtl" : "ltr"}
         className="brand-v2 min-h-screen bg-paper text-ink font-sans"
       >
-        <Nav />
+        <SiteHeader
+          lang={lang}
+          switchHref={lang === "ar" ? "/nettoyage-casablanca" : "/ar/nettoyage-casablanca"}
+          ctaHref="#section-prestataire"
+        />
+        <div className="border-b-2 border-ink bg-paper">
+          <SiteBreadcrumb
+            lang={lang}
+            items={crumbs(lang).cleaning}
+            className="max-w-6xl mx-auto px-5 py-3"
+          />
+        </div>
         <Hero />
         <Steps />
         <Why />
-        <Services />
+        <Services agencies={agencies} />
         <Coverage />
         <Demande />
         <Faq />
         <ProSection />
-        <Footer />
+        <SiteFooter lang={lang} page="nettoyage-casablanca" />
         <WhatsAppWidget />
       </div>
     </LangContext.Provider>
   );
 }
-
 
 function highlightWords(text: string, words: string[]) {
   return text.split(new RegExp(`(${words.join("|")})`)).map((part, i) =>
@@ -60,131 +76,6 @@ function highlightWords(text: string, words: string[]) {
     ) : (
       part
     ),
-  );
-}
-
-function LangSwitch({ className = "" }: { className?: string }) {
-  const { lang } = useT();
-  return (
-    <span className={`inline-flex items-center gap-1.5 font-mono text-xs leading-none ${className}`}>
-      <Link
-        to={lang === "fr" ? "/ar/nettoyage-casablanca" : "/nettoyage-casablanca"}
-        hrefLang={lang === "fr" ? "ar" : "fr"}
-        lang={lang === "fr" ? "ar" : "fr"}
-        className="py-1 border-b-2 border-transparent text-ink-soft hover:text-ink"
-      >
-        {lang === "fr" ? "العربية" : "Français"}
-      </Link>
-    </span>
-  );
-}
-
-function Nav() {
-  const { lang } = useT();
-  const c = CLEANING_COPY[lang].nav;
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  return (
-    <nav className="sticky top-0 z-20 border-b-2 border-ink bg-paper/95">
-      <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <a href="#top" className="shrink-0" aria-label={c.home}>
-            <img src={LOGO_URL} alt="Page.ma" className="h-9 sm:h-10 w-auto" />
-          </a>
-          <span className="hidden sm:inline-flex items-center font-mono text-[10px] leading-none uppercase tracking-[0.18em] border border-ink px-2 py-1 rotate-[-2deg]">
-            {c.prelaunch}
-          </span>
-        </div>
-
-        <div className="hidden lg:flex items-center gap-4">
-          {c.links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="font-mono text-xs leading-none uppercase tracking-wide text-ink-soft hover:text-ink border-b-2 border-transparent hover:border-terra py-1 transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-3">
-          <LangSwitch className="hidden sm:inline-flex" />
-          <a
-            href="#section-demande"
-            className="hidden md:inline-flex items-center font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift bg-terra text-paper"
-          >
-            {c.client}
-          </a>
-          <button
-            type="button"
-            onClick={() => setMenuOpen((open) => !open)}
-            aria-expanded={menuOpen}
-            aria-controls="nav-menu-panel"
-            aria-label={menuOpen ? c.close : c.open}
-            className="lg:hidden inline-flex items-center justify-center w-10 h-10 border-2 border-ink lift bg-paper"
-          >
-            {menuOpen ? (
-              <svg
-                viewBox="0 0 24 24"
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                aria-hidden="true"
-              >
-                <path d="M5 5l14 14M19 5L5 19" strokeLinecap="square" />
-              </svg>
-            ) : (
-              <svg
-                viewBox="0 0 24 24"
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                aria-hidden="true"
-              >
-                <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="square" />
-              </svg>
-            )}
-          </button>
-        </div>
-      </div>
-
-      {menuOpen && (
-        <div id="nav-menu-panel" className="lg:hidden border-t-2 border-ink bg-paper paper-noise">
-          <div className="max-w-6xl mx-auto px-5 py-4 flex flex-col">
-            {c.links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="font-mono text-sm uppercase tracking-wide py-3 border-b border-ink/20 last:border-b-0"
-              >
-                {link.label}
-              </a>
-            ))}
-            <LangSwitch className="sm:hidden py-3" />
-            <div className="mt-3 grid grid-cols-2 gap-2">
-              <a
-                href="#section-demande"
-                onClick={() => setMenuOpen(false)}
-                className="inline-flex items-center justify-center text-center font-mono text-xs leading-tight uppercase tracking-wide border-2 border-ink px-3 py-3 lift"
-              >
-                {c.client}
-              </a>
-              <a
-                href="#section-prestataire"
-                onClick={() => setMenuOpen(false)}
-                className="inline-flex items-center justify-center text-center font-mono text-xs leading-tight uppercase tracking-wide border-2 border-ink px-3 py-3 lift bg-terra text-paper"
-              >
-                {c.pro}
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
-    </nav>
   );
 }
 
@@ -214,7 +105,6 @@ function Hero() {
         <p className="mt-6 max-w-2xl mx-auto text-lg sm:text-xl leading-relaxed text-paper text-pretty drop [animation-delay:160ms]">
           {c.subtitle}
         </p>
-
 
         <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 drop [animation-delay:240ms]">
           <a
@@ -247,7 +137,10 @@ function Steps() {
   const { lang } = useT();
   const c = CLEANING_COPY[lang].steps;
   return (
-    <section id="section-processus" className="scroll-mt-24 border-b-2 border-ink bg-ink text-paper">
+    <section
+      id="section-processus"
+      className="scroll-mt-24 border-b-2 border-ink bg-ink text-paper"
+    >
       <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
         <Reveal>
           <Eyebrow className="text-terra mb-4">{c.eyebrow}</Eyebrow>
@@ -314,7 +207,9 @@ function Why() {
                     <BrandMark className="mt-1.5 h-4 w-auto shrink-0 text-terra" />
                     <div>
                       <h3 className="font-sans font-bold text-lg leading-tight">{p.t}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-ink-soft text-pretty">{p.b}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-ink-soft text-pretty">
+                        {p.b}
+                      </p>
                     </div>
                   </div>
                 </li>
@@ -327,11 +222,15 @@ function Why() {
   );
 }
 
-function Services() {
+function Services({ agencies }: { agencies: Agency[] }) {
   const { lang } = useT();
   const c = CLEANING_COPY[lang].services;
+  const d = CLEANING_COPY[lang].directory;
   return (
-    <section id="section-prestations" className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-24">
+    <section
+      id="section-prestations"
+      className="scroll-mt-24 max-w-6xl mx-auto px-5 py-20 lg:py-24"
+    >
       <Reveal>
         <Eyebrow className="text-terra mb-4">{c.eyebrow}</Eyebrow>
         <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">
@@ -350,6 +249,40 @@ function Services() {
           </Reveal>
         ))}
       </div>
+      <Reveal className="mt-10 border-2 border-ink bg-paper p-6">
+        {agencies.length > 0 && (
+          <>
+            <h3 className="font-sans font-semibold text-lg leading-tight">{d.title}</h3>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {agencies.map((agency) => (
+                <li key={agency.slug}>
+                  <a
+                    href={agencyPath(lang, agency.slug)}
+                    className="inline-flex border-2 border-ink bg-paper-deep px-3.5 py-2 text-sm font-semibold hover:bg-terra hover:text-paper"
+                  >
+                    {agency.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+        <p className={`${agencies.length > 0 ? "mt-5 " : ""}text-sm leading-relaxed text-ink-soft`}>
+          <a
+            href={tradeHref(lang, "Nettoyage")}
+            className="font-semibold text-ink underline decoration-terra decoration-2 underline-offset-4 hover:text-terra-deep"
+          >
+            {d.category}
+          </a>
+          {" · "}
+          <a
+            href={localPath(lang, "/services")}
+            className="font-semibold text-ink underline decoration-terra decoration-2 underline-offset-4 hover:text-terra-deep"
+          >
+            {d.all}
+          </a>
+        </p>
+      </Reveal>
     </section>
   );
 }
@@ -560,133 +493,6 @@ function ProSection() {
         </div>
       </div>
     </section>
-  );
-}
-
-const SOCIALS = [
-  {
-    name: "Facebook",
-    href: "https://www.facebook.com/profile.php?id=61594526347174",
-    Icon: Facebook,
-  },
-  { name: "Instagram", href: "https://www.instagram.com/page.ma01/", Icon: Instagram },
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/showcase/page-ma/",
-    Icon: Linkedin,
-  },
-];
-
-function Footer() {
-  const { lang } = useT();
-  const c = CLEANING_COPY[lang].footer;
-  const n = CLEANING_COPY[lang].nav;
-  return (
-    <footer className="relative isolate overflow-hidden border-t-2 border-ink zellige">
-      <BrandMark className="pointer-events-none absolute -right-14 -bottom-20 -z-10 h-[24rem] w-auto text-ink/[0.07]" />
-      <Reveal className="max-w-6xl mx-auto px-5 py-16 lg:py-20">
-        <div className="grid gap-12 lg:grid-cols-4 lg:gap-16">
-          <div className="lg:col-span-2 lg:pr-8">
-            <img src={LOGO_URL} alt="Page.ma" className="h-9 w-auto" />
-            <p className="mt-6 max-w-prose font-semibold leading-relaxed text-ink-soft text-pretty">
-              {c.about}
-            </p>
-            <div className="mt-6 flex items-center gap-3">
-              {SOCIALS.map(({ name, href, Icon }) => (
-                <a
-                  key={name}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() =>
-                    trackSocialClick(
-                      name.toLowerCase() as "instagram" | "facebook" | "linkedin",
-                      "nettoyage-casablanca",
-                    )
-                  }
-                  aria-label={`${c.on} ${name}`}
-                  className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
-                >
-                  <Icon size={18} strokeWidth={2} />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <nav aria-label={c.servicesTitle}>
-            <h2 className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-terra">
-              <BrandMark className="h-3 w-auto shrink-0" />
-              <span>{c.servicesTitle}</span>
-            </h2>
-            <ul className="mt-6 space-y-3">
-              {n.links.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="inline-flex items-center text-sm font-semibold leading-none text-ink-soft transition-colors duration-200 hover:text-ink motion-reduce:transition-none"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <nav aria-label={c.platformTitle}>
-            <h2 className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-terra">
-              <BrandMark className="h-3 w-auto shrink-0" />
-              <span>{c.platformTitle}</span>
-            </h2>
-            <ul className="mt-6 space-y-3">
-              <li>
-                <a
-                  href="#section-demande"
-                  className="inline-flex items-center text-sm font-semibold leading-none text-ink-soft transition-colors duration-200 hover:text-ink motion-reduce:transition-none"
-                >
-                  {n.client}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#section-prestataire"
-                  className="inline-flex items-center text-sm font-semibold leading-none text-ink-soft transition-colors duration-200 hover:text-ink motion-reduce:transition-none"
-                >
-                  {n.pro}
-                </a>
-              </li>
-              <li>
-                <Link
-                  to={lang === "ar" ? "/ar" : "/"}
-                  className="inline-flex items-center text-sm font-semibold leading-none text-ink-soft transition-colors duration-200 hover:text-ink motion-reduce:transition-none"
-                >
-                  {c.backHome}
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t-2 border-ink pt-6">
-          <span className="font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
-            © 2026 PAGE.MA ·
-          </span>
-          <span className="flex items-center gap-4 font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
-            <span>{c.legal}</span>
-            <span>
-              Powered by{" "}
-              <a
-                href="https://hoverswitch.net/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-terra underline decoration-terra/50 underline-offset-2 transition-colors duration-200 hover:text-ink motion-reduce:transition-none"
-              >
-                HoverSwitch
-              </a>
-            </span>
-          </span>
-        </div>
-      </Reveal>
-    </footer>
   );
 }
 

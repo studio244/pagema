@@ -65,19 +65,27 @@ export default function SignupPage({ lang }: { lang: Lang }) {
 
         <div className="flex items-center justify-between gap-3 px-5 pt-5 sm:px-8 sm:pt-8 lg:px-12">
           <a
-            href="/"
+            href={lang === "ar" ? "/ar" : "/"}
             className="border-2 border-ink bg-paper px-3 py-2 shadow-[4px_4px_0_var(--terra)]"
           >
             <img src={logoAsset} alt="Page.ma" className="h-7 w-auto sm:h-8" dir="ltr" />
           </a>
-          <a
-            href={switchHref}
-            hrefLang={lang === "ar" ? "fr" : "ar"}
-            lang={lang === "ar" ? "fr" : "ar"}
-            className="border-2 border-paper/60 bg-ink/40 px-3 py-1.5 text-sm font-semibold backdrop-blur transition-colors hover:border-paper hover:bg-paper hover:text-ink"
-          >
-            {copy.switchLabel}
-          </a>
+          <div className="flex items-center gap-2">
+            <a
+              href={lang === "ar" ? "/ar" : "/"}
+              className="border-2 border-paper/60 bg-ink/40 px-3 py-1.5 text-sm font-semibold backdrop-blur transition-colors hover:border-paper hover:bg-paper hover:text-ink"
+            >
+              {copy.home}
+            </a>
+            <a
+              href={switchHref}
+              hrefLang={lang === "ar" ? "fr" : "ar"}
+              lang={lang === "ar" ? "fr" : "ar"}
+              className="border-2 border-paper/60 bg-ink/40 px-3 py-1.5 text-sm font-semibold backdrop-blur transition-colors hover:border-paper hover:bg-paper hover:text-ink"
+            >
+              {copy.switchLabel}
+            </a>
+          </div>
         </div>
 
         <div className="px-5 pb-10 pt-44 sm:px-8 sm:pt-56 lg:px-12 lg:pb-12">

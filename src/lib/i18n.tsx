@@ -3,21 +3,10 @@ import { FREE_MONTH_OFFER } from "./free-month-offer";
 
 export type Lang = "fr" | "ar";
 
+/** Sentence with inline links: plain strings and { label, href } links, in reading order. */
+export type RichText = readonly (string | { readonly label: string; readonly href: string })[];
+
 const fr = {
-  nav: {
-    home: "Page.ma, retour en haut",
-    prelaunch: "Pré-lancement",
-    links: [
-      { label: "Promesses", href: "#section-processus" },
-      { label: "Tarifs", href: "#section-tarifs" },
-      { label: "WhatsApp + IA", href: "#section-whatsapp" },
-      { label: "Villes", href: "#section-villes" },
-    ],
-    client: "Je cherche",
-    pro: "Préinscrire mon entreprise",
-    open: "Ouvrir le menu",
-    close: "Fermer le menu",
-  },
   cta: "Préinscrire mon entreprise",
   hero: {
     imgAlt: "Professionnels marocains de la sécurité, du nettoyage et des services",
@@ -61,6 +50,7 @@ const fr = {
     title: "Les métiers du réseau",
     body: "Des activités de service recherchées chaque jour par les clients locaux.",
     featured: "À la une",
+    directoryCta: "Voir les agences par service",
   },
   whatsapp: {
     eyebrow: "IA + WHATSAPP",
@@ -108,6 +98,13 @@ const fr = {
       "Gratuit, sans compte, zéro spam.",
     ],
     caption: "Des pros vérifiés, dans votre ville",
+    browse: [
+      "Vous préférez comparer vous-même ? Parcourez ",
+      { label: "l'annuaire des agences et prestataires", href: "/services" },
+      " ou trouvez directement une ",
+      { label: "société de nettoyage à Casablanca", href: "/nettoyage-casablanca" },
+      ".",
+    ] as RichText,
   },
   pro: {
     eyebrow: "VOUS PROPOSEZ DES SERVICES",
@@ -119,6 +116,13 @@ const fr = {
       "Opportunités reçues rapidement, notamment via WhatsApp.",
       "Processus transparent : pas de commission cachée, pas de boîte noire.",
     ],
+    more: [
+      "Vous êtes à Marrakech ? Découvrez comment ",
+      { label: "développer votre activité avec Page.ma Pro", href: "/annuaire-ai" },
+      ", et les ",
+      { label: "avantages du réseau de partenaires Page.ma", href: "/avantages-partenaires" },
+      ".",
+    ] as RichText,
   },
   partners: { eyebrow: "NOS PARTENAIRES", title: "Ils nous font confiance" },
   ai: {
@@ -148,22 +152,6 @@ const fr = {
     badge: "Maroc · 25 points",
     body: "De Tanger à Dakhla, Page.ma met en relation clients et prestataires qualifiés dans les principaux pôles du Royaume.",
     strip: "Visibilité locale · Opportunités qualifiées · WhatsApp",
-  },
-  footer: {
-    about: "Plateforme marocaine de visibilité et de génération de leads pour les prestataires.",
-    columns: {
-      services: "Services",
-      cities: "Villes",
-      platform: "Plateforme",
-    },
-    platformLinks: [
-      { label: "Nos promesses", href: "#section-processus" },
-      { label: "Tarifs", href: "#section-tarifs" },
-      { label: "Préinscrire mon entreprise", href: "#section-prestataire" },
-      { label: "Je cherche un prestataire", href: "#section-client" },
-    ],
-    legal: "Mentions légales · Confidentialité",
-    on: "Page.ma sur",
   },
   whatsappWidget: "Discuter avec nous sur WhatsApp",
   form: {
@@ -226,20 +214,6 @@ const fr = {
 export type Dict = typeof fr;
 
 const ar: Dict = {
-  nav: {
-    home: "Page.ma: العودة إلى الأعلى",
-    prelaunch: "التسجيل مفتوح قبل الإطلاق",
-    links: [
-      { label: "كيف تنمو أعمالك", href: "#section-processus" },
-      { label: "الأسعار", href: "#section-tarifs" },
-      { label: "الذكاء الاصطناعي وواتساب", href: "#section-whatsapp" },
-      { label: "التغطية الوطنية", href: "#section-villes" },
-    ],
-    client: "أبحث عن خدمة",
-    pro: "سجّل شركتك مسبقاً",
-    open: "فتح القائمة",
-    close: "إغلاق القائمة",
-  },
   cta: "سجّل شركتك مسبقاً",
   hero: {
     imgAlt: "مهنيون مغاربة في الأمن والنظافة والخدمات",
@@ -282,6 +256,7 @@ const ar: Dict = {
     title: "قطاعات متعددة. فرص متنوعة.",
     body: "اكتشف فرصاً في قطاعات خدماتية متعددة في مختلف أنحاء المغرب.",
     featured: "مميّز",
+    directoryCta: "تصفّح الوكالات حسب الخدمة",
   },
   whatsapp: {
     eyebrow: "ذكاء اصطناعي + واتساب",
@@ -329,6 +304,13 @@ const ar: Dict = {
       "مجاني، بدون حساب، بدون رسائل مزعجة.",
     ],
     caption: "مهنيون موثوقون في مدينتك",
+    browse: [
+      "تفضّل المقارنة بنفسك؟ تصفّح ",
+      { label: "دليل الوكالات ومقدّمي الخدمات", href: "/ar/services" },
+      " أو ابحث مباشرة عن ",
+      { label: "شركة تنظيف في الدار البيضاء", href: "/ar/nettoyage-casablanca" },
+      ".",
+    ] as RichText,
   },
   pro: {
     eyebrow: "مزوّد خدمات؟",
@@ -341,6 +323,13 @@ const ar: Dict = {
       "شفافية كاملة: لا رسوم أو عمولات مخفية.",
       "حضور أقوى. فرص أكثر. نمو مستدام.",
     ],
+    more: [
+      "تعمل في مراكش؟ اكتشف كيف ",
+      { label: "تطوّر نشاطك مع Page.ma Pro", href: "/ar/annuaire-ai" },
+      "، وتعرّف على ",
+      { label: "مزايا شبكة شركاء Page.ma", href: "/ar/avantages-partenaires" },
+      ".",
+    ] as RichText,
   },
   partners: { eyebrow: "شركاؤنا", title: "يثقون بنا" },
   ai: {
@@ -371,18 +360,6 @@ const ar: Dict = {
     badge: "المغرب · 25 نقطة",
     body: "تعمل Page.ma على تقريب العملاء من مزوّدي الخدمات المؤهلين، وبناء شبكة وطنية تتيح الوصول إلى الخدمات المناسبة في مختلف مدن ومراكز المملكة.",
     strip: "حضور محلي · فرص أعمال · تواصل مباشر عبر واتساب",
-  },
-  footer: {
-    about: "منصة مغربية لتعزيز الحضور وتوليد فرص الأعمال لمزوّدي الخدمات.",
-    columns: { services: "الخدمات", cities: "المدن", platform: "المنصة" },
-    platformLinks: [
-      { label: "وعودنا", href: "#section-processus" },
-      { label: "الأسعار", href: "#section-tarifs" },
-      { label: "سجّل شركتك مسبقاً", href: "#section-prestataire" },
-      { label: "أبحث عن مقدّم خدمة", href: "#section-client" },
-    ],
-    legal: "الإشعارات القانونية · الخصوصية",
-    on: "Page.ma على",
   },
   whatsappWidget: "تحدّث معنا على واتساب",
   form: {

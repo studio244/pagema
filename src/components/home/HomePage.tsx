@@ -1,10 +1,6 @@
-import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
-import { trackSocialClick } from "@/lib/social-tracking";
 import { FreeMonthCounter } from "@/components/FreeMonthCounter";
 import { DICTS, LangContext, useT, type Dict, type Lang } from "@/lib/i18n";
-import logoAsset from "@/assets/pagema-logo.png";
 import heroAsset from "@/assets/pagema-services-hero-2.webp";
 import prosAsset from "@/assets/pagema-pros-equipe.jpg";
 import requestIllustration from "@/assets/process-step-1.png.asset.json";
@@ -22,8 +18,10 @@ import { CATEGORIES, COVERAGE_CITIES, INVESTMENT } from "@/lib/catalog";
 import { PreregistrationForm } from "./PreregistrationForm";
 import { JourneyPreviewSection } from "./JourneyPreview";
 import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { RichLine } from "@/components/site/RichLine";
 
-const LOGO_URL = logoAsset;
 const HERO_URL = heroAsset;
 
 export default function HomePage({ lang }: { lang: Lang }) {
@@ -34,7 +32,10 @@ export default function HomePage({ lang }: { lang: Lang }) {
 
   const t = DICTS[lang];
   // Activity and city chosen in the journey preview, carried into the provider form.
-  const [journeySelection, setJourneySelection] = useState<{ category: string; city: string } | null>(null);
+  const [journeySelection, setJourneySelection] = useState<{
+    category: string;
+    city: string;
+  } | null>(null);
 
   return (
     <LangContext.Provider value={{ lang, t, setLang: () => {} }}>
@@ -43,7 +44,11 @@ export default function HomePage({ lang }: { lang: Lang }) {
         dir={lang === "ar" ? "rtl" : "ltr"}
         className="brand-v2 min-h-screen bg-paper text-ink font-sans"
       >
-        <Nav />
+        <SiteHeader
+          lang={lang}
+          switchHref={lang === "ar" ? "/" : "/ar"}
+          ctaHref="#section-prestataire"
+        />
         <Hero />
         <Promises />
         <JourneyPreviewSection onReserve={setJourneySelection} />
@@ -56,7 +61,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
         <AiFeatures />
         <Coverage />
         <FrequentlyAskedQuestions lang={lang} variant="home" />
-        <Footer />
+        <SiteFooter lang={lang} page="home" />
         <WhatsAppWidget />
       </div>
     </LangContext.Provider>
@@ -76,7 +81,9 @@ function ProSection({ selection }: { selection: { category: string; city: string
           <Reveal className="order-2 lg:order-1">
             <PreregistrationForm
               profile="prestataire"
-              {...(selection ? { defaultCity: selection.city, defaultCategory: selection.category } : {})}
+              {...(selection
+                ? { defaultCity: selection.city, defaultCategory: selection.category }
+                : {})}
             />
           </Reveal>
           <Reveal delay={120} className="order-1 lg:order-2">
@@ -94,6 +101,10 @@ function ProSection({ selection }: { selection: { category: string; city: string
                 <Benefit key={b}>{b}</Benefit>
               ))}
             </ul>
+            <RichLine
+              parts={t.pro.more}
+              className="mt-8 max-w-prose leading-relaxed text-ink-soft"
+            />
           </Reveal>
         </div>
       </div>
@@ -135,6 +146,11 @@ function ClientSection() {
                 </Benefit>
               ))}
             </ul>
+            <RichLine
+              parts={t.client.browse}
+              tone="paper"
+              className="mt-8 max-w-prose leading-relaxed text-paper/85"
+            />
             <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.18em] text-paper/70">
               {t.client.caption}
             </p>
@@ -163,133 +179,6 @@ function WhatsAppWidget() {
   );
 }
 
-function LangSwitch({ className = "" }: { className?: string }) {
-  const { lang } = useT();
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 font-mono text-xs leading-none ${className}`}
-    >
-      <Link
-        to={lang === "fr" ? "/ar" : "/"}
-        hrefLang={lang === "fr" ? "ar" : "fr"}
-        lang={lang === "fr" ? "ar" : "fr"}
-        className="py-1 border-b-2 border-transparent text-ink-soft hover:text-ink"
-      >
-        {lang === "fr" ? "العربية" : "Français"}
-      </Link>
-    </span>
-  );
-}
-
-function Nav() {
-  const { t } = useT();
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  return (
-    <nav className="sticky top-0 z-20 border-b-2 border-ink bg-paper/95">
-      <div className="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <a href="#top" className="shrink-0" aria-label={t.nav.home}>
-            <img src={LOGO_URL} alt="Page.ma" className="h-9 sm:h-10 w-auto" />
-          </a>
-          <span className="hidden sm:inline-flex items-center font-mono text-[10px] leading-none uppercase tracking-[0.18em] border border-ink px-2 py-1 rotate-[-2deg]">
-            {t.nav.prelaunch}
-          </span>
-        </div>
-
-        <div className="hidden lg:flex items-center gap-4">
-          {t.nav.links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="font-mono text-xs leading-none uppercase tracking-wide text-ink-soft hover:text-ink border-b-2 border-transparent hover:border-terra py-1 transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-3">
-          <LangSwitch className="hidden sm:inline-flex" />
-          <a
-            href="#section-prestataire"
-            className="hidden md:inline-flex items-center font-mono text-[10px] sm:text-xs leading-none uppercase tracking-wide border-2 border-ink px-3 sm:px-4 py-2 lift bg-terra text-paper"
-          >
-            {t.nav.pro}
-          </a>
-          <button
-            type="button"
-            onClick={() => setMenuOpen((open) => !open)}
-            aria-expanded={menuOpen}
-            aria-controls="nav-menu-panel"
-            aria-label={menuOpen ? t.nav.close : t.nav.open}
-            className="lg:hidden inline-flex items-center justify-center w-10 h-10 border-2 border-ink lift bg-paper"
-          >
-            {menuOpen ? (
-              <svg
-                viewBox="0 0 24 24"
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                aria-hidden="true"
-              >
-                <path d="M5 5l14 14M19 5L5 19" strokeLinecap="square" />
-              </svg>
-            ) : (
-              <svg
-                viewBox="0 0 24 24"
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                aria-hidden="true"
-              >
-                <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="square" />
-              </svg>
-            )}
-          </button>
-        </div>
-      </div>
-
-      {menuOpen && (
-        <div id="nav-menu-panel" className="lg:hidden border-t-2 border-ink bg-paper paper-noise">
-          <div className="max-w-6xl mx-auto px-5 py-4 flex flex-col">
-            {t.nav.links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="font-mono text-sm uppercase tracking-wide py-3 border-b border-ink/20 last:border-b-0"
-              >
-                {link.label}
-              </a>
-            ))}
-            <LangSwitch className="sm:hidden py-3" />
-            <div className="mt-3 grid grid-cols-2 gap-2">
-              <a
-                href="#section-client"
-                onClick={() => setMenuOpen(false)}
-                className="inline-flex items-center justify-center text-center font-mono text-xs leading-tight uppercase tracking-wide border-2 border-ink px-3 py-3 lift"
-              >
-                {t.nav.client}
-              </a>
-              <a
-                href="#section-prestataire"
-                onClick={() => setMenuOpen(false)}
-                className="inline-flex items-center justify-center text-center font-mono text-xs leading-tight uppercase tracking-wide border-2 border-ink px-3 py-3 lift bg-terra text-paper"
-              >
-                {t.nav.pro}
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
-    </nav>
-  );
-}
-
-
 function Hero() {
   const { t, lang } = useT();
 
@@ -315,7 +204,6 @@ function Hero() {
         <p className="mt-6 max-w-2xl mx-auto text-lg sm:text-xl leading-relaxed text-paper text-pretty drop [animation-delay:160ms]">
           {t.hero.subtitle}
         </p>
-
 
         <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 drop [animation-delay:240ms]">
           <a
@@ -412,7 +300,7 @@ function Promises() {
 const GRID_EXCLUDED = ["Publicité", INVESTMENT];
 
 function Categories() {
-  const { t } = useT();
+  const { t, lang } = useT();
   return (
     <section className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
       <Reveal>
@@ -437,6 +325,12 @@ function Categories() {
           </Reveal>
         ))}
       </div>
+      <a
+        href={lang === "ar" ? "/ar/services" : "/services"}
+        className="mt-8 inline-flex font-mono text-xs leading-none uppercase tracking-wide text-ink border-b-2 border-terra py-1 hover:text-terra transition-colors"
+      >
+        {t.categories.directoryCta}
+      </a>
     </section>
   );
 }
@@ -516,7 +410,8 @@ function Pricing() {
                 )}
                 <h3 className="font-mono text-xs uppercase tracking-[0.2em]">{p.name}</h3>
                 <p className="mt-4 font-display text-5xl leading-none">
-                  <bdi dir="ltr">{p.price}</bdi> <span className="text-lg">{t.pricing.currency}</span>
+                  <bdi dir="ltr">{p.price}</bdi>{" "}
+                  <span className="text-lg">{t.pricing.currency}</span>
                 </p>
                 <p
                   className={`mt-1 font-mono text-[11px] uppercase ${rec ? "text-paper/80" : "text-ink-soft"}`}
@@ -584,7 +479,11 @@ function AiFeatures() {
       </Reveal>
       <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-6 items-stretch">
         {t.ai.features.map((f, index) => (
-          <Reveal key={f.title} delay={(index % 3) * 75} className={`h-full ${index < 3 ? "lg:col-span-2" : "lg:col-span-3"} ${index === 4 ? "sm:col-span-2" : ""}`}>
+          <Reveal
+            key={f.title}
+            delay={(index % 3) * 75}
+            className={`h-full ${index < 3 ? "lg:col-span-2" : "lg:col-span-3"} ${index === 4 ? "sm:col-span-2" : ""}`}
+          >
             <div className="lift-card flex h-full flex-col border-2 border-ink bg-paper-deep p-6">
               <div className="flex items-center justify-between gap-3">
                 <span className="font-display text-4xl leading-none text-terra">
@@ -954,8 +853,6 @@ function Coverage() {
   );
 }
 
-const FOOTER_CITIES = ["Casablanca", "Rabat", "Marrakech", "Tanger", "Agadir"];
-
 const PARTNERS = [
   { name: "Asomovit Nettoyage", url: partner1 },
   { name: "Azur Protection", url: partner2 },
@@ -987,7 +884,11 @@ function Partners() {
       <Reveal delay={100} className="marquee-viewport marquee-mask mt-9 overflow-hidden">
         <ul className="marquee-track flex items-center gap-10 sm:gap-16 lg:gap-20">
           {loop.map((partner, index) => (
-            <li key={`${partner.name}-${index}`} aria-hidden={index >= PARTNERS.length ? true : undefined} className="shrink-0">
+            <li
+              key={`${partner.name}-${index}`}
+              aria-hidden={index >= PARTNERS.length ? true : undefined}
+              className="shrink-0"
+            >
               <img
                 src={partner.url}
                 alt={index < PARTNERS.length ? partner.name : ""}
@@ -1000,115 +901,5 @@ function Partners() {
         </ul>
       </Reveal>
     </section>
-  );
-}
-
-function Footer() {
-  const { t, lang } = useT();
-  const cleaningHref = lang === "ar" ? "/ar/nettoyage-casablanca" : "/nettoyage-casablanca";
-  const columns = [
-    {
-      title: t.footer.columns.services,
-      links: ["Sécurité", "Nettoyage", "Piscine", "Jardinage", "Traiteur", "Immobilier"].map(
-        (c) => ({
-          label: catLabel(t, c),
-          href: c === "Nettoyage" ? cleaningHref : "#section-prestataire",
-        }),
-      ),
-    },
-    {
-      title: t.footer.columns.cities,
-      links: FOOTER_CITIES.map((c) => ({ label: t.cityLabels[c] ?? c, href: "#coverage-title" })),
-    },
-    { title: t.footer.columns.platform, links: [...t.footer.platformLinks, {
-      label: lang === "ar" ? "مزايا الشركاء" : "Avantages partenaires",
-      href: lang === "ar" ? "/ar/avantages-partenaires" : "/avantages-partenaires",
-    }] },
-  ];
-  return (
-    <footer className="relative isolate overflow-hidden border-t-2 border-ink zellige">
-      <BrandMark className="pointer-events-none absolute -right-14 -bottom-20 -z-10 h-[24rem] w-auto text-ink/[0.07]" />
-      <Reveal className="max-w-6xl mx-auto px-5 py-16 lg:py-20">
-        <div className="grid gap-12 lg:grid-cols-4 lg:gap-16">
-          <div className="lg:pr-8">
-            <img src={LOGO_URL} alt="Page.ma" className="h-9 w-auto" />
-            <p className="mt-6 max-w-prose font-semibold leading-relaxed text-ink-soft text-pretty">
-              {t.footer.about}
-            </p>
-            <div className="mt-6 flex items-center gap-3">
-              <a
-                href="https://www.facebook.com/profile.php?id=61594526347174"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${t.footer.on} Facebook`}
-                className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
-              >
-                <Facebook size={18} strokeWidth={2} />
-              </a>
-              <a
-                href="https://www.instagram.com/page.ma01/"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackSocialClick("instagram", "home")}
-                aria-label={`${t.footer.on} Instagram`}
-                className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
-              >
-                <Instagram size={18} strokeWidth={2} />
-              </a>
-              <a
-                href="https://www.linkedin.com/showcase/page-ma/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${t.footer.on} LinkedIn`}
-                className="inline-flex h-10 w-10 items-center justify-center border-2 border-ink text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:text-paper motion-reduce:transition-none motion-reduce:hover:translate-y-0"
-              >
-                <Linkedin size={18} strokeWidth={2} />
-              </a>
-            </div>
-          </div>
-
-          {columns.map((column) => (
-            <nav key={column.title} aria-label={column.title}>
-              <h2 className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-terra">
-                <BrandMark className="h-3 w-auto shrink-0" />
-                <span>{column.title}</span>
-              </h2>
-              <ul className="mt-6 space-y-3">
-                {column.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="inline-flex items-center text-sm font-semibold leading-none text-ink-soft transition-colors duration-200 hover:text-ink motion-reduce:transition-none"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
-        </div>
-
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t-2 border-ink pt-6">
-          <span className="font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
-            © 2026 PAGE.MA ·
-          </span>
-          <span className="flex items-center gap-4 font-mono text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
-            <span>{t.footer.legal}</span>
-            <span>
-              Powered by{" "}
-              <a
-                href="https://hoverswitch.net/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-terra underline decoration-terra/50 underline-offset-2 transition-colors duration-200 hover:text-ink motion-reduce:transition-none"
-              >
-                HoverSwitch
-              </a>
-            </span>
-          </span>
-        </div>
-      </Reveal>
-    </footer>
   );
 }

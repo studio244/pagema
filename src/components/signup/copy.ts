@@ -21,6 +21,7 @@ const fr = {
   formNote: "On vous contacte sur WhatsApp pour valider votre activité avant le lancement.",
   photoAlt: "",
   switchLabel: "العربية",
+  home: "Accueil",
 };
 
 export type SignupCopy = typeof fr;
@@ -45,6 +46,7 @@ const ar: SignupCopy = {
   formNote: "سنتواصل معك عبر واتساب للتحقق من نشاطك قبل الإطلاق.",
   photoAlt: "",
   switchLabel: "Français",
+  home: "الرئيسية",
 };
 
 export const SIGNUP_COPY: Record<Lang, SignupCopy> = { fr, ar };

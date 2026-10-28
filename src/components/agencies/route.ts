@@ -1,5 +1,6 @@
 import { DICTS, type Lang } from "@/lib/i18n";
-import { SITE_URL, seoHead } from "@/lib/seo";
+import { SITE_URL, breadcrumbJsonLd, seoHead } from "@/lib/seo";
+import { crumbs } from "@/components/site/nav";
 import {
   agencyDescription,
   agencyPath,
@@ -18,6 +19,7 @@ export function directoryHead(lang: Lang) {
     paths: { fr: "/services", ar: "/ar/services" },
     title: copy.meta.title,
     description: copy.meta.description,
+    jsonLd: [breadcrumbJsonLd(crumbs(lang).directory)],
   });
 }
 
@@ -36,6 +38,7 @@ export function agencyHead(lang: Lang, agency: Agency | undefined) {
     title: copy.meta.agencyTitle(agency.name),
     description: description.slice(0, 160),
     jsonLd: [
+      breadcrumbJsonLd(crumbs(lang).agency(agency.name, agencyPath(lang, agency.slug))),
       {
         "@type": "LocalBusiness",
         "@id": `${SITE_URL}${agencyPath("fr", agency.slug)}#business`,

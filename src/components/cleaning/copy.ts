@@ -16,20 +16,6 @@ const fr = {
     ogDescription:
       "Page.ma qualifie votre demande par téléphone, puis vous envoie jusqu'à 3 devis comparables de sociétés de nettoyage vérifiées à Casablanca.",
   },
-  nav: {
-    home: "Page.ma, retour en haut",
-    prelaunch: "Pré-lancement",
-    links: [
-      { label: "Prestations", href: "#section-prestations" },
-      { label: "Comment ça marche", href: "#section-processus" },
-      { label: "Zones desservies", href: "#section-villes" },
-      { label: "Questions", href: "#section-faq" },
-    ],
-    client: "Je cherche un pro",
-    pro: "Je propose mes services",
-    open: "Ouvrir le menu",
-    close: "Fermer le menu",
-  },
   hero: {
     imgAlt: "Équipe de professionnels marocains de la sécurité, du nettoyage et des services",
     kicker: "Préinscriptions ouvertes · Casablanca",
@@ -188,14 +174,10 @@ const fr = {
       "Accès anticipé : vous faites partie des premiers prestataires et vous façonnez le produit.",
     ],
   },
-  footer: {
-    about:
-      "Plateforme marocaine de mise en relation avec des prestataires vérifiés : sécurité, nettoyage, jardinage, piscine et plus.",
-    servicesTitle: "Nettoyage",
-    platformTitle: "Plateforme",
-    legal: "Mentions légales · Confidentialité",
-    on: "Page.ma sur",
-    backHome: "Retour à l'accueil",
+  directory: {
+    title: "Sociétés de nettoyage à Casablanca présentes dans l'annuaire",
+    category: "Toutes les agences de nettoyage et d'entretien",
+    all: "Annuaire complet des agences Page.ma",
   },
   whatsappWidget: "Discuter avec nous sur WhatsApp",
 };
@@ -210,20 +192,6 @@ const ar: Copy = {
     ogTitle: "شركة تنظيف في الدار البيضاء — حتى 3 عروض من محترفين موثوقين",
     ogDescription:
       "Page.ma يؤهّل طلبكم بالهاتف ثم يرسل لكم حتى 3 عروض أسعار قابلة للمقارنة من شركات تنظيف موثوقة في الدار البيضاء.",
-  },
-  nav: {
-    home: "Page.ma، العودة إلى الأعلى",
-    prelaunch: "قبل الانطلاق",
-    links: [
-      { label: "الخدمات", href: "#section-prestations" },
-      { label: "كيف يعمل", href: "#section-processus" },
-      { label: "مناطق التغطية", href: "#section-villes" },
-      { label: "أسئلة", href: "#section-faq" },
-    ],
-    client: "أبحث عن محترف",
-    pro: "أقدّم خدماتي",
-    open: "فتح القائمة",
-    close: "إغلاق القائمة",
   },
   hero: {
     imgAlt: "فريق من المهنيين المغاربة في الأمن والنظافة والخدمات",
@@ -383,14 +351,10 @@ const ar: Copy = {
       "ولوج مبكّر: أنتم من أوّل المزوّدين وتشاركون في تشكيل المنتج.",
     ],
   },
-  footer: {
-    about:
-      "منصّة مغربية للتواصل مع مزوّدي خدمات موثوقين: الأمن، النظافة، البستنة، المسابح والمزيد.",
-    servicesTitle: "النظافة",
-    platformTitle: "المنصّة",
-    legal: "البيانات القانونية · الخصوصية",
-    on: "Page.ma على",
-    backHome: "العودة إلى الرئيسية",
+  directory: {
+    title: "شركات التنظيف في الدار البيضاء المسجّلة في الدليل",
+    category: "جميع وكالات التنظيف والصيانة",
+    all: "الدليل الكامل لوكالات Page.ma",
   },
   whatsappWidget: "تحدّث معنا على واتساب",
 };

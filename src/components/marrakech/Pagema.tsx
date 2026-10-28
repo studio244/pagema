@@ -180,7 +180,9 @@ function LangSwitch({ lang, className = "" }: { lang: Lang; className?: string }
 
 function Header({ lang, copy }: Ctx) {
   const [open, setOpen] = useState(false);
+  const home = lang === "ar" ? "/ar" : "/";
   const nav = [
+    { label: copy.nav.home, href: home },
     { label: copy.nav.services, href: "#services" },
     { label: copy.nav.how, href: "#fonctionnement" },
     { label: copy.nav.advantages, href: "#avantages" },
@@ -189,7 +191,7 @@ function Header({ lang, copy }: Ctx) {
   return (
     <header className="sticky top-0 z-50 border-b border-[#16181f]/10 bg-white/70 backdrop-blur-xl">
       <div className={`${container} flex h-16 items-center justify-between gap-4`}>
-        <a href="#top" aria-label={copy.nav.top}>
+        <a href={home} aria-label={copy.nav.home}>
           <LogoMark />
         </a>
         <nav className="hidden items-center gap-8 md:flex" aria-label={copy.nav.main}>
@@ -802,6 +804,7 @@ function Footer({ lang, copy, proHref }: Ctx) {
     {
       title: copy.footer.platform,
       links: [
+        { label: copy.footer.home, href: lang === "ar" ? "/ar" : "/" },
         { label: copy.footer.how, href: "#fonctionnement" },
         { label: copy.footer.partner, href: proHref },
         { label: copy.footer.signup, href: "#inscription" },
