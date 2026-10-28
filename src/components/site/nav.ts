@@ -24,6 +24,7 @@ const COPY = {
     cta: "Inscrire mon entreprise",
     allAgencies: "Toutes les agences",
     cleaningLocal: "Nettoyage à Casablanca",
+    marrakech: "Prestataires à Marrakech",
     trade: { Nettoyage: "Nettoyage / Entretien" } as Record<string, string>,
     grow: "Développer mon activité",
     howItWorks: "Comment ça marche",
@@ -53,6 +54,7 @@ const COPY = {
     cta: "سجّل شركتك",
     allAgencies: "جميع الوكالات",
     cleaningLocal: "التنظيف في الدار البيضاء",
+    marrakech: "مقدّمو الخدمات في مراكش",
     trade: { Nettoyage: "النظافة والصيانة" } as Record<string, string>,
     grow: "طوّر نشاطك",
     howItWorks: "كيف يعمل Page.ma",
@@ -107,6 +109,7 @@ export function menuGroups(lang: Lang): NavGroup[] {
         { label: c.allAgencies, href: localPath(lang, "/services") },
         ...MENU_TRADES.map((t) => ({ label: tradeLabel(lang, t), href: tradeHref(lang, t) })),
         { label: c.cleaningLocal, href: localPath(lang, "/nettoyage-casablanca") },
+        { label: c.marrakech, href: localPath(lang, "/annuaire") },
       ],
     },
     {
@@ -145,6 +148,7 @@ export function footerGroups(lang: Lang): NavGroup[] {
         { label: f.directory, href: localPath(lang, "/services") },
         ...FOOTER_TRADES.map((t) => ({ label: tradeLabel(lang, t), href: tradeHref(lang, t) })),
         { label: c.cleaningLocal, href: localPath(lang, "/nettoyage-casablanca") },
+        { label: c.marrakech, href: localPath(lang, "/annuaire") },
       ],
     },
     {

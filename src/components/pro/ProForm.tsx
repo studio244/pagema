@@ -144,7 +144,7 @@ export function ProForm({
             <p className={s?.title ?? "font-display text-2xl leading-tight tracking-tight"}>
               {copy.form.title}
             </p>
-            <Reassurance copy={copy} className={s ? "mt-2 text-[#e0b400]" : "mt-2 text-terra-deep"} />
+            <Reassurance copy={copy} className="mt-2 text-terra-deep" />
           </div>
 
           {withContact && (

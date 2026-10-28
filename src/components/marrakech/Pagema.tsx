@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   ArrowUpRight,
   Award,
@@ -9,7 +8,6 @@ import {
   Inbox,
   Lock,
   MapPin,
-  Menu,
   MessageSquareText,
   ShieldCheck,
   Sparkles,
@@ -17,11 +15,10 @@ import {
   TrendingUp,
   UtensilsCrossed,
   Waves,
-  X,
   Zap,
 } from "lucide-react";
-import { DICTS, type Lang } from "@/lib/i18n";
-import MarrakechForm, { selectSignupTab } from "./MarrakechForm";
+import type { Lang } from "@/lib/i18n";
+import MarrakechForm from "./MarrakechForm";
 import { MARRAKECH_COPY, type MarrakechCopy } from "./copy";
 
 import heroPhoto from "@/assets/pagema-services-hero-2.webp";
@@ -39,17 +36,11 @@ import companyLogo1 from "@/assets/marrakech/avatar-2.png";
 import companyLogo2 from "@/assets/marrakech/avatar-3.png";
 import companyLogo3 from "@/assets/marrakech/avatar-4.png";
 import launchPhoto from "@/assets/marrakech/group-35.webp";
-import logoSquare from "./assets/vector-31.svg";
-import logoP from "@/assets/marrakech/group-38.png";
-import logoPBlade from "./assets/vector-32.svg";
-import logoPBlade2 from "./assets/vector-33.svg";
-import footerP from "@/assets/marrakech/group-37.png";
-import footerPBlade from "./assets/vector-29.svg";
-import footerPBlade2 from "./assets/vector-30.svg";
-import { whatsappUrl } from "@/lib/whatsapp";
 import { Reveal } from "@/components/brand";
-import footerWordmark from "@/assets/marrakech/group-36.png";
 import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import appIcon from "@/assets/pagema-app-icon.png";
 
 const PARTNERS = [
   { src: partner1, name: "Asomovit Nettoyage" },
@@ -77,33 +68,32 @@ const ENGAGEMENT_ICONS = [MapPin, Zap, BadgeCheck, Lock];
 const JOURNEY_STYLES = [
   {
     photo: clientPhoto,
-    tagClass: "bg-[#16181f] text-white",
+    tagClass: "bg-[var(--ink)] text-white",
     href: "#inscription",
-    ctaClass: "bg-[#16181f] text-white hover:bg-black",
+    ctaClass: "bg-[var(--ink)] text-white hover:bg-[var(--ink)]/90",
   },
   {
     photo: entreprisePhoto,
-    tagClass: "bg-[#ffd000] text-[#16181f]",
+    tagClass: "bg-[var(--terra)] text-[var(--ink)]",
     href: "/annuaire-ai",
-    ctaClass: "bg-[#ffd000] text-[#16181f] hover:bg-[#f5c800]",
+    ctaClass: "bg-[var(--terra)] text-[var(--ink)] hover:bg-[var(--terra-deep)]",
   },
 ];
 const ADVANTAGE_STYLES = [
   {
-    tagClass: "text-[#404653]/70",
-    iconClass: "bg-[#16181f]/5 text-[#16181f]",
+    tagClass: "text-[var(--ink-soft)]/70",
+    iconClass: "bg-[var(--ink)]/5 text-[var(--ink)]",
     icons: [Clock, CircleCheck, MessageSquareText],
   },
   {
-    tagClass: "text-[#e0b400]",
-    iconClass: "bg-[#ffd000]/15 text-[#16181f]",
+    tagClass: "text-[var(--terra-deep)]",
+    iconClass: "bg-[var(--terra)]/15 text-[var(--ink)]",
     icons: [Inbox, TrendingUp, Award],
   },
 ];
-const FOOTER_CITIES = ["Casablanca", "Rabat", "Marrakech", "Tanger", "Agadir"];
 
 const container = "mx-auto w-full max-w-[1280px] px-5 sm:px-8";
-const eyebrow = "text-xs font-medium uppercase tracking-[1.76px] text-[#404653]/70";
+const eyebrow = "text-xs font-medium uppercase tracking-[1.76px] text-[var(--ink-soft)]/70";
 const h2 =
   "text-[clamp(1.9rem,4.2vw,2.625rem)] font-black leading-[1.15] tracking-tight text-balance";
 const pill =
@@ -111,40 +101,9 @@ const pill =
 
 type Ctx = { lang: Lang; copy: MarrakechCopy; proHref: string };
 
-function externalProps(href: string) {
-  return href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {};
-}
-
-/** Yellow Page.ma "P" in its black rounded square (header). */
+/** Page.ma app icon (turquoise P on petrol). */
 function LogoMark({ className = "" }: { className?: string }) {
-  return (
-    <span className={`relative inline-block h-12 w-12 shrink-0 ${className}`} dir="ltr">
-      <img className="absolute inset-0 h-12 w-12" src={logoSquare} alt="" />
-      <span className="absolute left-[14px] top-[10px] h-[29px] w-6">
-        <img className="absolute h-[29px] w-6" src={logoP} alt="" />
-        <img className="absolute h-[29px] w-4" src={logoPBlade} alt="" />
-        <img className="absolute h-[29px] w-2.5" src={logoPBlade2} alt="" />
-      </span>
-    </span>
-  );
-}
-
-/** White "Page.ma" wordmark with the yellow P (footer). */
-function FooterLogo() {
-  return (
-    <span className="relative block h-[91px] w-[196px]" role="img" aria-label="Page.ma" dir="ltr">
-      <span className="absolute left-0 top-0 h-[86px] w-[73px]">
-        <img className="absolute h-[86px] w-[73px]" src={footerP} alt="" />
-        <img className="absolute h-[86px] w-[45px]" src={footerPBlade} alt="" />
-        <img className="absolute h-[86px] w-[30px]" src={footerPBlade2} alt="" />
-      </span>
-      <img
-        className="absolute left-[49px] top-[66px] h-[22px] w-[146px]"
-        src={footerWordmark}
-        alt=""
-      />
-    </span>
-  );
+  return <img className={`h-12 w-12 shrink-0 rounded-xl ${className}`} src={appIcon} alt="" dir="ltr" />;
 }
 
 function Underlined({ children }: { children: React.ReactNode }) {
@@ -153,7 +112,7 @@ function Underlined({ children }: { children: React.ReactNode }) {
       {children}
       <span
         aria-hidden="true"
-        className="absolute inset-x-0 -bottom-0.5 h-[7px] rounded-full bg-[#ffd000] sm:-bottom-1"
+        className="absolute inset-x-0 -bottom-0.5 h-[7px] rounded-full bg-[var(--terra)] sm:-bottom-1"
       />
     </span>
   );
@@ -164,125 +123,9 @@ function Arrow() {
   return <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />;
 }
 
-function LangSwitch({ lang, className = "" }: { lang: Lang; className?: string }) {
-  const other = lang === "ar" ? "fr" : "ar";
-  return (
-    <a
-      href={lang === "ar" ? "/annuaire" : "/ar/annuaire"}
-      hrefLang={other}
-      lang={other}
-      className={`text-sm font-semibold text-[#404653] underline-offset-4 hover:text-[#16181f] hover:underline ${className}`}
-    >
-      {MARRAKECH_COPY[lang].switchLabel}
-    </a>
-  );
-}
-
-function Header({ lang, copy }: Ctx) {
-  const [open, setOpen] = useState(false);
-  const home = lang === "ar" ? "/ar" : "/";
-  const nav = [
-    { label: copy.nav.home, href: home },
-    { label: copy.nav.services, href: "#services" },
-    { label: copy.nav.how, href: "#fonctionnement" },
-    { label: copy.nav.advantages, href: "#avantages" },
-    { label: copy.nav.contact, href: whatsappUrl(lang) },
-  ];
-  return (
-    <header className="sticky top-0 z-50 border-b border-[#16181f]/10 bg-white/70 backdrop-blur-xl">
-      <div className={`${container} flex h-16 items-center justify-between gap-4`}>
-        <a href={home} aria-label={copy.nav.home}>
-          <LogoMark />
-        </a>
-        <nav className="hidden items-center gap-8 md:flex" aria-label={copy.nav.main}>
-          {nav.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              {...externalProps(l.href)}
-              className="text-sm font-medium text-[#404653] hover:text-[#16181f]"
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-        <div className="hidden items-center gap-3 md:flex">
-          <LangSwitch lang={lang} />
-          <a
-            href="#inscription"
-            onClick={() => selectSignupTab("client")}
-            className={`${pill} border border-[#16181f]/15 bg-white px-4 py-2.5 text-[#16181f] hover:bg-[#16181f]/5`}
-          >
-            {copy.nav.search}
-          </a>
-          <a
-            href="#inscription"
-            onClick={() => selectSignupTab("prestataire")}
-            className={`${pill} bg-[#ffd000] px-4 py-2.5 text-black hover:bg-[#f5c800]`}
-          >
-            {copy.nav.partner}
-          </a>
-        </div>
-        <div className="flex items-center gap-3 md:hidden">
-          <LangSwitch lang={lang} />
-          <button
-            type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#16181f]/15"
-            aria-expanded={open}
-            aria-controls="mk-mobile-menu"
-            aria-label={open ? copy.nav.close : copy.nav.open}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </div>
-      </div>
-      {open && (
-        <div id="mk-mobile-menu" className="border-t border-[#16181f]/10 bg-white md:hidden">
-          <nav className={`${container} flex flex-col py-3`} aria-label={copy.nav.mobile}>
-            {nav.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                {...externalProps(l.href)}
-                onClick={() => setOpen(false)}
-                className="border-b border-[#16181f]/10 py-3 text-base font-medium text-[#16181f] last:border-b-0"
-              >
-                {l.label}
-              </a>
-            ))}
-            <div className="mt-3 grid grid-cols-2 gap-2">
-              <a
-                href="#inscription"
-                onClick={() => {
-                  selectSignupTab("client");
-                  setOpen(false);
-                }}
-                className={`${pill} border border-[#16181f]/15 bg-white text-[#16181f]`}
-              >
-                {copy.nav.search}
-              </a>
-              <a
-                href="#inscription"
-                onClick={() => {
-                  selectSignupTab("prestataire");
-                  setOpen(false);
-                }}
-                className={`${pill} bg-[#ffd000] text-black`}
-              >
-                {copy.nav.partner}
-              </a>
-            </div>
-          </nav>
-        </div>
-      )}
-    </header>
-  );
-}
-
 function Hero({ copy, proHref }: Ctx) {
   return (
-    <section className="relative isolate overflow-hidden bg-[#16181f]">
+    <section className="relative isolate overflow-hidden bg-[var(--ink)]">
       <img
         src={heroPhoto}
         alt=""
@@ -290,8 +133,8 @@ function Hero({ copy, proHref }: Ctx) {
         fetchPriority="high"
         className="absolute inset-0 -z-20 h-full w-full object-cover object-[35%_center]"
       />
-      <div className="absolute inset-0 -z-10 bg-black/55" aria-hidden="true" />
-      {/* Yellow Page.ma blade on the end side, as in the design (large screens only). */}
+      <div className="absolute inset-0 -z-10 bg-[var(--ink)]/55" aria-hidden="true" />
+      {/* Turquoise Page.ma blade on the end side, as in the design (large screens only). */}
       <svg
         aria-hidden="true"
         viewBox="0 0 450 651"
@@ -306,7 +149,7 @@ function Hero({ copy, proHref }: Ctx) {
         </defs>
         <path
           d="M0 0 L330 392 Q362 430 330 468 C272 540 250 600 262 651 L450 651 L450 0 Z"
-          fill="#ffd000"
+          style={{ fill: "var(--terra)" }}
         />
         <path
           d="M0 0 L330 392 Q362 430 330 468 C272 540 250 600 262 651 L450 651 L450 0 Z"
@@ -317,26 +160,26 @@ function Hero({ copy, proHref }: Ctx) {
       <div
         className={`${container} flex min-h-[560px] flex-col items-center justify-center py-20 text-center text-white sm:min-h-[620px] lg:py-28`}
       >
-        <p className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#ffd000] px-4 py-1.5 text-sm font-semibold text-[#16181f] shadow-[0_8px_24px_-8px_rgb(255_208_0_/_0.7)]">
+        <p className="mb-6 inline-flex items-center gap-2 rounded-full bg-[var(--terra)] px-4 py-1.5 text-sm font-semibold text-[var(--ink)] shadow-[0_8px_24px_-8px_rgb(255_208_0_/_0.7)]">
           <Gift className="h-4 w-4" aria-hidden="true" />
           {copy.hero.offer}
         </p>
         <h1 className="max-w-3xl text-[clamp(2.2rem,5.4vw,3.75rem)] font-bold leading-[1.12] tracking-[0.01em] text-balance">
-          {copy.hero.title} <span className="text-[#ffd000]">{copy.hero.titleAccent}</span>
+          {copy.hero.title} <span className="text-[var(--terra)]">{copy.hero.titleAccent}</span>
         </h1>
         <p className="mt-6 max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
           {copy.hero.body}
         </p>
         <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
-          <a href={proHref} className={`${pill} bg-[#ffd000] text-black hover:bg-[#f5c800]`}>
+          <a href={proHref} className={`${pill} bg-[var(--terra)] text-[var(--ink)] hover:bg-[var(--terra-deep)]`}>
             {copy.hero.partner} <Arrow />
           </a>
-          <a href="#inscription" className={`${pill} bg-[#16181f] text-white hover:bg-black`}>
+          <a href="#inscription" className={`${pill} bg-[var(--ink)] text-white hover:bg-[var(--ink)]/90`}>
             {copy.hero.quotes} <Arrow />
           </a>
         </div>
         <p className="mt-6 flex items-center gap-2 text-sm text-white/80">
-          <ShieldCheck className="h-4 w-4 text-[#ffd000]" aria-hidden="true" />
+          <ShieldCheck className="h-4 w-4 text-[var(--terra)]" aria-hidden="true" />
           {copy.hero.free}
         </p>
       </div>
@@ -346,7 +189,7 @@ function Hero({ copy, proHref }: Ctx) {
 
 function PartnersStrip({ copy }: Ctx) {
   return (
-    <section aria-label={copy.partnersLabel} className="border-y border-[#16181f]/10 bg-white">
+    <section aria-label={copy.partnersLabel} className="border-y border-[var(--ink)]/10 bg-white">
       <div className="partners-marquee partners-mask overflow-hidden py-8" dir="ltr">
         <div className="partners-track flex w-max">
           {[0, 1].map((copyIndex) => (
@@ -375,12 +218,12 @@ function PartnersStrip({ copy }: Ctx) {
 
 function Categories({ copy }: Ctx) {
   return (
-    <section id="services" className="scroll-mt-16 bg-[#ffd000]">
+    <section id="services" className="scroll-mt-16 bg-[var(--terra)]">
       <div className={`${container} py-16 sm:py-24`}>
         <div className="mx-auto max-w-4xl text-center">
           <p className={eyebrow}>{copy.categories.eyebrow}</p>
           <h2 className={`${h2} mt-4`}>{copy.categories.title}</h2>
-          <p className="mt-4 text-base leading-relaxed text-[#404653]">{copy.categories.body}</p>
+          <p className="mt-4 text-base leading-relaxed text-[var(--ink-soft)]">{copy.categories.body}</p>
         </div>
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {CATEGORIES.map(({ key, photo, Icon }) => (
@@ -391,22 +234,22 @@ function Categories({ copy }: Ctx) {
               {photo ? (
                 <div className="relative aspect-[533/384]">
                   <img src={photo} alt="" className="h-full w-full object-cover" loading="lazy" />
-                  <span className="absolute start-3 top-3 flex h-11 w-11 items-center justify-center rounded-[14px] bg-white/30 text-[#ffd000] backdrop-blur-md">
+                  <span className="absolute start-3 top-3 flex h-11 w-11 items-center justify-center rounded-[14px] bg-white/30 text-[var(--terra)] backdrop-blur-md">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                 </div>
               ) : (
-                <div className="relative flex aspect-[533/384] items-center justify-center overflow-hidden bg-[#16181f]">
+                <div className="relative flex aspect-[533/384] items-center justify-center overflow-hidden bg-[var(--ink)]">
                   <span
                     aria-hidden="true"
-                    className="absolute -end-10 -top-10 h-40 w-40 rounded-full bg-[#ffd000]/15 blur-2xl"
+                    className="absolute -end-10 -top-10 h-40 w-40 rounded-full bg-[var(--terra)]/15 blur-2xl"
                   />
-                  <Icon className="h-16 w-16 text-[#ffd000]" strokeWidth={1.5} aria-hidden="true" />
+                  <Icon className="h-16 w-16 text-[var(--terra)]" strokeWidth={1.5} aria-hidden="true" />
                 </div>
               )}
               <div className="p-5">
                 <h3 className="text-xl leading-snug tracking-tight">{copy.services[key]}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#404653]">
+                <p className="mt-2 text-sm leading-relaxed text-[var(--ink-soft)]">
                   {copy.categories.items[key]}
                 </p>
               </div>
@@ -414,18 +257,18 @@ function Categories({ copy }: Ctx) {
           ))}
         </ul>
       </div>
-      <div className="border-t border-[#16181f]/10">
+      <div className="border-t border-[var(--ink)]/10">
         <ul className={`${container} grid gap-6 py-8 sm:grid-cols-2 lg:grid-cols-4`}>
           {copy.engagements.map(({ title, body }, i) => {
             const Icon = ENGAGEMENT_ICONS[i] ?? MapPin;
             return (
               <li key={title} className="flex items-start gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-white text-[#16181f]">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-white text-[var(--ink)]">
                   <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
                 </span>
                 <div>
                   <p className="text-sm font-semibold">{title}</p>
-                  <p className="mt-0.5 text-xs leading-relaxed text-[#404653]">{body}</p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-[var(--ink-soft)]">{body}</p>
                 </div>
               </li>
             );
@@ -468,12 +311,12 @@ function HowItWorks({ copy, proHref }: Ctx) {
                   <ol className="mt-6 space-y-6">
                     {j.steps.map((s, i) => (
                       <li key={s.t} className="flex gap-4">
-                        <span className="font-fraunces flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#ffd000]/15 text-sm">
+                        <span className="font-fraunces flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--terra)]/15 text-sm">
                           {i + 1}
                         </span>
                         <div>
                           <p className="font-fraunces text-base font-medium leading-snug">{s.t}</p>
-                          <p className="mt-1 text-sm leading-relaxed text-[#404653]">{s.b}</p>
+                          <p className="mt-1 text-sm leading-relaxed text-[var(--ink-soft)]">{s.b}</p>
                         </div>
                       </li>
                     ))}
@@ -491,7 +334,7 @@ function HowItWorks({ copy, proHref }: Ctx) {
   );
 }
 
-/** Yellow link with a pulse travelling along it: horizontal on desktop, vertical when stacked. */
+/** Turquoise link with a pulse travelling along it: horizontal on desktop, vertical when stacked. */
 function EcoLink({ delay = 0 }: { delay?: number }) {
   const style = { "--eco-delay": `${delay}ms` } as React.CSSProperties;
   return (
@@ -543,10 +386,10 @@ function tiltHandlers() {
 function Ecosystem({ copy }: Ctx) {
   const words = copy.ecosystem.title.split(" ");
   return (
-    <section className="relative isolate overflow-hidden bg-black text-white">
+    <section className="relative isolate overflow-hidden bg-[var(--ink)] text-white">
       <div
         aria-hidden="true"
-        className="eco-glow absolute -start-40 -top-40 -z-10 h-[520px] w-[520px] rounded-full bg-[#ffd000]/10 blur-3xl"
+        className="eco-glow absolute -start-40 -top-40 -z-10 h-[520px] w-[520px] rounded-full bg-[var(--terra)]/10 blur-3xl"
       />
       <div
         aria-hidden="true"
@@ -589,9 +432,9 @@ function Ecosystem({ copy }: Ctx) {
         <Reveal delay={120} className="eco-stage mx-auto mt-12 max-w-5xl">
           <div className="eco-tilt" {...tiltHandlers()}>
             <div className="eco-frame rounded-[29px] p-[2px]">
-              <div className="eco-card relative overflow-hidden rounded-[27px] bg-white p-5 text-[#16181f] sm:p-8 lg:p-11">
+              <div className="eco-card relative overflow-hidden rounded-[27px] bg-white p-5 text-[var(--ink)] sm:p-8 lg:p-11">
                 <div className="grid items-center gap-5 md:grid-cols-[1fr_auto_1fr] md:gap-8">
-                  <div className="eco-side eco-side-start flex flex-col items-center gap-2 rounded-[22px] bg-[#16181f]/4 p-7 text-center">
+                  <div className="eco-side eco-side-start flex flex-col items-center gap-2 rounded-[22px] bg-[var(--ink)]/4 p-7 text-center">
                     <div className="flex -space-x-3">
                       {[clientAvatar, clientPhoto, entreprisePhoto].map((src, i) => (
                         <img
@@ -608,10 +451,10 @@ function Ecosystem({ copy }: Ctx) {
                         />
                       ))}
                     </div>
-                    <p className="mt-2 text-xs font-medium uppercase tracking-[1.76px] text-[#404653]/70">
+                    <p className="mt-2 text-xs font-medium uppercase tracking-[1.76px] text-[var(--ink-soft)]/70">
                       {copy.ecosystem.clients}
                     </p>
-                    <p className="text-base leading-relaxed text-[#404653]">
+                    <p className="text-base leading-relaxed text-[var(--ink-soft)]">
                       {copy.ecosystem.clientsBody}
                     </p>
                   </div>
@@ -628,7 +471,7 @@ function Ecosystem({ copy }: Ctx) {
                     <EcoLink delay={900} />
                   </div>
 
-                  <div className="eco-side eco-side-end flex flex-col items-center gap-2 rounded-[22px] bg-[#ffd000]/15 p-7 text-center">
+                  <div className="eco-side eco-side-end flex flex-col items-center gap-2 rounded-[22px] bg-[var(--terra)]/15 p-7 text-center">
                     <div className="flex -space-x-3">
                       {[companyLogo1, companyLogo2, companyLogo3].map((src, i) => (
                         <img
@@ -648,7 +491,7 @@ function Ecosystem({ copy }: Ctx) {
                     <p className="mt-2 text-xs font-medium uppercase tracking-[1.76px]">
                       {copy.ecosystem.companies}
                     </p>
-                    <p className="text-base leading-relaxed text-[#404653]">
+                    <p className="text-base leading-relaxed text-[var(--ink-soft)]">
                       {copy.ecosystem.companiesBody}
                     </p>
                   </div>
@@ -668,7 +511,7 @@ function Ecosystem({ copy }: Ctx) {
                   style={{ "--eco-delay": `${i * 0.7}s` } as React.CSSProperties}
                 >
                   <Icon
-                    className="h-5 w-5 text-[#ffd000] transition-transform duration-500 group-hover:rotate-12 group-hover:scale-125"
+                    className="h-5 w-5 text-[var(--terra)] transition-transform duration-500 group-hover:rotate-12 group-hover:scale-125"
                     aria-hidden="true"
                   />
                   {copy.services[key]}
@@ -694,7 +537,7 @@ function Advantages({ copy }: Ctx) {
             return (
               <div
                 key={group.tag}
-                className="rounded-[22px] border border-[#ffd000] bg-white/55 p-6 sm:p-8"
+                className="rounded-[22px] border border-[var(--terra)] bg-white/55 p-6 sm:p-8"
               >
                 <p className={`text-xs font-medium uppercase tracking-[1.76px] ${style.tagClass}`}>
                   {group.tag}
@@ -711,7 +554,7 @@ function Advantages({ copy }: Ctx) {
                         </span>
                         <div>
                           <p className="font-fraunces text-base font-medium leading-snug">{t}</p>
-                          <p className="mt-1 text-sm leading-relaxed text-[#404653]">{b}</p>
+                          <p className="mt-1 text-sm leading-relaxed text-[var(--ink-soft)]">{b}</p>
                         </div>
                       </li>
                     );
@@ -728,9 +571,9 @@ function Advantages({ copy }: Ctx) {
 
 function Launch({ copy, proHref }: Ctx) {
   return (
-    <section className="bg-[#fefcee]">
+    <section className="bg-[var(--paper-deep)]">
       <div className={`${container} py-16 sm:py-24`}>
-        <div className="relative isolate overflow-hidden rounded-[32px] bg-gradient-to-br from-[#ffa800] via-[#ffb400] to-[#ffd000] rtl:bg-gradient-to-bl">
+        <div className="relative isolate overflow-hidden rounded-[32px] bg-gradient-to-br from-[var(--brand-sky)] via-[var(--terra)] to-[var(--terra)] rtl:bg-gradient-to-bl">
           <img
             src={launchPhoto}
             alt=""
@@ -738,32 +581,32 @@ function Launch({ copy, proHref }: Ctx) {
             className="pointer-events-none absolute bottom-0 end-0 -z-10 hidden h-full w-auto object-contain object-right-bottom rtl:-scale-x-100 lg:block"
           />
           <div className="flex flex-col items-center px-6 py-14 text-center sm:px-10 lg:w-[62%] lg:py-20">
-            <p className="flex items-center gap-2 rounded-full bg-[#ffd000] px-4 py-1.5 text-xs font-medium text-[#16181f]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#16181f]" aria-hidden="true" />
+            <p className="flex items-center gap-2 rounded-full bg-[var(--terra)] px-4 py-1.5 text-xs font-medium text-[var(--ink)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--ink)]" aria-hidden="true" />
               {copy.launch.badge}
             </p>
             <h2 className={`${h2} mt-6 text-white`}>{copy.launch.title}</h2>
-            <p className="mt-4 max-w-md text-lg leading-relaxed text-[#16181f]/80">
+            <p className="mt-4 max-w-md text-lg leading-relaxed text-[var(--ink)]/80">
               {copy.launch.body}
             </p>
             <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
               <a
                 href="#inscription"
-                className={`${pill} bg-[#ffd000] text-[#16181f] hover:bg-[#ffe14d]`}
+                className={`${pill} bg-[var(--terra)] text-[var(--ink)] hover:bg-[var(--brand-highlight)]`}
               >
                 {copy.launch.search}
               </a>
-              <a href={proHref} className={`${pill} bg-[#16181f] text-white hover:bg-black`}>
+              <a href={proHref} className={`${pill} bg-[var(--ink)] text-white hover:bg-[var(--ink)]/90`}>
                 {copy.launch.partner}
               </a>
             </div>
             <ol className="mt-10 grid w-full max-w-md grid-cols-3 gap-3">
               {copy.launch.steps.map((label, i) => (
                 <li key={label} className="rounded-[14px] bg-white px-3 py-4 text-center">
-                  <p className="font-fraunces text-xl text-[#e0b400]">
+                  <p className="font-fraunces text-xl text-[var(--terra-deep)]">
                     {String(i + 1).padStart(2, "0")}
                   </p>
-                  <p className="mt-1 text-xs text-[#404653]">{label}</p>
+                  <p className="mt-1 text-xs text-[var(--ink-soft)]">{label}</p>
                 </li>
               ))}
             </ol>
@@ -776,82 +619,17 @@ function Launch({ copy, proHref }: Ctx) {
 
 function Signup({ lang, copy }: Ctx) {
   return (
-    <section id="inscription" className="scroll-mt-16 bg-[#fefcee]">
+    <section id="inscription" className="scroll-mt-16 bg-[var(--paper-deep)]">
       <div className="mx-auto flex w-full max-w-[1152px] flex-col items-center gap-10 px-5 pb-20 pt-4 sm:px-8 sm:pb-24">
         <div className="max-w-4xl text-center">
           <h2 className={h2}>
             {copy.signup.title} <Underlined>{copy.signup.titleAccent}</Underlined>
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-[#404653]">{copy.signup.body}</p>
+          <p className="mt-4 text-base leading-relaxed text-[var(--ink-soft)]">{copy.signup.body}</p>
         </div>
         <MarrakechForm lang={lang} />
       </div>
     </section>
-  );
-}
-
-function Footer({ lang, copy, proHref }: Ctx) {
-  const cityLabels = DICTS[lang].cityLabels;
-  const columns: { title: string; links: { label: string; href?: string }[] }[] = [
-    {
-      title: copy.footer.services,
-      links: CATEGORIES.map(({ key }) => ({
-        label: copy.services[key] ?? key,
-        href: key === "Nettoyage" ? (lang === "ar" ? "/ar/nettoyage-casablanca" : "/nettoyage-casablanca") : "#services",
-      })),
-    },
-    { title: copy.footer.cities, links: FOOTER_CITIES.map((c) => ({ label: cityLabels[c] ?? c })) },
-    {
-      title: copy.footer.platform,
-      links: [
-        { label: copy.footer.home, href: lang === "ar" ? "/ar" : "/" },
-        { label: copy.footer.how, href: "#fonctionnement" },
-        { label: copy.footer.partner, href: proHref },
-        { label: copy.footer.signup, href: "#inscription" },
-        { label: copy.footer.contact, href: whatsappUrl(lang) },
-      ],
-    },
-  ];
-  return (
-    <footer className="bg-[#16181f] text-white">
-      <div
-        className={`${container} grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:py-16`}
-      >
-        <div>
-          <FooterLogo />
-          <p className="mt-5 max-w-60 text-sm leading-relaxed text-white/75">{copy.footer.about}</p>
-        </div>
-        {columns.map((col) => (
-          <div key={col.title}>
-            <p className="text-xs font-semibold uppercase tracking-[1.76px]">{col.title}</p>
-            <ul className="mt-5 space-y-3.5">
-              {col.links.map((l) => (
-                <li key={l.label} className="text-sm text-white/75">
-                  {l.href ? (
-                    <a href={l.href} {...externalProps(l.href)} className="hover:text-white">
-                      {l.label}
-                    </a>
-                  ) : (
-                    l.label
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-      <div className="border-t border-white/10">
-        <div
-          className={`${container} flex flex-col gap-3 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between`}
-        >
-          <p>{copy.footer.rights}</p>
-          <div className="flex gap-6">
-            <span>{copy.footer.legal}</span>
-            <span>{copy.footer.privacy}</span>
-          </div>
-        </div>
-      </div>
-    </footer>
   );
 }
 
@@ -865,9 +643,9 @@ export default function Pagema({ lang }: { lang: Lang }) {
     <div
       id="top"
       dir={lang === "ar" ? "rtl" : "ltr"}
-      className="brand-v2 min-h-screen bg-white text-[#16181f]"
+      className="brand-v2 min-h-screen bg-white text-[var(--ink)]"
     >
-      <Header {...ctx} />
+      <SiteHeader lang={lang} switchHref={lang === "ar" ? "/annuaire" : "/ar/annuaire"} ctaHref="#inscription" />
       <main>
         <Hero {...ctx} />
         <PartnersStrip {...ctx} />
@@ -879,7 +657,7 @@ export default function Pagema({ lang }: { lang: Lang }) {
         <Signup {...ctx} />
         <FrequentlyAskedQuestions lang={lang} variant="annuaire" />
       </main>
-      <Footer {...ctx} />
+      <SiteFooter lang={lang} page="annuaire" />
     </div>
   );
 }

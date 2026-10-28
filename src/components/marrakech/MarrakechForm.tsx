@@ -43,15 +43,15 @@ export default function MarrakechForm({ lang }: { lang: Lang }) {
   const tabClass = (active: boolean) =>
     `flex flex-row justify-center items-center text-center min-h-10 rounded-full py-2 px-3 sm:px-5 text-sm font-medium leading-tight ${
       active
-        ? "bg-[#ffd000] text-black shadow-[0px_1px_2px_-1px_rgb(0_0_0_/_0.1),_0px_1px_3px_0px_rgb(0_0_0_/_0.1)]"
-        : "text-[#404653] hover:text-black"
+        ? "bg-[var(--terra)] text-[var(--ink)] shadow-[0px_1px_2px_-1px_rgb(0_0_0_/_0.1),_0px_1px_3px_0px_rgb(0_0_0_/_0.1)]"
+        : "text-[var(--ink-soft)] hover:text-[var(--ink)]"
     }`;
 
   return (
     <LangContext.Provider value={{ lang, t: dict, setLang: () => {} }}>
       <div className="flex w-full max-w-2xl flex-col items-center gap-8">
         <div
-          className="grid w-full max-w-md grid-cols-2 items-stretch gap-1 bg-[#16181f]/5 rounded-[26px] p-1 sm:flex sm:w-fit sm:max-w-none sm:rounded-full"
+          className="grid w-full max-w-md grid-cols-2 items-stretch gap-1 bg-[var(--ink)]/5 rounded-[26px] p-1 sm:flex sm:w-fit sm:max-w-none sm:rounded-full"
           role="tablist"
         >
           <button
