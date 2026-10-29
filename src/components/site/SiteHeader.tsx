@@ -9,7 +9,7 @@ const linkClass =
 
 /**
  * Main menu shared by the public pages: Accueil, two dropdowns, Avantages partenaires,
- * FR/AR switch and the "Inscrire mon entreprise" CTA. Below xl it folds into a panel
+ * FR/AR switch and the "Je réserve" CTA. Below xl it folds into a panel
  * with expandable sections.
  */
 export function SiteHeader({
@@ -95,7 +95,7 @@ export function SiteHeader({
             href={cta}
             className="hidden md:inline-flex items-center font-mono text-xs leading-none uppercase tracking-wide border-2 border-ink px-4 py-2 lift bg-terra text-paper"
           >
-            {c.cta}
+            {c.reserve}
           </a>
           <button
             type="button"
@@ -264,7 +264,7 @@ function MobilePanel({
           onClick={onNavigate}
           className="mt-4 inline-flex items-center justify-center text-center font-mono text-xs leading-tight uppercase tracking-wide border-2 border-ink px-3 py-3 lift bg-terra text-paper"
         >
-          {c.cta}
+          {c.reserve}
         </a>
       </div>
     </nav>
