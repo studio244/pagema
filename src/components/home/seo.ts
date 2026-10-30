@@ -5,16 +5,16 @@ const META = {
   fr: {
     title: "Page.ma | Visibilité et clients pour les prestataires au Maroc",
     description:
-      "Sécurité, nettoyage, jardinage, piscine… Page.ma rend les prestataires visibles et leur envoie des demandes de clients sur WhatsApp. 25 villes du Maroc.",
+      "Sécurité, nettoyage, jardinage, piscine… Page.ma rend les prestataires visibles et leur attribue les demandes de clients qui correspondent à leurs critères. 25 villes du Maroc.",
     ogDescription:
-      "La plateforme de visibilité et de génération de leads pour les prestataires au Maroc. Pré-inscription gratuite, sans engagement.",
+      "La plateforme d'acquisition clients et de visibilité pour les prestataires au Maroc. Pré-inscription gratuite, sans engagement.",
   },
   ar: {
-    title: "Page.ma | منصة الظهور وتوليد الفرص لمقدّمي الخدمات في المغرب",
+    title: "Page.ma | منصة استقطاب العملاء وتعزيز الحضور لمقدّمي الخدمات في المغرب",
     description:
-      "الأمن، النظافة، البستنة، المسابح… Page.ma يجعل مقدّمي الخدمات مرئيين ويرسل لهم طلبات الزبناء على واتساب. 25 مدينة في المغرب.",
+      "الأمن، النظافة، البستنة، المسابح… Page.ma يعزّز حضور مقدّمي الخدمات ويخصّص لهم طلبات الزبناء التي تطابق معاييرهم. 25 مدينة في المغرب.",
     ogDescription:
-      "منصة الظهور وتوليد الفرص لمقدّمي الخدمات في المغرب. تسجيل مسبق مجاني وبدون التزام.",
+      "منصة استقطاب العملاء وتعزيز الحضور لمقدّمي الخدمات في المغرب. تسجيل مسبق مجاني وبدون التزام.",
   },
 } satisfies Record<Lang, { title: string; description: string; ogDescription: string }>;
 

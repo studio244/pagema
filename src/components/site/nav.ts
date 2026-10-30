@@ -33,7 +33,7 @@ const COPY = {
     request: "Décrire mon besoin",
     menu: { open: "Ouvrir le menu", close: "Fermer le menu", main: "Navigation principale" },
     footer: {
-      about: "Plateforme marocaine de visibilité et de génération de leads pour les prestataires.",
+      about: "Plateforme marocaine d'acquisition clients et de visibilité pour les prestataires.",
       pagema: "Page.ma",
       services: "Services",
       pros: "Professionnels",
@@ -64,7 +64,7 @@ const COPY = {
     request: "اشرح حاجتك",
     menu: { open: "فتح القائمة", close: "إغلاق القائمة", main: "التنقل الرئيسي" },
     footer: {
-      about: "منصة مغربية لتعزيز الحضور وتوليد فرص الأعمال لمزوّدي الخدمات.",
+      about: "منصة مغربية لاستقطاب العملاء وتعزيز الحضور لمزوّدي الخدمات.",
       pagema: "Page.ma",
       services: "الخدمات",
       pros: "المهنيون",

@@ -18,6 +18,9 @@ const payloadSchema = z.object({
   needDetails: z.string().max(2000).nullish(),
   healthEntityType: z.string().max(80).nullish(),
   realEstateIntent: z.string().max(120).nullish(),
+  purchaseMode: z.string().max(80).nullish(),
+  serviceArea: z.string().max(80).nullish(),
+  autoBudget: z.string().max(80).nullish(),
   source: z.string().max(200).nullish(),
 });
 
@@ -56,6 +59,9 @@ export const sendPreregistrationEmail = createServerFn({ method: "POST" })
     ${row("Besoin", data.needDetails)}
     ${row("Type d'établissement santé", data.healthEntityType)}
     ${row("Projet immobilier", data.realEstateIntent)}
+    ${row("Achat des opportunités", data.purchaseMode)}
+    ${row("Zone d'intervention", data.serviceArea)}
+    ${row("Budget mensuel", data.autoBudget)}
     ${row("Source", data.source)}
   </table>
 </div>`;

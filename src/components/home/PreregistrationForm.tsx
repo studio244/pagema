@@ -28,6 +28,11 @@ const INVESTMENT_INTENTS = [
 
 const TEAM_SIZES = ["1–5", "6–20", "21–50", "51–200", "200+"];
 
+// Provider targeting for auto-purchase; French values are saved, labels come from t.lists.
+const PURCHASE_MODES = ["Automatique", "Validation manuelle"];
+const SERVICE_AREAS = ["Ma ville uniquement", "Ma ville et ses environs", "Toute ma région", "Tout le Maroc"];
+const AUTO_BUDGETS = ["Jusqu'à 250 crédits", "Jusqu'à 750 crédits", "Jusqu'à 1 800 crédits", "Selon mon solde"];
+
 export type Profile = "client" | "prestataire";
 
 /** Pre-registration form (client or provider), shared by the homepage and /annuaire. Needs a LangContext provider. */
@@ -61,6 +66,9 @@ export function PreregistrationForm({
   const [needDetails, setNeedDetails] = useState("");
   const [healthEntity, setHealthEntity] = useState<string>(HEALTH_ENTITIES[0]!);
   const [realEstateIntent, setRealEstateIntent] = useState<string>(REAL_ESTATE_INTENTS[0]!);
+  const [purchaseMode, setPurchaseMode] = useState<string>(PURCHASE_MODES[0]!);
+  const [serviceArea, setServiceArea] = useState<string>(SERVICE_AREAS[1]!);
+  const [autoBudget, setAutoBudget] = useState<string>(AUTO_BUDGETS[0]!);
 
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
 
@@ -83,6 +91,7 @@ export function PreregistrationForm({
     ? realEstateIntent
     : intentOptions[0]!;
   const idPrefix = profile;
+  const isAuto = purchaseMode === PURCHASE_MODES[0];
 
   function resetForm() {
     setFullName("");
@@ -96,11 +105,18 @@ export function PreregistrationForm({
     setNeedDetails("");
     setHealthEntity(HEALTH_ENTITIES[0]!);
     setRealEstateIntent(REAL_ESTATE_INTENTS[0]!);
+    setPurchaseMode(PURCHASE_MODES[0]!);
+    setServiceArea(SERVICE_AREAS[1]!);
+    setAutoBudget(AUTO_BUDGETS[0]!);
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("sending");
+    const targeting =
+      profile === "prestataire"
+        ? { purchaseMode, serviceArea, autoBudget: isAuto ? autoBudget : null }
+        : null;
     const payload = {
       full_name: fullName.trim(),
       phone: phone.trim(),
@@ -110,7 +126,14 @@ export function PreregistrationForm({
       profile,
       company_name: profile === "prestataire" ? companyName.trim() || null : null,
       team_size: profile === "prestataire" ? teamSize : null,
-      need_details: profile === "client" ? needDetails.trim() || null : null,
+      // Providers never fill need_details, so it carries their targeting until it gets its own columns.
+      need_details: targeting
+        ? [
+            `Achat : ${targeting.purchaseMode}`,
+            `Zone : ${targeting.serviceArea}`,
+            ...(targeting.autoBudget ? [`Budget : ${targeting.autoBudget}`] : []),
+          ].join(" · ")
+        : needDetails.trim() || null,
       health_entity_type: isHealth ? healthEntity : null,
       real_estate_intent: isRealEstate ? intentValue : null,
     };
@@ -131,9 +154,12 @@ export function PreregistrationForm({
           category: payload.category,
           companyName: payload.company_name,
           teamSize: payload.team_size,
-          needDetails: payload.need_details,
+          needDetails: targeting ? null : payload.need_details,
           healthEntityType: payload.health_entity_type,
           realEstateIntent: payload.real_estate_intent,
+          purchaseMode: targeting?.purchaseMode,
+          serviceArea: targeting?.serviceArea,
+          autoBudget: targeting?.autoBudget,
           source,
         },
       });
@@ -394,6 +420,68 @@ export function PreregistrationForm({
                   ))}
                 </select>
               </div>
+            ) : null}
+
+            {profile === "prestataire" ? (
+              <fieldset className="space-y-4">
+                <legend className={labelClass}>{f.targetingTitle}</legend>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className={labelClass} htmlFor={`${idPrefix}-purchase`}>
+                      {f.purchaseMode}
+                    </label>
+                    <select
+                      id={`${idPrefix}-purchase`}
+                      className={selectClass}
+                      value={purchaseMode}
+                      onChange={(e) => setPurchaseMode(e.target.value)}
+                    >
+                      {PURCHASE_MODES.map((m, i) => (
+                        <option key={m} value={m}>
+                          {t.lists.purchaseModes[i] ?? m}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className={labelClass} htmlFor={`${idPrefix}-area`}>
+                      {f.serviceArea}
+                    </label>
+                    <select
+                      id={`${idPrefix}-area`}
+                      className={selectClass}
+                      value={serviceArea}
+                      onChange={(e) => setServiceArea(e.target.value)}
+                    >
+                      {SERVICE_AREAS.map((a, i) => (
+                        <option key={a} value={a}>
+                          {t.lists.serviceAreas[i] ?? a}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                {isAuto && (
+                  <div>
+                    <label className={labelClass} htmlFor={`${idPrefix}-budget`}>
+                      {f.autoBudget}
+                    </label>
+                    <select
+                      id={`${idPrefix}-budget`}
+                      className={selectClass}
+                      value={autoBudget}
+                      onChange={(e) => setAutoBudget(e.target.value)}
+                    >
+                      {AUTO_BUDGETS.map((b, i) => (
+                        <option key={b} value={b}>
+                          {t.lists.autoBudgets[i] ?? b}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+                <p className={s.hint}>{f.targetingNote}</p>
+              </fieldset>
             ) : (
               <div>
                 <label className={labelClass} htmlFor={`${idPrefix}-need`}>

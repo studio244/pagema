@@ -14,6 +14,7 @@ const fr: Record<FaqVariant, FaqItem[]> = {
     { q: "Comment demander des devis ?", a: "Remplissez le formulaire client avec votre activité recherchée, votre ville et vos coordonnées. Votre besoin est étudié pour vous orienter vers les prestataires adaptés, avec jusqu’à 3 devis de professionnels vérifiés." },
     { q: "Comment serai-je contacté ?", a: "Renseignez un numéro WhatsApp valide dans le formulaire : Page.ma l’utilise pour échanger avec vous sur votre demande ou votre inscription." },
     { q: "Comment inscrire mon activité ?", a: "Utilisez le formulaire prestataire et indiquez votre activité, votre ville et vos coordonnées. Page.ma vous contacte pour valider votre activité avant le lancement." },
+    { q: "Comment fonctionne l’achat automatique des opportunités ?", a: "Vous fixez vos critères : activité, ville, zone d’intervention et budget mensuel de crédits. Dès qu’une opportunité y correspond, elle vous est attribuée selon votre priorité et votre solde, et les crédits sont déduits sans validation à chaque fois. Vous pouvez passer en validation manuelle ou mettre en pause à tout moment." },
   ],
   pro: [
     { q: "Comment m’inscrire comme prestataire ?", a: "Indiquez votre nom, votre activité, votre ville et vos coordonnées dans le formulaire. Page.ma vous contacte ensuite sur WhatsApp pour valider votre activité." },
@@ -52,6 +53,7 @@ const ar: Record<FaqVariant, FaqItem[]> = {
     { q: "كيف أطلب عروض أسعار؟", a: "املأ استمارة الزبون وحدّد الخدمة والمدينة ومعلومات الاتصال. تتم دراسة طلبك لتوجيهك نحو مقدّمي الخدمات المناسبين، مع ما يصل إلى 3 عروض أسعار من مهنيين تم التحقق منهم." },
     { q: "كيف سيتم التواصل معي؟", a: "أدخل رقم واتساب صالحاً في الاستمارة. تستخدمه Page.ma للتواصل معك بشأن طلبك أو تسجيلك." },
     { q: "كيف أسجّل نشاطي؟", a: "املأ استمارة مقدّم الخدمات وحدّد نشاطك ومدينتك ومعلومات الاتصال. تتواصل معك Page.ma للتحقق من نشاطك قبل الإطلاق." },
+    { q: "كيف يعمل الشراء التلقائي للفرص؟", a: "تحدّد معاييرك: النشاط، المدينة، منطقة التدخّل والميزانية الشهرية من الرصيد. بمجرد أن تطابقها فرصة، تُخصَّص لك حسب أولويتك ورصيدك، ويُخصم الرصيد دون تأكيد في كل مرة. يمكنك التحوّل إلى التأكيد اليدوي أو الإيقاف المؤقت في أي وقت." },
   ],
   pro: [
     { q: "كيف أسجّل كمقدّم خدمات؟", a: "أدخل اسمك ونشاطك ومدينتك ومعلومات الاتصال في الاستمارة. تتواصل معك Page.ma بعد ذلك عبر واتساب للتحقق من نشاطك." },

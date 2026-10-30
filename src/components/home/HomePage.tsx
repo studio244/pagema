@@ -3,9 +3,9 @@ import { FreeMonthCounter } from "@/components/FreeMonthCounter";
 import { DICTS, LangContext, useT, type Dict, type Lang } from "@/lib/i18n";
 import heroAsset from "@/assets/pagema-services-hero-2.webp";
 import prosAsset from "@/assets/pagema-pros-equipe.jpg";
-import requestIllustration from "@/assets/process-step-1.png.asset.json";
-import qualifyIllustration from "@/assets/process-step-2.png.asset.json";
-import quotesIllustration from "@/assets/process-step-3.png.asset.json";
+import requestIllustration from "@/assets/process-step-1.png";
+import qualifyIllustration from "@/assets/process-step-2.png";
+import quotesIllustration from "@/assets/process-step-3.png";
 import partner1 from "@/assets/partner-1.png";
 import partner2 from "@/assets/partner-2.png";
 import partner3 from "@/assets/partner-3.png";
@@ -56,6 +56,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
         <ProSection selection={journeySelection} />
         <WhatsAppSection />
         <Pricing />
+        <AutoPurchase />
         <Partners />
         <ClientSection />
         <AiFeatures />
@@ -234,7 +235,7 @@ function Hero() {
 
 function Promises() {
   const { t } = useT();
-  const images = [requestIllustration.url, qualifyIllustration.url, quotesIllustration.url];
+  const images = [requestIllustration, qualifyIllustration, quotesIllustration];
   return (
     <section
       id="section-processus"
@@ -422,7 +423,7 @@ function Pricing() {
                   <bdi dir="ltr">{p.credits}</bdi> {t.pricing.credits}
                 </p>
                 <p className={`mt-2 text-sm ${rec ? "text-paper/85" : "text-ink-soft"}`}>
-                  {p.detail}
+                  {t.pricing.creditsUse}
                 </p>
                 <p className="mt-auto pt-6 font-semibold">{p.ideal}</p>
                 <a
@@ -438,8 +439,13 @@ function Pricing() {
       </div>
       <Reveal delay={120}>
         <div className="mt-10 border-2 border-ink bg-paper p-6 sm:flex sm:items-center sm:justify-between gap-6">
-          <p className="font-display text-2xl leading-tight">{t.pricing.rulesTitle}</p>
-          <dl className="mt-4 sm:mt-0 flex flex-wrap gap-6">
+          <div className="max-w-xl">
+            <p className="font-display text-2xl leading-tight">{t.pricing.rulesTitle}</p>
+            <p className="mt-2 text-sm leading-relaxed text-ink-soft text-pretty">
+              {t.pricing.rulesBody}
+            </p>
+          </div>
+          <dl className="mt-4 sm:mt-0 flex flex-wrap gap-6 shrink-0">
             {t.pricing.rules.map((r) => (
               <div key={r.k}>
                 <dt className="font-mono text-[10px] uppercase tracking-wide text-ink-soft">
@@ -451,6 +457,49 @@ function Pricing() {
           </dl>
         </div>
       </Reveal>
+    </section>
+  );
+}
+
+function AutoPurchase() {
+  const { t } = useT();
+  const a = t.autoPurchase;
+  return (
+    <section
+      id="section-achat-auto"
+      className="scroll-mt-24 border-y-2 border-ink bg-ink text-paper"
+    >
+      <div className="max-w-6xl mx-auto px-5 py-20 lg:py-24">
+        <Reveal>
+          <Eyebrow className="text-terra mb-4">{a.eyebrow}</Eyebrow>
+          <h2 className="font-display leading-[0.95] tracking-tight text-[clamp(2.2rem,5.5vw,3.6rem)]">
+            {a.title1}
+            <br />
+            {a.title2}
+          </h2>
+          <p className="mt-6 max-w-prose text-lg leading-relaxed text-paper/80 text-pretty">
+            {a.body}
+          </p>
+        </Reveal>
+        <div className="mt-12 grid md:grid-cols-3 gap-6 items-stretch">
+          {a.steps.map((s, index) => (
+            <Reveal key={s.t} delay={index * 90} className="h-full">
+              <div className="lift-card lift-card-invert flex h-full flex-col border-2 border-paper/25 p-6">
+                <span className="font-display text-5xl leading-none text-terra">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="font-sans font-semibold text-xl mt-5">{s.t}</h3>
+                <p className="text-sm leading-relaxed text-paper/70 mt-2">{s.b}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={120}>
+          <p className="mt-10 border-2 border-paper/25 p-5 font-semibold leading-relaxed text-pretty">
+            {a.control}
+          </p>
+        </Reveal>
+      </div>
     </section>
   );
 }

@@ -1,5 +1,12 @@
 # Corrections de l’audit
 
+## Positionnement acquisition clients & achat automatique — 30 octobre 2026
+
+- [x] Accueil FR/AR : positionnement « plateforme d’acquisition clients et de visibilité », retrait des volumes de leads par forfait (« Jusqu’à 5 / 15 / 36 leads ») et de « NOS 3 PROMESSES » ; crédits présentés comme utilisables librement (visibilité, campagnes, opportunités). Les « jusqu’à 3 devis » côté clients sont conservés.
+- [x] Section « Achat automatique » FR/AR, question FAQ et formulaire prestataire de l’accueil : mode d’achat, zone d’intervention et budget mensuel, enregistrés dans `need_details` et détaillés dans l’email.
+- [ ] Colonnes dédiées pour ces critères : la migration doit être appliquée via Lovable (les migrations poussées par git ne le sont pas, cf. tables agences absentes).
+- [ ] Moteur réel d’attribution et de débit des crédits : nécessite les comptes prestataires et un solde de crédits.
+
 ## Audit technique SEO — 23 octobre 2026
 
 - [x] Examiner les pages, liens, réponses HTTP, balises et sitemap ; corriger les groupes Googlebot/Bingbot sans changer le design ni les exclusions volontaires.
