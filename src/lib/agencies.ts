@@ -4,6 +4,16 @@ import { SEED_AGENCIES } from "./agencies-seed";
 
 /** One row of the public.agencies table (see supabase/migrations/20260930100000_agencies.sql). */
 export type Agency = {
+  trade_name?: string | null;
+  name_ar?: string | null;
+  activity_fr?: string | null;
+  activity_ar?: string | null;
+  email?: string | null;
+  address_ar?: string | null;
+  cover_url?: string | null;
+  coverage_cities?: string[];
+  show_stats?: boolean;
+  offering_slugs?: string[];
   slug: string;
   name: string;
   logo_url: string | null;
@@ -27,7 +37,18 @@ export type Agency = {
 };
 
 const COLUMNS =
-  "slug, name, logo_url, summary_fr, summary_ar, description_fr, description_ar, services, offerings_fr, offerings_ar, phone, website, address, city, is_partner, is_verified, clients_generated";
+  "slug, name, logo_url, summary_fr, summary_ar, description_fr, description_ar, services, offerings_fr, offerings_ar, phone, website, address, city, is_partner, is_verified, clients_generated,trade_name,name_ar,activity_fr,activity_ar,email,address_ar,cover_url,coverage_cities,show_stats,agency_offering_links(offering_slug)";
+
+function normalizeAgency(row: Agency & { agency_offering_links?: {offering_slug: string}[] }): Agency {
+  return {...row, offering_slugs: row.agency_offering_links?.map(link => link.offering_slug) ?? []};
+}
+
+export type AgencyOffering = {slug: string; category: string; label_fr: string; label_ar: string; audience: string};
+export async function fetchOfferings(): Promise<AgencyOffering[]> {
+  const {data,error} = await supabase.from('agency_offerings').select('*').order('label_fr');
+  if (error) throw new Error('Prestations indisponibles');
+  return data;
+}
 
 // The generated Supabase types don't include this table until Lovable regenerates them.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -44,7 +65,7 @@ export async function fetchAgencies(): Promise<Agency[]> {
     console.warn("agencies table unavailable, using the built-in partner list:", error.message);
     return SEED_AGENCIES;
   }
-  return data as Agency[];
+  return (data as Agency[]).map(normalizeAgency);
 }
 
 /**
@@ -75,7 +96,7 @@ export async function fetchAgency(slug: string): Promise<Agency | null> {
     console.warn("agencies table unavailable, using the built-in partner list:", error.message);
     return SEED_AGENCIES.find((a) => a.slug === slug) ?? null;
   }
-  return (data as Agency | null) ?? null;
+  return data ? normalizeAgency(data as Agency) : null;
 }
 
 export function agencySummary(agency: Agency, lang: Lang): string | null {

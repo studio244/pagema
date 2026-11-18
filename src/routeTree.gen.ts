@@ -15,6 +15,7 @@ import { Route as AnnuaireRouteImport } from './routes/annuaire'
 import { Route as AnnuaireAiRouteImport } from './routes/annuaire-ai'
 import { Route as ArRouteImport } from './routes/ar'
 import { Route as AvantagesPartenairesRouteImport } from './routes/avantages-partenaires'
+import { Route as GestionAnnuaireRouteImport } from './routes/gestion-annuaire'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as MarrakechRouteImport } from './routes/marrakech'
 import { Route as NettoyageCasablancaRouteImport } from './routes/nettoyage-casablanca'
@@ -61,6 +62,11 @@ const ArRoute = ArRouteImport.update({
 const AvantagesPartenairesRoute = AvantagesPartenairesRouteImport.update({
   id: '/avantages-partenaires',
   path: '/avantages-partenaires',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GestionAnnuaireRoute = GestionAnnuaireRouteImport.update({
+  id: '/gestion-annuaire',
+  path: '/gestion-annuaire',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InscriptionRoute = InscriptionRouteImport.update({
@@ -156,6 +162,7 @@ export interface FileRoutesByFullPath {
   '/annuaire-ai': typeof AnnuaireAiRoute
   '/ar': typeof ArRoute
   '/avantages-partenaires': typeof AvantagesPartenairesRoute
+  '/gestion-annuaire': typeof GestionAnnuaireRoute
   '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
   '/nettoyage-casablanca': typeof NettoyageCasablancaRoute
@@ -181,6 +188,7 @@ export interface FileRoutesByTo {
   '/annuaire-ai': typeof AnnuaireAiRoute
   '/ar': typeof ArRoute
   '/avantages-partenaires': typeof AvantagesPartenairesRoute
+  '/gestion-annuaire': typeof GestionAnnuaireRoute
   '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
   '/nettoyage-casablanca': typeof NettoyageCasablancaRoute
@@ -207,6 +215,7 @@ export interface FileRoutesById {
   '/annuaire-ai': typeof AnnuaireAiRoute
   '/ar': typeof ArRoute
   '/avantages-partenaires': typeof AvantagesPartenairesRoute
+  '/gestion-annuaire': typeof GestionAnnuaireRoute
   '/inscription': typeof InscriptionRoute
   '/marrakech': typeof MarrakechRoute
   '/nettoyage-casablanca': typeof NettoyageCasablancaRoute
@@ -234,6 +243,7 @@ export interface FileRouteTypes {
     | '/annuaire-ai'
     | '/ar'
     | '/avantages-partenaires'
+    | '/gestion-annuaire'
     | '/inscription'
     | '/marrakech'
     | '/nettoyage-casablanca'
@@ -259,6 +269,7 @@ export interface FileRouteTypes {
     | '/annuaire-ai'
     | '/ar'
     | '/avantages-partenaires'
+    | '/gestion-annuaire'
     | '/inscription'
     | '/marrakech'
     | '/nettoyage-casablanca'
@@ -284,6 +295,7 @@ export interface FileRouteTypes {
     | '/annuaire-ai'
     | '/ar'
     | '/avantages-partenaires'
+    | '/gestion-annuaire'
     | '/inscription'
     | '/marrakech'
     | '/nettoyage-casablanca'
@@ -310,6 +322,7 @@ export interface RootRouteChildren {
   AnnuaireAiRoute: typeof AnnuaireAiRoute
   ArRoute: typeof ArRoute
   AvantagesPartenairesRoute: typeof AvantagesPartenairesRoute
+  GestionAnnuaireRoute: typeof GestionAnnuaireRoute
   InscriptionRoute: typeof InscriptionRoute
   MarrakechRoute: typeof MarrakechRoute
   NettoyageCasablancaRoute: typeof NettoyageCasablancaRoute
@@ -371,6 +384,13 @@ declare module '@tanstack/react-router' {
       path: '/avantages-partenaires'
       fullPath: '/avantages-partenaires'
       preLoaderRoute: typeof AvantagesPartenairesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gestion-annuaire': {
+      id: '/gestion-annuaire'
+      path: '/gestion-annuaire'
+      fullPath: '/gestion-annuaire'
+      preLoaderRoute: typeof GestionAnnuaireRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/inscription': {
@@ -502,6 +522,7 @@ const rootRouteChildren: RootRouteChildren = {
   AnnuaireAiRoute: AnnuaireAiRoute,
   ArRoute: ArRoute,
   AvantagesPartenairesRoute: AvantagesPartenairesRoute,
+  GestionAnnuaireRoute: GestionAnnuaireRoute,
   InscriptionRoute: InscriptionRoute,
   MarrakechRoute: MarrakechRoute,
   NettoyageCasablancaRoute: NettoyageCasablancaRoute,

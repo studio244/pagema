@@ -23,17 +23,22 @@ import { AGENCIES_COPY, type AgenciesCopy } from "./copy";
 import { AgenciesLayout, AgencyBadges, AgencyLogo, AgencyProCta } from "./AgenciesLayout";
 import { agencyOfferingImage, agencyServiceImage } from "./agency-image";
 import { FrequentlyAskedQuestions } from "@/components/faq/FrequentlyAskedQuestions";
+import { AgencyRequestForm } from './AgencyRequestForm';
+import type { AgencyOffering } from '@/lib/agencies';
+import { Button } from '@/components/ui/button';
 
 /** /services/<slug> and /ar/services/<slug>: everything about one agency. */
 export default function AgencyDetail({
   lang,
   agency,
   contacts: initialContacts,
+  offeringCatalog = [],
 }: {
   lang: Lang;
   agency: Agency;
   /** Visitors who already contacted the agency from this page. */
   contacts: number;
+  offeringCatalog?: AgencyOffering[];
 }) {
   const copy = AGENCIES_COPY[lang];
   const [contacts, setContacts] = useState(initialContacts);
@@ -63,8 +68,10 @@ export default function AgencyDetail({
           <div className="min-w-0">
             <AgencyBadges agency={agency} lang={lang} />
             <h1 className="mt-3 font-display text-[clamp(1.9rem,4.5vw,3rem)] leading-[1.05] tracking-tight text-balance">
-              {agency.name}
+              {lang === 'ar' ? agency.name_ar ?? agency.name : agency.name}
             </h1>
+            {agency.trade_name && <p className="mt-2" dir="ltr">{agency.trade_name}</p>}
+            {agency.activity_fr && <p className="mt-2 text-sm text-ink-soft">{lang==='ar'?agency.activity_ar:agency.activity_fr}</p>}
             {city && (
               <p className="mt-2 inline-flex items-center gap-1.5 text-ink-soft">
                 <MapPin className="h-4 w-4" aria-hidden="true" />
@@ -85,7 +92,7 @@ export default function AgencyDetail({
           />
         </figure>
 
-        <dl className="mt-6 grid grid-cols-2 border-2 border-ink bg-ink text-paper">
+        {agency.show_stats !== false && <dl className="mt-6 grid grid-cols-2 border-2 border-ink bg-ink text-paper">
           <Stat
             icon={<UsersRound className="h-5 w-5" aria-hidden="true" />}
             value={agency.clients_generated}
@@ -97,7 +104,7 @@ export default function AgencyDetail({
             label={copy.statsContacts}
             className="border-s-2 border-paper/20"
           />
-        </dl>
+        </dl>}
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_22rem] lg:items-start">
           <div className="space-y-8">
@@ -154,7 +161,7 @@ export default function AgencyDetail({
                         decoding="async"
                         className="block aspect-[16/9] w-full object-cover"
                       />
-                      <p className="px-4 py-3">{offering}</p>
+                      <p className="px-4 py-3">{offeringCatalog.some(o => o.label_fr===offering || o.label_ar===offering) ? <Link to={listPath} search={{service:'Assurance', ...((offeringCatalog.find(o => o.label_fr===offering || o.label_ar===offering)?.slug) ? {offering:offeringCatalog.find(o => o.label_fr===offering || o.label_ar===offering)?.slug ?? ''} : {})}} className="underline underline-offset-4">{offering}</Link> : offering}</p>
                     </li>
                   ))}
                 </ul>
@@ -166,7 +173,7 @@ export default function AgencyDetail({
                 <h2 className="font-display text-2xl leading-tight tracking-tight">
                   {copy.locationTitle}
                 </h2>
-                {agency.address && <p className="mt-2 text-ink-soft">{agency.address}</p>}
+                {agency.address && <p className="mt-2 text-ink-soft">{lang==='ar'?agency.address_ar??agency.address:agency.address}</p>}
                 <div className="mt-4 overflow-hidden border-2 border-ink bg-paper-deep shadow-cut">
                   <iframe
                     src={mapsEmbed(mapQuery, lang)}
@@ -190,6 +197,7 @@ export default function AgencyDetail({
 
           <ContactCard agency={agency} lang={lang} copy={copy} onContact={onContact} />
         </div>
+        {agency.offering_slugs?.length ? <AgencyRequestForm lang={lang} sourceAgency={agency.slug} defaultCity={agency.city??'Marrakech'} offerings={offeringCatalog.filter(o=>agency.offering_slugs?.includes(o.slug))}/> : null}
       </div>
 
       <FrequentlyAskedQuestions lang={lang} variant="agency" />
@@ -304,6 +312,9 @@ function ContactCard({
       )}
 
       <div className="mt-4 space-y-3">
+        {agency.offering_slugs?.length ? <Button asChild className="h-auto w-full whitespace-normal py-3"><a href="#demande-devis">{lang==='ar'?'طلب عرض سعر':'Demander un devis'}</a></Button> : null}
+        {agency.email && <p className="break-all text-sm"><a href={`mailto:${agency.email}`} dir="ltr">{agency.email}</a></p>}
+        {agency.trade_name && agency.phone && <Button asChild variant="outline" className="h-auto w-full whitespace-normal py-3"><a href={`tel:${agency.phone.replace(/[^\d+]/g,'')}`}>{lang==='ar'?'التواصل مع الوكالة':"Contacter l'agence"}</a></Button>}
         {agency.phone && (
           <a
             href={`tel:${agency.phone.replace(/[^\d+]/g, "")}`}

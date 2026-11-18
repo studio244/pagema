@@ -25,3 +25,5 @@
 - Partner benefits use a browser-safe example catalogue with intersecting activity/city filters and the shared provider form; log offer clicks with their example ID and retain that ID in the notification source so interest never implies coupon activation.
 - Extend the router-derived sitemap with agency details only after the published-only source is available; use paginated anonymous reads and surface failures rather than seed substitutes or partial XML.
 - Keep Bun registry concurrency limited in bunfig.toml to reduce shared-cache throttling without changing dependency versions or supply-chain safeguards.
+- Agency profiles reuse /services/$slug; detailed offerings use relational links and coverage cities for compatibility, preserving existing category values.
+- Directory management uses authenticated server functions plus admin-only RLS; public requests stay pending until manual qualification, with database-locked selections capped at three and no credit or subscription operations.

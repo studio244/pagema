@@ -53,6 +53,7 @@ const AGENCY_OFFERING_IMAGES: Record<string, readonly string[]> = {
 };
 
 export function agencyServiceImage(agency: Agency): string {
+  if (agency.cover_url) return agency.cover_url;
   return (
     AGENCY_SERVICE_IMAGES[agency.slug] ??
     (agency.services.includes("Nettoyage")
@@ -62,6 +63,7 @@ export function agencyServiceImage(agency: Agency): string {
 }
 
 export function agencyOfferingImage(agency: Agency, offering: string): string {
+  if (agency.cover_url) return agency.cover_url;
   const normalized = offering
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")

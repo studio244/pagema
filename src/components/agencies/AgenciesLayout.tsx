@@ -45,7 +45,7 @@ export function AgencyLogo({ agency, className = "" }: { agency: Agency; classNa
         src={agency.logo_url}
         alt={`Logo ${agency.name}`}
         loading="lazy"
-        className={`object-contain ${className}`}
+        className={`object-contain ${agency.trade_name ? 'bg-ink p-2' : ''} ${className}`}
       />
     );
   }
@@ -53,7 +53,7 @@ export function AgencyLogo({ agency, className = "" }: { agency: Agency; classNa
     .split(/\s+/)
     .filter((w) => /^[\p{L}\p{N}]/u.test(w))
     .slice(0, 2)
-    .map((w) => w[0]!.toUpperCase())
+    .map((w) => w[0]?.toUpperCase() ?? '')
     .join("");
   return (
     <span

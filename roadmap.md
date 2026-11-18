@@ -1,5 +1,13 @@
 # Corrections de l’audit
 
+## Metassur — 18 novembre 2026
+
+- [x] Rétablir la source agences sans changer les cinq fiches existantes ; ajouter Metassur et ses neuf prestations FR/AR, coordonnées et logo officiels confirmés.
+- [x] Réutiliser la fiche et l’annuaire ; ajouter liens par prestation/ville, demande qualifiable, sélection manuelle de trois prestataires maximum et envoi email explicite sans crédits.
+- [x] Ajouter une gestion réservée aux administrateurs puisque aucun back-office n’existe ; lecture/écriture protégées côté serveur et RLS, zones et prestations configurables.
+- [x] Vérifier dépôt public, filtres, SEO et RTL desktop/mobile, 13 tests ; conserver /annuaire et /ar/annuaire hors indexation/sitemap, sans publier le site. Test supprimé après contrôle.
+- [ ] Tester édition, qualification et transmission connecté : aucun compte applicatif existant et création du compte de test non autorisée ; un administrateur doit se connecter puis être habilité explicitement. Aucun rôle admin attribué automatiquement.
+
 ## Positionnement acquisition clients & achat automatique — 30 octobre 2026
 
 - [x] Accueil FR/AR : positionnement « plateforme d’acquisition clients et de visibilité », retrait des volumes de leads par forfait (« Jusqu’à 5 / 15 / 36 leads ») et de « NOS 3 PROMESSES » ; crédits présentés comme utilisables librement (visibilité, campagnes, opportunités). Les « jusqu’à 3 devis » côté clients sont conservés.
@@ -12,7 +20,7 @@
 - [x] Examiner les pages, liens, réponses HTTP, balises et sitemap ; corriger les groupes Googlebot/Bingbot sans changer le design ni les exclusions volontaires.
 - [x] Vérifier les corrections et fournir un rapport distinguant les défauts du site des états rapportés par Google.
 - [ ] Diagnostiquer les 134 occurrences : bloqué par l’absence d’exports des URL concernées, connexion Search Console refusée.
-- [ ] Ajouter les fiches d’agences au sitemap : bloqué par la source publiée absente ; conserver le sitemap statique fonctionnel sans utiliser de liste de secours.
+- [ ] Ajouter les fiches d’agences au sitemap : source permanente rétablie le 18 novembre ; extension à traiter séparément. Sitemap actuel conservé, sans changement des exclusions annuaire FR/AR.
 
 ## Offre du premier mois — 10 places
 

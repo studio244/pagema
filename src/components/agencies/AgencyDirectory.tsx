@@ -1,7 +1,9 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, MapPin } from "lucide-react";
 import { DICTS, type Lang } from "@/lib/i18n";
-import { CATEGORIES } from "@/lib/catalog";
+import { CATEGORIES, COVERAGE_CITIES } from "@/lib/catalog";
+import type { AgencyOffering } from '@/lib/agencies';
+import { Button } from '@/components/ui/button';
 import { agencyPath, agencySummary, type Agency } from "@/lib/agencies";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { Eyebrow, WhatsAppIcon } from "@/components/brand";
@@ -17,23 +19,28 @@ export default function AgencyDirectory({
   lang,
   agencies,
   service,
+  offerings = [],
+  filters = {},
 }: {
   lang: Lang;
   agencies: Agency[];
   /** Selected service (French name), from the URL: /services?service=Nettoyage */
   service: string | undefined;
+  offerings?: AgencyOffering[];
+  filters?: {city?:string; offering?:string; audience?:string};
 }) {
   const copy = AGENCIES_COPY[lang];
   const label = (c: string) => DICTS[lang].categoryLabels[c] ?? c;
   const listPath = lang === "ar" ? "/ar/services" : "/services";
-  const shown = service ? agencies.filter((a) => a.services.includes(service)) : agencies;
+  const navigate=useNavigate();
+  const shown = agencies.filter(a=>(!service || a.services.includes(service)) && (!filters.city || a.city===filters.city || a.coverage_cities?.includes(filters.city)) && (!filters.offering || a.offering_slugs?.includes(filters.offering)) && (!filters.audience || offerings.some(o=>o.audience===filters.audience && a.offering_slugs?.includes(o.slug))));
   const countFor = (c: string) => agencies.filter((a) => a.services.includes(c)).length;
   const switchPath = agencyPath(lang === "ar" ? "fr" : "ar");
 
   return (
     <AgenciesLayout
       lang={lang}
-      switchHref={service ? `${switchPath}?service=${encodeURIComponent(service)}` : switchPath}
+      switchHref={service ? `${switchPath}?${new URLSearchParams({service,...filters}).toString()}` : switchPath}
     >
       <section className="border-b-2 border-ink bg-paper-deep">
         <div className="mx-auto max-w-6xl px-5 pt-6 pb-10 lg:pt-8">
@@ -64,6 +71,14 @@ export default function AgencyDirectory({
               ))}
             </ul>
           </nav>
+          {service==='Assurance' && <div className="mt-6 space-y-4">
+            <div className="flex flex-wrap gap-3">
+              <label className="text-sm">{lang==='ar'?'المدينة':'Ville'}<select aria-label={lang==='ar'?'المدينة':'Ville'} value={filters.city??''} onChange={e=>{const {city,...rest}=filters;void navigate({to:listPath,search:{service,...rest,...(e.target.value?{city:e.target.value}:{})}});}} className="ms-2 rounded-md border border-input bg-background p-2"><option value="">{lang==='ar'?'كل المدن':'Toutes les villes'}</option>{COVERAGE_CITIES.map(c=><option key={c} value={c}>{DICTS[lang].cityLabels[c]??c}</option>)}</select></label>
+              <Button asChild variant="outline"><Link to={listPath} search={{service:'Assurance',city:'Marrakech'}}>{lang==='ar'?'التأمين في مراكش':'Assurance à Marrakech'}</Link></Button>
+              <Button asChild variant="outline"><Link to={listPath} search={{service:'Assurance',audience:'professionals'}}>{lang==='ar'?'التأمين للمهنيين':'Assurance pour professionnels'}</Link></Button>
+            </div>
+            <ul className="flex flex-wrap gap-x-5 gap-y-3">{offerings.filter(o=>o.category==='Assurance').map(o=><li key={o.slug}><Link to={listPath} search={{service:'Assurance',...(filters.city?{city:filters.city}:{}),offering:o.slug}} className="text-sm underline underline-offset-4">{lang==='ar'?o.label_ar:o.label_fr}</Link></li>)}</ul>
+          </div>}
           {(!service || service === "Nettoyage") && (
             <p className="mt-6 text-sm text-ink-soft">
               <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.15em]">
@@ -193,7 +208,7 @@ function AgencyCard({
       <div className="flex min-w-0 flex-col items-start gap-3 p-5 sm:p-7">
         <AgencyBadges agency={agency} lang={lang} />
         <h3 className="font-display text-2xl leading-tight tracking-tight sm:text-3xl">
-          {agency.name}
+          {lang==='ar'?agency.name_ar??agency.name:agency.name}
         </h3>
         {city && (
           <p className="-mt-1 inline-flex items-center gap-1.5 text-sm text-ink-soft">

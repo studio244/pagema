@@ -8,7 +8,7 @@ import {
   websiteHref,
   type Agency,
 } from "@/lib/agencies";
-import { CATEGORIES } from "@/lib/catalog";
+import { CATEGORIES, COVERAGE_CITIES } from "@/lib/catalog";
 import { AGENCIES_COPY } from "./copy";
 
 export function directoryHead(lang: Lang) {
@@ -40,9 +40,12 @@ export function agencyHead(lang: Lang, agency: Agency | undefined) {
     jsonLd: [
       breadcrumbJsonLd(crumbs(lang).agency(agency.name, agencyPath(lang, agency.slug))),
       {
-        "@type": "LocalBusiness",
+        "@type": agency.services.includes('Assurance') ? 'InsuranceAgency' : 'LocalBusiness',
         "@id": `${SITE_URL}${agencyPath("fr", agency.slug)}#business`,
         name: agency.name,
+        ...(agency.trade_name && {alternateName:agency.trade_name}),
+        ...(agency.email && {email:agency.email}),
+        ...(agency.coverage_cities?.length && {areaServed:agency.coverage_cities.map(name=>({'@type':'City',name}))}),
         url: SITE_URL + agencyPath(lang, agency.slug),
         ...(logo && { logo, image: logo }),
         ...(agencyDescription(agency, lang) && { description: agencyDescription(agency, lang) }),
@@ -63,7 +66,12 @@ export function agencyHead(lang: Lang, agency: Agency | undefined) {
 }
 
 /** Valid ?service= values: the French category names. */
-export function validateServiceSearch(search: Record<string, unknown>): { service?: string } {
+export function validateServiceSearch(search: Record<string, unknown>): { service?: string; city?: string; offering?: string; audience?: string } {
   const service = search["service"];
-  return typeof service === "string" && CATEGORIES.includes(service) ? { service } : {};
+  return {
+    ...(typeof service === 'string' && CATEGORIES.includes(service) ? {service}:{}),
+    ...(typeof search['city']==='string'&&COVERAGE_CITIES.includes(search['city'])?{city:search['city']}:{}),
+    ...(typeof search['offering']==='string'&&/^[a-z0-9-]{1,100}$/.test(search['offering'])?{offering:search['offering']}:{}),
+    ...(search['audience']==='professionals'?{audience:'professionals'}:{})
+  };
 }
