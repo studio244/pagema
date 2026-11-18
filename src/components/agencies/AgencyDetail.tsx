@@ -294,7 +294,7 @@ function ContactCard({
               <MapPin className="mt-1 h-5 w-5 shrink-0 text-terra-deep" aria-hidden="true" />
               <div className="min-w-0">
                 <p className={labelClass}>{copy.address}</p>
-                <address className="mt-1 not-italic leading-relaxed">{agency.address}</address>
+                <address className="mt-1 not-italic leading-relaxed">{lang === 'ar' ? agency.address_ar ?? agency.address : agency.address}</address>
                 <a
                   href={mapsLink(mapQuery ?? agency.address)}
                   target="_blank"
